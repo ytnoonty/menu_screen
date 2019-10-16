@@ -1,0 +1,16 @@
+{% extends 'layout_allItems.html' %}
+{% block body %}
+<div id="user-id-{{ currentUserId }}" class="user-id-screen-display">
+  <div class="container full-screen-bb">
+    <div class="beer-list-div-bb">
+      <ul id="bottle-beers-list" class="beer-list-loop-bb list-group-flush">
+      {% for beer in beers %}
+        {% if beer.draft_bottle_selection == "Bottle" or beer.draft_bottle_selection == "Can" or beer.draft_bottle_selection == "Draft & Bottle" or beer.draft_bottle_selection == "Draft & Can" or beer.draft_bottle_selection == "Bottle & Can" or beer.draft_bottle_selection == "Draft, Bottle & Can" %}
+          <li class="list-group-item-bb list-group-item"><span class="larger-text txt-clr-grn">{{beer.name}} </span> {{beer.draft_bottle_selection}} - <span class="bold-font italic-font">{{beer.style}}</span> - {{beer.abv}}% ABV - {{beer.ibu}} IBU - {{beer.location}} - <span class="italic-font">{{beer.brewery}}</span></li>
+        {% endif %}
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

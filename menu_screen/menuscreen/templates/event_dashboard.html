@@ -1,0 +1,95 @@
+{% extends 'layout.html' %}
+{% block body %}
+<div class="position-fixed dashboard-alpha-side-menu">
+  <ul class="no-gutters">
+    <li class=""><a href="#">^</a></li>
+    <li class=""><a href="#">#'s</a></li>
+    <li class=""><a href="#a">A</a></li>
+    <li class=""><a href="#b">B</a></li>
+    <li class=""><a href="#c">C</a></li>
+    <li class=""><a href="#d">D</a></li>
+    <li class=""><a href="#e">E</a></li>
+    <li class=""><a href="#f">F</a></li>
+    <li class=""><a href="#g">G</a></li>
+    <li class=""><a href="#h">H</a></li>
+    <li class=""><a href="#i">I</a></li>
+    <li class=""><a href="#j">J</a></li>
+    <li class=""><a href="#k">K</a></li>
+    <li class=""><a href="#l">L</a></li>
+    <li class=""><a href="#m">M</a></li>
+    <li class=""><a href="#n">N</a></li>
+    <li class=""><a href="#o">O</a></li>
+    <li class=""><a href="#p">P</a></li>
+    <li class=""><a href="#q">Q</a></li>
+    <li class=""><a href="#r">R</a></li>
+    <li class=""><a href="#s">S</a></li>
+    <li class=""><a href="#t">T</a></li>
+    <li class=""><a href="#u">U</a></li>
+    <li class=""><a href="#v">V</a></li>
+    <li class=""><a href="#w">W</a></li>
+    <li class=""><a href="#x">X</a></li>
+    <li class=""><a href="#y">Y</a></li>
+    <li class=""><a href="#z">Z</a></li>
+  </ul>
+</div>
+
+<div class="ml-3">
+  <div class="row my-3 mx-auto">
+    <h1>Event Dashboard</h1>
+    <div class="col-12 my-1">
+      <a class="btn btn-sm btn-outline-info" href="{{ url_for('event.add_event') }}">Add Event</a>
+    </div>
+  </div>
+  <hr>
+
+  <div id="dashboard-event-info">
+    <table class="mt-3 table table-striped">
+      {% for event in events %}
+        <tr id="{{event.id}}">
+          <th class="toggle-table">{{event.artist}}</th>
+          <td><a href="{{ url_for('event.edit_event', id=event.id) }}" class="btn btn-sm btn-default pull-right">Edit</a></td>
+          <td>
+            <form action="{{ url_for('event.delete_event', id=event.id) }}" method="POST">
+              <input type="hidden" name="_method" value="DELETE">
+              <input type="submit" value="Delete" class="btn btn-sm btn-outline-danger">
+            </form>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" class="d-none animate-table">
+            <div class="row">
+              <div class="col-5">ID:</div>
+              <div class="col-7">{{event.id}}</div>
+            </div>
+            <div class="row">
+              <div class="col-5">Artist:</div>
+              <div class="col-7">{{event.artist}}</div>
+            </div>
+            <div class="row">
+              <div class="col-5">Name:</div>
+              <div class="col-7">{{event.name}}</div>
+            </div>
+            <div class="row">
+              <div class="col-5">Date:</div>
+              <div class="col-7">{{event.date_of_event}}</div>
+            </div>
+            <div class="row">
+              <div class="col-5">Time:</div>
+              <div class="col-7">{{event.time_of_event}}</div>
+            </div>
+            <div class="row">
+              <div class="col-5">End Time:</div>
+              <div class="col-7">{{event.endtime_of_event}}</div>
+            </div>
+            <div class="row">
+              <div class="col-5">Location:</div>
+              <div class="col-7">{{event.location}}</div>
+            </div>
+          </td>
+        </tr>
+
+      {% endfor %}
+    </table>
+  </div>
+</div>
+{% endblock %}

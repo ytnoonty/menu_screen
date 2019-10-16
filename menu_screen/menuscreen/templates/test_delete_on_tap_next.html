@@ -1,0 +1,116 @@
+{% extends 'layout_NoMenu.html' %}
+
+{% block body %}
+  <div class="container mx-auto">
+    <h1>On Tap Next</h1>
+    {% from "includes/_formhelpers.html" import  render_field %}
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-striped">
+          <tr>
+            <th></th>
+            <th>Currently on Tap</th>
+            <th></th>
+            <th>On Tap Next</th>
+          </tr>
+          <tr>
+            <td>1.</td>
+            <td><div class="currentBeer">{{currentBeers[0].brewery}} {{currentBeers[0].name}}</div></td>
+            <td><i class="arrow"></i></td>
+            <td class="nextBeer">{{nextBeers[0].name}}</td>
+          </tr>
+          <tr>
+            <td>2.</td>
+            <td><div class="currentBeer">{{currentBeers[1].brewery}} {{currentBeers[1].name}}</div></td>
+            <td><i class="arrow"></i></td>
+            <td class="nextBeer">{{nextBeers[1].name}}</td>
+          </tr>
+          <tr>
+            <td>3.</td>
+            <td><div class="currentBeer">{{currentBeers[2].brewery}} {{currentBeers[2].name}}</div></td>
+            <td><i class="arrow"></i></td>
+            <td class="nextBeer">{{nextBeers[2].name}}</td>
+          </tr>
+          <tr>
+            <td>4.</td>
+            <td><div class="currentBeer">{{currentBeers[3].brewery}} {{currentBeers[3].name}}</div></td>
+            <td><i class="arrow"></i></td>
+            <td class="nextBeer">{{nextBeers[3].name}}</td>
+          </tr>
+          <tr>
+            <td>5.</td>
+            <td><div class="currentBeer">{{currentBeers[4].brewery}} {{currentBeers[4].name}}</div></td>
+            <td><i class="arrow"></i></td>
+            <td class="nextBeer">{{nextBeers[4].name}}</td>
+          </tr>
+          <tr>
+            <td>6.</td>
+            <td><div class="currentBeer">{{currentBeers[5].brewery}} {{currentBeers[5].name}}</div></td>
+            <td><i class="arrow"></i></td>
+            <td class="nextBeer">{{nextBeers[5].name}}</td>
+          </tr>
+          <tr>
+            <td>7.</td>
+            <td><div class="currentBeer">{{currentBeers[6].brewery}} {{currentBeers[6].name}}</div></td>
+            <td><i class="arrow"></i></td>
+            <td class="nextBeer">{{nextBeers[6].name}}</td>
+          </tr>
+          <tr>
+            <td>8.</td>
+            <td><div class="currentBeer">{{currentBeers[7].brewery}} {{currentBeers[7].name}}</div></td>
+            <td><i class="arrow"></i></td>
+            <td class="nextBeer">{{nextBeers[7].name}}</td>
+          </tr>
+          <tr>
+            <td>9.</td>
+            <td><div class="currentBeer">{{currentBeers[8].brewery}} {{currentBeers[8].name}}</div></td>
+            <td><i class="arrow"></i></td>
+            <td class="nextBeer">{{nextBeers[8].name}}</td>
+          </tr>
+          <tr>
+            <td>10.</td>
+            <td><div class="currentBeer">{{currentBeers[9].brewery}} {{currentBeers[9].name}}</div></td>
+            <td><i class="arrow"></i></td>
+            <td class="nextBeer">{{nextBeers[9].name}}</td>
+          </tr>
+          <tr>
+            <td>11.</td>
+            <td><div class="currentBeer">{{currentBeers[10].brewery}} {{currentBeers[10].name}}</div></td>
+            <td><i class="arrow"></i></td>
+            <td class="nextBeer">{{nextBeers[10].name}}</td>
+          </tr>
+          <tr>
+            <td>12.</td>
+            <td><div class="currentBeer">{{currentBeers[11].brewery}} {{currentBeers[11].name}}</div></td>
+            <td><i class="arrow"></i></td>
+            <td class="nextBeer">{{nextBeers[11].name}}</td>
+          </tr>
+          <tr>
+            <td>13.</td>
+            <td><div class="currentBeer">{{currentBeers[12].brewery}} {{currentBeers[12].name}}</div></td>
+            <td><i class="arrow"></i></td>
+            <td class="nextBeer">{{nextBeers[12].name}}</td>
+          </tr>
+          <tr>
+            <td>14.</td>
+            <td><div class="currentBeer">{{currentBeers[13].brewery}} {{currentBeers[13].name}}</div></td>
+            <td><i class="arrow"></i></td>
+            <td class="nextBeer">{{nextBeers[13].name}}</td>
+          </tr>
+          <tr>
+            <td>15.</td>
+            <td><div class="currentBeer">{{currentBeers[14].brewery}} {{currentBeers[14].name}}</div></td>
+            <td><i class="arrow"></i></td>
+            <td class="nextBeer">{{nextBeers[14].name}}</td>
+          </tr>
+          <tr>
+            <td>16.</td>
+            <td><div class="currentBeer">{{currentBeers[15].brewery}} {{currentBeers[15].name}}</div></td>
+            <td><i class="arrow"></i></td>
+            <td class="nextBeer">{{nextBeers[15].name}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}

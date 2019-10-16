@@ -1,0 +1,184 @@
+{% extends 'layout.html' %}
+{% block body %}
+<div class="position-fixed dashboard-alpha-side-menu">
+  <ul class="no-gutters">
+    <li class=""><a href="#">^</a></li>
+    <li class=""><a href="#">#'s</a></li>
+    <li class=""><a href="#a">A</a></li>
+    <li class=""><a href="#b">B</a></li>
+    <li class=""><a href="#c">C</a></li>
+    <li class=""><a href="#d">D</a></li>
+    <li class=""><a href="#e">E</a></li>
+    <li class=""><a href="#f">F</a></li>
+    <li class=""><a href="#g">G</a></li>
+    <li class=""><a href="#h">H</a></li>
+    <li class=""><a href="#i">I</a></li>
+    <li class=""><a href="#j">J</a></li>
+    <li class=""><a href="#k">K</a></li>
+    <li class=""><a href="#l">L</a></li>
+    <li class=""><a href="#m">M</a></li>
+    <li class=""><a href="#n">N</a></li>
+    <li class=""><a href="#o">O</a></li>
+    <li class=""><a href="#p">P</a></li>
+    <li class=""><a href="#q">Q</a></li>
+    <li class=""><a href="#r">R</a></li>
+    <li class=""><a href="#s">S</a></li>
+    <li class=""><a href="#t">T</a></li>
+    <li class=""><a href="#u">U</a></li>
+    <li class=""><a href="#v">V</a></li>
+    <li class=""><a href="#w">W</a></li>
+    <li class=""><a href="#x">X</a></li>
+    <li class=""><a href="#y">Y</a></li>
+    <li class=""><a href="#z">Z</a></li>
+  </ul>
+</div>
+
+
+<div id="user-id-{{ currentUserId }}" class="user-id-screen-display">
+  <div id="winelist-wine-dashboard" class="container mx-auto">
+    <div class="">
+      <h1>Wine Dashboard</h1>
+      <div class="row my-3 mx-auto">
+        <div class="">
+          <a href="{{ url_for('wine.add_wine') }}" class="btn btn-sm btn-outline-info">Add Wine</a>
+        </div>
+        <div class="mx-2">
+          <a href="{{ url_for('wine.winelist_editor') }}" class="btn btn-sm btn-outline-danger">Winelist Editor</a>
+        </div>
+      </div>
+
+      <div class="my-2">
+        <p>Search for Wines <span><button id="clear-dash-search" class="btn btn-sm btn-outline-danger ml-2 px-2">Clear Search</button></span></p>
+        <div>
+          <input type="text" id="dashboard-search-wine" class="form-control" placeholder="Search wine here....." autofocus>
+        </div>
+      </div>
+
+      <div id="dashboard-beer-info">
+        <table class="mt-3 table table-striped">
+          {% for wine in wines %}
+            <tr id="{{ wine.dash_menu_id }}" class="row-name">
+              <th class="toggle-table wine-name">{{ wine.name }}</th>
+              <td><a href="{{ url_for('wine.edit_wine', wine_id=wine.id) }}" class="btn btn-sm btn-outline-default pull-right">Edit</a></td>
+              <td>
+                <form action="{{ url_for('wine.delete_wine', wine_id=wine.id) }}" method="POST">
+                  <input type="hidden" name="_method" value="DELETE">
+                  <input type="submit" value="Delete" class="btn btn-sm btn-outline-danger">
+                </form>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" class="d-none animate-table">
+                <div class="row row-id">
+                  <div class="col-5">ID:</div>
+                  <div class="col-7">{{wine.id}}</div>
+                </div>
+                <div class="row row-name">
+                  <div class="col-5">Name:</div>
+                  <div class="col-7">{{wine.name}}</div>
+                </div>
+                <div class="row row-varietal">
+                  <div class="col-5">Varietal:</div>
+                  <div class="col-7">{{wine.varietal}}</div>
+                </div>
+                <div class="row row-type">
+                  <div class="col-5">Type:</div>
+                  <div class="col-7">{{wine.type}}</div>
+                </div>
+                <div class="row row-location">
+                  <div class="col-5">Location:</div>
+                  <div class="col-7">{{wine.location}}</div>
+                </div>
+                <div class="row row-glass">
+                  <div class="col-5">Glass $:</div>
+                  <div class="col-7">{{wine.glass}}</div>
+                </div>
+                <div class="row row-bottle">
+                  <div class="col-5">Bottle:</div>
+                  <div class="col-7">{{wine.bottle}}</div>
+                </div>
+                <div class="row row-description">
+                  <div class="col-5">Description:</div>
+                  <div class="col-7">{{wine.description}}</div>
+                </div>
+                <div class="row row-food-arings">
+                  <div class="col-5">Food Pairing:</div>
+                  <div class="col-7">{{wine.food_parings}}</div>
+                </div>
+                <div class="row row-website">
+                  <div class="col-5">Website:</div>
+                  <div class="col-7">{{wine.website}}</div>
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  <!-- <h1>Wine Dashboard</h1>
+  <a href="/add_wine" class="btn btn-sm btn-outline-info">Add Wine</a>
+  <a href="/winelist_editor" class="btn btn-sm btn-outline-danger">Winelist Editor</a>
+    <div class="row justify-content-center">
+      <div class="row">
+        <div class="col-12 mt-1 mt-2">
+          <table class="table table-striped">
+            <thead>
+              <tr class="update-wine-list">
+                <th scope="col">Wine</th>
+                <th scope="col">Varietal</th>
+                <th scope="col">Type</th>
+                <th scope="col">Location</th>
+                <th scope="col">Glass</th>
+                <th scope="col">Bottle</th>
+                <th scope="col">Description</th>
+                <th scope="col">Food Pairings</th>
+                <th scope="col">Website</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="dash-wine-list">
+              {% for wine in wines %}
+                <tr scope="row">
+                  <td>{{ wine.name }}</td>
+                  <td>{{ wine.varietal }}</td>
+                  <td>{{ wine.type }}</td>
+                  <td>{{ wine.location }}</td>
+                  <td>{{ wine.glass }}</td>
+                  <td>{{ wine.bottle }}</td>
+                  <td>{{ wine.description }}</td>
+                  <td>{{ wine.foodPairings }}</td>
+                  <td>{{ wine.website }}</td>
+                  <td><a href="{{ url_for('wine.edit_wine', wine_id=wine.id) }}" class="btn btn-sm btn-outline-default pull-right">Edit</a></td>
+                  <td>
+                    <form action="{{ url_for('wine.delete_wine', wine_id=wine.id) }}" method="post">
+                      <input type="hidden" name="_method" value="DELETE">
+                      <input type="submit" value="Delete" class="btn btn-sm btn-outline-danger">
+                    </form>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+            <tfoot>
+              <tr>
+                <td>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="row">
+        <div class="col-12 mt-1 mt-2">
+          <p>Shamrocks Winelist Info 2018 &copy;</p>
+        </div>
+      </div>
+    </div> -->
+{% endblock %}
