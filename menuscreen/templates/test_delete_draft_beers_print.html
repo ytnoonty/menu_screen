@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div id="user-id-{{ currentUserId }}" class="user-id-screen-display">
+  <div class="row justify-content-center">
+    <div class="row">
+      <div  id="update-print-page" class="col-12">
+        <img src="{{ url_for('static', filename='img/SHAMROCKS_LOGO.png') }}" alt="Shamrock Jack's Logo">
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="row">
+      <div class="col-12">
+        <h2>What's On Tap</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="beer-list-div-bp">
+    <ul class="beer-list-loop-bp list-group-flush">
+    {% for beer in beers %}
+      <li class="list-group-item-bp list-group-item">{{beer.id}}.  <span class="larger-text txt-clr-grn">{{beer.name}}</span> - {{beer.style}} - {{beer.abv}}% ABV - {{beer.ibu}} IBU - {{beer.location}} - <span class="italic-font">{{beer.brewery}}</span></li>
+    {% endfor %}
+    </ul>
+  </div>
+  <!-- <div>
+    <ul class="list-group-flush">
+    {% for beer in beers1721 %}
+      <li class="list-group-item"><a href="{{beer.website}}" target="{{beer.website}}">{{beer.id}}.  {{beer.name}}</a> - {{beer.abv}}% ABV - {{beer.ibu}} IBU - {{beer.location}} - {{beer.brewery}} {{beer.description |safe}}</li>
+    {% endfor %}
+    </ul>
+  </div> -->
+
+  <hr>
+  <div class="row justify-content-center">
+    <div class="row">
+      <div class="col-12">
+        <h4>Try a Delicious Flight of any Three Drafts for $5</h4>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <div class="row justify-content-center">
+    <div class="row">
+      <div class="col-12">
+        <h2>Beer O' The Month</h2>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <p class="month-p-bp">
+      <span class="mx-3 larger-text txt-clr-grn">{{beers1722[0].name}}</span>
+    </p>
+  </div>
+
+  <hr>
+  <div class="row justify-content-center">
+    <div class="row">
+      <div class="col-12">
+        <h2>Coming soon on Tap</h2>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <p id="comingsoon-p-bp">
+      <span class="mx-4 larger-text txt-clr-grn">{{beers1722[1].name}}</span>
+      <span class="mx-4 larger-text txt-clr-grn">{{beers1722[2].name}}</span>
+      <span class="mx-4 larger-text txt-clr-grn">{{beers1722[3].name}}</span>
+      <span class="mx-4 larger-text txt-clr-grn">{{beers1722[4].name}}</span>
+    </p>
+  </div>
+</div>
+{% endblock %}

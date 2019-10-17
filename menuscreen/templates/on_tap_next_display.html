@@ -1,0 +1,33 @@
+{% extends 'layout_NoMenu.html' %}
+
+{% block body %}
+  <div class="container mx-auto">
+    <h1>On Tap Next</h1>
+    <div id="user-id-{{ currentUserId }}" class="user-id-on-tap-next-display">
+      {% from "includes/_formhelpers.html" import  render_field %}
+        <div id="on-tap-next-display">
+          <div class="row">
+            <div class="col-12">
+              <table id="on-tap-next-display-table" class="beerlist beers table table-striped">
+                <tr>
+                  <th></th>
+                  <th>Currently on Tap</th>
+                  <th></th>
+                  <th>On Tap Next</th>
+                </tr>
+                {% for x in range(0, beerlistLength) %}
+                  <tr class="beer">
+                    <td>{{ loop.index }}. </td>
+
+                    <td><div class="currentBeer">{{currentBeers[x].name}} {{currentBeers[x].brewery}}</div></td>
+                    <td><i class="arrow"></i></td>
+                    <td class="nextBeer">{{nextBeers[x].name}}</td>
+                  </tr>
+                {% endfor %}
+              </table>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{% block body %}
+  <div class="searchContainer">
+    <div class="search card-body">
+      <h1>Search Untappd Beers</h1>
+      <div class="row my-3 mx-auto">
+        <div class="col-12">
+          <a class="btn btn-sm btn-outline-info mb-2" href="{{ url_for('list_history.add_beer') }}"> Add Beer Manually</a>
+          <a class="btn btn-sm btn-outline-info mb-2" href="{{ url_for('list_history.edit_beer_list') }}">Beerlist Editor</a>
+        </div>
+        <div class="col-12">
+          <a class="btn btn-sm btn-outline-danger mb-2" href="{{ url_for('list_history.beer_dashboard') }}">Beer Dashboard</a>
+          <a class="btn btn-sm btn-outline-danger mb-2" href="{{ url_for('list_history.on_tap_next_editor') }}">On Tap Next Editor</a>
+        </div>
+      </div>
+
+      <p class="lead">Enter a beer to fetch beer information</p>
+      <div class="mb-3">
+        <input type="text" id="searchBeer" class="form-control" placeholder="Enter any combination of brewery and/or beer name....">
+      </div>
+      <div>
+        <input id="search-beer-btn" class="btn btn-sm btn-outline-primary" type="click" value="Search for Beer (s)">
+      </div>
+    </div>
+    <div id="searchresults" class="container"></div>
+  </div>
+  <footer class="mt-5 p-3 text-center bg-light">
+    Beer Finder &copy;
+  </footer>
+{% endblock %}

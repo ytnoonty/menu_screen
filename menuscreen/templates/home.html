@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <div class="jumbotron jumbotron-fluid text-center">
+    <div class="container mt-0 mb-0">
+      <div class="row justify-content-center">
+        <div class="row">
+          <div id="update-print-page" class="col-12">
+            <img class="row justify-content-center col-12" src="{{ url_for('static', filename='img/SHAMROCKS_LOGO.png') }}" alt="Shamrock Jack's logo">
+          </div>
+        </div>
+      </div>
+    </div>
+      <div>
+        <h1 class="display-4">Bar Menu</h1>
+        <p class="lead">A simple bar menu.</p>
+
+        <div class="">
+        {% if current_user.is_authenticated %}
+          <div class="row justify-content-center">
+            <a href="/beer_dashboard" class="btn btn-sm btn-outline-info btn-md ml-1 mr-1 mb-1 col-5">Beer Dashboard</a>
+            <a href="/wine_dashboard" class="btn btn-sm btn-outline-info btn-md ml-1 mr-1 mb-1 col-5">Wine Dashboard</a>
+          </div>
+          <div class="row justify-content-center">
+            <a href="/edit_beer_list" class="btn btn-sm btn-outline-info btn-md ml-1 mr-1 mt-1 col-5">Draftlist Editor</a>
+            <a href="/winelist_menu" class="btn btn-sm btn-outline-info btn-md ml-1 mr-1 mt-1 col-5">Winelist</a>
+          </div>
+        {% else %}
+          <a href="/login" class="btn btn-outline-info btn-lg">Login</a>
+        {% endif %}
+        </div>
+      </div>
+  </div>
+{% endblock %}

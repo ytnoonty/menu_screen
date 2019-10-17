@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+{% block body %}
+  <div>
+    <h1>Edit Wine
+      <a href="{{ url_for('wine.wine_dashboard') }}" class="btn btn-sm btn-outline-danger">Wine Dashboard</a>
+      <a href="{{ url_for('wine.winelist_editor') }}" class="btn btn-sm btn-outline-info">Winelist Editor</a>
+    </h1>
+  </div>
+  {% from "includes/_formhelpers.html" import render_field %}
+  <form id="edit-wine-form" action="" method="POST">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+      {{ render_field(form.name, class_="form-control") }}
+    </div>
+    <div class="form-group">
+      {{ render_field(form.location, class_="form-control") }}
+    </div>
+    <div class="form-group">
+      {{ render_field(form.varietal, class_="form-control") }}
+    </div>
+    <div class="form-group">
+      {{ render_field(form.type, class_="form-control") }}
+    </div>
+    <div class="form-group">
+      {{ render_field(form.glass, class_="form-control") }}
+    </div>
+    <div class="form-group">
+      {{ render_field(form.bottle, class_="form-control") }}
+    </div>
+    <div class="form-group">
+      {{ render_field(form.description, class_="form-control", id="editor") }}
+    </div>
+    <div class="form-group">
+      {{ render_field(form.foodPairings, class_="form-control", id="editor") }}
+    </div>
+    <div class="form-group">
+      {{ render_field(form.website, class_="form-control") }}
+    </div>
+
+    <div class="row justify-content-between">
+      <div class="col-12">
+        <input id="edit-wine-submit-btn" class="btn btn-sm btn-outline-primary" type="click" value="Submit">
+        <a class="btn btn-sm btn-outline-danger" href="{{ url_for('wine.wine_dashboard') }}">Cancel</a>
+      </div>
+    </div>
+  </form>
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends 'layout.html' %}
+{% block body %}
+  <div class="position-fixed dashboard-alpha-side-menu">
+    <ul class="no-gutters">
+      <li class=""><a href="#">^</a></li>
+      <li class=""><a href="#">#'s</a></li>
+      <li class=""><a href="#a">A</a></li>
+      <li class=""><a href="#b">B</a></li>
+      <li class=""><a href="#c">C</a></li>
+      <li class=""><a href="#d">D</a></li>
+      <li class=""><a href="#e">E</a></li>
+      <li class=""><a href="#f">F</a></li>
+      <li class=""><a href="#g">G</a></li>
+      <li class=""><a href="#h">H</a></li>
+      <li class=""><a href="#i">I</a></li>
+      <li class=""><a href="#j">J</a></li>
+      <li class=""><a href="#k">K</a></li>
+      <li class=""><a href="#l">L</a></li>
+      <li class=""><a href="#m">M</a></li>
+      <li class=""><a href="#n">N</a></li>
+      <li class=""><a href="#o">O</a></li>
+      <li class=""><a href="#p">P</a></li>
+      <li class=""><a href="#q">Q</a></li>
+      <li class=""><a href="#r">R</a></li>
+      <li class=""><a href="#s">S</a></li>
+      <li class=""><a href="#t">T</a></li>
+      <li class=""><a href="#u">U</a></li>
+      <li class=""><a href="#v">V</a></li>
+      <li class=""><a href="#w">W</a></li>
+      <li class=""><a href="#x">X</a></li>
+      <li class=""><a href="#y">Y</a></li>
+      <li class=""><a href="#z">Z</a></li>
+    </ul>
+  </div>
+
+<div class="ml-3">
+  <h1>Beer Dashboard <small>Welcome {{session.username}}</small></h1>
+  <div class="row my-3 mx-auto">
+    <div class="col-12 my-1">
+      <a class="btn btn-sm btn-outline-info" href="{{ url_for('list_history.add_beer') }}"> Add Beer</a>
+      <a class="btn btn-sm btn-outline-info" href="/beersearch">Search Beers</a>
+    </div>
+    <div class="col-12 my-1">
+      <a class="btn btn-sm btn-outline-danger" href="/edit_beer_list">Beerlist Editor</a>
+      <a class="btn btn-sm btn-outline-danger" href="/on_tap_next_editor">On Tap Next Editor</a>
+    </div>
+  </div>
+
+  <div class="my-2">
+    <p>Search for beers <span><button id="clear-dash-search" class="btn btn-sm btn-outline-danger ml-2 px-2">Clear Search</button></span></p>
+    <div>
+      <input type="text" id="dashboard-search-beer" class="form-control" placeholder="Search beer here....." autofocus>
+    </div>
+  </div>
+
+  <div id="dashboard-beer-info">
+    <table class="mt-3 table table-striped">
+      {% for beer in beers %}
+        <tr id="{{ beer.dash_menu_id }}" class="row-name">
+          <th class="toggle-table beer-name">{{beer.name}}</th>
+          <td><a href="{{ url_for('list_history.edit_beer', beer_id=beer.id) }}" class="btn btn-sm btn-outline-default pull-right">Edit</a></td>
+          <td>
+            <form action="{{url_for('list_history.delete_beer', beer_id=beer.id)}}" method="post">
+              <input type="hidden" name="_method" value="DELETE">
+              <input type="submit" value="Delete" class="btn btn-sm btn-outline-danger">
+            </form>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" class="d-none animate-table">
+            <div class="row row-id">
+              <div class="col-5">ID:</div>
+              <div class="col-7">{{beer.id}}</div>
+            </div>
+            <div class="row row-style">
+              <div class="col-5">Style:</div>
+              <div class="col-7">{{beer.style}}</div>
+            </div>
+            <div class="row row-abv">
+              <div class="col-5">ABV:</div>
+              <div class="col-7">{{beer.abv}}</div>
+            </div>
+            <div class="row row-ibu">
+              <div class="col-5">IBU:</div>
+              <div class="col-7">{{beer.ibu}}</div>
+            </div>
+            <div class="row row-brewery">
+              <div class="col-5">Brewery:</div>
+              <div class="col-7">{{beer.brewery}}</div>
+            </div>
+            <div class="row row-location">
+              <div class="col-5">Location:</div>
+              <div class="col-7">{{beer.location}}</div>
+            </div>
+            <div class="row row-website">
+              <div class="col-5">Website:</div>
+              <div class="col-7">{{beer.website}}</div>
+            </div>
+            <div class="row row-description">
+              <div class="col-5">Description:</div>
+              <div class="col-7">{{beer.description}}</div>
+            </div>
+            <div class="row row-draft-bottle">
+              <div class="col-5">Draft / Bottle:</div>
+              <div class="col-7">{{beer.draft_bottle_selection}}</div>
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+{% endblock %}

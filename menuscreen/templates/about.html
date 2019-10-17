@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <h1>List of beers</h1>
+  <p>Our Beer History</p>
+  <p>Things we've had in the past and a little description to go with them.</p>
+  <ul class="list-group">
+    {% for beer in beers %}
+      <li class="list-group-item"><a href="beer/{{beer.id}}">{{beer.name}} {{beer.abv}}% ABV {{beer.ibu}} IBU -- {{beer.description | safe}}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

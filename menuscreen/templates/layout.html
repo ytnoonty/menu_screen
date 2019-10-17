@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Title changes per page based on passed in title var -->
+  {% if title %}
+    <title>Menu Screen -- {{ title }}</title>
+  {% else %}
+    <title>Menu Screen</title>
+  {% endif %}
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,400i,600,600i,800,800i" rel="stylesheet">
+</head>
+<body>
+  {% include 'includes/_navbar.html' %}
+  <div class="container mx-auto">
+    <div id="flash-msg-div">
+      {% include 'includes/_messages.html' %}
+    </div>
+    {% block body %}
+    {% endblock %}
+  </div>
+
+  <script src="https://js.pusher.com/4.4/pusher.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/ajax.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/beer.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/untappd.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/wine.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/display_update.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/screen_templates.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/animations.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/ui.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/beer_templates.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/wine_templates.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/event_templates.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/menu_item_templates.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div id="user-id-{{ currentUserId }}" class="user-id-screen-display">
+  <div class="row justify-content-center">
+    <div class="row">
+      <div  id="update-print-page" class="col-12">
+        <img src="{{ url_for('static', filename='img/SHAMROCKS_LOGO.png') }}" alt="Shamrock Jack's Logo">
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="row">
+      <div class="col-12">
+        <h2>What's On Tap</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="beer-list-div-bp">
+    <ul class="beer-list-loop-bp list-group-flush">
+    {% for beer in beers %}
+      {% if beer.coming_soon != True %}
+        <li class="list-group-item-bp list-group-item">{{beer.id_dropdown}}.  <span class="larger-text txt-clr-grn">{{beer.name}}</span> - {{beer.style}} - {{beer.abv}}% ABV - {{beer.ibu}} IBU - {{beer.location}} - <span class="italic-font">{{beer.brewery}}</span></li>
+      {% endif %}
+    {% endfor %}
+    </ul>
+  </div>
+
+  <hr>
+  <div class="row justify-content-center">
+    <div class="row">
+      <div class="col-12">
+        <h4>Try a Delicious Flight of any Three Drafts for $5</h4>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <div class="row justify-content-center">
+    <div class="row">
+      <div class="col-12">
+        <h2>Beer O' The Month</h2>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <p class="month-p-bp">
+      {% for beer in beers %}
+        {% if beer.beer_of_month == True %}
+          <span class="mx-3 larger-text txt-clr-grn">{{beer.name}}</span>
+        {% endif %}
+      {% endfor %}
+    </p>
+  </div>
+
+  <hr>
+  <div class="row justify-content-center">
+    <div class="row">
+      <div class="col-12">
+        <h2>Coming soon on Tap</h2>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <p id="comingsoon-p-bp">
+      {% for beer in beers %}
+        {% if beer.coming_soon == True %}
+          <span class="mx-4 larger-text txt-clr-grn">{{beer.name}}</span>
+        {% endif %}
+      {% endfor %}
+    </p>
+  </div>
+</div>
+{% endblock %}

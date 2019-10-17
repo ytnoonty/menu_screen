@@ -1,0 +1,85 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <h1>Edit Beer List</h1>
+  <div class="row my-3 mx-auto">
+    <div class="col-12 my-1">
+      <a class="btn btn-sm btn-outline-info" href="{{ url_for('list_history.add_beer') }}"> Add Beer</a>
+      <a class="btn btn-sm btn-outline-info" href="{{ '/beersearch' }}">Search Beers</a>
+    </div>
+    <div class="col-12 my-1">
+      <a class="btn btn-sm btn-outline-danger" href="{{ url_for('list_history.beer_dashboard') }}">Beer Dashboard</a>
+      <a class="btn btn-sm btn-outline-danger" href="{{ '/on_tap_next_editor' }}">On Tap Next Editor</a>
+    </div>
+  </div>
+  <hr>
+
+  {% from "includes/_formhelpers.html" import  render_field %}
+  <!-- <form id="edit_form" method="POST" action="" onsubmit="alert('crap in a bag!'); return true"> -->
+  <div id="user-id-{{ currentUserId }}" class="user-id-edit-beerlist">
+    <form id="edit-beerlist-form" method="POST" action="" onsubmit="">
+      <div id="beerlist">
+
+          {% for beers in beerlist %}
+          <div class="beers">
+              <div class="form-group">
+                <label for="beer_{{beers.id_dropdown}}">Beer {{beers.id_dropdown}}</label>
+                <select id="beer_{{beers.id_dropdown}}" class="form-control edit-beer1" name="beer_{{beers.id_dropdown}}">
+                  {% for beer in beersDropdown %}
+                    {% if beer.id == beers.defaultDropdown.id_history %}
+                      <option value="{{beer.id}}" selected>{{beer.name}}</option>
+                    {% else %}
+                      <option value="{{beer.id}}">{{beer.name}}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="ops-container d-flex flex-row">
+                <div class="form-group">
+                  <label for="bom-beer_{{beers.id_dropdown}}"></label>
+                  {% if beers.defaultDropdown.beer_of_month == True %}
+                    <input id="bom-beer_{{beers.id_dropdown}}" type="checkbox" name="beer-of-month_{{beers.id_dropdown}}" value="{{beers.defaultDropdown.beer_of_month}}" checked>
+                  {% else %}
+                    <input id="bom-beer_{{beers.id_dropdown}}" type="checkbox" name="beer-of-month_{{beers.id_dropdown}}" value="{{beers.defaultDropdown.beer_of_month}}">
+                  {% endif %}
+                  <span> Beer of the month</span><br>
+                </div>
+                <div class="form-group pl-5">
+                  <label for="coming-soon-beer_{{beers.id_dropdown}}"></label>
+                  {% if beers.defaultDropdown.coming_soon == True %}
+                    <input id="coming-soon-beer_{{beers.id_dropdown}}" type="checkbox" name="coming-soon_{{beers.id_dropdown}}" value="{{beers.defaultDropdown.coming_soon}}" checked>
+                  {% else %}
+                    <input id="coming-soon-beer_{{beers.id_dropdown}}" type="checkbox" name="coming-soon_{{beers.id_dropdown}}" value="{{beers.defaultDropdown.coming_soon}}">
+                  {% endif %}
+                  <span> Coming soon</span><br>
+                </div>
+              </div>
+              <hr>
+          </div>
+          {% endfor %}
+      </div>
+
+      <div class="form-group">
+          <div class="d-flex flex-row justify-content-end beer-list-btns">
+              <div id="add-beer-btn" class="">
+                <button type="button" class="btn btn-outline-info">+</button>
+              </div>
+              <div id="delete-beer-btn" class="ml-1">
+                <button type="button" class="btn btn-outline-danger">-</button>
+              </div>
+          </div>
+      </div>
+
+
+      <!-- <p><input id="edit-beerlist" class="btn btn-primary" type="submit" value="Submit"></p> -->
+      <div class="row d-flex justify-content-between">
+        <div class="col-4">
+          <input id="edit-beerlist" class="btn btn-sm btn-outline-primary" type="click" value="Submit">
+        </div>
+        <div class="col-4">
+          <a href="{{ url_for('list_history.beer_dashboard') }}" class="btn btn-sm btn-outline-danger">Beer Dashboard</a>
+        </div>
+      </div>
+    </form>
+  </div>
+{% endblock %}

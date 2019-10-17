@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% block body %}
+  <h1>Edit Template List</h1>
+  <hr>
+  {% from "includes/_formhelpers.html" import render_field %}
+  <form id="add_template_form" name="add_template_form" action="" method="POST">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+      {{ render_field(form.templateName, class_="form-control") }}
+    </div>
+    <button id="submit_template_btn" name="submit_settings_btn" type="submit" class="btn btn-sm btn-primary">Save Templates</button>
+    <hr>
+  </form>
+  <div class="form-group">
+    {{ render_field(form.templateSelect, class_="form-control") }}
+  </div>
+{% endblock %}

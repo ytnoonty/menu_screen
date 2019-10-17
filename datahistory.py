@@ -1,0 +1,323 @@
+def BeersHistory():
+    beershistory = [
+        {
+            'id': 1,
+            'name': 'Guinness',
+            'style': 'Irish Dry Stout',
+            'abv': 4.3,
+            'ibu': 93,
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION1'
+        },
+        {
+            'id': 2,
+            'name': 'Smithwicks',
+            'style': 'Irish Red Ale',
+            'abv': 4.4,
+            'ibu': '94',
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION2'
+        },
+        {
+            'id': 4,
+            'name': 'Guinness',
+            'style': 'Irish Dry Stout',
+            'abv': 4.3,
+            'ibu': 93,
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION1'
+        },
+        {
+            'id': 5,
+            'name': 'Smithwicks',
+            'style': 'Irish Red Ale',
+            'abv': 4.4,
+            'ibu': '94',
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION2'
+        },
+        {
+            'id': 6,
+            'name': 'Guinness',
+            'style': 'Irish Dry Stout',
+            'abv': 4.3,
+            'ibu': 93,
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION1'
+        },
+        {
+            'id': 7,
+            'name': 'Smithwicks',
+            'style': 'Irish Red Ale',
+            'abv': 4.4,
+            'ibu': '94',
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION2'
+        },
+        {
+            'id': 8,
+            'name': 'Guinness',
+            'style': 'Irish Dry Stout',
+            'abv': 4.3,
+            'ibu': 93,
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION1'
+        },
+        {
+            'id': 9,
+            'name': 'Smithwicks',
+            'style': 'Irish Red Ale',
+            'abv': 4.4,
+            'ibu': '94',
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION2'
+        },
+        {
+            'id': 10,
+            'name': 'Guinness',
+            'style': 'Irish Dry Stout',
+            'abv': 4.3,
+            'ibu': 93,
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION1'
+        },
+        {
+            'id': 11,
+            'name': 'Smithwicks',
+            'style': 'Irish Red Ale',
+            'abv': 4.4,
+            'ibu': '94',
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION2'
+        },
+        {
+            'id': 12,
+            'name': 'Guinness',
+            'style': 'Irish Dry Stout',
+            'abv': 4.3,
+            'ibu': 93,
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION1'
+        },
+        {
+            'id': 13,
+            'name': 'Smithwicks',
+            'style': 'Irish Red Ale',
+            'abv': 4.4,
+            'ibu': '94',
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION2'
+        },
+        {
+            'id': 14,
+            'name': 'Guinness',
+            'style': 'Irish Dry Stout',
+            'abv': 4.3,
+            'ibu': 93,
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION1'
+        },
+        {
+            'id': 15,
+            'name': 'Smithwicks',
+            'style': 'Irish Red Ale',
+            'abv': 4.4,
+            'ibu': '94',
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION2'
+        },
+        {
+            'id': 1,
+            'name': 'Guinness',
+            'style': 'Irish Dry Stout',
+            'abv': 4.3,
+            'ibu': 93,
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION1'
+        },
+        {
+            'id': 2,
+            'name': 'Smithwicks',
+            'style': 'Irish Red Ale',
+            'abv': 4.4,
+            'ibu': '94',
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION2'
+        },
+        {
+            'id': 4,
+            'name': 'Guinness',
+            'style': 'Irish Dry Stout',
+            'abv': 4.3,
+            'ibu': 93,
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION1'
+        },
+        {
+            'id': 5,
+            'name': 'Smithwicks',
+            'style': 'Irish Red Ale',
+            'abv': 4.4,
+            'ibu': '94',
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION2'
+        },
+        {
+            'id': 6,
+            'name': 'Guinness',
+            'style': 'Irish Dry Stout',
+            'abv': 4.3,
+            'ibu': 93,
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION1'
+        },
+        {
+            'id': 7,
+            'name': 'Smithwicks',
+            'style': 'Irish Red Ale',
+            'abv': 4.4,
+            'ibu': '94',
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION2'
+        },
+        {
+            'id': 8,
+            'name': 'Guinness',
+            'style': 'Irish Dry Stout',
+            'abv': 4.3,
+            'ibu': 93,
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION1'
+        },
+        {
+            'id': 9,
+            'name': 'Smithwicks',
+            'style': 'Irish Red Ale',
+            'abv': 4.4,
+            'ibu': '94',
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION2'
+        },
+        {
+            'id': 10,
+            'name': 'Guinness',
+            'style': 'Irish Dry Stout',
+            'abv': 4.3,
+            'ibu': 93,
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION1'
+        },
+        {
+            'id': 11,
+            'name': 'Smithwicks',
+            'style': 'Irish Red Ale',
+            'abv': 4.4,
+            'ibu': '94',
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION2'
+        },
+        {
+            'id': 12,
+            'name': 'Guinness',
+            'style': 'Irish Dry Stout',
+            'abv': 4.3,
+            'ibu': 93,
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION1'
+        },
+        {
+            'id': 13,
+            'name': 'Smithwicks',
+            'style': 'Irish Red Ale',
+            'abv': 4.4,
+            'ibu': '94',
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION2'
+        },
+        {
+            'id': 14,
+            'name': 'Guinness',
+            'style': 'Irish Dry Stout',
+            'abv': 4.3,
+            'ibu': 93,
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION1'
+        },
+        {
+            'id': 15,
+            'name': 'Smithwicks',
+            'style': 'Irish Red Ale',
+            'abv': 4.4,
+            'ibu': '94',
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION2'
+        },
+        {
+            'id': 16,
+            'name': 'Harp Lager',
+            'style': 'Euro Pale Lager',
+            'abv': 4.5,
+            'ibu': 95,
+            'brewery': 'Guinness Ltd',
+            'location': 'Ireland',
+            'website': "https://www.guinness.com",
+            'description': 'DESCRIPTION3'
+        }
+    ]
+    return beershistory

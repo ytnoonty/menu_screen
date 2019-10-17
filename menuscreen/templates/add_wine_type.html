@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% block body %}
+  <h1>Edit Wine type List</h1>
+  <hr>
+  {% from "includes/_formhelpers.html" import render_field %}
+  <form id="add_wine_type_form" name="add_wine_type_form" action="" method="POST">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+      {{ render_field(form.wineType, class_="form-control") }}
+    </div>
+    <button id="submit_settings_btn" name="submit_settings_btn" type="submit" class="btn btn-sm btn-primary">Save Settings</button>
+    <hr>
+  </form>
+  <div class="form-group">
+    {{ render_field(form.wineTypeSelect, class_="form-control") }}
+  </div>
+{% endblock %}
