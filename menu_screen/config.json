@@ -1,6 +1,0 @@
-{
-	"SECRET_KEY": "760569b703c89422c18038412d44704aad69f0d90eed673b36b049c1e2a4c130",
-	"SQLALCHEMY_DATABASE_URI": "mysql://root:Chewboka_123@localhost/myflaskapp",
-	"MAIL_USERNAME": "testingAPPtechnology@gmail.com",
-	"MAIL_PASSWORD": "testingAPPtech!@#$"
-}
