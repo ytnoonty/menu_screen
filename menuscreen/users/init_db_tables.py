@@ -36,7 +36,7 @@ def initListCurrent(id):
     print('beer.id: {}'.format(beer.id))
 
     for x in range(1, 2, 1):
-        beer = List_current(id_history=beer_id, id_on_next=beer_id, id_dropdown=x, venue_db_id=id)
+        beer = List_current(id_history=beer_id, id_on_next=beer_id, id_dropdown=x, beerscreen_id=1, venue_db_id=id)
         db.session.add(beer)
         db.session.commit()
     print('********** INIT LIST_HISTORY *********')
@@ -52,6 +52,7 @@ def initWinelist(id):
         varietal='Wine Varietal',
         type='1',
         foodPairings='Wine Food Pairings',
+        winescreen_id='1',
         website='Wine Website'
     )
     db.session.add(wine)
@@ -63,8 +64,8 @@ def initWinelistCurrent(id):
     wine = Wines.query.filter_by(venue_db_id=id).first()
     print(wine)
     wine_id = wine.id
-    for x in range(1, 29, 1):
-        wine = Winelist_current(id_wine=wine_id, venue_db_id=id, id_dropdown=x)
+    for x in range(1, 2, 1):
+        wine = Winelist_current(id_wine=wine_id, id_dropdown=x, winescreen_id='1', venue_db_id=id)
         db.session.add(wine)
         db.session.commit()
     print('********** INIT WINELIST_CURRENT *********')
@@ -80,7 +81,7 @@ def initWinetype(id):
 def initUserSettings(id):
     user_setting = User_settings(
     number_of_screens='1',
-    screen_number_settings='1',
+    beerscreen_settings_id='1',
     font_color_one='#000000',
     font_color_two='#000000',
     font_color_three='#000000',
@@ -102,6 +103,8 @@ def initUserSettings(id):
     ibu_font_size='1',
     brewery_font_size='1',
     screen_template='1',
+    ticker_toggle=0,
+    ticker_scroll_speed=10,
     venue_db_id=id
     )
     db.session.add(user_setting)
@@ -128,11 +131,24 @@ def initTemplate(id):
     db.session.commit()
     print('********** INIT TEMPLATE *********')
 
+def initEvent(id):
+    event = Event(
+        name='Event Name',
+        artist='Artist',
+        location='Event Location',
+        eventscreen_id='1',
+        venue_db_id=id
+    )
+    db.session.add(event)
+    db.session.commit()
+    print('********** EVENT TEMPLATE *********')
+
 def initItem(id):
     item = Item(
         name='Test Item Name',
         description='Test Item Description',
         price='Test Item Price',
+        itemscreen_id='1',
         venue_db_id=id
     )
     db.session.add(item)

@@ -80,17 +80,18 @@ class List_current(db.Model):
     id_dropdown = db.Column(db.Integer)
     beer_of_month = db.Column(db.Boolean, default=False)
     coming_soon = db.Column(db.Boolean, default=False)
+    beerscreen_id = db.Column(db.Integer)
     venue_db_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
-        return '************ List_current: {}, {}, {}, {}, {}, {}, {}'.format(self.id,self.id_history,self.id_on_next,self.id_dropdown,self.beer_of_month,self.coming_soon,self.venue_db_id)
+        return '************ List_current: {}, {}, {}, {}, {}, {}, {}, {}'.format(self.id,self.id_history,self.id_on_next,self.id_dropdown,self.beer_of_month,self.coming_soon,self.beerscreen_id,self.venue_db_id)
 
 
 class User_settings(db.Model):
     __tablename__ = 'user_settings'
     id = db.Column(db.Integer, primary_key=True)
     number_of_screens = db.Column(db.String(10), nullable=False)
-    screen_number_settings = db.Column(db.String(10), nullable=False)
+    beerscreen_settings_id = db.Column(db.String(10), nullable=False)
     font_color_one = db.Column(db.String(100))
     font_color_two = db.Column(db.String(100))
     font_color_three = db.Column(db.String(100))
@@ -112,10 +113,22 @@ class User_settings(db.Model):
     ibu_font_size = db.Column(db.String(10))
     brewery_font_size = db.Column(db.String(10))
     screen_template = db.Column(db.String(10))
+    ticker_toggle = db.Column(db.Boolean, default=False)
+    ticker_scroll_speed = db.Column(db.Integer)
     venue_db_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
         return '************ User_settings: {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}'.format(self.id, self.venue_db_id, self.font_color_one, self.font_color_two, self.font_color_three, self.font_color_direction, self.shadow_font_color_one, self.shadow_font_color_two, self.shadow_font_color_three, self.shadow_font_color_direction, self.background_color_one, self.background_color_two, self.background_color_three, self.background_color_direction, self.name_font_color, self.abv_font_color, self.ibu_font_color, self.brewery_font_color, self.name_font_size, self.abv_font_size, self.ibu_font_size, self.brewery_font_size, self.screen_template)
+
+class Ticker(db.Model):
+    __tablename__= 'ticker'
+    id = db.Column(db.Integer, primary_key=True)
+    ticker_text = db.Column(db.Text)
+    tickerscreen_id = db.Column(db.Integer)
+    venue_db_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    def __repr__(self):
+        return '************ Ticker: {}, {}, {}'.format(self.id,self.ticker_text,self.tickerscreen_id,self.venue_db_id)
 
 class Font_size_options(db.Model):
     __tablename__ = 'font_size_options'
@@ -149,6 +162,7 @@ class Wines(db.Model):
     type = db.Column(db.Integer)
     foodPairings = db.Column(db.Text)
     website = db.Column(db.String(100))
+    winescreen_id = db.Column(db.Integer)
     venue_db_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
@@ -159,6 +173,7 @@ class Winelist_current(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     id_wine = db.Column(db.Integer)
     id_dropdown = db.Column(db.Integer)
+    winescreen_id = db.Column(db.Integer)
     venue_db_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
@@ -174,7 +189,7 @@ class Wine_type(db.Model):
         return '************ Wine_type: {}, {}'.format(self.id, self.type)
 
 class Event(db.Model):
-    __tablename__ = 'events'
+    __tablename__ = 'event'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     artist = db.Column(db.String(100))
@@ -182,6 +197,7 @@ class Event(db.Model):
     starttime_of_event = db.Column(db.String(10), nullable=False)
     endtime_of_event = db.Column(db.String(10), nullable=False)
     location = db.Column(db.String(255))
+    eventscreen_id = db.Column(db.Integer)
     venue_db_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
@@ -193,6 +209,7 @@ class Item(db.Model):
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text)
     price = db.Column(db.String(100))
+    itemscreen_id = db.Column(db.Integer)
     venue_db_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
