@@ -48,6 +48,14 @@ def _getNameFontSize(user_id, fontSizeOptions):
     ).first()
     return nameFontSize
 
+def _getStyleFontSize(user_id, fontSizeOptions):
+    styleFontSize = db.session.query(
+    Font_size_options.font_sizes
+    ).join(User_settings, User_settings.name_font_size == fontSizeOptions
+    ).filter(User_settings.venue_db_id == user_id
+    ).first()
+    return styleFontSize
+
 def _getAbvFontSize(user_id, fontSizeOptions):
     abvFontSize = db.session.query(
     Font_size_options.font_sizes
@@ -76,7 +84,7 @@ def _getSettings(user_id):
     settings_db = User_settings.query.filter_by(venue_db_id=current_user.id).first()
     settings_db = db.session.query(
         User_settings.number_of_screens,
-        User_settings.screen_number_settings,
+        User_settings.beerscreen_settings_id,
         User_settings.font_color_one,
         User_settings.font_color_two,
         User_settings.font_color_three,
@@ -90,14 +98,18 @@ def _getSettings(user_id):
         User_settings.background_color_three,
         User_settings.background_color_direction,
         User_settings.name_font_color,
+        User_settings.style_font_color,
         User_settings.abv_font_color,
         User_settings.ibu_font_color,
         User_settings.brewery_font_color,
         User_settings.name_font_size,
+        User_settings.style_font_size,
         User_settings.abv_font_size,
         User_settings.ibu_font_size,
         User_settings.brewery_font_size,
         User_settings.screen_template,
+        User_settings.ticker_toggle,
+        User_settings.ticker_scroll_speed,
         User_settings.venue_db_id,
         Template.template_name,
         Font_size_options.font_sizes,
@@ -110,6 +122,13 @@ def _getSettings(user_id):
         User_settings.name_font_size,
         Font_size_options.font_sizes,
     ).join(Font_size_options, User_settings.name_font_size == Font_size_options.id
+    ).filter(User_settings.venue_db_id == current_user.id
+    ).first()
+
+    styleFontSize = db.session.query(
+        User_settings.name_font_size,
+        Font_size_options.font_sizes,
+    ).join(Font_size_options, User_settings.style_font_size == Font_size_options.id
     ).filter(User_settings.venue_db_id == current_user.id
     ).first()
 
@@ -135,7 +154,7 @@ def _getSettings(user_id):
 
     this_setting = {
         "numberOfScreens" : settings_db.number_of_screens,
-        "screenNumberSettings" : settings_db.screen_number_settings,
+        "beerscreenSettingsId" : settings_db.beerscreen_settings_id,
         "fontColorOne" : settings_db.font_color_one,
         "fontColorTwo" : settings_db.font_color_two,
         "fontColorThree" : settings_db.font_color_three,
@@ -149,20 +168,25 @@ def _getSettings(user_id):
         "backgroundColorThree" : settings_db.background_color_three,
         "backgroundColorDirection" : settings_db.background_color_direction,
         "nameFontColor" : settings_db.name_font_color,
+        "styleFontColor" : settings_db.style_font_color,
         "abvFontColor" : settings_db.abv_font_color,
         "ibuFontColor" : settings_db.ibu_font_color,
         "breweryFontColor" : settings_db.brewery_font_color,
         "nameFontSizeHTML" : nameFontSize.font_sizes,
+        "styleFontSizeHTML" : styleFontSize.font_sizes,
         "abvFontSizeHTML" : abvFontSize.font_sizes,
         "ibuFontSizeHTML" : ibuFontSize.font_sizes,
         "breweryFontSizeHTML" : breweryFontSize.font_sizes,
 
         "nameFontSize" :settings_db.name_font_size,
+        "styleFontSize" : settings_db.style_font_size,
         "abvFontSize" : settings_db.abv_font_size,
         "ibuFontSize" : settings_db.ibu_font_size,
         "breweryFontSize" : settings_db.brewery_font_size,
 
         "screenTemplate" : settings_db.screen_template,
+        "tickerToggle" : settings_db.ticker_toggle,
+        "tickerScrollSpeed" : settings_db.ticker_scroll_speed,
         "venue_db_id" : settings_db.venue_db_id,
         "templateName" : settings_db.template_name,
     }

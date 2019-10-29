@@ -15,9 +15,9 @@
       </div>
       <div class="col-3">
             <div class="form-group">
-              <!-- <label for="screenNumberSettings">Screen Number Settings:</label>
-              <input id="screenNumberSettings" class="form-control" name="screenNumberSettings" type="color" value="{{ settings.screenNumberSettings }}"> -->
-              {{ render_field(form.screenNumberSettings, class_="form-control") }}
+              <!-- <label for="beerscreenSettingsId">Screen Number Settings:</label>
+              <input id="beerscreenSettingsId" class="form-control" name="beerscreenSettingsId" type="color" value="{{ settings.beerscreenSettingsId }}"> -->
+              {{ render_field(form.beerscreenSettingsId, class_="form-control") }}
             </div>
       </div>
     </div>
@@ -126,6 +126,13 @@
       </div>
       <div class="col-3">
             <div class="form-group">
+              <label for="styleFontColor">Style Font Color:</label>
+              <input id="styleFontColor" class="form-control" name="styleFontColor" type="color" value="{{ settings.styleFontColor }}">
+              {{ render_field(form.styleFontColor, class_="form-control", disabled=true) }}
+            </div>
+      </div>
+      <div class="col-3">
+            <div class="form-group">
               <label for="abvFontColor">ABV Font Color:</label>
               <input id="abvFontColor" class="form-control" name="abvFontColor" type="color" value="{{ settings.abvFontColor }}">
               {{ render_field(form.abvFontColor, class_="form-control", disabled=true) }}
@@ -147,20 +154,39 @@
       </div>
     </div>
 
-    <div class="form-group">
-      {{ render_field(form.nameFontSize, class_="form-control") }}
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          {{ render_field(form.nameFontSize, class_="form-control") }}
+        </div>
+        <div class="form-group">
+          {{ render_field(form.styleFontSize, class_="form-control") }}
+        </div>
+        <div class="form-group">
+          {{ render_field(form.abvFontSize, class_="form-control") }}
+        </div>
+        <div class="form-group">
+          {{ render_field(form.ibuFontSize, class_="form-control") }}
+        </div>
+        <div class="form-group">
+          {{ render_field(form.breweryFontSize, class_="form-control") }}
+        </div>
+        <div class="form-group">
+          {{ render_field(form.screenTemplate, class_="form-control") }}
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-      {{ render_field(form.abvFontSize, class_="form-control") }}
-    </div>
-    <div class="form-group">
-      {{ render_field(form.ibuFontSize, class_="form-control") }}
-    </div>
-    <div class="form-group">
-      {{ render_field(form.breweryFontSize, class_="form-control") }}
-    </div>
-    <div class="form-group">
-      {{ render_field(form.screenTemplate, class_="form-control") }}
+    <div class="row">
+      <div class="col-3">
+        {% if settings.tickerToggle != True %}
+          {{ render_field(form.tickerToggle, class_="form-control", checked=False) }}
+        {% else %}
+          {{ render_field(form.tickerToggle, class_="form-control", checked=True) }}
+        {% endif %}
+      </div>
+      <div class="col-3">
+        {{ render_field(form.tickerScrollSpeed, class_="form-control") }}
+      </div>
     </div>
     <hr>
     <div class="col-4">
