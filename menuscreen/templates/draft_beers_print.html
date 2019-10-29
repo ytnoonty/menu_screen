@@ -2,10 +2,11 @@
 
 {% block body %}
 <div id="user-id-{{ currentUserId }}" class="user-id-screen-display">
-  <div class="row justify-content-center">
-    <div class="row">
-      <div  id="update-print-page" class="col-12">
-        <img src="{{ url_for('static', filename='img/SHAMROCKS_LOGO.png') }}" alt="Shamrock Jack's Logo">
+  <div class="row">
+    <div class="row justify-content-center">
+      <div id="update-print-page" class="col-6">
+        <!-- <img src="{{ url_for('static', filename='img/SHAMROCKS_LOGO.png') }}" alt="Shamrock Jack's Logo"> -->
+        <img src="{{ image_file }}" class="col col-lg-6" alt="">
       </div>
     </div>
   </div>

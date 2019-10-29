@@ -45,13 +45,14 @@ def _getWines(id):
         Wines.website,
         Wine_type.type
         ).outerjoin(Wine_type, Wines.type == Wine_type.id
-        ).filter(Wines.venue_db_id == current_user.id
+        ).filter(Wines.venue_db_id == id
+        # ).filter(Wines.venue_db_id == current_user.id
         ).order_by(Wines.name.asc()
         ).all()
     return wines
 
 def _getWinetypes(id):
-    user = User.query.filter_by(id=current_user.id).first()
+    # user = User.query.filter_by(id=current_user.id).first()
     wineTypes = db.session.query(
         Wine_type.id,
         Wine_type.type
@@ -60,7 +61,8 @@ def _getWinetypes(id):
     wineTypes = db.session.query(
         Wine_type.id,
         Wine_type.type,
-        ).filter(Wine_type.venue_db_id == current_user.id
+        ).filter(Wine_type.venue_db_id == id
+        # ).filter(Wine_type.venue_db_id == current_user.id
         ).order_by(Wine_type.type.asc()
         ).all()
     return wineTypes

@@ -1,4 +1,4 @@
-from flask import (render_template, request, flash, abort, jsonify, Blueprint)
+from flask import (render_template, request, url_for, flash, abort, jsonify, Blueprint)
 from flask_login import current_user, login_required
 from menuscreen import db
 from menuscreen.models import (User, List_history, List_current, Wines, Winelist_current,
@@ -503,7 +503,7 @@ def beer_display_screen(venuename, screen_id):
     print(screen_id)
     print('******************************************************************')
 
-    user = User.query.filter_by(id=getVenueId(venuename)).first()
+    user = User.query.filter_by(id=current_user_id).first()
     beers = db.session.query(
         List_current.id,
         List_history.id,
@@ -745,6 +745,43 @@ def bottle_beers():
     return render_template('bottle_beers.html', title='Bottle beers list', currentUserId=current_user.id, msg=msg, beers=beers)
 
 
+
+@displays.route('/draft_beers/<string:venuename>/<string:screen_id>', methods=['GET', 'POST'])
+def draft_beer(venuename, screen_id):
+    current_user_id = getVenueId(venuename)
+    user = User.query.filter_by(id=current_user_id).first()
+    beers = db.session.query(
+        List_current.id,
+        List_history.id,
+        List_history.name,
+        List_history.style,
+        List_history.abv,
+        List_history.ibu,
+        List_history.brewery,
+        List_history.location,
+        List_history.website,
+        List_history.description,
+        List_history.draft_bottle_selection,
+        List_current.id_dropdown,
+        List_current.beer_of_month,
+        List_current.coming_soon,
+        ).outerjoin(List_current, List_history.id == List_current.id_history
+        ).filter(List_current.venue_db_id == current_user_id
+        ).filter(List_current.beerscreen_id == screen_id).all()
+
+    print('THIS IS draft_beers\n')
+    for beer in beers:
+        print(beer)
+
+    beers_01_16 = beers[0:16]
+    beers_17_22 = beers[16:22]
+    if len(beers) > 0:
+        return render_template('draft_beers.html', title='Beer Print', legend='Beer Print', beers=beers, beers0116=beers_01_16, beers1722=beers_17_22, currentUserId=current_user_id)
+    else:
+        msg = 'No Beers Found'
+    return render_template('draft_beers.html', msg=msg, currentUserId=current_user_id)
+
+
 @displays.route('/draft_beers', methods=['GET', 'POST'])
 @login_required
 def draft_beers():
@@ -771,7 +808,6 @@ def draft_beers():
     for beer in beers:
         print(beer)
 
-
     beers_01_16 = beers[0:16]
     beers_17_22 = beers[16:22]
     if len(beers) > 0:
@@ -779,6 +815,39 @@ def draft_beers():
     else:
         msg = 'No Beers Found'
     return render_template('draft_beers.html', msg=msg, currentUserId=current_user.id)
+
+
+
+@displays.route('/draft_beers_print/<string:venuename>/<string:screen_id>', methods=['GET','POST'])
+def draft_beer_print(venuename, screen_id):
+    current_user_id = getVenueId(venuename)
+    user = User.query.filter_by(id=current_user_id).first()
+    beers = db.session.query(
+        List_history.id,
+        List_history.name,
+        List_history.style,
+        List_history.abv,
+        List_history.ibu,
+        List_history.brewery,
+        List_history.location,
+        List_history.website,
+        List_history.description,
+        List_history.draft_bottle_selection,
+        List_current.id_dropdown,
+        List_current.beer_of_month,
+        List_current.coming_soon
+        ).outerjoin(List_current, List_history.id == List_current.id_history
+        ).filter(List_current.venue_db_id == current_user_id
+        ).filter(List_current.beerscreen_id == screen_id).all()
+
+    beers_01_16 = beers[0:16]
+    beers_17_22 = beers[16:22]
+    if len(beers) > 0:
+        return render_template('draft_beers_print.html', title='Beer Print', legend='Beer Print', beers=beers, beers0116=beers_01_16, beers1722=beers_17_22, currentUserId=current_user_id)
+    else:
+        msg = 'No Beers Found'
+    return render_template('draft_beers_print.html', msg=msg, currentUserId=current_user_id)
+
 
 @displays.route('/draft_beers_print', methods=['GET','POST'])
 @login_required
@@ -803,8 +872,10 @@ def draft_beers_print():
 
     beers_01_16 = beers[0:16]
     beers_17_22 = beers[16:22]
+
+    image_file = url_for('static', filename='img/profile_pics/' + current_user.image_file)
     if len(beers) > 0:
-        return render_template('draft_beers_print.html', title='Beer Print', legend='Beer Print', beers=beers, beers0116=beers_01_16, beers1722=beers_17_22, currentUserId=current_user.id)
+        return render_template('draft_beers_print.html', title='Beer Print', legend='Beer Print', beers=beers, beers0116=beers_01_16, beers1722=beers_17_22, image_file=image_file, currentUserId=current_user.id)
     else:
         msg = 'No Beers Found'
-    return render_template('draft_beers_print.html', msg=msg, currentUserId=current_user.id)
+    return render_template('draft_beers_print.html', msg=msg, image_file=image_file, currentUserId=current_user.id)
