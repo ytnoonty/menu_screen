@@ -2,7 +2,7 @@ from flask import (render_template, url_for, flash, redirect,
                     request, abort, jsonify, Blueprint, make_response)
 from flask_login import current_user, login_required
 from menuscreen import db
-from menuscreen.models import User, List_history, List_current, Font_size_options, User_settings, Template
+from menuscreen.models import User, List_history, List_current, Font_size_options, User_settings, Template, Ticker
 from menuscreen.list_history.forms import BeerForm, CurrentBeerListForm, NextBeerListForm
 from menuscreen.list_history.utils import getDefaultSelect, getDefaultNextSelect, _getTotalBeerlist, _getCurrentBeerlist, _getOnTapNextBeerlist, _addBeer, _deleteBeer, _getBottleBeers
 from menuscreen.settttings.utils import _getFontSizes, _getTemplates, _getSettings, _getNameFontSize, _getTemplateName, _getAbvFontSize, _getIbuFontSize, _getBreweryFontSize
@@ -395,69 +395,89 @@ def edit_beer_list():
     # for b in beerselect:
     #     print(b.id_history)
 
+    tickerInfo = db.session.query(
+        Ticker.id,
+        Ticker.ticker_text,
+        Ticker.tickerscreen_id,
+        Ticker.venue_db_id
+    ).filter(Ticker.venue_db_id == current_user.id
+    ).first()
+    print(tickerInfo)
+    tickerText = tickerInfo.ticker_text
+
+    # form.ticker_text.data = tickerText
+
     if request.method == 'POST':
         rdata = request.form
 
-        print(rdata)
-        print(len(rdata))
+        # print(rdata)
+        # print(len(rdata))
+
+        newData = rdata.copy()
+        tickerText = newData.popitem()[1]
+        # print(tickerText)
 
         beerCandidateList = []
 
         for i, (key, value) in enumerate(rdata.items()):
-            beerCandidate = {
-                "id_dropdown": "",
-                "id_history": "",
-                "bom": "",
-                "cs": ""
-            }
-            print(i+1 , key, value)
-            splitData = key.split('_')
-            print(splitData)
+            # print(key)
+            if key != 'ticker-text':
+                # print(key, value)
+                beerCandidate = {
+                    "id_dropdown": "",
+                    "id_history": "",
+                    "bom": "",
+                    "cs": ""
+                }
+                # print(i+1 , key, value)
+                splitData = key.split('_')
+                # print(splitData)
 
-            splitKeyName = splitData[0]
-            splitKeyIter = splitData[1]
+                splitKeyName = splitData[0]
+                splitKeyIter = splitData[1]
 
 
-            if splitKeyName == 'beer':
-                beerCandidate['id_dropdown'] = splitKeyIter
-                beerCandidate['id_history'] = value
-                beerCandidate['bom'] = 0
-                beerCandidate['cs'] = 0
+                if splitKeyName == 'beer':
+                    beerCandidate['id_dropdown'] = splitKeyIter
+                    beerCandidate['id_history'] = value
+                    beerCandidate['bom'] = 0
+                    beerCandidate['cs'] = 0
 
-                # print(beerCandidate)
+                    # print(beerCandidate)
 
-                beerCandidateList.append(beerCandidate)
+                    beerCandidateList.append(beerCandidate)
 
 
         for i, (key, value) in enumerate(rdata.items()):
 
-            # print(i+1 , key, value)
-            splitData = key.split('_')
-            splitKeyName = splitData[0]
-            splitKeyIter = splitData[1]
-            splitKeyIterNum = int(splitKeyIter)
+            if key != 'ticker-text':
+                # print(i+1 , key, value)
+                splitData = key.split('_')
+                splitKeyName = splitData[0]
+                splitKeyIter = splitData[1]
+                splitKeyIterNum = int(splitKeyIter)
 
-            if splitKeyName == 'beer-of-month':
-                print(splitKeyName + "_" + splitKeyIter + " ---- value= " + value)
-                print(splitKeyIter)
-                print(splitKeyIterNum-1)
-                print(beerCandidateList[splitKeyIterNum-1]['bom'])
-                if value != "":
-                    beerCandidateList[splitKeyIterNum-1]['bom'] = True
-                else:
-                    beerCandidateList[splitKeyIterNum-1]['bom'] = False
-            elif splitKeyName == 'coming-soon':
-                print(splitKeyName + "_" + splitKeyIter + " ---- value= " + value)
-                print(splitKeyIter)
-                print(splitKeyIterNum-1)
-                print(beerCandidateList[splitKeyIterNum-1]['cs'])
-                if value != "":
-                    beerCandidateList[splitKeyIterNum-1]['cs'] = True
-                else:
-                    beerCandidateList[splitKeyIterNum-1]['cs'] = False
+                if splitKeyName == 'beer-of-month':
+                    # print(splitKeyName + "_" + splitKeyIter + " ---- value= " + value)
+                    # print(splitKeyIter)
+                    # print(splitKeyIterNum-1)
+                    # print(beerCandidateList[splitKeyIterNum-1]['bom'])
+                    if value != "":
+                        beerCandidateList[splitKeyIterNum-1]['bom'] = True
+                    else:
+                        beerCandidateList[splitKeyIterNum-1]['bom'] = False
+                elif splitKeyName == 'coming-soon':
+                    # print(splitKeyName + "_" + splitKeyIter + " ---- value= " + value)
+                    # print(splitKeyIter)
+                    # print(splitKeyIterNum-1)
+                    # print(beerCandidateList[splitKeyIterNum-1]['cs'])
+                    if value != "":
+                        beerCandidateList[splitKeyIterNum-1]['cs'] = True
+                    else:
+                        beerCandidateList[splitKeyIterNum-1]['cs'] = False
 
-        for b in beerCandidateList:
-            print(b)
+        # for b in beerCandidateList:
+        #     print(b)
 
         beerCandidate = List_current.query.filter_by(id_dropdown=1, venue_db_id=current_user.id).first()
         # print("beerCandidate: {}".format(beerCandidate))
@@ -470,8 +490,10 @@ def edit_beer_list():
             beerCandidate.coming_soon = beerCandidateList[x-1]['cs']
             db.session.commit()
 
-
-
+        # print(tickerText)
+        tickerCandidate = Ticker.query.filter_by(venue_db_id=current_user.id).first()
+        tickerCandidate.ticker_text = tickerText
+        db.session.commit()
 
         settings = {
             "venue_db_id": current_user.id,
@@ -484,7 +506,7 @@ def edit_beer_list():
         #######################################
 
 
-    return render_template('edit_beer_list.html', title='Testing', legend='Testing', currentUserId=current_user.id, beersDropdown=beersDropdown, beerlist=beerlist)
+    return render_template('edit_beer_list.html', title='Testing', legend='Testing', currentUserId=current_user.id, beersDropdown=beersDropdown, beerlist=beerlist, tickerText=tickerText)
 
 
 
