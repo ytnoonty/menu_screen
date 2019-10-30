@@ -156,3 +156,13 @@ def initItem(id):
     db.session.add(item)
     db.session.commit()
     print('********** INIT ITEM *********')
+
+def ititTicker(id):
+    tickerInfo = Ticker(
+        ticker_text='Ticker text INIT',
+        tickerscreen_id='1',
+        venue_db_id=id
+    )
+    db.session.add(tickerInfo)
+    db.session.commit()
+    print('********** INIT TICKER *********')

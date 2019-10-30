@@ -402,10 +402,13 @@ def edit_beer_list():
         Ticker.venue_db_id
     ).filter(Ticker.venue_db_id == current_user.id
     ).first()
-    print(tickerInfo)
-    tickerText = tickerInfo.ticker_text
-
-    # form.ticker_text.data = tickerText
+    if (tickerInfo):
+        tickerText = tickerInfo.ticker_text
+    else:
+        tickerText = ''
+        newTicker = Ticker(ticker_text='', tickerscreen_id='1', venue_db_id=current_user.id)
+        db.session.add(newTicker)
+        db.session.commit()
 
     if request.method == 'POST':
         rdata = request.form
@@ -490,10 +493,11 @@ def edit_beer_list():
             beerCandidate.coming_soon = beerCandidateList[x-1]['cs']
             db.session.commit()
 
-        # print(tickerText)
-        tickerCandidate = Ticker.query.filter_by(venue_db_id=current_user.id).first()
-        tickerCandidate.ticker_text = tickerText
-        db.session.commit()
+        if (tickerInfo):
+            print(tickerText)
+            tickerCandidate = Ticker.query.filter_by(venue_db_id=current_user.id).first()
+            tickerCandidate.ticker_text = tickerText
+            db.session.commit()
 
         settings = {
             "venue_db_id": current_user.id,
