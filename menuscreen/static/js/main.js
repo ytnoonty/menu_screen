@@ -1165,12 +1165,12 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, WineCtrl, EventCtrl, Scree
   // Public methods
   return {
     init: function(){
-      loadUpdatePusher();
-      loadPusher();
-      addBeerToDbPusher();
-      editBeerToDbPusher();
-      delBeerFromDbPusher();
-      loadWinePusher();
+      // loadUpdatePusher();
+      // loadPusher();
+      // addBeerToDbPusher();
+      // editBeerToDbPusher();
+      // delBeerFromDbPusher();
+      // loadWinePusher();
 
       // Show flash message div and then hide after 2.5 seconds
       UICtrl.callHideFlashMsg();
@@ -1180,7 +1180,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, WineCtrl, EventCtrl, Scree
       // Call load event listeners function
       loadEventListeners();
       // console.log("TRYING TO INITIALIZE THE SCREENS!!!!!!!!!")
-      initScreens({"updated":"True"});
+      // initScreens({"updated":"True"});
 
     }
   }
