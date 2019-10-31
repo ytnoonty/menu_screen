@@ -3,6 +3,7 @@ from flask_login import current_user, login_required
 from menuscreen import db
 from menuscreen.models import (User, List_history, List_current, Wines, Winelist_current,
                                 User_settings, Template, Font_size_options)
+from menuscreen.displays.utils import _getTickerInfo
 from menuscreen.settttings.utils import _getFontSizes, _getTemplates, _getSettings, _getNameFontSize, _getTemplateName, _getAbvFontSize, _getIbuFontSize, _getBreweryFontSize
 from menuscreen.wine.utils import _getWinelistDisplay, _getWines, _getWinetypes, _convertToWinelist
 from menuscreen.users.init_db_tables import getVenueId
@@ -76,21 +77,16 @@ def _winemenu_list():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# query the DB ticker table
+@displays.route('/getTickerInfo', methods=['GET', 'POST'])
+@login_required
+def getTickerInfo():
+    data = _getTickerInfo(current_user.id)
+    tickerInfo = {}
+    tickerInfo['id'] = data.id
+    tickerInfo['ticker_text'] = data.ticker_text
+    tickerInfo['tickerscreen_id'] = data.tickerscreen_id
+    return jsonify(tickerInfo)
 
 # Update screen display
 @displays.route('/_screen_display', methods=['GET', 'POST'])
@@ -576,37 +572,6 @@ def beer_display_screen(venuename, screen_id):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @displays.route('/beers_display_screen')
 @login_required
 def beers_display_screen():
@@ -668,9 +633,12 @@ def beers_display_screen():
         print(beer)
     print("")
 
+    tickerText = _getTickerInfo(current_user.id).ticker_text
+    print(tickerText)
+
 
     if len(beers) > 0:
-        return render_template('beers_display_screen.html', beers=beers, beerlistFirstHalf=beerlistFirstHalf, beerlistSecondHalf=beerlistSecondHalf, beerlistBom=beerlistBom, beerlistCs=beerlistCs, currentUserId=current_user.id)
+        return render_template('beers_display_screen.html', beers=beers, beerlistFirstHalf=beerlistFirstHalf, beerlistSecondHalf=beerlistSecondHalf, beerlistBom=beerlistBom, beerlistCs=beerlistCs, tickerText=tickerText, currentUserId=current_user.id)
     else:
         msg = 'No Beers Found'
     return render_template('beers_display_screen.html', msg=msg, currentUserId=current_user.id)

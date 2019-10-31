@@ -1,71 +1,17 @@
-/* @media only screen and (max-width: 992px) {
-} */
-body {
-  font-family: fira sans;
-}
-.full-page {
-  overflow: hidden;
-  background-color: #000;
-  height: 100vh;
-}
-.list-group,
-.list-group-item {
-  margin: 0;
-  padding: 0;
-  border: none;
-  line-height: normal;
-}
-.list-group-inline {
-  display: inline;
-}
-.background {
-  background: linear-gradient(#333,#000);
-  color: #ddd;
-}
-.beerscreen-display-table {
-  width: 100%;
-}
-.beerscreen-table-td-20 {
-  width: 20%;
-}
-.beerscreen-table-td-30 {
-  width: 30%;
-}
-.beerscreen-table-td-40 {
-  width: 40%;
-}
-.beerscreen-table-td-100 {
-  width: 100%;
-}
-.beer-name {
-  font-size: 1.5rem;
-}
-.card-beerscreen-display{
-  margin-top: .5vh;
-  margin-bottom: .5vh;
-  overflow: hidden;
-  height: 10vh;
-}
-.col-6 {
-  padding-right: 0;
-}
-.ticker-wrapper {
-  padding: 0;
-  margin: 0;
-  height: 11vh;
-  width: 100%;
-  position: absolute;
-  right: 0px;
-  bottom: 0vh;
-}
-.ticker {
-  height: 100%;
-  width: 100%;
-  position: relative;
-  font-size: 4rem;
-  white-space: nowrap;
-  overflow: hidden;
-}
-tr {
-  width: 100%;
+@media only screen and (max-width: 992px) {
+  /* .beer-name {
+    font-size: 1.25rem;
+  }
+  .beer-style,
+  .beer-abv,
+  .beer-ibu,
+  .beer-brewery {
+    font-size: 1.25rem;
+  }
+  .ticker-wrapper {
+    height: 7vh;
+  }
+  .ticker-item {
+    font-size: 3rem;
+  } */
 }

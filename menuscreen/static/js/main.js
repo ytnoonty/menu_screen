@@ -228,6 +228,32 @@ const BeerCtrl = (function(){
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
+// BEGIN TICKER CONTROLLER
+////////////////////////////////////////////////////////////////////////////////
+const TickerCtrl = (function(){
+  const logData = function() {
+    console.log('IN THE TICKER CONTROLLER');
+  }
+  async function fetchTickerInfo() {
+    const fetchResponse = await fetch('/getTickerInfo');
+    const data = await fetchResponse.json();
+    return data;
+  }
+
+  return {
+    callLogData: function() {
+      logData();
+    },
+    callFetchTickerInfo: function() {
+      return fetchTickerInfo();
+    },
+  }
+})();
+////////////////////////////////////////////////////////////////////////////////
+// END TICKER CONTROLLER
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
 // WINE Controller
 ////////////////////////////////////////////////////////////////////////////////
 const WineCtrl = (function(){
@@ -502,7 +528,7 @@ const UICtrl = (function(){
 ////////////////////////////////////////////////////////////////////////////////
 // App Controller
 ////////////////////////////////////////////////////////////////////////////////
-const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, WineCtrl, EventCtrl, ScreenSettingsCtrl, UICtrl){
+const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, EventCtrl, ScreenSettingsCtrl, UICtrl){
   // Get UI Selectors
   const UISelectors = UICtrl.getSelectors();
 
@@ -524,6 +550,9 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, WineCtrl, EventCtrl, Scree
     // query the DB for the list history
     let beerslistTotal = await BeerCtrl.callFetchBeerhistoryList();
     // console.log(beerslistTotal);
+    // query the DB for the ticker news info
+    let tickerInfo = await TickerCtrl.callFetchTickerInfo();
+    // console.log(tickerInfo);
     // query the DB for the events
     let events = await EventCtrl.callGetCurrentEventlist();
     // let userData = await UserCtrl.callFetchUserData();
@@ -538,6 +567,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, WineCtrl, EventCtrl, Scree
       "currentBeers": currentBeers,
       "nextBeers": nextBeers,
       "beerslistTotal": beerslistTotal,
+      "tickerInfo": tickerInfo,
       "events": events,
       "screenSettings": screenSettings,
       "userSettings": { "venue_db_id": userData }
@@ -580,6 +610,9 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, WineCtrl, EventCtrl, Scree
     // query the DB for the list history
     let beerslistTotal = await BeerCtrl.callFetchBeerhistoryList();
     // console.log(beerslistTotal);
+    // query the DB for the ticker news info
+    let tickerInfo = await TickerCtrl.callFetchTickerInfo();
+    // console.log(tickerInfo);
     // query the DB for the events
     let events = await EventCtrl.callGetCurrentEventlist();
     let userData = await UserCtrl.callFetchUserData();
@@ -594,6 +627,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, WineCtrl, EventCtrl, Scree
       "currentBeers": currentBeers,
       "nextBeers": nextBeers,
       "beerslistTotal": beerslistTotal,
+      "tickerInfo": tickerInfo,
       "events": events,
       "screenSettings": screenSettings,
       "userSettings": { "venue_db_id": userData }
@@ -623,10 +657,12 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, WineCtrl, EventCtrl, Scree
         let nextBeers = await BeerCtrl.callFetchNextBeerlist();
         // console.log(nextBeers);
         let beerslistTotal = await BeerCtrl.callFetchBeerhistoryList();
+        let tickerInfo = await TickerCtrl.callFetchTickerInfo();
+        // console.log(tickerInfo)
         let events = await EventCtrl.callGetCurrentEventlist();
         let userData = await UserCtrl.callFetchUserData();
         let screenSettings = await ScreenSettingsCtrl.callFetchScreenSettings();
-        console.log(screenSettings);
+        // console.log(screenSettings);
         userData = userData.id[0];
         // console.log(userData);
         let onNext;
@@ -642,6 +678,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, WineCtrl, EventCtrl, Scree
           "currentBeers": currentBeers,
           "nextBeers": nextBeers,
           "beerslistTotal": beerslistTotal,
+          "tickerInfo": tickerInfo,
           "events": events,
           "screenSettings": screenSettings,
           "userSettings": { "venue_db_id": userData }
@@ -712,6 +749,8 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, WineCtrl, EventCtrl, Scree
         let currentBeers = await BeerCtrl.callFetchCurBeerlist();
         let nextBeers = await BeerCtrl.callFetchNextBeerlist();
         let beerslistTotal = await BeerCtrl.callFetchBeerhistoryList();
+        let tickerInfo = await TickerCtrl.callFetchTickerInfo();
+        console.log(tickerInfo)
         // query the DB for the events
         let events = await EventCtrl.callGetCurrentEventlist();
         let userData = await UserCtrl.callFetchUserData();
@@ -730,6 +769,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, WineCtrl, EventCtrl, Scree
           "currentBeers": currentBeers,
           "nextBeers": nextBeers,
           "beerslistTotal": beerslistTotal,
+          "tickerInfo": tickerInfo,
           "events": events,
           "screenSettings": screenSettings,
           "userSettings": { "venue_db_id": userData }
@@ -1089,6 +1129,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, WineCtrl, EventCtrl, Scree
         "id_history": id_history,
         "id_on_next": id_history,
         "id_dropdown": id_dropdown,
+        "beerscreen_id": "1",
         "venue_db_id": ""
       }
       // console.log(newBeer);
@@ -1165,12 +1206,12 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, WineCtrl, EventCtrl, Scree
   // Public methods
   return {
     init: function(){
-      // loadUpdatePusher();
-      // loadPusher();
-      // addBeerToDbPusher();
-      // editBeerToDbPusher();
-      // delBeerFromDbPusher();
-      // loadWinePusher();
+      loadUpdatePusher();
+      loadPusher();
+      addBeerToDbPusher();
+      editBeerToDbPusher();
+      delBeerFromDbPusher();
+      loadWinePusher();
 
       // Show flash message div and then hide after 2.5 seconds
       UICtrl.callHideFlashMsg();
@@ -1180,12 +1221,12 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, WineCtrl, EventCtrl, Scree
       // Call load event listeners function
       loadEventListeners();
       // console.log("TRYING TO INITIALIZE THE SCREENS!!!!!!!!!")
-      // initScreens({"updated":"True"});
+      initScreens({"updated":"True"});
 
     }
   }
 
-})(UserCtrl, UpdateCtrl, BeerCtrl, WineCtrl, EventCtrl, ScreenSettingsCtrl, UICtrl);
+})(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, EventCtrl, ScreenSettingsCtrl, UICtrl);
 
 // Initialize App
 App.init();

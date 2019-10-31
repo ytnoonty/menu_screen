@@ -126,7 +126,7 @@ def _addBeer(data, user_id):
     print('line 124 - data: {}'.format(data))
     print('*******************************************************************************')
     print('*******************************************************************************')
-    newBeer = List_current(id_history=data['id_history'], id_on_next=data['id_on_next'], id_dropdown=data['id_dropdown'], venue_db_id=user_id)
+    newBeer = List_current(id_history=data['id_history'], id_on_next=data['id_on_next'], id_dropdown=data['id_dropdown'], beerscreen_id=data['beerscreen_id'], venue_db_id=user_id)
     db.session.add(newBeer)
     db.session.commit()
     return data
