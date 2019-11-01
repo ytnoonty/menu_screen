@@ -1206,12 +1206,17 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
   // Public methods
   return {
     init: function(){
+
+
       loadUpdatePusher();
       loadPusher();
       addBeerToDbPusher();
       editBeerToDbPusher();
       delBeerFromDbPusher();
       loadWinePusher();
+
+
+
 
       // Show flash message div and then hide after 2.5 seconds
       UICtrl.callHideFlashMsg();
@@ -1221,6 +1226,10 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
       // Call load event listeners function
       loadEventListeners();
       // console.log("TRYING TO INITIALIZE THE SCREENS!!!!!!!!!")
+
+
+
+
       initScreens({"updated":"True"});
 
     }

@@ -558,9 +558,12 @@ def beer_display_screen(venuename, screen_id):
         print(beer)
     print("")
 
+    print("LINE 561*******************************************************")
+    tickerText = _getTickerInfo(current_user_id).ticker_text
+    print(tickerText)
 
     if len(beers) > 0:
-        return render_template('beers_display_screen.html', beers=beers, beerlistFirstHalf=beerlistFirstHalf, beerlistSecondHalf=beerlistSecondHalf, beerlistBom=beerlistBom, beerlistCs=beerlistCs, currentUserId=current_user_id)
+        return render_template('beers_display_screen.html', beers=beers, beerlistFirstHalf=beerlistFirstHalf, beerlistSecondHalf=beerlistSecondHalf, beerlistBom=beerlistBom, beerlistCs=beerlistCs, tickerText=tickerText, currentUserId=current_user_id)
     else:
         msg = 'No Beers Found'
     return render_template('beers_display_screen.html', msg=msg, currentUserId=current_user_id)
@@ -635,7 +638,6 @@ def beers_display_screen():
 
     tickerText = _getTickerInfo(current_user.id).ticker_text
     print(tickerText)
-
 
     if len(beers) > 0:
         return render_template('beers_display_screen.html', beers=beers, beerlistFirstHalf=beerlistFirstHalf, beerlistSecondHalf=beerlistSecondHalf, beerlistBom=beerlistBom, beerlistCs=beerlistCs, tickerText=tickerText, currentUserId=current_user.id)
