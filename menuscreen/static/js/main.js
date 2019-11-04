@@ -365,6 +365,9 @@ const UICtrl = (function(){
 
     addBeerToDbForm: '#add-beer-to-db-form',
     addBeerToDbSubmitBtn: '#add-beer-to-db-btn',
+    ticker: '.ticker',
+    tickerItems: '.ticker-items',
+    tickerItem: '.ticker-item',
   }
 
   // flash message dissapear after 2.5 seconds
@@ -373,6 +376,32 @@ const UICtrl = (function(){
     setTimeout(() => {
       flashMsgDiv.style.display = 'none';
     },2500);
+  }
+
+  // move ticker on beers_display_screen.html
+  const moveTicker = function () {
+    let ticker = document.querySelector(UISelectors.ticker);
+    let tickerItems = document.querySelector(UISelectors.tickerItems);
+    let tickerItem = document.querySelectorAll(UISelectors.tickerItem);
+    const tickerAnimation = new Animation();
+
+    let liTotalWidth = 0;
+    let tickerWidth = 0;
+    let totalDivTicker = 0;
+    let totalLiWidth = 0;
+    tickerItem.forEach(item => {
+      let elWidth = tickerAnimation.getElementWidth(item);
+      let beforePseudoWidth = tickerAnimation.getPseudoElementWidth(item, "before", "width");
+      let afterPseudoWidth = tickerAnimation.getPseudoElementWidth(item, "after", "width");
+      totalLiWidth += elWidth + beforePseudoWidth + afterPseudoWidth;
+    });
+    console.log(totalLiWidth);
+    let widthMovement = "translateX(-" + totalLiWidth + "px)";
+    console.log(widthMovement);
+    let tickerDuration = totalLiWidth *10;
+    console.log(tickerDuration);
+    console.log(tickerItems);
+    tickerAnimation.animateTicker(tickerItems, widthMovement, tickerDuration);
   }
 
   const loadBeerlist = function() {
@@ -409,7 +438,6 @@ const UICtrl = (function(){
       eventscreenTemplate.eventTwoColTemplate(displayData);
     }
   }
-
   const udpateDraftBeersPrintScreen = (displayData) => {
     const { beers } = displayData;
     // console.log('IN THE udpateBeersPrintScreen');
@@ -417,14 +445,12 @@ const UICtrl = (function(){
     beersprintTemplate.draftBeersPrintScreenTemplate(displayData);
     // beersprintTemplate.draftBeersPrintScreenTemplate(beers);
   }
-
   const updateDraftBeersTabletScreen = (displayData) => {
     // console.log('IN THE updateDraftBeersTabletScreen');
     const beersprintTemplate = new BeerTemplate;
     beersprintTemplate.draftBeersTabletScreenTemplate(displayData);
     // beersprintTemplate.draftBeersTabletScreenTemplate(beers);
   }
-
   const updateBottleBeersTabletScreen = (displayData) => {
     console.log(displayData);
     const { beerlist } = displayData;
@@ -433,7 +459,6 @@ const UICtrl = (function(){
     beersprintTemplate.bottleBeersTabletScreenTemplate(displayData);
     // beersprintTemplate.bottleBeersTabletScreenTemplate(beers);
   }
-
   const updateWineTabletScreen = (displayData) => {
     console.log(displayData);
     const wineScreenTabletTemplate = new WineTemplate;
@@ -444,7 +469,6 @@ const UICtrl = (function(){
     const wineScreenwineDescriptionsTabletTemplateTabletTemplate = new WineTemplate;
     wineScreenwineDescriptionsTabletTemplateTabletTemplate.wineDescriptionsTabletTemplate(displayData);
   }
-
   const addBeerToListEditor = (data) => {
       const addBeerToListTemplate = new BeerTemplate;
       addBeerToListTemplate.addBeerToListEditorTemplate(data);
@@ -470,8 +494,6 @@ const UICtrl = (function(){
     deleteBeerFromOnTapNextEditorTemplate.deleteBeerFromOnTapNextEditorTemplate(data);
   }
 
-
-
   // Public methods
   return {
     getSelectors: function () {
@@ -479,6 +501,9 @@ const UICtrl = (function(){
     },
     callHideFlashMsg: () => {
       hideFlashMsg();
+    },
+    callMoveTicker: () => {
+      moveTicker();
     },
     callLoadBeerlist: () => {
       loadBeerlist();
@@ -573,13 +598,10 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
       "userSettings": { "venue_db_id": userData }
     }
 
-
     // console.log(displayData);
     // // update all screens
     // // update edit_beer_list
     UICtrl.callAddBeerToListEditor(displayData);
-
-
     // // repaint beers_tv_screen
     UICtrl.callUpdateDisplayScreen(displayData);
     // // repaint draft_beers_print
@@ -590,6 +612,8 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
     UICtrl.callAddBeerOnTapNextDisplay(displayData);
     // repaint on_tap_next_editor
     UICtrl.callAddBeerOnTapNextEditor(displayData);
+    // Move ticker on beers_display_screen.html
+    UICtrl.callMoveTicker();
   }
 
   async function deleteUpdateScreens(data) {
@@ -599,8 +623,6 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
 
     // delete beer from current screen from edit_beer_list
     // function call to delete
-
-
     // query the DB for the current beerlist
     let currentBeers = await BeerCtrl.callFetchCurBeerlist();
     // console.log(currentBeers);
@@ -644,7 +666,8 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
     UICtrl.callAddBeerOnTapNextDisplay(displayData);
     // repaint on_tap_next_editor
     UICtrl.callAddBeerOnTapNextEditor(displayData);
-
+    // Move ticker on beers_display_screen.html
+    UICtrl.callMoveTicker();
   }
 
 
@@ -695,6 +718,8 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
         // update bottle beer list asynconously
         UICtrl.callUpdateBottleBeersTabletScreen(displayData);
         // BeerCtrl.callFetchBottleBeerlist(UICtrl.callUpdateBottleBeersTabletScreen);
+        // Move ticker on beers_display_screen.html
+        UICtrl.callMoveTicker();
       }
     }
   }
@@ -783,6 +808,8 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
         // update bottle beer list asynconously
         UICtrl.callUpdateBottleBeersTabletScreen(displayData);
         // BeerCtrl.callFetchBottleBeerlist(UICtrl.callUpdateBottleBeersTabletScreen);
+        // Move ticker on beers_display_screen.html
+        UICtrl.callMoveTicker();
       }
     }
   }
@@ -818,16 +845,6 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
     ///////////////////////////////////////////////////////
 
 
-
-
-
-
-
-
-
-
-
-
     ///////////////////////////////////////////////////////
     // // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
@@ -844,34 +861,6 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
       // console.log(data);
     });
     ///////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   }
 
   // Load pusher
@@ -887,6 +876,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
     channel.bind('new-event', function(data) {
       console.log(data);
       initScreens(data.message);
+
     });
     ///////////////////////////////////////////////////////
   }
@@ -944,10 +934,6 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
   //   });
   //   ///////////////////////////////////////////////////////
   // }
-
-
-
-
 
   const addBeerToDbPusher = function() {
     ///////////////////////////////////////////////////////
@@ -1034,19 +1020,6 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
     }
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     // Edit beerlist submit
     const editBeerlistFormSubmit = function(e) {
       console.log('CLICK EDIT BEERLIST FORM SUBMIT');
@@ -1099,17 +1072,6 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
       e.preventDefault();
     }
 
-
-
-
-
-
-
-
-
-
-
-
     async function addBeerToBeerlist(e) {
       console.log('CLICK PLUS BUTTON TO ADD BEER TO LISTS');
       // add new beer to listCurrent DB
@@ -1140,12 +1102,6 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
       e.preventDefault();
     }
 
-
-
-
-
-
-
     async function delBeerFromBeerlist(e) {
       console.log('CLICK MINUS BUTTON TO DELETE BEER FROM LISTS');
 
@@ -1164,16 +1120,6 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
       UpdateCtrl.callFetchDeleteUpdateScreenUI();
       e.preventDefault();
     }
-
-
-
-
-
-
-
-
-
-
 
     async function editOnTapNextEditorSubmit() {
       console.log('SUBMITING ON TAP NEXT EDITOR');
@@ -1206,32 +1152,22 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
   // Public methods
   return {
     init: function(){
-
-
       loadUpdatePusher();
       loadPusher();
       addBeerToDbPusher();
       editBeerToDbPusher();
       delBeerFromDbPusher();
       loadWinePusher();
-
-
-
-
       // Show flash message div and then hide after 2.5 seconds
       UICtrl.callHideFlashMsg();
       // BeerCtrl.callFetchCurrentBeerList(UICtrl.callUpdateDisplayScreen);
       // WineCtrl.callFetchCurrentWinelist(UICtrl.callUpdateWineTabletScreen);
-
       // Call load event listeners function
       loadEventListeners();
       // console.log("TRYING TO INITIALIZE THE SCREENS!!!!!!!!!")
-
-
-
-
       initScreens({"updated":"True"});
-
+      // Move ticker on beers_display_screen.html
+      UICtrl.callMoveTicker();
     }
   }
 

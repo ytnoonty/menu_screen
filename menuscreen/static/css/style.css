@@ -92,7 +92,8 @@ body {
   margin: 0 0px;
   padding: 0;
 }
-.beer-name {
+.beer-name,
+.ticker-news {
   font-size: 3rem;
 }
 .beer-style,

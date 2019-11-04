@@ -534,7 +534,7 @@ class BeerTemplate {
     screenDisplayTickerHTML = ``;
     screenDisplayTickerHTML = `
     <div class="ticker d-flex align-items-center move-left">
-      <ul class="list-group list-group-inline ml-3">
+      <ul class="list-group ticker-items list-group-inline ml-3">
     `;
     if (beerlistBom.length > 0){
       screenDisplayTickerHTML += `
