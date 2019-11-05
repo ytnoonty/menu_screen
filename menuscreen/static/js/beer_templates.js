@@ -414,6 +414,80 @@ class BeerTemplate {
     }
   }
 
+  ////////////////////////////////////////////////////////////////////////////
+  /////// BEGIN beer_dashboard
+  ////////////////////////////////////////////////////////////////////////////
+  repaintBeerDashboard(data) {
+    let dashboardBeerInfo = document.querySelector('#dashboard-beer-info');
+    let { beerlist } = data;
+    console.log(beerlist);
+    console.log("REPAINT BEER DASHBOARD LIST");
+    let beerDashboardTable = document.createElement('table');
+    beerDashboardTable.className = 'mt-3 table table-striped';
+    beerlist.forEach(beer => {
+      console.log(beer);
+      // get first letter of beer.name to put in tr id to be used by side menu for navigation of list
+      let dashMenuId_firstLetter = beer.name[0].slice(0,1).toLowerCase();
+      console.log(dashMenuId_firstLetter);
+      beerDashboardTable.innerHTML += `
+      <tr id="${ dashMenuId_firstLetter }" class="row-name">
+        <th class="toggle-table dashboard-beer-name">${beer.name}</th>
+        <td><a href="edit_beer/${beer.id}" class="btn btn-sm btn-outline-default pull-right">Edit</a></td>
+        <td>
+          <form action="/delete_beer/${beer.id}" method="post">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="submit" value="Delete" class="btn btn-sm btn-outline-danger">
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" class="d-none animate-table">
+          <div class="row row-id">
+            <div class="col-5">ID:</div>
+            <div class="col-7">${beer.id}</div>
+          </div>
+          <div class="row row-style">
+            <div class="col-5">Style:</div>
+            <div class="col-7">${beer.style}</div>
+          </div>
+          <div class="row row-abv">
+            <div class="col-5">ABV:</div>
+            <div class="col-7">${beer.abv}</div>
+          </div>
+          <div class="row row-ibu">
+            <div class="col-5">IBU:</div>
+            <div class="col-7">${beer.ibu}</div>
+          </div>
+          <div class="row row-brewery">
+            <div class="col-5">Brewery:</div>
+            <div class="col-7">${beer.brewery}</div>
+          </div>
+          <div class="row row-location">
+            <div class="col-5">Location:</div>
+            <div class="col-7">${beer.location}</div>
+          </div>
+          <div class="row row-website">
+            <div class="col-5">Website:</div>
+            <div class="col-7">${beer.website}</div>
+          </div>
+          <div class="row row-description">
+            <div class="col-5">Description:</div>
+            <div class="col-7">${beer.description}</div>
+          </div>
+          <div class="row row-draft-bottle">
+            <div class="col-5">Draft / Bottle:</div>
+            <div class="col-7">${beer.draft_bottle_selection}</div>
+          </div>
+        </td>
+      </tr>
+      `;
+    });
+    dashboardBeerInfo.appendChild(beerDashboardTable);
+  }
+  ////////////////////////////////////////////////////////////////////////////
+  /////// END beer_dashboard
+  ////////////////////////////////////////////////////////////////////////////
+
 
 
 

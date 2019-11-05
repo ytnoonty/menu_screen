@@ -57,7 +57,7 @@
     <table class="mt-3 table table-striped">
       {% for beer in beers %}
         <tr id="{{ beer.dash_menu_id }}" class="row-name">
-          <th class="toggle-table beer-name">{{beer.name}}</th>
+          <th class="toggle-table dashboard-beer-name">{{beer.name}}</th>
           <td><a href="{{ url_for('list_history.edit_beer', beer_id=beer.id) }}" class="btn btn-sm btn-outline-default pull-right">Edit</a></td>
           <td>
             <form action="{{url_for('list_history.delete_beer', beer_id=beer.id)}}" method="post">

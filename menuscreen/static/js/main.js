@@ -219,7 +219,8 @@ const BeerCtrl = (function(){
     },
     callFetchBottleBeerlist: function(template) {
       fetchBottleBeerlist(template);
-    }
+    },
+
   }
 
 })();
@@ -368,6 +369,14 @@ const UICtrl = (function(){
     ticker: '.ticker',
     tickerItems: '.ticker-items',
     tickerItem: '.ticker-item',
+
+    // beer_dashboard.html clear search button
+    clearDashSearch: '#clear-dash-search',
+    dashboardSearchBeer: '#dashboard-search-beer',
+    dashboardBeerInfo: '#dashboard-beer-info',
+    dashboardTableTr: 'table tr',
+    dashboardTableRowName: '.row-name',
+
   }
 
   // flash message dissapear after 2.5 seconds
@@ -395,12 +404,12 @@ const UICtrl = (function(){
       let afterPseudoWidth = tickerAnimation.getPseudoElementWidth(item, "after", "width");
       totalLiWidth += elWidth + beforePseudoWidth + afterPseudoWidth;
     });
-    console.log(totalLiWidth);
+    // console.log(totalLiWidth);
     let widthMovement = "translateX(-" + totalLiWidth + "px)";
-    console.log(widthMovement);
+    // console.log(widthMovement);
     let tickerDuration = totalLiWidth *10;
-    console.log(tickerDuration);
-    console.log(tickerItems);
+    // console.log(tickerDuration);
+    // console.log(tickerItems);
     tickerAnimation.animateTicker(tickerItems, widthMovement, tickerDuration);
   }
 
@@ -493,6 +502,10 @@ const UICtrl = (function(){
     const deleteBeerFromOnTapNextEditorTemplate = new BeerTemplate;
     deleteBeerFromOnTapNextEditorTemplate.deleteBeerFromOnTapNextEditorTemplate(data);
   }
+  const repaintBeerlistDashboard = (data) => {
+    const beerDashboardTemplate = new BeerTemplate;
+    beerDashboardTemplate.repaintBeerDashboard(data);
+  }
 
   // Public methods
   return {
@@ -544,6 +557,9 @@ const UICtrl = (function(){
     callDeletBeerFromOnTapNextEditor: (data) => {
       deleteBeerFromOnTapNextEditor(data);
     },
+    callRepaintBeerlistDashboard: (data) => {
+      repaintBeerlistDashboard(data);
+    }
   }
 })();
 ////////////////////////////////////////////////////////////////////////////////
@@ -1018,6 +1034,17 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
     if (document.querySelector(UISelectors.addBeerToDbSubmitBtn) != null) {
       document.querySelector(UISelectors.addBeerToDbSubmitBtn).addEventListener('click', addBeerToDbSubmit);
     }
+    if (document.querySelector(UISelectors.clearDashSearch) != null) {
+      document.querySelector(UISelectors.clearDashSearch).addEventListener('click', clearDashSearch);
+    }
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('toggle-table')) {
+        expandBeerOnDashboard(e);
+      }
+    });
+    if (document.querySelector(UISelectors.dashboardSearchBeer) != null) {
+      document.querySelector(UISelectors.dashboardSearchBeer).addEventListener('keyup', searchBeerDashboard);
+    }
   }
 
     // Edit beerlist submit
@@ -1148,6 +1175,78 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
       })(editBeerToDbPusher);
       e.preventDefault();
     }
+
+    const clearDashSearch = async function(e) {
+      // **clear the search for the dashboard and reset the dashboard table list
+      let clearDashSearchBeerBtn = document.querySelector(UISelectors.dashboardSearchBeer);
+      let dashboardSearchBeerInput = document.querySelector(UISelectors.dashboardSearchBeer);
+      let dashboardBeerInfo = document.querySelector(UISelectors.dashboardBeerInfo);
+      // clear dashboard search input
+      let getValue = dashboardSearchBeerInput.value;
+      console.log(getValue);
+      // clear the dashboard beerlist to start a new search
+      console.log(dashboardBeerInfo);
+      dashboardBeerInfo.innerHTML = '';
+
+      // repopulate/repaint beerlist table on beer_dashboard.html
+      let beerlist = await BeerCtrl.callFetchBeerhistoryList();
+      UICtrl.callRepaintBeerlistDashboard(beerlist);
+
+      // clear the text input to start a new search
+      console.log('CLEARING SEARCH BAR NOW');
+      dashboardSearchBeerInput.value = '';
+      // set focus to the text input on beer_dashboard.html
+      dashboardSearchBeerInput.focus();
+      e.preventDefault();
+    }
+
+    // expand a beerlist item on the beer_dashboard
+    const expandBeerOnDashboard = function(e) {
+      console.log('TOGGLE-TABLE');
+      e.target.parentElement.nextElementSibling.firstElementChild.classList.toggle('d-none');
+    }
+
+    const searchBeerDashboard = function(e) {
+      let beerDashboardTableRows = document.querySelectorAll(UISelectors.dashboardTableRowName);
+      console.log('SEARCHING BEERLIST ON DASHBOARD');
+      // console.log(e);
+      const userText = e.target.value.toLowerCase();
+      if (userText !== '') {
+        beerDashboardTableRows.forEach(tableRow => {
+          let name = tableRow.innerText.split('\t')[0];
+          // console.log(name);
+          if (name.toLowerCase().indexOf(userText) > -1) {
+            // console.log(name);
+            console.log(tableRow);
+            tableRow.classList.remove('d-none');
+          } else {
+            tableRow.classList.add('d-none');
+          }
+        });
+      } else {
+        beerDashboardTableRows.forEach(tableRow => {
+          tableRow.classList.remove('d-none');
+        });
+      }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // Public methods
   return {
