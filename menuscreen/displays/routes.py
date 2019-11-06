@@ -673,7 +673,25 @@ def on_tap_next_display():
 @login_required
 def bottle_beers():
     user = User.query.filter_by(id=current_user.id).first()
+
     datas = user.beerlist_sort_asc
+
+    datas = db.session.query(
+        List_history.id,
+        List_history.name,
+        List_history.style,
+        List_history.abv,
+        List_history.ibu,
+        List_history.brewery,
+        List_history.location,
+        List_history.website,
+        List_history.description,
+        List_history.draft_bottle_selection,
+        ).filter(List_history.draft_bottle_selection != "Draft"
+        ).filter(List_history.venue_db_id == current_user.id
+        ).order_by(List_history.name.asc()
+        ).all()
+
     beers = []
     for data in datas:
         beer = {
@@ -699,8 +717,27 @@ def bottle_beers():
 @displays.route('/bottle_beers/<string:venuename>/<string:screen_id>', methods=['GET','POST'])
 def bottle_beers_nologin(venuename, screen_id):
     current_user_id = getVenueId(venuename)
-    user = User.query.filter_by(id=current_user_id).first()
-    datas = user.beerlist_sort_asc
+    # user = User.query.filter_by(id=current_user.id).first()
+    # datas = user.beerlist_sort_asc
+
+    datas = db.session.query(
+        List_history.id,
+        List_history.name,
+        List_history.style,
+        List_history.abv,
+        List_history.ibu,
+        List_history.brewery,
+        List_history.location,
+        List_history.website,
+        List_history.description,
+        List_history.draft_bottle_selection,
+        ).filter(List_history.draft_bottle_selection != "Draft"
+        ).filter(List_history.venue_db_id == current_user_id
+        # ).filter(List_history.beerscreen_id == screen_id
+        ).order_by(List_history.name.asc()
+        ).all()
+
+
     beers = []
     for data in datas:
         beer = {
