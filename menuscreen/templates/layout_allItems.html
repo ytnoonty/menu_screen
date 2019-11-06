@@ -14,8 +14,11 @@
   <div class="row justify-content-center mt-3 mb-2">
     <div class="row justify-content-center">
       <div id="update-print-page" class="col-6">
+        {% if current_user.is_authenticated %}
         <!-- <img class="screen-list-img-pp" src="{{ url_for('static', filename='img/SHAMROCKS_LOGO.png') }}" alt="image should be here"> -->
         <img class="screen-list-img-pp col col-lg-6" src="{{ url_for('static', filename='img/profile_pics/' + current_user.image_file ) }}" alt="image should be here">
+        {% else %}
+        {% endif %}
       </div>
     </div>
   </div>

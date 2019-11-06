@@ -601,43 +601,40 @@ class BeerTemplate {
         </div>
       </div>`;
 
-
-
-
-
-    screenDisplayTickerHTML = ``;
-    screenDisplayTickerHTML = `
-    <div class="ticker d-flex align-items-center move-left">
-      <ul class="list-group ticker-items list-group-inline ml-3">
-    `;
-    if (beerlistBom.length > 0){
-      screenDisplayTickerHTML += `
-        <li class="list-group-inline align-middle font-weight-bold ticker-item txt-clr-grn-shdw spacing-sml"><span class="ticker-text">Beer 'O the Month:</span></li>
+      screenDisplayTickerHTML = ``;
+      screenDisplayTickerHTML = `
+      <div class="ticker d-flex align-items-center move-left">
+        <ul class="list-group ticker-items list-group-inline ml-3">
       `;
-    }
-    beerlistBom.forEach(function(beer){
-      screenDisplayTickerHTML += `
-        <li class="list-group-inline align-middle font-weight-bold font-italic ticker-item left-spacer txt-clr-ylw card-img"><span class="beer-name">${ beer.name }</span></li>
+      if (beerlistBom.length > 0){
+        screenDisplayTickerHTML += `
+          <li class="list-group-inline align-middle font-weight-bold ticker-item txt-clr-grn-shdw spacing-sml"><span class="ticker-text">Beer 'O the Month:</span></li>
+        `;
+      }
+      beerlistBom.forEach(function(beer){
+        screenDisplayTickerHTML += `
+          <li class="list-group-inline align-middle font-weight-bold font-italic ticker-item left-spacer txt-clr-ylw card-img"><span class="beer-name">${ beer.name }</span></li>
+        `});
+      if (beerlistCs.length > 0) {
+        screenDisplayTickerHTML += `
+          <li class="list-group-inline align-middle font-weight-bold ticker-item left-spacer txt-clr-grn-shdw spacing-sml"><span class="ticker-text">Tapping Soon:</span></li>
+        `;
+      }
+      beerlistCs.forEach(function(beer){
+        screenDisplayTickerHTML += `
+          <li class="list-group-inline align-middle font-weight-bold font-italic ticker-item txt-clr-ylw card-img"><span class="beer-name">${ beer.name }</span></li>
       `});
-    if (beerlistCs.length > 0) {
-      screenDisplayTickerHTML += `
-        <li class="list-group-inline align-middle font-weight-bold ticker-item left-spacer txt-clr-grn-shdw spacing-sml"><span class="ticker-text">Tapping Soon:</span></li>
-      `;
-    }
-    beerlistCs.forEach(function(beer){
-      screenDisplayTickerHTML += `
-        <li class="list-group-inline align-middle font-weight-bold font-italic ticker-item txt-clr-ylw card-img"><span class="beer-name">${ beer.name }</span></li>
-    `});
-    if (tickerInfoData.ticker_text !== "") {
-      screenDisplayTickerHTML += `
-        <li class="list-group-inline align-middle font-weight-bold ticker-item txt-clr-grn-shdw left-spacer spacing-sml"><span class="ticker-text">Shamrock News:</span></li>
-        <li class="list-group-inline align-middle font-weight-bold font-italic ticker-item txt-clr-ylw left-spacer card-img"><span class="ticker-news">${ tickerInfoData.ticker_text }</span></li>
-      `;
-    }
-      screenDisplayTickerHTML += `
-      </ul>
-    </div>
-      `;
+      if (tickerInfoData.ticker_text !== "") {
+        screenDisplayTickerHTML += `
+          <li class="list-group-inline align-middle font-weight-bold ticker-item txt-clr-grn-shdw left-spacer spacing-sml"><span class="ticker-text">Shamrock News:</span></li>
+          <li class="list-group-inline align-middle font-weight-bold font-italic ticker-item txt-clr-ylw left-spacer card-img"><span class="ticker-news">${ tickerInfoData.ticker_text }</span></li>
+        `;
+      }
+        screenDisplayTickerHTML += `
+        </ul>
+      </div>
+        `;
+
     if (screenDisplay !== null && screenDisplay !== undefined) {
       screenDisplay.innerHTML = screenDisplayHTML;
       screenDisplayTicker.innerHTML = screenDisplayTickerHTML;

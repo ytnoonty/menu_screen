@@ -520,110 +520,6 @@ def testing_winelist_editor():
     return render_template('testing_winelist_editor.html', title='Winelist Editor', legend='Winelist Editor', wines=wines)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# winelist menu
-@wine.route('/winelist_menu/<string:venuename>/<string:screen_id>')
-def winelist_menu_(venuename, screen_id):
-    # get user ID from venue name
-    current_user_id = getVenueId(venuename)
-    # query to get types of wine
-    wineTypes = _getWinetypes(current_user_id)
-    # convert wineTypes to usable list
-    wineTypelist = _convertToWinelist(wineTypes)
-    # print(wineTypelist)
-
-    # turn wineType list into array
-    wineTypelistArr = []
-    for wine in wineTypelist:
-        print("wineType: {}".format(wine['type']))
-        wineTypelistArr.append(wine['type'])
-    print("")
-
-    # get all the wines in the database
-    totalWinelist = _getWines(current_user_id)
-    print(totalWinelist)
-    print("")
-
-    # turn total winelist into usable array
-    totalWinelistArr = []
-    for wine in totalWinelist:
-        print("wineType: {}".format(wine.type))
-        totalWinelistArr.append(wine.type)
-    print("")
-
-    print(wineTypelistArr)
-    print(totalWinelistArr)
-
-    # filter out all the types of wines to use as a heading list to categorize the wines
-    def filterTypes(listTypes):
-        if(listTypes in totalWinelistArr):
-            return True
-        else:
-            return False
-
-    # filter the type of wines actually being used
-    filteredTypes = filter(filterTypes, wineTypelistArr)
-
-    print("")
-    print(filteredTypes)
-    print("")
-
-    # create a list of type of wines actually used
-    typeList = []
-    for ft in filteredTypes:
-        typeList.append(ft)
-
-    print(typeList)
-
-    winelist = totalWinelist
-    return render_template('winelist_menu.html', title='Winelist Menu',
-    wineTypelist=typeList,
-    winelist=winelist,
-    currentUserId=current_user_id)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # winelist menu
 @wine.route('/winelist_menu')
 @login_required
@@ -683,28 +579,30 @@ def winelist_menu():
     winelist=winelist,
     currentUserId=current_user.id)
 
-
-
-
-# winelist description menu
-@wine.route('/winelist_description/<string:venuename>/<string:screen_id>')
-def winelist_description_(venuename, screen_id):
+# winelist menu
+@wine.route('/winelist_menu/<string:venuename>/<string:screen_id>')
+def winelist_menu_nologin(venuename, screen_id):
     # get user ID from venue name
     current_user_id = getVenueId(venuename)
+    # query to get types of wine
     wineTypes = _getWinetypes(current_user_id)
+    # convert wineTypes to usable list
     wineTypelist = _convertToWinelist(wineTypes)
-    print(wineTypelist)
+    # print(wineTypelist)
 
+    # turn wineType list into array
     wineTypelistArr = []
     for wine in wineTypelist:
         print("wineType: {}".format(wine['type']))
         wineTypelistArr.append(wine['type'])
     print("")
 
+    # get all the wines in the database
     totalWinelist = _getWines(current_user_id)
     print(totalWinelist)
     print("")
 
+    # turn total winelist into usable array
     totalWinelistArr = []
     for wine in totalWinelist:
         print("wineType: {}".format(wine.type))
@@ -714,19 +612,21 @@ def winelist_description_(venuename, screen_id):
     print(wineTypelistArr)
     print(totalWinelistArr)
 
+    # filter out all the types of wines to use as a heading list to categorize the wines
     def filterTypes(listTypes):
-
         if(listTypes in totalWinelistArr):
             return True
         else:
             return False
 
+    # filter the type of wines actually being used
     filteredTypes = filter(filterTypes, wineTypelistArr)
 
     print("")
     print(filteredTypes)
     print("")
 
+    # create a list of type of wines actually used
     typeList = []
     for ft in filteredTypes:
         typeList.append(ft)
@@ -734,11 +634,10 @@ def winelist_description_(venuename, screen_id):
     print(typeList)
 
     winelist = totalWinelist
-    return render_template('winelist_description.html', title='Winelist Description',
+    return render_template('winelist_menu.html', title='Winelist Menu',
     wineTypelist=typeList,
     winelist=winelist,
     currentUserId=current_user_id)
-
 
 
 
@@ -795,3 +694,57 @@ def winelist_description():
     wineTypelist=typeList,
     winelist=winelist,
     currentUserId=current_user.id)
+
+
+# winelist description menu
+@wine.route('/winelist_description/<string:venuename>/<string:screen_id>')
+def winelist_description_nologin(venuename, screen_id):
+    # get user ID from venue name
+    current_user_id = getVenueId(venuename)
+    wineTypes = _getWinetypes(current_user_id)
+    wineTypelist = _convertToWinelist(wineTypes)
+    print(wineTypelist)
+
+    wineTypelistArr = []
+    for wine in wineTypelist:
+        print("wineType: {}".format(wine['type']))
+        wineTypelistArr.append(wine['type'])
+    print("")
+
+    totalWinelist = _getWines(current_user_id)
+    print(totalWinelist)
+    print("")
+
+    totalWinelistArr = []
+    for wine in totalWinelist:
+        print("wineType: {}".format(wine.type))
+        totalWinelistArr.append(wine.type)
+    print("")
+
+    print(wineTypelistArr)
+    print(totalWinelistArr)
+
+    def filterTypes(listTypes):
+
+        if(listTypes in totalWinelistArr):
+            return True
+        else:
+            return False
+
+    filteredTypes = filter(filterTypes, wineTypelistArr)
+
+    print("")
+    print(filteredTypes)
+    print("")
+
+    typeList = []
+    for ft in filteredTypes:
+        typeList.append(ft)
+
+    print(typeList)
+
+    winelist = totalWinelist
+    return render_template('winelist_description.html', title='Winelist Description',
+    wineTypelist=typeList,
+    winelist=winelist,
+    currentUserId=current_user_id)

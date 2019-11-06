@@ -377,6 +377,12 @@ const UICtrl = (function(){
     dashboardTableTr: 'table tr',
     dashboardTableRowName: '.row-name',
 
+    // tablet menu buttons
+    draftBeersTabletNavBtn: '#draft-beers-tablet',
+    bottleBeersTabletNavBtn: '#bottle-beers-tablet',
+    winelistMenuTabletNavBtn: '#winelist-menu-tablet',
+    winelistDescriptionTabletNavBtn: '#winelist-description-tablet',
+
   }
 
   // flash message dissapear after 2.5 seconds
@@ -1045,6 +1051,18 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
     if (document.querySelector(UISelectors.dashboardSearchBeer) != null) {
       document.querySelector(UISelectors.dashboardSearchBeer).addEventListener('keyup', searchBeerDashboard);
     }
+    if (document.querySelector(UISelectors.draftBeersTabletNavBtn) != null) {
+      document.querySelector(UISelectors.draftBeersTabletNavBtn).addEventListener('click', switchTabletScreen);
+    }
+    if (document.querySelector(UISelectors.bottleBeersTabletNavBtn) != null) {
+      document.querySelector(UISelectors.bottleBeersTabletNavBtn).addEventListener('click', switchTabletScreen);
+    }
+    if (document.querySelector(UISelectors.winelistMenuTabletNavBtn) != null) {
+      document.querySelector(UISelectors.winelistMenuTabletNavBtn).addEventListener('click', switchTabletScreen);
+    }
+    if (document.querySelector(UISelectors.winelistDescriptionTabletNavBtn) != null) {
+      document.querySelector(UISelectors.winelistDescriptionTabletNavBtn).addEventListener('click', switchTabletScreen);
+    }
   }
 
     // Edit beerlist submit
@@ -1228,6 +1246,34 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
           tableRow.classList.remove('d-none');
         });
       }
+    }
+
+    // tablet menuscreen switch screens without being logged in.
+    const switchTabletScreen = (e) => {
+      console.log('SWITCH TABLET SCREEN NOW');
+      // get the clicked button id
+      let targetId = e.target.id
+      // split the id to get the new page
+      targetPage = targetId.split('-').slice(0,2).join('_');
+      console.log(targetPage);
+
+      // get the current window url
+      let currentWindowURL = window.location.href;
+      console.log(currentWindowURL);
+      // split the current window url to replace with target url info
+      currentWindowSplitURL = currentWindowURL.split('/');
+      console.log(currentWindowSplitURL);
+
+      // let currentButton = currentWindowSplitURL[3];
+      // console.log(currentButton);
+
+      // replace third element of url with the target button id to create new url
+      currentWindowSplitURL[3] = targetPage;
+      // create new url
+      let newPage = currentWindowSplitURL.join('/');
+      console.log(newPage);
+      // redirect to new page
+      window.location.replace(newPage);
     }
 
 
