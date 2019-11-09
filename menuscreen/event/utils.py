@@ -19,7 +19,7 @@ def _getEvents(user_id):
     return events
 
 def _getEventsSortAsc(user_id):
-    user = User.query.filter_by(id=current_user.id).first()
+    user = User.query.filter_by(id=user_id).first()
     eventsDb = user.event_sort_asc
     events = []
     for event in eventsDb:

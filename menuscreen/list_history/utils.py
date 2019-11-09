@@ -12,8 +12,8 @@ def getDefaultNextSelect(nextId):
     return thisBeer
 
 def _getCurrentBeerlist(user_id):
-    user = User.query.filter_by(id=user_id).first()
-    beers = user.beerlist_current
+    # user = User.query.filter_by(id=user_id).first()
+    # beers = user.beerlist_current
     beers = db.session.query(
         List_history.id,
         List_history.name,
@@ -30,8 +30,7 @@ def _getCurrentBeerlist(user_id):
         List_current.beer_of_month,
         List_current.coming_soon,
         ).outerjoin(List_current, List_history.id == List_current.id_history
-        ).filter(List_current.venue_db_id == current_user.id).all()
-    # beers = beers[0:22]
+        ).filter(List_current.venue_db_id == user_id).all()
     beerlist = []
     for b in beers:
         beer = {}
@@ -52,7 +51,7 @@ def _getCurrentBeerlist(user_id):
     return beerlist
 
 def _getOnTapNextBeerlist(user_id):
-    user = User.query.filter_by(id=user_id).first()
+    # user = User.query.filter_by(id=user_id).first()
     beers = db.session.query(
         List_history.id,
         List_history.name,
@@ -67,8 +66,7 @@ def _getOnTapNextBeerlist(user_id):
         List_current.id_on_next,
         List_current.id_dropdown,
         ).outerjoin(List_current, List_history.id == List_current.id_on_next
-        ).filter(List_current.venue_db_id == current_user.id).all()
-    # beers = beers[0:22]
+        ).filter(List_current.venue_db_id == user_id).all()
     beerlist = []
     for b in beers:
         beer = {}

@@ -7,6 +7,7 @@ from menuscreen.settttings.forms import SettingsForm, FontSizeForm, TemplateForm
 from menuscreen.settttings.utils import _getFontSizes, _getTemplates, _getSettings, _getNameFontSize, _getStyleFontSize, _getTemplateName, _getAbvFontSize, _getIbuFontSize, _getBreweryFontSize
 from menuscreen.list_history.utils import _getCurrentBeerlist
 from menuscreen.event.utils import _getEventsSortAsc
+from menuscreen.users.init_db_tables import getVenueId
 
 from menuscreen import pusher_client
 
@@ -14,10 +15,26 @@ settttings = Blueprint('settttings', __name__)
 
 # GET USER SETTINGS
 @settttings.route('/_get_screen_settings', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def _get_screen_settings():
-    settings = _getSettings(current_user.id)
-    return jsonify(settings)
+    data = request.get_json()
+    print("**************************************")
+    print("**************************************")
+    print("list_history. /_get_screen_settings")
+    print(data)
+    current_user_id = getVenueId(data['userName'])
+    if (data):
+        print("DATA HERE")
+        print(data['userName'])
+        print(current_user_id)
+        data = _getSettings(current_user_id)
+    else:
+        print("NO DATA HERE")
+        print(current_user.id)
+        data = _getSettings(current_user.id)
+    print("**************************************")
+    print("**************************************")
+    return jsonify(data)
 
 # Add template to DB
 @settttings.route('/add_template', methods=['GET', 'POST'])

@@ -79,13 +79,35 @@ def _winemenu_list():
 
 # query the DB ticker table
 @displays.route('/getTickerInfo', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def getTickerInfo():
-    data = _getTickerInfo(current_user.id)
-    tickerInfo = {}
-    tickerInfo['id'] = data.id
-    tickerInfo['ticker_text'] = data.ticker_text
-    tickerInfo['tickerscreen_id'] = data.tickerscreen_id
+    data = request.get_json()
+    print("**************************************")
+    print("**************************************")
+    print("list_history. /_getTickerInfo")
+    print(data)
+    current_user_id = getVenueId(data['userName'])
+    if (data):
+        print("DATA HERE")
+        print(data['userName'])
+        print(current_user_id)
+        data = _getTickerInfo(current_user_id)
+        tickerInfo = {}
+        tickerInfo['id'] = data.id
+        tickerInfo['ticker_text'] = data.ticker_text
+        tickerInfo['tickerscreen_id'] = data.tickerscreen_id
+
+    else:
+        print("NO DATA HERE")
+        print(current_user.id)
+        data = _getTickerInfo(current_user.id)
+        tickerInfo = {}
+        tickerInfo['id'] = data.id
+        tickerInfo['ticker_text'] = data.ticker_text
+        tickerInfo['tickerscreen_id'] = data.tickerscreen_id
+
+    print("**************************************")
+    print("**************************************")
     return jsonify(tickerInfo)
 
 # Update screen display

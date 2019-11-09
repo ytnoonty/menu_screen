@@ -6,14 +6,31 @@ from menuscreen import db
 from menuscreen.models import User, Event
 from menuscreen.event.forms import EventForm
 from menuscreen.event.utils import getTime, _getEvents, _getEventsSortAsc
+from menuscreen.users.init_db_tables import getVenueId
 
 event = Blueprint('event', __name__)
 
 
 @event.route('/_get_event_current_list', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def _get_event_current_list():
-    data = _getEventsSortAsc(current_user.id)
+    data = request.get_json()
+    print("**************************************")
+    print("**************************************")
+    print("list_history. /_get_event_current_list")
+    print(data)
+    current_user_id = getVenueId(data['userName'])
+    if (data):
+        print("DATA HERE")
+        print(data['userName'])
+        print(current_user_id)
+        data = _getEventsSortAsc(current_user_id)
+    else:
+        print("NO DATA HERE")
+        print(current_user.id)
+        data = _getEventsSortAsc(current_user.id)
+    print("**************************************")
+    print("**************************************")
     return jsonify(data)
 
 @event.route('/event_dashboard', methods=['GET', 'POST'])

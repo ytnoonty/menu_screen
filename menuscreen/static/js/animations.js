@@ -62,13 +62,15 @@ class Animation {
   }
 
   animateTicker(el, movement, duration) {
-    el.animate([
-      { transform: 'translateX(100vw)'},
-      { transform: movement}
-    ], {
-      duration: duration,
-      iterations: Infinity
-    });
+    if (el !== null) {
+      el.animate([
+        { transform: 'translateX(100vw)'},
+        { transform: movement}
+      ], {
+        duration: duration,
+        iterations: Infinity
+      });
+    }
   }
 
 }

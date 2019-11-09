@@ -18,11 +18,34 @@ from menuscreen.users.init_db_tables import (getVenueId, initListHistory,
 users = Blueprint('users', __name__)
 
 @users.route('/_logged_in_user_data', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def _logged_in_user_data():
-    if current_user.is_authenticated:
-        userData = get_user_data(current_user.id)
-        return jsonify(userData)
+    # if current_user.is_authenticated:
+    #     userData = get_user_data(current_user.id)
+    #     return jsonify(userData)
+
+    data = request.get_json()
+    print("**************************************")
+    print("**************************************")
+    print("list_history. /_logged_in_user_data")
+    print(data)
+    current_user_id = getVenueId(data['userName'])
+    if (data):
+        print("DATA HERE")
+        print(data['userName'])
+        print(current_user_id)
+        data = get_user_data(current_user_id)
+    else:
+        print("NO DATA HERE")
+        print(current_user.id)
+        data = get_user_data(current_user.id)
+    print("**************************************")
+    print("**************************************")
+    return jsonify(data)
+
+
+
+
 
 # User Register
 @users.route('/register', methods=['GET', 'POST'])

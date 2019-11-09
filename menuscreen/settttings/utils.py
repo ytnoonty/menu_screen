@@ -80,8 +80,9 @@ def _getBreweryFontSize(user_id, fontSizeOptions):
     ).first()
     return breweryFontSize
 
-def _getSettings(user_id):
-    settings_db = User_settings.query.filter_by(venue_db_id=current_user.id).first()
+def _getSettings(current_user_id):
+    # settings_db = User_settings.query.filter_by(venue_db_id=current_user.id).first()
+    settings_db = User_settings.query.filter_by(venue_db_id=current_user_id).first()
     settings_db = db.session.query(
         User_settings.number_of_screens,
         User_settings.beerscreen_settings_id,
@@ -115,41 +116,41 @@ def _getSettings(user_id):
         Font_size_options.font_sizes,
     ).join(Template, User_settings.screen_template == Template.id
     ).join(Font_size_options, User_settings.name_font_size  == Font_size_options.id
-    ).filter(User_settings.venue_db_id == current_user.id
+    ).filter(User_settings.venue_db_id == current_user_id
     ).first()
 
     nameFontSize = db.session.query(
         User_settings.name_font_size,
         Font_size_options.font_sizes,
     ).join(Font_size_options, User_settings.name_font_size == Font_size_options.id
-    ).filter(User_settings.venue_db_id == current_user.id
+    ).filter(User_settings.venue_db_id == current_user_id
     ).first()
 
     styleFontSize = db.session.query(
         User_settings.name_font_size,
         Font_size_options.font_sizes,
     ).join(Font_size_options, User_settings.style_font_size == Font_size_options.id
-    ).filter(User_settings.venue_db_id == current_user.id
+    ).filter(User_settings.venue_db_id == current_user_id
     ).first()
 
     abvFontSize = db.session.query(
         User_settings.abv_font_size,
         Font_size_options.font_sizes,
     ).join(Font_size_options, User_settings.abv_font_size == Font_size_options.id
-    ).filter(User_settings.venue_db_id == current_user.id
+    ).filter(User_settings.venue_db_id == current_user_id
     ).first()
 
     ibuFontSize = db.session.query(
         User_settings.ibu_font_size,
         Font_size_options.font_sizes,
     ).join(Font_size_options, User_settings.ibu_font_size == Font_size_options.id
-    ).filter(User_settings.venue_db_id == current_user.id
+    ).filter(User_settings.venue_db_id == current_user_id
     ).first()
     breweryFontSize = db.session.query(
         User_settings.brewery_font_size,
         Font_size_options.font_sizes,
     ).join(Font_size_options, User_settings.brewery_font_size == Font_size_options.id
-    ).filter(User_settings.venue_db_id == current_user.id
+    ).filter(User_settings.venue_db_id == current_user_id
     ).first()
 
     this_setting = {

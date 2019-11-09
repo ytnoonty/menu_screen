@@ -6,6 +6,7 @@ from menuscreen.models import User, List_history, List_current, Font_size_option
 from menuscreen.list_history.forms import BeerForm, CurrentBeerListForm, NextBeerListForm
 from menuscreen.list_history.utils import getDefaultSelect, getDefaultNextSelect, _getTotalBeerlist, _getCurrentBeerlist, _getOnTapNextBeerlist, _addBeer, _deleteBeer, _getBottleBeers
 from menuscreen.settttings.utils import _getFontSizes, _getTemplates, _getSettings, _getNameFontSize, _getTemplateName, _getAbvFontSize, _getIbuFontSize, _getBreweryFontSize
+from menuscreen.users.init_db_tables import getVenueId
 
 from menuscreen import pusher_client
 
@@ -14,7 +15,7 @@ import json
 list_history = Blueprint('list_history', __name__)
 
 @list_history.route('/_add_update_ui', methods=['GET','POST'])
-@login_required
+# @login_required
 def _add_update_ui():
     settings = {
         "venue_db_id": current_user.id,
@@ -54,25 +55,73 @@ def _getBottleBeerlist():
     return jsonify(data)
 
 @list_history.route('/_getTotBeerlist', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def _getTotBeerlist():
-    beerlist = _getTotalBeerlist(current_user.id)
+    data = request.get_json()
+    print("**************************************")
+    print("**************************************")
+    print("list_history. /_getTotBeerlist")
+    print(data)
+    current_user_id = getVenueId(data['userName'])
+    if (data):
+        print("DATA HERE")
+        print(data['userName'])
+        print(current_user_id)
+        beerlist = _getTotalBeerlist(current_user_id)
+    else:
+        print("NO DATA HERE")
+        print(current_user.id)
+        beerlist = _getTotalBeerlist(current_user.id)
+    print("**************************************")
+    print("**************************************")
     data = {
         "beerlist": beerlist,
-        "venue_db_id": current_user.id
+        "venue_db_id": current_user_id
     }
     return jsonify(data)
 
 @list_history.route('/_getCurBeerlist', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def _getCurBeerlist():
-    beerlist = _getCurrentBeerlist(current_user.id)
+    data = request.get_json()
+    print("**************************************")
+    print("**************************************")
+    print("list_history. /_getCurBeerlist")
+    print(data)
+    if (data):
+        print("DATA HERE")
+        print(data['userName'])
+        current_user_id = getVenueId(data['userName'])
+        print(current_user_id)
+        beerlist = _getCurrentBeerlist(current_user_id)
+    else:
+        print("NO DATA HERE")
+        print(current_user.id)
+        beerlist = _getCurrentBeerlist(current_user.id)
+    print("**************************************")
+    print("**************************************")
     return jsonify(beerlist)
 
 @list_history.route('/_getNextBeerlist', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def _getNextBeerlist():
-    beerlist = _getOnTapNextBeerlist(current_user.id)
+    data = request.get_json()
+    print("**************************************")
+    print("**************************************")
+    print("list_history. /_getOnTapNextBeerlist")
+    print(data)
+    if (data):
+        print("DATA HERE")
+        print(data['userName'])
+        current_user_id = getVenueId(data['userName'])
+        print(current_user_id)
+        beerlist = _getOnTapNextBeerlist(current_user_id)
+    else:
+        print("NO DATA HERE")
+        print(current_user.id)
+        beerlist = _getOnTapNextBeerlist(current_user.id)
+    print("**************************************")
+    print("**************************************")
     return jsonify(beerlist)
 
 @list_history.route('/_add_beer_to_list', methods=['GET', 'POST'])

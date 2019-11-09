@@ -40,7 +40,7 @@ def get_user_data(user_id):
     data['venue_name'] = user.venue_name,
     # data['name'] = user.name,
     # data['email'] = user.email,
-    # data['username'] = user.username,
+    data['username'] = user.username,
     # data['password'] = user.password,
     # data['image_file'] = user.image_file
     return data
