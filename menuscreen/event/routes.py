@@ -19,8 +19,8 @@ def _get_event_current_list():
     print("**************************************")
     print("list_history. /_get_event_current_list")
     print(data)
-    current_user_id = getVenueId(data['userName'])
     if (data):
+        current_user_id = getVenueId(data['userName'])
         print("DATA HERE")
         print(data['userName'])
         print(current_user_id)

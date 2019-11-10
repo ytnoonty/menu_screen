@@ -87,20 +87,23 @@ def _getOnTapNextBeerlist(user_id):
 def _getTotalBeerlist(user_id):
     user = User.query.filter_by(id=user_id).first()
     beers = user.beerlist_sort_asc
-    # beers = db.session.query(
-    #     List_history.id,
-    #     List_history.name,
-    #     List_history.style,
-    #     List_history.abv,
-    #     List_history.ibu,
-    #     List_history.brewery,
-    #     List_history.location,
-    #     List_history.website,
-    #     List_history.description,
-    #     List_current.id,
-    #     List_current.id_dropdown,
-    #     ).outerjoin(List_current, List_history.id == List_current.id_history
-    #     ).filter(List_current.venue_db_id == current_user.id).all()
+    beers = db.session.query(
+        List_history.id,
+        List_history.name,
+        List_history.style,
+        List_history.abv,
+        List_history.ibu,
+        List_history.brewery,
+        List_history.location,
+        List_history.website,
+        List_history.description,
+        List_history.draft_bottle_selection,
+        List_current.id,
+        List_current.id_dropdown,
+        ).outerjoin(List_current, List_history.id == List_current.id_history
+        ).filter(List_current.venue_db_id == user_id
+        ).order_by(List_history.id.asc()
+        ).all()
     beerlist = []
     for b in beers:
         beer = {}

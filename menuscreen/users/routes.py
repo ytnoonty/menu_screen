@@ -27,10 +27,10 @@ def _logged_in_user_data():
     data = request.get_json()
     print("**************************************")
     print("**************************************")
-    print("list_history. /_logged_in_user_data")
+    print("users. /_logged_in_user_data")
     print(data)
-    current_user_id = getVenueId(data['userName'])
     if (data):
+        current_user_id = getVenueId(data['userName'])
         print("DATA HERE")
         print(data['userName'])
         print(current_user_id)

@@ -62,22 +62,26 @@ def _getTotBeerlist():
     print("**************************************")
     print("list_history. /_getTotBeerlist")
     print(data)
-    current_user_id = getVenueId(data['userName'])
     if (data):
+        current_user_id = getVenueId(data['userName'])
         print("DATA HERE")
         print(data['userName'])
         print(current_user_id)
         beerlist = _getTotalBeerlist(current_user_id)
+        data = {
+            "beerlist": beerlist,
+            "venue_db_id": current_user_id
+        }
     else:
         print("NO DATA HERE")
         print(current_user.id)
         beerlist = _getTotalBeerlist(current_user.id)
+        data = {
+            "beerlist": beerlist,
+            "venue_db_id": current_user.id
+        }
     print("**************************************")
     print("**************************************")
-    data = {
-        "beerlist": beerlist,
-        "venue_db_id": current_user_id
-    }
     return jsonify(data)
 
 @list_history.route('/_getCurBeerlist', methods=['GET', 'POST'])
@@ -98,6 +102,7 @@ def _getCurBeerlist():
         print("NO DATA HERE")
         print(current_user.id)
         beerlist = _getCurrentBeerlist(current_user.id)
+        print(beerlist)
     print("**************************************")
     print("**************************************")
     return jsonify(beerlist)

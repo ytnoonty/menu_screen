@@ -803,7 +803,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
       if (data.updated) {
         let userNameScreenId = UserCtrl.callGetUserNameFromURL();
         // console.log(userNameScreenId);
-                let currentBeers = await BeerCtrl.callFetchCurBeerlist(userNameScreenId);
+        let currentBeers = await BeerCtrl.callFetchCurBeerlist(userNameScreenId);
         console.log(currentBeers);
         let nextBeers = await BeerCtrl.callFetchNextBeerlist(userNameScreenId);
         console.log(nextBeers);
@@ -1398,12 +1398,12 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
   // Public methods
   return {
     init: function(){
-      loadUpdatePusher();
+      // loadUpdatePusher();
       loadPusher();
-      addBeerToDbPusher();
-      editBeerToDbPusher();
-      delBeerFromDbPusher();
-      loadWinePusher();
+      // addBeerToDbPusher();
+      // editBeerToDbPusher();
+      // delBeerFromDbPusher();
+      // loadWinePusher();
 
       // Show flash message div and then hide after 2.5 seconds
       UICtrl.callHideFlashMsg();

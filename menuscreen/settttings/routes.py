@@ -22,8 +22,8 @@ def _get_screen_settings():
     print("**************************************")
     print("list_history. /_get_screen_settings")
     print(data)
-    current_user_id = getVenueId(data['userName'])
     if (data):
+        current_user_id = getVenueId(data['userName'])
         print("DATA HERE")
         print(data['userName'])
         print(current_user_id)
