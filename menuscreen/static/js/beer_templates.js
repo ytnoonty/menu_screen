@@ -1012,8 +1012,8 @@ class BeerTemplate {
 
   bottleBeersTabletScreenTemplate(displayData){
     console.log(displayData);
-    const { beerslistTotal, userSettings } = displayData;
-    let beersData = beerslistTotal.beerlist;
+    const { bottleBeerlist, userSettings } = displayData;
+    let beersData = bottleBeerlist.beerlist;
     console.log(beersData);
     let userId = userSettings.venue_db_id;
     console.log(userId);

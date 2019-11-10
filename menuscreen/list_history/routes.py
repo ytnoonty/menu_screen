@@ -53,13 +53,33 @@ def _delete_update_ui():
     return jsonify(settings)
 
 @list_history.route('/_getBottleBeerlist', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def _getBottleBeerlist():
-    bottleBeerlist = _getBottleBeers(current_user.id)
-    data = {
-        "beerlist": bottleBeerlist,
-        "venue_db_id": current_user.id
-    }
+    data = request.get_json()
+    print("**************************************")
+    print("**************************************")
+    print("list_history. /_getBottleBeers")
+    print(data)
+    if (data):
+        current_user_id = getVenueId(data['userName'])
+        print("DATA HERE")
+        print(data['userName'])
+        print(current_user_id)
+        bottleBeerlist = _getBottleBeers(current_user_id)
+        data = {
+            "beerlist": bottleBeerlist,
+            "venue_db_id": current_user_id
+        }
+    else:
+        print("NO DATA HERE")
+        print(current_user.id)
+        bottleBeerlist = _getBottleBeers(current_user.id)
+        data = {
+            "beerlist": bottleBeerlist,
+            "venue_db_id": current_user.id
+        }
+    print("**************************************")
+    print("**************************************")
     return jsonify(data)
 
 @list_history.route('/_getTotBeerlist', methods=['GET', 'POST'])

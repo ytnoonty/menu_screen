@@ -243,10 +243,20 @@ const BeerCtrl = (function(){
     return data;
   }
 
-  async function fetchBottleBeerlist(template) {
-    const fetchResponse = await fetch('/_getBottleBeerlist');
+  async function fetchBottleBeerlist(userData) {
+    console.log(userData);
+    const fetchResponse = await fetch('/_getBottleBeerlist', {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify(userData),
+      cache: "no-cache",
+      headers: new Headers({
+        "content-type": "application/json"
+      })
+    });
     const data = await fetchResponse.json();
-    template(data);
+    console.log(data);
+    return data;
   }
 
   // Public methods
@@ -282,8 +292,8 @@ const BeerCtrl = (function(){
     callFetchAllTotalCurrentNextLists: function() {
       return fetchAllTotalCurrentNextLists();
     },
-    callFetchBottleBeerlist: function(template) {
-      fetchBottleBeerlist(template);
+    callFetchBottleBeerlist: function(data) {
+      return fetchBottleBeerlist(data);
     },
 
   }
@@ -697,6 +707,8 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
     let beerslistTotal = await BeerCtrl.callFetchBeerhistoryList(userNameScreenId);
     console.log(beerslistTotal);
     // query the DB for the ticker news info
+    let bottleBeerlist = await BeerCtrl.callFetchBottleBeerlist(userNameScreenId);
+    console.log(bottleBeerlist);
     let tickerInfo = await TickerCtrl.callFetchTickerInfo(userNameScreenId);
     console.log(tickerInfo);
     // query the DB for the events
@@ -714,6 +726,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
       "currentBeers": currentBeers,
       "nextBeers": nextBeers,
       "beerslistTotal": beerslistTotal,
+      "bottleBeerlist": bottleBeerlist,
       "tickerInfo": tickerInfo,
       "events": events,
       "screenSettings": screenSettings,
@@ -760,6 +773,8 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
     let beerslistTotal = await BeerCtrl.callFetchBeerhistoryList(userNameScreenId);
     console.log(beerslistTotal);
     // query the DB for the ticker news info
+    let bottleBeerlist = await BeerCtrl.callFetchBottleBeerlist(userNameScreenId);
+    console.log(bottleBeerlist);
     let tickerInfo = await TickerCtrl.callFetchTickerInfo(userNameScreenId);
     console.log(tickerInfo);
     // query the DB for the events
@@ -777,6 +792,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
       "currentBeers": currentBeers,
       "nextBeers": nextBeers,
       "beerslistTotal": beerslistTotal,
+      "bottleBeerlist": bottleBeerlist,
       "tickerInfo": tickerInfo,
       "events": events,
       "screenSettings": screenSettings,
@@ -811,6 +827,8 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
         console.log(nextBeers);
         let beerslistTotal = await BeerCtrl.callFetchBeerhistoryList(userNameScreenId);
         console.log(beerslistTotal);
+        let bottleBeerlist = await BeerCtrl.callFetchBottleBeerlist(userNameScreenId);
+        console.log(bottleBeerlist);
         let tickerInfo = await TickerCtrl.callFetchTickerInfo(userNameScreenId);
         console.log(tickerInfo)
         let events = await EventCtrl.callGetCurrentEventlist(userNameScreenId);
@@ -834,6 +852,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
           "currentBeers": currentBeers,
           "nextBeers": nextBeers,
           "beerslistTotal": beerslistTotal,
+          "bottleBeerlist": bottleBeerlist,
           "tickerInfo": tickerInfo,
           "events": events,
           "screenSettings": screenSettings,
@@ -850,7 +869,6 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
 
         // update bottle beer list asynconously
         UICtrl.callUpdateBottleBeersTabletScreen(displayData);
-        // BeerCtrl.callFetchBottleBeerlist(UICtrl.callUpdateBottleBeersTabletScreen);
         // Move ticker on beers_display_screen.html
         UICtrl.callMoveTicker();
       }
@@ -912,6 +930,8 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
         let nextBeers = await BeerCtrl.callFetchNextBeerlist(userNameScreenId);
         let beerslistTotal = await BeerCtrl.callFetchBeerhistoryList(userNameScreenId);
         console.log(beerslistTotal);
+        let bottleBeerlist = await BeerCtrl.callFetchBottleBeerlist(userNameScreenId);
+        console.log(bottleBeerlist);
         let tickerInfo = await TickerCtrl.callFetchTickerInfo(userNameScreenId);
         console.log(tickerInfo)
         // query the DB for the events
@@ -933,6 +953,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
           "currentBeers": currentBeers,
           "nextBeers": nextBeers,
           "beerslistTotal": beerslistTotal,
+          "bottleBeerlist": bottleBeerlist,
           "tickerInfo": tickerInfo,
           "events": events,
           "screenSettings": screenSettings,
@@ -946,7 +967,6 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
         UICtrl.callAddBeerOnTapNextDisplay(displayData);
         // update bottle beer list asynconously
         UICtrl.callUpdateBottleBeersTabletScreen(displayData);
-        // BeerCtrl.callFetchBottleBeerlist(UICtrl.callUpdateBottleBeersTabletScreen);
         // Move ticker on beers_display_screen.html
         UICtrl.callMoveTicker();
       }

@@ -160,7 +160,7 @@ def _getBottleBeers(user_id):
         List_history.description,
         List_history.draft_bottle_selection,
         ).filter(List_history.draft_bottle_selection != "Draft"
-        ).filter(List_history.venue_db_id == current_user.id
+        ).filter(List_history.venue_db_id == user_id
         ).order_by(List_history.name.asc()
         ).all()
 
