@@ -17,10 +17,18 @@ list_history = Blueprint('list_history', __name__)
 @list_history.route('/_add_update_ui', methods=['GET','POST'])
 # @login_required
 def _add_update_ui():
+    print("***********************************************")
+    print("***********************************************")
+    print("***********************************************")
     settings = {
         "venue_db_id": current_user.id,
         "updated": True,
     }
+    print(settings)
+    print("***********************************************")
+    print("***********************************************")
+    print("***********************************************")
+
 
     ######################################
     #PUSHER

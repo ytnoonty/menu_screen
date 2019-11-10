@@ -30,7 +30,9 @@ def _getCurrentBeerlist(user_id):
         List_current.beer_of_month,
         List_current.coming_soon,
         ).outerjoin(List_current, List_history.id == List_current.id_history
-        ).filter(List_current.venue_db_id == user_id).all()
+        ).filter(List_current.venue_db_id == user_id
+        ).order_by(List_current.id_dropdown.asc()
+        ).all()
     beerlist = []
     for b in beers:
         beer = {}
@@ -102,7 +104,7 @@ def _getTotalBeerlist(user_id):
         List_current.id_dropdown,
         ).outerjoin(List_current, List_history.id == List_current.id_history
         ).filter(List_current.venue_db_id == user_id
-        ).order_by(List_current.id.asc()
+        ).order_by(List_current.id_dropdown.asc()
         ).all()
     beerlist = []
     for b in beers:

@@ -742,6 +742,8 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
     console.log("///////////////////////////////////////////////////////////////////////////");
     console.log("DELETE UPDATE SCREENS");
     console.log("///////////////////////////////////////////////////////////////////////////");
+    console.log(data);
+    console.log(data.venue_db_id);
 
     // delete beer from current screen from edit_beer_list
     // function call to delete
@@ -763,14 +765,14 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
     // query the DB for the events
     let events = await EventCtrl.callGetCurrentEventlist(userNameScreenId);
     console.log(events);
-    let userData = await UserCtrl.callFetchUserData();
+    // let userData = await UserCtrl.callFetchUserData();
+    // console.log(userData);
     let screenSettings = await ScreenSettingsCtrl.callFetchScreenSettings(userNameScreenId);
     // console.log(screenSettings);
-    userData = userData.id[0];
-    // console.log(userData);
+    userData = data.venue_db_id;
+    console.log(userData);
     let onNext;
     let displayData = {};
-
     displayData = {
       "currentBeers": currentBeers,
       "nextBeers": nextBeers,
@@ -780,7 +782,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
       "screenSettings": screenSettings,
       "userSettings": { "venue_db_id": userData }
     }
-    // console.log(displayData);
+    console.log(displayData);
     // // update all screens
     // // repaint beers_tv_screen
     UICtrl.callUpdateDisplayScreen(displayData);
@@ -915,10 +917,10 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
         // query the DB for the events
         let events = await EventCtrl.callGetCurrentEventlist(userNameScreenId);
         console.log(events);
-        let userData = await UserCtrl.callFetchUserData();
+        // let userData = await UserCtrl.callFetchUserData();
         let screenSettings = await ScreenSettingsCtrl.callFetchScreenSettings(userNameScreenId);
         let onNext;
-        userData = userData.id[0];
+        userData = data.venue_db_id;
         // console.log(nextBeers);
 
         currentBeers.forEach(beer => {
@@ -962,7 +964,13 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
     });
     var addChannel = addPusher.subscribe('my-update-channel');
     addChannel.bind('new-addUpdate-event', function(data) {
-      // console.log(data.message);
+      console.log('*****************************************');
+      console.log('*****************************************');
+      console.log('*****************************************');
+      console.log(data.message);
+      console.log('*****************************************');
+      console.log('*****************************************');
+      console.log('*****************************************');
       addUpdateScreens(data.message);
     });
     ///////////////////////////////////////////////////////
@@ -976,8 +984,8 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
     });
     var deleteChannel = deletePusher.subscribe('my-update-channel');
     deleteChannel.bind('new-deleteUpdate-event', function(data) {
-      // console.log(data);
-      deleteUpdateScreens(data);
+      // console.log(data.message);
+      deleteUpdateScreens(data.message);
     });
     ///////////////////////////////////////////////////////
 
@@ -1186,8 +1194,8 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
       console.log(editBeerlistForm);
       (function(loadPusher){
         // console.log(loadPusher);
-        loadPusher();
         editBeerlistForm.submit();
+        loadPusher();
       })(loadPusher);
       e.preventDefault();
     }
@@ -1241,13 +1249,13 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
       let listData = await BeerCtrl.callFetchBeerhistoryList(userNameScreenId);
       let listHistory = listData.beerlist;
       let id_history = listHistory[0].id[0];
-      // console.log(id_history);
+      console.log(id_history);
       // get the current beerlist
       let currentBeerlist = await BeerCtrl.callFetchCurBeerlist(userNameScreenId);
       console.log(currentBeerlist);
-      // console.log(currentBeerlist.length + 1);
+      console.log(currentBeerlist.length + 1);
       let id_dropdown = currentBeerlist.length + 1;
-      // console.log(id_dropdown);
+      console.log(id_dropdown);
 
       let newBeer = {
         "id_history": id_history,
@@ -1256,7 +1264,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
         "beerscreen_id": "1",
         "venue_db_id": ""
       }
-      // console.log(newBeer);
+      console.log(newBeer);
       // Add new beer to list_current table in DB
       BeerCtrl.callFetchAddBeerToDB(newBeer);
       // use pusher to update UI on all screens with the new beer
@@ -1267,6 +1275,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
     async function delBeerFromBeerlist(e) {
       console.log('CLICK MINUS BUTTON TO DELETE BEER FROM LISTS');
       let userNameScreenId = UserCtrl.callGetUserNameFromURL();
+      console.log(userNameScreenId);
 
 
       let res = await UserCtrl.callFetchUserData(userNameScreenId);
@@ -1398,12 +1407,12 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
   // Public methods
   return {
     init: function(){
-      // loadUpdatePusher();
+      loadUpdatePusher();
       loadPusher();
-      // addBeerToDbPusher();
-      // editBeerToDbPusher();
-      // delBeerFromDbPusher();
-      // loadWinePusher();
+      addBeerToDbPusher();
+      editBeerToDbPusher();
+      delBeerFromDbPusher();
+      loadWinePusher();
 
       // Show flash message div and then hide after 2.5 seconds
       UICtrl.callHideFlashMsg();
