@@ -904,4 +904,4 @@ def on_tap_next_editor():
 @list_history.route('/beersearch', methods=['GET','POST'])
 @login_required
 def beersearch():
-    return render_template('beersearch.html')
+    return render_template('beersearch.html', currentUserId=current_user.id)

@@ -1037,4 +1037,119 @@ class BeerTemplate {
     }
   }
 
+  paintUntappdSearchResultsList(displayData) {
+    console.log("IN THE BEER TEMPLATE paintUntappdSearchResultsList()");
+    console.log(displayData);
+    const { beerData, userData } = displayData;
+    console.log(beerData);
+    console.log(userData);
+
+    let userId = userData.id[0];
+    let screenElementUserId = 'user-id-' + userId;
+    // console.log(screenElementUserId);
+    let displayListElement = document.querySelector('#' + screenElementUserId + ' #search-beer-results');
+    if (displayListElement != null) {
+      // console.log(displayListElement);
+      let resultsHTML = "";
+
+      resultsHTML = `
+        <div class="accordion" id="beerlistAccordion"</div>
+      `;
+      beerData.forEach(beer => {
+        resultsHTML += `
+            <div class="card">
+              <div class="card-header" id="heading-${beer.beer.bid}">
+                <h2 class="mb-0">
+                  <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#${beer.beer.bid}" aria-expanded="true" aria-controls="${beer.beer.bid}">
+                    ${beer.beer.bid} - ${beer.beer.beer_name} - ${beer.brewery.brewery_name}
+                  </button>
+                </h2>
+              </div>
+              <div id="${beer.beer.bid}" class="collapse show" aria-labelledby="heading-${beer.beer.bid}" data-parent="#beerlistAccordion">
+                <div class="card-body">
+                  <table class="table-striped">
+                    <tr>
+                      <th>Style - </th><td>${beer.beer.beer_style}</td>
+                    </tr>
+                    <tr>
+                      <th>ABV - </th><td>${beer.beer.beer_abv}</td>
+                    </tr>
+                    <tr>
+                      <th>IBU - </th><td>${beer.beer.beer_ibu}</td>
+                    </tr>
+                    <tr>
+                      <th>Brewery - </th><td>${beer.brewery.brewery_name}</td>
+                    </tr>
+                    <tr>
+                      <th>Location - </th><td>${beer.brewery.location.brewery_city}, ${beer.brewery.location.brewery_state}</td>
+                    </tr>
+                    <tr>
+                      <th>Website - </th><td>${beer.brewery.contact.url}</td>
+                    </tr>
+                    <tr>
+                      <th>Description - </th><td>${beer.beer.beer_description}</td>
+                    </tr>
+                    <tr>
+                      <th></th>
+                      <td>
+                          <div>
+                            <input class="bottle-draft-draft" type="radio" id="draft-${beer.beer.bid}"
+                                   name="beer" value="Draft" />
+                            <label for="draft">Draft</label>
+                          </div>
+                          <div>
+                            <input class="bottle-draft-bottle" type="radio" id="bottle-${beer.beer.bid}"
+                                   name="beer" value="Bottle" />
+                            <label for="bottle">Bottle</label>
+                          </div>
+                          <div>
+                            <input class="bottle-draft-can" type="radio" id="can-${beer.beer.bid}"
+                                   name="beer" value="Can" />
+                            <label for="can">Can</label>
+                          </div>
+                          <div>
+                            <input class="bottle-draft-draftBottle" type="radio" id="draftBottle-${beer.beer.bid}"
+                                   name="beer" value="Draft & Bottle" />
+                            <label for="draftBottle">Draft & Bottle</label>
+                          </div>
+                          <div>
+                            <input class="bottle-draft-draftCan" type="radio" id="draftCan-${beer.beer.bid}"
+                                   name="beer" value="Draft & Can" />
+                            <label for="draftCan">Draft & Can</label>
+                          </div>
+                          <div>
+                            <input class="bottle-draft-bottleCan" type="radio" id="bottleCan-${beer.beer.bid}"
+                                   name="beer" value="Bottle & Can" />
+                            <label for="bottleCan">Bottle & Can</label>
+                          </div>
+                          <div>
+                            <input class="bottle-draft-draftBottleCan" type="radio" id="draftBottleCan-${beer.beer.bid}"
+                                   name="beer" value="Draft, Bottle & Can" />
+                            <label for="draftBottleCan">Draft, Bottle & Can</label>
+                          </div>
+                      </td>
+                    </tr>
+                  </table>
+                  <div>
+                    <a href="#" class="btn btn-sm btn-outline-success add-beer-to-db" type="">Add Beer</a>
+                    <a href="#" class="btn btn-sm btn-outline-danger btn-cancel">Cancel</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+        `;
+      });
+      resultsHTML += `
+        </div>
+      `;
+      // console.log(resultsHTML);
+      displayListElement.innerHTML = resultsHTML;
+    }
+    let draftRadios = document.querySelectorAll(".bottle-draft-draft");
+    draftRadios.forEach(draftRadio => {
+      console.log(draftRadio);
+      draftRadio.checked = true;
+    });
+  }
+
 }

@@ -310,22 +310,25 @@ const UntappdCtrl = (function(){
     // need to work on this still stopped on purpose
     console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
     console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    console.log("STOPPED HERE ON PURPOSE")
     console.log("loadData(): " + data);
     console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
     console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     let untappd = new Untappd;
-    let beers = [];
+    let beerlist = [];
     let res = untappd.getBeerByName(data)
-      .then(res => {
-        // console.log(res.results.response.message);
-        const searchlistHistory = res.results.response.beers.items;
-        // console.log(searchlistHistory);
-        searchlistHistory.forEach(item => {
-          const { beer, brewery } = item;
-        });
+    .then(res => {
+      // console.log(res.results.response.message);
+      const searchlistHistory = res.results.response.beers.items;
+      // console.log(searchlistHistory);
+      searchlistHistory.forEach(item => {
+        const { beer, brewery } = item;
+        let newBeer = { "beer": beer, "brewery": brewery };
+        beerlist.push(newBeer);
       });
-    return beers;
+      // console.log(beers);
+      return beerlist;
+    });
+    return res;
   }
 
   return {
@@ -656,6 +659,10 @@ const UICtrl = (function(){
     const beerDashboardTemplate = new BeerTemplate;
     beerDashboardTemplate.repaintBeerDashboard(data);
   }
+  const paintUntappdSearchResultsList = (data) => {
+    const searchUntappdTemplate = new BeerTemplate;
+    searchUntappdTemplate.paintUntappdSearchResultsList(data);
+  }
 
   // Public methods
   return {
@@ -687,7 +694,7 @@ const UICtrl = (function(){
       updateWineTabletScreen(data);
     },
     callUpdateWineDescriptionsTabletScreen: (data) => {
-        updateWineDescriptionsTabletScreen(data);
+      updateWineDescriptionsTabletScreen(data);
     },
     callAddBeerToListEditor: (data) => {
       addBeerToListEditor(data);
@@ -699,7 +706,7 @@ const UICtrl = (function(){
       addBeerOnTapNextEditor(data);
     },
     callDeleteBeerFromListEditor: (data) => {
-        return deleteBeerFromListEditor(data);
+      return deleteBeerFromListEditor(data);
     },
     callDeletBeerFromOnTapNextDisplay: (data) => {
       deleteBeerFromOnTapNextDisplay(data);
@@ -709,6 +716,9 @@ const UICtrl = (function(){
     },
     callRepaintBeerlistDashboard: (data) => {
       repaintBeerlistDashboard(data);
+    },
+    callPaintUntappdSearchResultsList: (data) => {
+      paintUntappdSearchResultsList(data);
     }
   }
 })();
@@ -1244,8 +1254,8 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     if (document.querySelector(UISelectors.winelistDescriptionTabletNavBtn) != null) {
       document.querySelector(UISelectors.winelistDescriptionTabletNavBtn).addEventListener('click', switchTabletScreen);
     }
-    if (document.querySelector(UISelectors.searchBeer) != null) {
-      document.querySelector(UISelectors.searchBeer).addEventListener('keyup', searchBeerKey);
+    if (document.querySelector(UISelectors.searchBeerText) != null) {
+      document.querySelector(UISelectors.searchBeerText).addEventListener('keyup', searchBeerKey);
     }
     if (document.querySelector(UISelectors.searchBeerBtn) != null) {
       document.querySelector(UISelectors.searchBeerBtn).addEventListener('click', searchBeerClick);
@@ -1470,15 +1480,50 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     }
 
     const searchBeerKey = (e) => {
-      const userText = e.target.value;
+      // Get input text from user
+      const userSearchUntappdText = e.target.value;
+      console.log(userSearchUntappdText);
+      // get the event of the key pushed
+      // looking for keyCode 13 which is "enter" key
+      // if keyCode === 13 process user text input and query Untappd DB
+      console.log(e.keyCode);
+      if (e.keyCode === 13) {
+        // process user text input and search Untappd DB
+        if (userSearchUntappdText !== '') {
+          const untappd = UntappdCtrl;
+          let loadedBeerData = untappd.callLoadData(userSearchUntappdText);
+          // console.log(loadedBeerData);
+          // load data into the UI
+          let untappdResultsTemplate = UICtrl;
+          untappdResultsTemplate.callPaintUntappdSearchResultsList(loadedBeerData);
+        } else {
+          // clear the list of searched beers
+        }
+      }
+
     }
 
-    const searchBeerClick = (e) => {
+    const searchBeerClick = async (e) => {
       console.log("SEARCH BEER FROM UNTAPPD - TO ADD TO DB");
-      let searchBeerText = document.querySelector(UISelectors.searchBeerText).value;
-      const untappd = UntappdCtrl;
-      let loadedBeerData = untappd.callLoadData(searchBeerText);
-      console.log(loadedBeerData);
+      let userSearchUntappdText = document.querySelector(UISelectors.searchBeerText).value;
+      if (userSearchUntappdText !== '') {
+        const untappd = UntappdCtrl;
+        let beerData = await untappd.callLoadData(userSearchUntappdText);
+        // console.log(beerData);
+        let userNameScreenId = UserCtrl.callGetUserNameFromURL();
+        // console.log(userNameScreenId);
+        let userData = await UserCtrl.callFetchUserData(userNameScreenId);
+        // console.log(userData);
+
+        let untappdInfo = { "beerData": beerData, "userData": userData }
+
+        console.log(untappdInfo);
+        // load data into the UI
+        let untappdResultsTemplate = UICtrl;
+        untappdResultsTemplate.callPaintUntappdSearchResultsList(untappdInfo);
+      } else {
+        // clear the list of searched beers
+      }
       e.preventDefault();
     }
 
