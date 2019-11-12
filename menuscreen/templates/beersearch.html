@@ -1,5 +1,6 @@
 {% extends 'layout.html' %}
 {% block body %}
+<div id="user-id-{{ currentUserId }}" class="user-id-screen-search-untappd">
   <div class="searchContainer">
     <div class="search card-body">
       <h1>Search Untappd Beers</h1>
@@ -16,15 +17,18 @@
 
       <p class="lead">Enter a beer to fetch beer information</p>
       <div class="mb-3">
-        <input type="text" id="searchBeer" class="form-control" placeholder="Enter any combination of brewery and/or beer name....">
+        <input type="text" id="search-beer" class="form-control" placeholder="Enter any combination of brewery and/or beer name....">
       </div>
       <div>
         <input id="search-beer-btn" class="btn btn-sm btn-outline-primary" type="click" value="Search for Beer (s)">
       </div>
     </div>
-    <div id="searchresults" class="container"></div>
+    <div id="search-beer-results" class="container"></div>
   </div>
-  <footer class="mt-5 p-3 text-center bg-light">
-    Beer Finder &copy;
-  </footer>
+  <div class="fixed-bottom">
+    <footer class="mt-5 p-3 text-center bg-light">
+      Beer Finder &copy;
+    </footer>
+  </div>
+</div>
 {% endblock %}

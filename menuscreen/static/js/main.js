@@ -302,7 +302,41 @@ const BeerCtrl = (function(){
 ////////////////////////////////////////////////////////////////////////////////
 // END BEER CONTROLLER
 ////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// BEGIN Untappd CONTROLLER
+////////////////////////////////////////////////////////////////////////////////
+const UntappdCtrl = (function(){
+  const loadData = function(data) {
+    // need to work on this still stopped on purpose
+    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    console.log("STOPPED HERE ON PURPOSE")
+    console.log("loadData(): " + data);
+    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    let untappd = new Untappd;
+    let beers = [];
+    let res = untappd.getBeerByName(data)
+      .then(res => {
+        // console.log(res.results.response.message);
+        const searchlistHistory = res.results.response.beers.items;
+        // console.log(searchlistHistory);
+        searchlistHistory.forEach(item => {
+          const { beer, brewery } = item;
+        });
+      });
+    return beers;
+  }
 
+  return {
+    callLoadData: function(data) {
+      return loadData(data);
+    },
+  }
+})();
+////////////////////////////////////////////////////////////////////////////////
+// END Untappd CONTROLLER
+////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 // BEGIN TICKER CONTROLLER
 ////////////////////////////////////////////////////////////////////////////////
@@ -487,6 +521,11 @@ const UICtrl = (function(){
     bottleBeersTabletNavBtn: '#bottle-beers-tablet',
     winelistMenuTabletNavBtn: '#winelist-menu-tablet',
     winelistDescriptionTabletNavBtn: '#winelist-description-tablet',
+
+    // search beer to add to list
+    searchBeerText: '#search-beer',
+    searchBeerBtn: '#search-beer-btn',
+    searchBeerResults: '#search-beer-results',
 
   }
 
@@ -680,7 +719,7 @@ const UICtrl = (function(){
 ////////////////////////////////////////////////////////////////////////////////
 // App Controller
 ////////////////////////////////////////////////////////////////////////////////
-const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, EventCtrl, ScreenSettingsCtrl, UICtrl){
+const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, WineCtrl, EventCtrl, ScreenSettingsCtrl, UICtrl){
   // Get UI Selectors
   const UISelectors = UICtrl.getSelectors();
 
@@ -1205,6 +1244,12 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
     if (document.querySelector(UISelectors.winelistDescriptionTabletNavBtn) != null) {
       document.querySelector(UISelectors.winelistDescriptionTabletNavBtn).addEventListener('click', switchTabletScreen);
     }
+    if (document.querySelector(UISelectors.searchBeer) != null) {
+      document.querySelector(UISelectors.searchBeer).addEventListener('keyup', searchBeerKey);
+    }
+    if (document.querySelector(UISelectors.searchBeerBtn) != null) {
+      document.querySelector(UISelectors.searchBeerBtn).addEventListener('click', searchBeerClick);
+    }
   }
 
     // Edit beerlist submit
@@ -1424,6 +1469,19 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
       window.location.replace(newPage);
     }
 
+    const searchBeerKey = (e) => {
+      const userText = e.target.value;
+    }
+
+    const searchBeerClick = (e) => {
+      console.log("SEARCH BEER FROM UNTAPPD - TO ADD TO DB");
+      let searchBeerText = document.querySelector(UISelectors.searchBeerText).value;
+      const untappd = UntappdCtrl;
+      let loadedBeerData = untappd.callLoadData(searchBeerText);
+      console.log(loadedBeerData);
+      e.preventDefault();
+    }
+
   // Public methods
   return {
     init: function(){
@@ -1447,7 +1505,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, Even
     }
   }
 
-})(UserCtrl, UpdateCtrl, BeerCtrl, TickerCtrl, WineCtrl, EventCtrl, ScreenSettingsCtrl, UICtrl);
+})(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, WineCtrl, EventCtrl, ScreenSettingsCtrl, UICtrl);
 
 // Initialize App
 App.init();
