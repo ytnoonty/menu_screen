@@ -55,144 +55,151 @@ class BeerTemplate {
   }
 
   addBeerOnTapNextDisplayTemplate(data) {
-    console.log("/////////////////////////////////////////////////////////");
-    console.log("CLICK THE PLUS SIGN ADD BEER TO ON TAP NEXT DISPLAY");
-    console.log("addBeerOnTapNextDisplayTemplate");
-    console.log("/////////////////////////////////////////////////////////");
-    console.log(data);
+    // console.log("/////////////////////////////////////////////////////////");
+    // console.log("CLICK THE PLUS SIGN ADD BEER TO ON TAP NEXT DISPLAY");
+    // console.log("addBeerOnTapNextDisplayTemplate");
+    // console.log("/////////////////////////////////////////////////////////");
+    // console.log(data);
     const { currentBeers, nextBeers, beerslistTotal, userSettings } = data;
     let beerlistOnTapNext = beerslistTotal.beerlist;
-    console.log(nextBeers);
+    // console.log(nextBeers);
 
     let userIdData = userSettings.venue_db_id;
+    // console.log(userIdData);
 
-    let screenElementUserId = 'user-id-' + userIdData;
-    console.log(screenElementUserId);
-    let screenDisplay;
-    let displayElement = document.querySelector('#' + screenElementUserId);
-    console.log(displayElement);
-    if (displayElement != null) {
-      console.log("IN THE DISPLAY");
-      console.log(displayElement);
-      screenDisplay = document.querySelector('#' + screenElementUserId + ' #on-tap-next-display')
-      if (screenDisplay != null) {
-        console.log(screenDisplay);
-      }
-    }
+    if (Object.getOwnPropertyNames(userIdData).length >= 1) {
 
-    let screenDisplayHTML = ``;
-    screenDisplayHTML += `
-      <div class="row">
-        <div class="col-12">
-          <table id="on-tap-next-display-table" class="beerlist beers table table-striped">
-            <tr>
-              <th></th>
-              <th>Currently on Tap</th>
-              <th></th>
-              <th>On Tap Next</th>
-            </tr>
-    `;
-    currentBeers.forEach((beer, i, arr) => {
-      screenDisplayHTML += `<tr class="beer">
-        <td> ${ i+1 }. </td>
-        <td><div class="currentBeer"> ${ arr[i].name } ${ arr[i].brewery } </div></td>
-        <td><i class="arrow"></i></td>
-        <td class="nextBeer"> ${ nextBeers[i].name } </td>
-      </tr>`;
-    });
-    screenDisplayHTML += `
-          </table>
-        </div>
-      </div>
-    `;
-    if (screenDisplay != null) {
-      screenDisplay.innerHTML = screenDisplayHTML;
+          let screenElementUserId = 'user-id-' + userIdData;
+          // console.log(screenElementUserId);
+          let screenDisplay;
+          let displayElement = document.querySelector('#' + screenElementUserId);
+          // console.log(displayElement);
+          if (displayElement != null) {
+            // console.log("IN THE DISPLAY");
+            // console.log(displayElement);
+            screenDisplay = document.querySelector('#' + screenElementUserId + ' #on-tap-next-display')
+            if (screenDisplay != null) {
+              // console.log(screenDisplay);
+            }
+          }
+
+          let screenDisplayHTML = ``;
+          screenDisplayHTML += `
+            <div class="row">
+              <div class="col-12">
+                <table id="on-tap-next-display-table" class="beerlist beers table table-striped">
+                  <tr>
+                    <th></th>
+                    <th>Currently on Tap</th>
+                    <th></th>
+                    <th>On Tap Next</th>
+                  </tr>
+          `;
+          currentBeers.forEach((beer, i, arr) => {
+            screenDisplayHTML += `<tr class="beer">
+              <td> ${ i+1 }. </td>
+              <td><div class="currentBeer"> ${ arr[i].name } ${ arr[i].brewery } </div></td>
+              <td><i class="arrow"></i></td>
+              <td class="nextBeer"> ${ nextBeers[i].name } </td>
+            </tr>`;
+          });
+          screenDisplayHTML += `
+                </table>
+              </div>
+            </div>
+          `;
+          if (screenDisplay != null) {
+            screenDisplay.innerHTML = screenDisplayHTML;
+          }
     }
   }
 
   addBeerOnTapNextEditorTemplate(data) {
-    console.log("{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}");
-    console.log("CLICK THE PLUS SIGN ADD BEER TO ON TAP NEXT EDITOR");
-    console.log("addBeerOnTapNextEditorTemplate");
-    console.log("{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}");
-    console.log(data);
+    // console.log("{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}");
+    // console.log("CLICK THE PLUS SIGN ADD BEER TO ON TAP NEXT EDITOR");
+    // console.log("addBeerOnTapNextEditorTemplate");
+    // console.log("{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}");
+    // console.log(data);
     const { currentBeers, nextBeers, beerslistTotal, userSettings } = data;
     let beerlistTot = beerslistTotal.beerlist;
-    console.log(nextBeers);
+    // console.log(nextBeers);
 
     let userIdData = userSettings.venue_db_id;
 
-    let screenElementUserId = `user-id-` + userIdData;
-    console.log(screenElementUserId);
-    let screenDisplay;
-    let displayElement = document.querySelector('#' + screenElementUserId);
-    console.log(displayElement);
-    if (displayElement != null) {
-      console.log("IN THE DISPLAY");
-      console.log(displayElement);
-      screenDisplay = document.querySelector('#' + screenElementUserId + ' #on-tap-next-editor-table');
-      if (screenDisplay != null) {
-        console.log(screenDisplay);
-      }
-    }
+    if (Object.getOwnPropertyNames(userIdData).length >= 1) {
 
-    let screenDisplayHTML = ``;
-    let x = "";
-    // <table id="on-tap-next-editor-table" class="beerlist beers table table-striped">
-    screenDisplayHTML += `
-        <tr>
-          <th></th>
-          <th>On Tap Now</th>
-          <td><div></div></td>
-          <th>Next to Tap</th>
-        </tr>
-    `;
-    currentBeers.forEach((beer, index) => {
-      x = index++;
-      console.log(x);
-      screenDisplayHTML += `
-        <tr class="beer">
-          <td>${ index }</td>
-          <td><div class="currentBeer">${ beer.name } ${ beer.brewery }</div></td>
-          <td><i class="arrow"></i></td>
-          <td>
-            <div class="form-group">
-              <select id="beer_${ index }" class="form-control" name="beer_${ index }">
-              `;
-              beerlistTot.forEach((totBeer) => {
-                if (totBeer.id == nextBeers[x].id_on_next) {
-                  // console.log(`IN THE IF: id_dropdown: ${totBeer.id_dropdown} ${totBeer.id} totBeer: ${totBeer.name} nextBeers: ${nextBeers[index].id_on_next}`);
-                  screenDisplayHTML += `
-                    <option value="${ totBeer.id }" selected>${ totBeer.name }</option>
-                  `;
-                } else {
-                  // console.log(`IN THE IFELSE: id_dropdown: ${totBeer.id_dropdown} ${totBeer.id} totBeer: ${totBeer.name} nextBeers: ${nextBeers[index].id_on_next}`);
-                  screenDisplayHTML += `
-                    <option value="${ totBeer.id }">${ totBeer.name}</option>
-                  `;
-                }
-              });
-      screenDisplayHTML += `
-              </select>
-            </div>
-          </td>
-        </tr>
-      `;
-    });
+          let screenElementUserId = `user-id-` + userIdData;
+          // console.log(screenElementUserId);
+          let screenDisplay;
+          let displayElement = document.querySelector('#' + screenElementUserId);
+          // console.log(displayElement);
+          if (displayElement != null) {
+            // console.log("IN THE DISPLAY");
+            // console.log(displayElement);
+            screenDisplay = document.querySelector('#' + screenElementUserId + ' #on-tap-next-editor-table');
+            if (screenDisplay != null) {
+              // console.log(screenDisplay);
+            }
+          }
 
-    // screenDisplayHTML += `
-    //   </table>
-    //   <div class="row d-flex justify-content-between">
-    //     <div class="col-4">
-    //       <input id="edit-on-tap-next-editor-submit" class="btn btn-sm btn-outline-primary" type="click" value="Submit">
-    //     </div>
-    //   </div>
-    // </div>
-    // `;
+          let screenDisplayHTML = ``;
+          let x = "";
+          // <table id="on-tap-next-editor-table" class="beerlist beers table table-striped">
+          screenDisplayHTML += `
+              <tr>
+                <th></th>
+                <th>On Tap Now</th>
+                <td><div></div></td>
+                <th>Next to Tap</th>
+              </tr>
+          `;
+          currentBeers.forEach((beer, index) => {
+            x = index++;
+            // console.log(x);
+            screenDisplayHTML += `
+              <tr class="beer">
+                <td>${ index }</td>
+                <td><div class="currentBeer">${ beer.name } ${ beer.brewery }</div></td>
+                <td><i class="arrow"></i></td>
+                <td>
+                  <div class="form-group">
+                    <select id="beer_${ index }" class="form-control" name="beer_${ index }">
+                    `;
+                    beerlistTot.forEach((totBeer) => {
+                      if (totBeer.id == nextBeers[x].id_on_next) {
+                        // console.log(`IN THE IF: id_dropdown: ${totBeer.id_dropdown} ${totBeer.id} totBeer: ${totBeer.name} nextBeers: ${nextBeers[index].id_on_next}`);
+                        screenDisplayHTML += `
+                          <option value="${ totBeer.id }" selected>${ totBeer.name }</option>
+                        `;
+                      } else {
+                        // console.log(`IN THE IFELSE: id_dropdown: ${totBeer.id_dropdown} ${totBeer.id} totBeer: ${totBeer.name} nextBeers: ${nextBeers[index].id_on_next}`);
+                        screenDisplayHTML += `
+                          <option value="${ totBeer.id }">${ totBeer.name}</option>
+                        `;
+                      }
+                    });
+            screenDisplayHTML += `
+                    </select>
+                  </div>
+                </td>
+              </tr>
+            `;
+          });
 
-    if (screenDisplay != null) {
-      screenDisplay.innerHTML = ``;
-      screenDisplay.innerHTML = screenDisplayHTML;
+          // screenDisplayHTML += `
+          //   </table>
+          //   <div class="row d-flex justify-content-between">
+          //     <div class="col-4">
+          //       <input id="edit-on-tap-next-editor-submit" class="btn btn-sm btn-outline-primary" type="click" value="Submit">
+          //     </div>
+          //   </div>
+          // </div>
+          // `;
+
+          if (screenDisplay != null) {
+            screenDisplay.innerHTML = ``;
+            screenDisplay.innerHTML = screenDisplayHTML;
+          }
     }
   }
 
@@ -200,14 +207,14 @@ class BeerTemplate {
 
   addBeerToListEditorTemplate(data) {
     // edit_beer_list add beer to the beerlist
-      console.log("/////////////////////////////////////////////////////////////////");
-      console.log("/////////////////////////////////////////////////////////////////");
-      console.log("/////////////////////////////////////////////////////////////////");
-      console.log('CLICK THE PLUS SIGN TO ADD BEER TO LIST');
-      // console.log(data);
-      console.log("/////////////////////////////////////////////////////////////////");
-      console.log("/////////////////////////////////////////////////////////////////");
-      console.log("/////////////////////////////////////////////////////////////////");
+      // console.log("/////////////////////////////////////////////////////////////////");
+      // console.log("/////////////////////////////////////////////////////////////////");
+      // console.log("/////////////////////////////////////////////////////////////////");
+      // console.log('CLICK THE PLUS SIGN TO ADD BEER TO LIST');
+      // // console.log(data);
+      // console.log("/////////////////////////////////////////////////////////////////");
+      // console.log("/////////////////////////////////////////////////////////////////");
+      // console.log("/////////////////////////////////////////////////////////////////");
       // let { beerlist, venue_db_id } = data;
       let { currentBeers, nextBeers, beerslistTotal, userSettings } = data;
       // console.log(currentBeers);
@@ -220,11 +227,11 @@ class BeerTemplate {
       // console.log(userIdData);
 
       let userId;
-      console.log(document.querySelector('.user-id-edit-beerlist'));
+      // console.log(document.querySelector('.user-id-edit-beerlist'));
       if (document.querySelector('.user-id-edit-beerlist') !== null) {
         userId = document.querySelector('.user-id-edit-beerlist').id.split('-')[2];
       } else {
-        console.log(document.querySelector('.user-id-edit-beerlist'));
+        // console.log(document.querySelector('.user-id-edit-beerlist'));
         // userId = document.querySelector('.user-id-edit-beerlist').id.split('-')[2];
         // console.log(userId);
       }
@@ -232,8 +239,8 @@ class BeerTemplate {
 
       if (userId == userIdData) {
         console.log("TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE");
-        console.log("TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE");
-        console.log("TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE");
+        // console.log("TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE");
+        // console.log("TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE");
         let screenElementUserId = 'user-id-' + userIdData;
         // console.log(screenElementUserId);
 
@@ -337,10 +344,10 @@ class BeerTemplate {
           }
       } else {
         console.log("FALSE FALSE FALSE FALSE FALSE");
-        console.log("FALSE FALSE FALSE FALSE FALSE");
-        console.log("FALSE FALSE FALSE FALSE FALSE");
-        console.log("FALSE FALSE FALSE FALSE FALSE");
-        console.log("FALSE FALSE FALSE FALSE FALSE");
+        // console.log("FALSE FALSE FALSE FALSE FALSE");
+        // console.log("FALSE FALSE FALSE FALSE FALSE");
+        // console.log("FALSE FALSE FALSE FALSE FALSE");
+        // console.log("FALSE FALSE FALSE FALSE FALSE");
       }
   }
 
@@ -372,19 +379,19 @@ class BeerTemplate {
   // delete last beer from beerlist for the on_tap_next_display
   deleteBeerFromOnTapNextDisplayTemplate(data) {
     console.log("DELETE FROM ON TAP NEXT DISPLAY");
-    console.log(data);
+    // console.log(data);
     let displayElement;
     let screenElementUserId = 'user-id-' + data;
     displayElement = document.querySelector('#' + screenElementUserId);
-    console.log(displayElement);
+    // console.log(displayElement);
     if (displayElement != null) {
       displayElement = document.querySelector('#' + screenElementUserId + ' #on-tap-next-display-table');
         if (displayElement != null) {
-        console.log(displayElement);
+        // console.log(displayElement);
         let beers = document.querySelectorAll('.beer');
-        console.log(beers);
+        // console.log(beers);
         let beersLen = beers.length;
-        console.log(beersLen);
+        // console.log(beersLen);
         if (beersLen > 1) {
           displayElement.lastElementChild.lastElementChild.remove();
         }
@@ -394,19 +401,19 @@ class BeerTemplate {
   // delete last beer from beerlist for the on_tap_next_display
   deleteBeerFromOnTapNextEditorTemplate(data) {
     console.log("DELETE FROM ON TAP NEXT EDITOR");
-    console.log(data);
+    // console.log(data);
     let displayElement;
     let screenElementUserId = 'user-id-' + data;
     displayElement = document.querySelector('#' + screenElementUserId);
-    console.log(displayElement);
+    // console.log(displayElement);
     if (displayElement != null) {
       displayElement = document.querySelector('#' + screenElementUserId + ' #on-tap-next-editor-table');
       if (displayElement != null) {
-        console.log(displayElement);
+        // console.log(displayElement);
         let beers = document.querySelectorAll('.beer');
-        console.log(beers);
+        // console.log(beers);
         let beersLen = beers.length;
-        console.log(beersLen);
+        // console.log(beersLen);
         if (beersLen > 1) {
           displayElement.lastElementChild.lastElementChild.remove();
         }
@@ -420,15 +427,15 @@ class BeerTemplate {
   repaintBeerDashboard(data) {
     let dashboardBeerInfo = document.querySelector('#dashboard-beer-info');
     let { beerlist } = data;
-    console.log(beerlist);
-    console.log("REPAINT BEER DASHBOARD LIST");
+    // console.log(beerlist);
+    // console.log("REPAINT BEER DASHBOARD LIST");
     let beerDashboardTable = document.createElement('table');
     beerDashboardTable.className = 'mt-3 table table-striped';
     beerlist.forEach(beer => {
-      console.log(beer);
+      // console.log(beer);
       // get first letter of beer.name to put in tr id to be used by side menu for navigation of list
       let dashMenuId_firstLetter = beer.name[0].slice(0,1).toLowerCase();
-      console.log(dashMenuId_firstLetter);
+      // console.log(dashMenuId_firstLetter);
       beerDashboardTable.innerHTML += `
       <tr id="${ dashMenuId_firstLetter }" class="row-name">
         <th class="toggle-table dashboard-beer-name">${beer.name}</th>
@@ -495,21 +502,21 @@ class BeerTemplate {
 
   // displays 2 columns of cards, each card has name on top line and style, abv, ibu on bottome line
   defaultTemplate(displayData) {
-    console.log("**************************************************************************");
-    console.log("IN THE DEFAULT TEMPLATE");
-    console.log("**************************************************************************");
-    console.log(displayData);
+    // console.log("**************************************************************************");
+    // console.log("IN THE DEFAULT TEMPLATE");
+    // console.log("**************************************************************************");
+    // console.log(displayData);
     const { currentBeers, events, tickerInfo, screenSettings, userSettings } = displayData;
     let beersData = currentBeers;
     let eventsData = events;
     let tickerInfoData = tickerInfo;
     let screenSettingsData = screenSettings;
     let userSettingsData = userSettings;
-    console.log(beersData);
-    console.log(eventsData);
-    console.log(tickerInfoData);
-    console.log(screenSettingsData);
-    console.log(userSettingsData);
+    // console.log(beersData);
+    // console.log(eventsData);
+    // console.log(tickerInfoData);
+    // console.log(screenSettingsData);
+    // console.log(userSettingsData);
 
     let beerlist = [];
     let beerlistBom = [];
@@ -667,17 +674,17 @@ class BeerTemplate {
     // let screenDisplay = document.getElementById('screen-display');
     let screenDisplay;
 
-    console.log(userSettingsData.venue_db_id);
+    // console.log(userSettingsData.venue_db_id);
     let screenElementUserId = 'user-id-' + userSettingsData.venue_db_id;
-    console.log(screenElementUserId);
+    // console.log(screenElementUserId);
 
     let displayElement = document.querySelector('#' + screenElementUserId);
     if (displayElement != null) {
-      console.log(displayElement);
+      // console.log(displayElement);
       displayElement = document.querySelector('#' + screenElementUserId + ' #screen-display');
-      console.log(displayElement);
+      // console.log(displayElement);
       screenDisplay = displayElement;
-      console.log(screenDisplay);
+      // console.log(screenDisplay);
     }
 
     let screenDisplayHTML = '';
@@ -728,9 +735,9 @@ class BeerTemplate {
         </div>
       </div>
     </div>`;
-    console.log('***************************************************************************************');
-    console.log(data1722);
-    console.log('***************************************************************************************');
+    // console.log('***************************************************************************************');
+    // console.log(data1722);
+    // console.log('***************************************************************************************');
     screenDisplayTickerHTML = `
       <ul class="list-bts-coming-soon bold-font">
         <li class="info beer-month txt-clr-grn-shdw spacing-sml">Beer 'O the Month:</li>
@@ -861,77 +868,80 @@ class BeerTemplate {
     let beerlistBom = [];
     let beerlistCs = [];
 
-    beersData.forEach(function(beer){
-      if (!beer.beer_of_month && !beer.coming_soon ) {
-        beerlist.push(beer);
-      } else if (beer.beer_of_month && beer.coming_soon) {
-        beerlistBom.push(beer);
-        beerlistCs.push(beer);
-      } else if (beer.beer_of_month){
-        beerlist.push(beer);
-        beerlistBom.push(beer);
-      } else if (beer.coming_soon) {
-        beerlistCs.push(beer);
-      }
-    });
 
-    let halflistNum;
-    halflistNum = Math.floor(beerlist.length / 2);
-    let beerlistFirstHalf = beerlist.slice(0,halflistNum);
-    let beerlistSecondHalf = beerlist.slice(halflistNum, beerlist.length);
+    if (Object.getOwnPropertyNames(beersData).length >= 1) {
+              beersData.forEach(function(beer){
+                if (!beer.beer_of_month && !beer.coming_soon ) {
+                  beerlist.push(beer);
+                } else if (beer.beer_of_month && beer.coming_soon) {
+                  beerlistBom.push(beer);
+                  beerlistCs.push(beer);
+                } else if (beer.beer_of_month){
+                  beerlist.push(beer);
+                  beerlistBom.push(beer);
+                } else if (beer.coming_soon) {
+                  beerlistCs.push(beer);
+                }
+              });
 
-    let beersPrintScreenDiv = document.querySelector('.beer-list-div-bp');
-    // console.log(userSettingsData.venue_db_id);
-    let screenElementUserId = 'user-id-' + userSettingsData.venue_db_id;
-    // console.log(screenElementUserId);
-    let displayListElement = document.querySelector('#' + screenElementUserId);
-    // console.log(displayListElement);
-    displayListElement = document.querySelector('#' + screenElementUserId + ' .beer-list-div-bp');
-    // console.log(displayListElement);
-    beersPrintScreenDiv = displayListElement;
-    // console.log(beersPrintScreenDiv);
+              let halflistNum;
+              halflistNum = Math.floor(beerlist.length / 2);
+              let beerlistFirstHalf = beerlist.slice(0,halflistNum);
+              let beerlistSecondHalf = beerlist.slice(halflistNum, beerlist.length);
 
-    let beersPrintHTML = '';
-    beersPrintHTML += `<ul id="" class='list-group-flush'>`;
-    beerlist.forEach(function(beer){
-      beersPrintHTML += `<li id="" class='list-group-item'>${beer.id_dropdown}.  <span class="larger-text txt-clr-grn">${beer.name}</span> - ${beer.style} - ${beer.abv}% ABV - ${beer.ibu} IBU - ${beer.location} - <span class="italic-font">${beer.brewery}</span></li>`;
-    });
-    beersPrintHTML += `</ul>`;
+              let beersPrintScreenDiv = document.querySelector('.beer-list-div-bp');
+              // console.log(userSettingsData.venue_db_id);
+              let screenElementUserId = 'user-id-' + userSettingsData.venue_db_id;
+              // console.log(screenElementUserId);
+              let displayListElement = document.querySelector('#' + screenElementUserId);
+              // console.log(displayListElement);
+              displayListElement = document.querySelector('#' + screenElementUserId + ' .beer-list-div-bp');
+              // console.log(displayListElement);
+              beersPrintScreenDiv = displayListElement;
+              // console.log(beersPrintScreenDiv);
 
-    if (beersPrintScreenDiv !== null) {
-      // console.log(beersPrintScreenDiv);
-      beersPrintScreenDiv.innerHTML = beersPrintHTML;
-    }
+              let beersPrintHTML = '';
+              beersPrintHTML += `<ul id="" class='list-group-flush'>`;
+              beerlist.forEach(function(beer){
+                beersPrintHTML += `<li id="" class='list-group-item'>${beer.id_dropdown}.  <span class="larger-text txt-clr-grn">${beer.name}</span> - ${beer.style} - ${beer.abv}% ABV - ${beer.ibu} IBU - ${beer.location} - <span class="italic-font">${beer.brewery}</span></li>`;
+              });
+              beersPrintHTML += `</ul>`;
 
-    let monthPBPHTML = '';
-    beerlistBom.forEach(function(beer){
-      monthPBPHTML += `<span class="mx-3 larger-text txt-clr-grn">${beer.name}</span>`;
-    });
+              if (beersPrintScreenDiv !== null) {
+                // console.log(beersPrintScreenDiv);
+                beersPrintScreenDiv.innerHTML = beersPrintHTML;
+              }
 
-    let monthPBP = document.querySelectorAll('.month-p-bp');
-    let displayMonthElement = document.querySelector('#' + screenElementUserId + ' .month-p-bp');
-    monthPBP = displayMonthElement;
-    if (monthPBP !== null) {
-      monthPBP.innerHTML = monthPBPHTML;
-    }
+              let monthPBPHTML = '';
+              beerlistBom.forEach(function(beer){
+                monthPBPHTML += `<span class="mx-3 larger-text txt-clr-grn">${beer.name}</span>`;
+              });
 
-    let comingsoonHTML = '';
-    let comingsoonPBP = document.querySelector('#comingsoon-p-bp');
-    let displayComingsoonElement = document.querySelector('#' + screenElementUserId + ' #comingsoon-p-bp');
-    comingsoonPBP = displayComingsoonElement;
-    beerlistCs.forEach(function(beer){
-      // console.log(beer);
-      comingsoonHTML += `<span class="mx-4 larger-text txt-clr-grn">${beer.name}</span>`;
-    });
-    if (comingsoonPBP !== null) {
-      comingsoonPBP.innerHTML = comingsoonHTML;
+              let monthPBP = document.querySelectorAll('.month-p-bp');
+              let displayMonthElement = document.querySelector('#' + screenElementUserId + ' .month-p-bp');
+              monthPBP = displayMonthElement;
+              if (monthPBP !== null) {
+                monthPBP.innerHTML = monthPBPHTML;
+              }
+
+              let comingsoonHTML = '';
+              let comingsoonPBP = document.querySelector('#comingsoon-p-bp');
+              let displayComingsoonElement = document.querySelector('#' + screenElementUserId + ' #comingsoon-p-bp');
+              comingsoonPBP = displayComingsoonElement;
+              beerlistCs.forEach(function(beer){
+                // console.log(beer);
+                comingsoonHTML += `<span class="mx-4 larger-text txt-clr-grn">${beer.name}</span>`;
+              });
+              if (comingsoonPBP !== null) {
+                comingsoonPBP.innerHTML = comingsoonHTML;
+              }
     }
   }
 
   draftBeersTabletScreenTemplate(displayData){
-    console.log("/////////////////////////////////////////////////////////////");
-    console.log("draftBeersTabletScreenTemplate");
-    console.log("/////////////////////////////////////////////////////////////");
+    // console.log("/////////////////////////////////////////////////////////////");
+    // console.log("draftBeersTabletScreenTemplate");
+    // console.log("/////////////////////////////////////////////////////////////");
     const { currentBeers, events, userSettings } = displayData;
     let beersData = currentBeers;
     // console.log(beersData);
@@ -942,107 +952,114 @@ class BeerTemplate {
     let beerlistBom = [];
     let beerlistCs = [];
 
-    beersData.forEach(function(beer){
-      if (!beer.beer_of_month && !beer.coming_soon ) {
-        beerlist.push(beer);
-      } else if (beer.beer_of_month && beer.coming_soon) {
-        beerlistBom.push(beer);
-        beerlistCs.push(beer);
-      } else if (beer.beer_of_month){
-        beerlist.push(beer);
-        beerlistBom.push(beer);
-      } else if (beer.coming_soon) {
-        beerlistCs.push(beer);
-      }
-    });
+    if (Object.getOwnPropertyNames(beersData).length >= 1) {
 
-    let halflistNum;
-    halflistNum = Math.floor(beerlist.length / 2);
-    let beerlistFirstHalf = beerlist.slice(0,halflistNum);
-    let beerlistSecondHalf = beerlist.slice(halflistNum, beerlist.length);
+              beersData.forEach(function(beer){
+                if (!beer.beer_of_month && !beer.coming_soon ) {
+                  beerlist.push(beer);
+                } else if (beer.beer_of_month && beer.coming_soon) {
+                  beerlistBom.push(beer);
+                  beerlistCs.push(beer);
+                } else if (beer.beer_of_month){
+                  beerlist.push(beer);
+                  beerlistBom.push(beer);
+                } else if (beer.coming_soon) {
+                  beerlistCs.push(beer);
+                }
+              });
 
-    let beersTabletScreenDivPP = document.querySelector('.beer-list-div-pp');
-    // console.log(userSettingsData.venue_db_id);
-    let screenElementUserId = 'user-id-' + userSettingsData.venue_db_id;
-    // console.log(screenElementUserId);
-    let displayListElement = document.querySelector('#' + screenElementUserId);
-    // console.log(displayListElement);
-    displayListElement = document.querySelector('#' + screenElementUserId + ' .beer-list-div-pp');
-    // console.log(displayListElement);
-    beersTabletScreenDivPP = displayListElement;
-    // console.log(beersTabletScreenDivPP);
+              let halflistNum;
+              halflistNum = Math.floor(beerlist.length / 2);
+              let beerlistFirstHalf = beerlist.slice(0,halflistNum);
+              let beerlistSecondHalf = beerlist.slice(halflistNum, beerlist.length);
 
-    let beersTabletHTML = '';
-        beersTabletHTML += `<ul id="" class='beer-list-loop-pp list-group-flush'>`;
-    beerlist.forEach(function(beer){
-      beersTabletHTML += `<li id="" class='list-group-item-pp list-group-item'>${beer.id_dropdown}.  <span class="larger-text txt-clr-grn">${beer.name}</span> - <span class="bold-font italic-font">${beer.style}</span> - ${beer.abv}% ABV - ${beer.ibu} IBU - ${beer.location} - <span class="italic-font">${beer.brewery}</span></li>`;
-    });
-    beersTabletHTML += `</ul>`;
+              let beersTabletScreenDivPP = document.querySelector('.beer-list-div-pp');
+              // console.log(userSettingsData.venue_db_id);
+              let screenElementUserId = 'user-id-' + userSettingsData.venue_db_id;
+              // console.log(screenElementUserId);
+              let displayListElement = document.querySelector('#' + screenElementUserId);
+              // console.log(displayListElement);
+              displayListElement = document.querySelector('#' + screenElementUserId + ' .beer-list-div-pp');
+              // console.log(displayListElement);
+              beersTabletScreenDivPP = displayListElement;
+              // console.log(beersTabletScreenDivPP);
 
-    if (beersTabletScreenDivPP !== null) {
-      // console.log(beersTabletScreenDivPP);
-      beersTabletScreenDivPP.innerHTML = beersTabletHTML;
-    }
+              let beersTabletHTML = '';
+                  beersTabletHTML += `<ul id="" class='beer-list-loop-pp list-group-flush'>`;
+              beerlist.forEach(function(beer){
+                beersTabletHTML += `<li id="" class='list-group-item-pp list-group-item'>${beer.id_dropdown}.  <span class="larger-text txt-clr-grn">${beer.name}</span> - <span class="bold-font italic-font">${beer.style}</span> - ${beer.abv}% ABV - ${beer.ibu} IBU - ${beer.location} - <span class="italic-font">${beer.brewery}</span></li>`;
+              });
+              beersTabletHTML += `</ul>`;
 
-    let monthPPPHTML = '';
-    beerlistBom.forEach(function(beer){
-      monthPPPHTML += `
-        <span class="mx-3 larger-text txt-clr-grn">${beer.name}</span> - <span class="bold-font italic-font">${beer.style}</span>
-        `;
-    });
+              if (beersTabletScreenDivPP !== null) {
+                // console.log(beersTabletScreenDivPP);
+                beersTabletScreenDivPP.innerHTML = beersTabletHTML;
+              }
 
-    let monthPPP = document.querySelectorAll('.month-p-pp');
-    let displayMonthElement = document.querySelector('#' + screenElementUserId + ' .month-p-pp');
-    monthPPP = displayMonthElement;
-    if (monthPPP !== null) {
-      monthPPP.innerHTML = monthPPPHTML;
-    }
+              let monthPPPHTML = '';
+              beerlistBom.forEach(function(beer){
+                monthPPPHTML += `
+                  <span class="mx-3 larger-text txt-clr-grn">${beer.name}</span> - <span class="bold-font italic-font">${beer.style}</span>
+                  `;
+              });
 
-    let comingsoonHTML = '';
-    let comingsoonPPP = document.querySelector('#comingsoon-p-pp');
-    let displayComingsoonElement = document.querySelector('#' + screenElementUserId + ' #comingsoon-p-pp');
-    comingsoonPPP = displayComingsoonElement;
-    beerlistCs.forEach(function(beer){
-      comingsoonHTML += `<span class="mx-4 larger-text txt-clr-grn">${beer.name}</span>`;
-    });
-    if (comingsoonPPP !== null) {
-      comingsoonPPP.innerHTML = comingsoonHTML;
+              let monthPPP = document.querySelectorAll('.month-p-pp');
+              let displayMonthElement = document.querySelector('#' + screenElementUserId + ' .month-p-pp');
+              monthPPP = displayMonthElement;
+              if (monthPPP !== null) {
+                monthPPP.innerHTML = monthPPPHTML;
+              }
+
+              let comingsoonHTML = '';
+              let comingsoonPPP = document.querySelector('#comingsoon-p-pp');
+              let displayComingsoonElement = document.querySelector('#' + screenElementUserId + ' #comingsoon-p-pp');
+              comingsoonPPP = displayComingsoonElement;
+              beerlistCs.forEach(function(beer){
+                comingsoonHTML += `<span class="mx-4 larger-text txt-clr-grn">${beer.name}</span>`;
+              });
+              if (comingsoonPPP !== null) {
+                comingsoonPPP.innerHTML = comingsoonHTML;
+              }
     }
   }
 
   bottleBeersTabletScreenTemplate(displayData){
-    console.log(displayData);
+    // console.log(displayData);
     const { bottleBeerlist, userSettings } = displayData;
     let beersData = bottleBeerlist.beerlist;
-    console.log(beersData);
+    // console.log(beersData);
+
     let userId = userSettings.venue_db_id;
-    console.log(userId);
 
-    let screenElementUserId = 'user-id-' + userId;
-    console.log(screenElementUserId);
-    let displayListElement = document.querySelector('#' + screenElementUserId + ' .beer-list-loop-bb');
-    if (displayListElement != null) {
-      console.log(displayListElement);
+    if (Object.getOwnPropertyNames(userId).length >= 1) {
 
-      let bottleBeerlistHTML = "";
-      bottleBeerlistHTML += `<ul id="bottle-beers-list" class="beer-list-loop-bb list-group-flush">`;
-      beersData.forEach(beer=> {
-        // if (beer.draft_bottle_selection == "Bottle" || beer.draft_bottle_selection == "Can" || beer.draft_bottle_selection == "Draft & Bottle" || beer.draft_bottle_selection == "Draft & Can" || beer.draft_bottle_selection == "Bottle & Can" || beer.draft_bottle_selection == "Draft, Bottle & Can") {
-        if (beer.draft_bottle_selection != "Draft") {
-          bottleBeerlistHTML += `<li class="list-group-item-bb list-group-item"><span class="larger-text txt-clr-grn">${beer.name} </span> ${beer.draft_bottle_selection} - <span class="bold-font italic-font">${beer.style}</span> - ${beer.abv}% ABV - ${beer.ibu} IBU - ${beer.location} - <span class="italic-font">${beer.brewery}</span></li>`;
+        // console.log(userId);
+        let screenElementUserId = 'user-id-' + userId;
+        // console.log(screenElementUserId);
+        let displayListElement = document.querySelector('#' + screenElementUserId + ' .beer-list-loop-bb');
+        if (displayListElement != null) {
+          // console.log(displayListElement);
+
+          let bottleBeerlistHTML = "";
+          bottleBeerlistHTML += `<ul id="bottle-beers-list" class="beer-list-loop-bb list-group-flush">`;
+          beersData.forEach(beer=> {
+            // if (beer.draft_bottle_selection == "Bottle" || beer.draft_bottle_selection == "Can" || beer.draft_bottle_selection == "Draft & Bottle" || beer.draft_bottle_selection == "Draft & Can" || beer.draft_bottle_selection == "Bottle & Can" || beer.draft_bottle_selection == "Draft, Bottle & Can") {
+            if (beer.draft_bottle_selection != "Draft") {
+              bottleBeerlistHTML += `<li class="list-group-item-bb list-group-item"><span class="larger-text txt-clr-grn">${beer.name} </span> ${beer.draft_bottle_selection} - <span class="bold-font italic-font">${beer.style}</span> - ${beer.abv}% ABV - ${beer.ibu} IBU - ${beer.location} - <span class="italic-font">${beer.brewery}</span></li>`;
+            }
+          });
+          bottleBeerlistHTML += `</ul>`;
+          displayListElement.innerHTML = bottleBeerlistHTML;
         }
-      });
-      bottleBeerlistHTML += `</ul>`;
-      displayListElement.innerHTML = bottleBeerlistHTML;
     }
   }
 
   paintUntappdSearchResultsList(displayData) {
-    console.log("IN THE BEER TEMPLATE paintUntappdSearchResultsList()");
-    console.log(displayData);
+    // console.log("IN THE BEER TEMPLATE paintUntappdSearchResultsList()");
+    // console.log(displayData);
     const { beerData, userData } = displayData;
-    console.log(beerData);
-    console.log(userData);
+    // console.log(beerData);
+    // console.log(userData);
 
     let userId = userData.id[0];
     let screenElementUserId = 'user-id-' + userId;
@@ -1061,8 +1078,13 @@ class BeerTemplate {
               <div class="card-header" id="heading-${beer.beer.bid}">
                 <h2 class="mb-0">
                   <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#${beer.beer.bid}" aria-expanded="true" aria-controls="${beer.beer.bid}">
-                    ${beer.beer.bid} - ${beer.beer.beer_name} - ${beer.brewery.brewery_name}
+                    <div>
+                      <span class="beer-id">${beer.beer.bid}</span> - <span>${beer.beer.beer_name}</span><br><span>${beer.brewery.brewery_name}</span>
+                    </div>
                   </button>
+                  <div class="">
+                    <a href="#heading-${beer.beer.bid}" class="btn btn-sm btn-outline-success untappd-add-beer-to-db" type="">Add Beer</a>
+                  </div>
                 </h2>
               </div>
               <div id="${beer.beer.bid}" class="collapse show" aria-labelledby="heading-${beer.beer.bid}" data-parent="#beerlistAccordion">
@@ -1094,46 +1116,42 @@ class BeerTemplate {
                       <td>
                           <div>
                             <input class="bottle-draft-draft" type="radio" id="draft-${beer.beer.bid}"
-                                   name="beer" value="Draft" />
+                                   name="beer-${beer.beer.bid}" value="Draft" />
                             <label for="draft">Draft</label>
                           </div>
                           <div>
                             <input class="bottle-draft-bottle" type="radio" id="bottle-${beer.beer.bid}"
-                                   name="beer" value="Bottle" />
+                                   name="beer-${beer.beer.bid}" value="Bottle" />
                             <label for="bottle">Bottle</label>
                           </div>
                           <div>
                             <input class="bottle-draft-can" type="radio" id="can-${beer.beer.bid}"
-                                   name="beer" value="Can" />
+                                   name="beer-${beer.beer.bid}" value="Can" />
                             <label for="can">Can</label>
                           </div>
                           <div>
                             <input class="bottle-draft-draftBottle" type="radio" id="draftBottle-${beer.beer.bid}"
-                                   name="beer" value="Draft & Bottle" />
+                                   name="beer-${beer.beer.bid}" value="Draft & Bottle" />
                             <label for="draftBottle">Draft & Bottle</label>
                           </div>
                           <div>
                             <input class="bottle-draft-draftCan" type="radio" id="draftCan-${beer.beer.bid}"
-                                   name="beer" value="Draft & Can" />
+                                   name="beer-${beer.beer.bid}" value="Draft & Can" />
                             <label for="draftCan">Draft & Can</label>
                           </div>
                           <div>
                             <input class="bottle-draft-bottleCan" type="radio" id="bottleCan-${beer.beer.bid}"
-                                   name="beer" value="Bottle & Can" />
+                                   name="beer-${beer.beer.bid}" value="Bottle & Can" />
                             <label for="bottleCan">Bottle & Can</label>
                           </div>
                           <div>
                             <input class="bottle-draft-draftBottleCan" type="radio" id="draftBottleCan-${beer.beer.bid}"
-                                   name="beer" value="Draft, Bottle & Can" />
+                                   name="beer-${beer.beer.bid}" value="Draft, Bottle & Can" />
                             <label for="draftBottleCan">Draft, Bottle & Can</label>
                           </div>
                       </td>
                     </tr>
                   </table>
-                  <div>
-                    <a href="#" class="btn btn-sm btn-outline-success add-beer-to-db" type="">Add Beer</a>
-                    <a href="#" class="btn btn-sm btn-outline-danger btn-cancel">Cancel</a>
-                  </div>
                 </div>
               </div>
             </div>
@@ -1147,7 +1165,7 @@ class BeerTemplate {
     }
     let draftRadios = document.querySelectorAll(".bottle-draft-draft");
     draftRadios.forEach(draftRadio => {
-      console.log(draftRadio);
+      // console.log(draftRadio);
       draftRadio.checked = true;
     });
   }

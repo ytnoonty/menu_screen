@@ -179,3 +179,11 @@ def _getBottleBeers(user_id):
         beer['draft_bottle_selection'] = b.draft_bottle_selection
         beerlist.append(beer)
     return beerlist
+
+def addNewBeerToDB(data, user_id):
+    print(data)
+    print(user_id)
+    user = User.query.filter_by(id=user_id).first()
+    newBeer = List_history(name=data['name'],style=data['style'],abv=data['abv'],ibu=data['ibu'],brewery=data['brewery'],location=data['location'],website=data['website'],description=data['description'],draft_bottle_selection=data['draftBottle'],venue_db_id=user_id)
+    db.session.add(newBeer)
+    db.session.commit()

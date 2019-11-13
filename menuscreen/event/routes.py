@@ -21,14 +21,17 @@ def _get_event_current_list():
     print(data)
     if (data):
         current_user_id = getVenueId(data['userName'])
-        print("DATA HERE")
+        print("NOT LOGGED IN")
         print(data['userName'])
         print(current_user_id)
         data = _getEventsSortAsc(current_user_id)
-    else:
-        print("NO DATA HERE")
+    elif (current_user.is_authenticated):
+        print("LOGGED IN")
         print(current_user.id)
         data = _getEventsSortAsc(current_user.id)
+    else:
+        print("NOT LOGGED IN AND NO URL INFO")
+        data = {}
     print("**************************************")
     print("**************************************")
     return jsonify(data)

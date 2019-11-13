@@ -88,7 +88,7 @@ def getTickerInfo():
     print(data)
     if (data):
         current_user_id = getVenueId(data['userName'])
-        print("DATA HERE")
+        print("NOT LOGGED IN")
         print(data['userName'])
         print(current_user_id)
         data = _getTickerInfo(current_user_id)
@@ -96,15 +96,17 @@ def getTickerInfo():
         tickerInfo['id'] = data.id
         tickerInfo['ticker_text'] = data.ticker_text
         tickerInfo['tickerscreen_id'] = data.tickerscreen_id
-
-    else:
-        print("NO DATA HERE")
+    elif (current_user.is_authenticated):
+        print("LOGGED IN")
         print(current_user.id)
         data = _getTickerInfo(current_user.id)
         tickerInfo = {}
         tickerInfo['id'] = data.id
         tickerInfo['ticker_text'] = data.ticker_text
         tickerInfo['tickerscreen_id'] = data.tickerscreen_id
+    else:
+        print("NOT LOGGED IN AND NO URL INFO")
+        tickerInfo = {}
 
     print("**************************************")
     print("**************************************")

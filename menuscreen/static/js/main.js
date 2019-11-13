@@ -18,7 +18,7 @@ const UserCtrl = (function() {
 
   async function fetchUserData(userData) {
     // console.log("FETCHING USER DATA");
-    console.log(userData);
+    // console.log(userData);
     const res = await fetch('/_logged_in_user_data', {
       method: "POST",
       credentials: "include",
@@ -29,16 +29,16 @@ const UserCtrl = (function() {
       })
     });
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     return data;
   }
 
   // get username from url to use if user not logged in and need to use the
   // screen for a tablet, beers_display_screen, or a website
   const getUserNameFromURL = () => {
-    console.log('**************************************************');
-    console.log('******************GET USERNAME********************');
-    console.log('**************************************************');
+    // console.log('**************************************************');
+    // console.log('******************GET USERNAME********************');
+    // console.log('**************************************************');
     let currentURL = window.location.href;
     let currentSplitURL = currentURL.split('/');
     // console.log(currentSplitURL);
@@ -72,7 +72,7 @@ const UpdateCtrl = (function() {
     console.log("FETCHING SCREEN DELETE UPDATE STATUS");
     const fetchResponse = await fetch('/_delete_update_ui');
     const data = await fetchResponse.json();
-    console.log(data);
+    // console.log(data);
     return data;
   }
 
@@ -116,14 +116,8 @@ const BeerCtrl = (function(){
     currentItem: null,
   }
 
-  // async function fetchBeerhistoryList() {
-  //   const fetchResponse = await fetch('/_getTotBeerlist');
-  //   const data = await fetchResponse.json();
-  //   return data;
-  // }
-
   async function fetchBeerhistoryList(userData) {
-    console.log(userData);
+    // console.log(userData);
     const res = await fetch('/_getTotBeerlist', {
       method: "POST",
       credentials: "include",
@@ -134,7 +128,7 @@ const BeerCtrl = (function(){
       })
     });
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     return data;
   }
 
@@ -156,19 +150,8 @@ const BeerCtrl = (function(){
     fetchScreenUpdate(template);
   }
 
-  const fetchTotBeerlist = function(template) {
-    const fetchBeers = function(template) {
-      fetch('/_getTotBeerlist')
-      .then((res) => res.json())
-      .then((data) => {
-        template(data);
-      })
-    }
-    fetchBeers(template);
-  }
-
   async function fetchCurBeerlist(userData) {
-    console.log(userData);
+    // console.log(userData);
     const res = await fetch('/_getCurBeerlist', {
       method: "POST",
       credentials: "include",
@@ -179,12 +162,12 @@ const BeerCtrl = (function(){
       })
     });
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     return data;
   }
 
   async function fetchNextBeerlist(userData) {
-    console.log(userData);
+    // console.log(userData);
     const res = await fetch('/_getNextBeerlist', {
       method: "POST",
       credentials: "include",
@@ -195,7 +178,7 @@ const BeerCtrl = (function(){
       })
     });
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     return data;
   }
 
@@ -220,7 +203,7 @@ const BeerCtrl = (function(){
 
   const fetchDeleteBeerFromDb = function(id) {
     const deleteBeerFromDb = function(beer) {
-      console.log(beer);
+      // console.log(beer);
       fetch('/_delete_beer_from_list', {
         method: "POST",
         credentials: "include",
@@ -239,12 +222,12 @@ const BeerCtrl = (function(){
   async function fetchAllTotalCurrentNextLists() {
     const fetchResponse = await fetch('/_getAllTotalCurrentNextLists');
     const data = await fetchResponse.json();
-    console.log(data);
+    // console.log(data);
     return data;
   }
 
   async function fetchBottleBeerlist(userData) {
-    console.log(userData);
+    // console.log(userData);
     const fetchResponse = await fetch('/_getBottleBeerlist', {
       method: "POST",
       credentials: "include",
@@ -255,8 +238,39 @@ const BeerCtrl = (function(){
       })
     });
     const data = await fetchResponse.json();
-    console.log(data);
+    // console.log(data);
     return data;
+  }
+
+  const fetchAddNewBeerToDB = async data => {
+    // console.log(data);
+    const fetchResponse = await fetch('/_addNewBeerToDB', {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify(data),
+      cache: "no-cache",
+      headers: new Headers({
+        "content-type": "application/json"
+      })
+    });
+    data = await fetchResponse.json();
+    // console.log(data);
+    return data;
+  }
+
+  const createNewBeerOBJ = data => {
+    let beer = {
+      "name": data.beer.beer_name,
+      "style": data.beer.beer_style,
+      "abv": data.beer.beer_abv,
+      "ibu": data.beer.beer_ibu,
+      "brewery": data.beer.brewery.brewery_name,
+      "location": `${data.beer.brewery.location.brewery_city}, ${data.beer.brewery.location.brewery_state}`,
+      "website": data.beer.brewery.contact.url,
+      "description": data.beer.beer_description,
+      "draftBottle": data.draftBottleSelection,
+    };
+    return beer;
   }
 
   // Public methods
@@ -272,9 +286,6 @@ const BeerCtrl = (function(){
     },
     callFetchCurrentBeerList: function(template) {
       fetchCurrentBeerList(template);
-    },
-    callFetchTotBeerlist: function(template) {
-      fetchTotBeerlist(template);
     },
     callFetchCurBeerlist: function(data) {
       return fetchCurBeerlist(data);
@@ -295,6 +306,12 @@ const BeerCtrl = (function(){
     callFetchBottleBeerlist: function(data) {
       return fetchBottleBeerlist(data);
     },
+    callFetchAddNewBeerToDB: function(data) {
+      fetchAddNewBeerToDB(data);
+    },
+    callCreateNewBeerObj: function(data) {
+      return createNewBeerOBJ(data);
+    }
 
   }
 
@@ -307,12 +324,9 @@ const BeerCtrl = (function(){
 ////////////////////////////////////////////////////////////////////////////////
 const UntappdCtrl = (function(){
   const loadData = function(data) {
-    // need to work on this still stopped on purpose
-    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    console.log("loadData(): " + data);
-    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    // console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    // console.log("loadData(): " + data);
+    // console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     let untappd = new Untappd;
     let beerlist = [];
     let res = untappd.getBeerByName(data)
@@ -331,10 +345,23 @@ const UntappdCtrl = (function(){
     return res;
   }
 
+  const getSingleBeerById = function(data) {
+    let untappd = new Untappd;
+    let res = untappd.getBeerById(data)
+    .then(res => {
+      let newBeer = res.singleResult.response.beer;
+      return newBeer;
+    });
+    return res;
+  }
+
   return {
     callLoadData: function(data) {
       return loadData(data);
     },
+    callGetSingleBeerById: function(data) {
+      return getSingleBeerById(data);
+    }
   }
 })();
 ////////////////////////////////////////////////////////////////////////////////
@@ -345,10 +372,10 @@ const UntappdCtrl = (function(){
 ////////////////////////////////////////////////////////////////////////////////
 const TickerCtrl = (function(){
   const logData = function() {
-    console.log('IN THE TICKER CONTROLLER');
+    // console.log('IN THE TICKER CONTROLLER');
   }
   async function fetchTickerInfo(userData) {
-    console.log(userData);
+    // console.log(userData);
     const res = await fetch('/getTickerInfo', {
       method: "POST",
       credentials: "include",
@@ -359,7 +386,7 @@ const TickerCtrl = (function(){
       })
     });
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     return data;
   }
 
@@ -389,7 +416,7 @@ const WineCtrl = (function(){
       fetch('/_winemenu_list_display')
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         template(data);
       })
     }
@@ -414,7 +441,7 @@ const WineCtrl = (function(){
 ////////////////////////////////////////////////////////////////////////////////
 const EventCtrl = (function(){
   async function getCurrentEventlist (userData) {
-    console.log(userData);
+    // console.log(userData);
     const res = await fetch('/_get_event_current_list', {
       method: "POST",
       credentials: "include",
@@ -425,7 +452,7 @@ const EventCtrl = (function(){
       })
     });
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     return data;
   }
 
@@ -444,7 +471,7 @@ const EventCtrl = (function(){
 ////////////////////////////////////////////////////////////////////////////////
 const ScreenSettingsCtrl = (function() {
   async function fetchScreenSettings(userData) {
-    console.log(userData);
+    // console.log(userData);
     const res = await fetch('/_get_screen_settings', {
       method: "POST",
       credentials: "include",
@@ -455,7 +482,7 @@ const ScreenSettingsCtrl = (function() {
       })
     });
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     return data;
   }
 
@@ -529,6 +556,7 @@ const UICtrl = (function(){
     searchBeerText: '#search-beer',
     searchBeerBtn: '#search-beer-btn',
     searchBeerResults: '#search-beer-results',
+    untappdAddBeerToDB: '.untappd-add-beer-to-db',
 
   }
 
@@ -567,34 +595,34 @@ const UICtrl = (function(){
   }
 
   const loadBeerlist = function() {
-    console.log('LOAD BEERLIST');
+    // console.log('LOAD BEERLIST');
   }
 
   const updateDisplayScreen = function(displayData) {
-    console.log("**************************************************************************************");
-    console.log("UPDATE DISPLAY SCREEN");
-    console.log("**************************************************************************************");
-    console.log(displayData);
+    // console.log("**************************************************************************************");
+    // console.log("UPDATE DISPLAY SCREEN");
+    // console.log("**************************************************************************************");
+    // console.log(displayData);
     const { screenSettings } = displayData;
-    console.log(screenSettings.templateName);
+    // console.log(screenSettings.templateName);
     const beerscreenTemplate = new BeerTemplate;
     const eventscreenTemplate = new EventTemplate;
     let templateName = screenSettings.templateName;
     if (templateName == '2 Columns, Name, Style, ABV, IBU') {
-      console.log("**************************************************************************************");
-      console.log('IN THE DEFAULT TEMPLATE');
-      console.log("**************************************************************************************");
+      // console.log("**************************************************************************************");
+      // console.log('IN THE DEFAULT TEMPLATE');
+      // console.log("**************************************************************************************");
       beerscreenTemplate.defaultTemplate(displayData);
     } else if (templateName == '2 Columns, Name, ABV, IBU') {
-      console.log("**************************************************************************************");
-      console.log('IN THE DEFAULT TEMPLATE');
-      console.log("**************************************************************************************");
+      // console.log("**************************************************************************************");
+      // console.log('IN THE DEFAULT TEMPLATE');
+      // console.log("**************************************************************************************");
       beerscreenTemplate.defaultTemplate(displayData);
     } else if (templateName == '2 Columns, Name, Style, ABV'){
-      console.log('IN THE 2sna TEMPLATE');
+      // console.log('IN THE 2sna TEMPLATE');
       beerscreenTemplate.twoColNSAITemplate(displayData);
     } else if (templateName == '2 Columns, Name, Style'){
-      console.log('IN THE 2sn TEMPLATE');
+      // console.log('IN THE 2sn TEMPLATE');
       beerscreenTemplate.twoColNSTemplate(displayData);
     } else if (templateName == '2 Event Columns') {
       eventscreenTemplate.eventTwoColTemplate(displayData);
@@ -614,7 +642,7 @@ const UICtrl = (function(){
     // beersprintTemplate.draftBeersTabletScreenTemplate(beers);
   }
   const updateBottleBeersTabletScreen = (displayData) => {
-    console.log(displayData);
+    // console.log(displayData);
     const { beerlist } = displayData;
     // console.log('IN THE updateBottleBeersTabletScreen');
     const beersprintTemplate = new BeerTemplate;
@@ -622,12 +650,12 @@ const UICtrl = (function(){
     // beersprintTemplate.bottleBeersTabletScreenTemplate(beers);
   }
   const updateWineTabletScreen = (displayData) => {
-    console.log(displayData);
+    // console.log(displayData);
     const wineScreenTabletTemplate = new WineTemplate;
     wineScreenTabletTemplate.wineTabletTemplate(displayData);
   }
   const updateWineDescriptionsTabletScreen = (displayData) => {
-    console.log(displayData);
+    // console.log(displayData);
     const wineScreenwineDescriptionsTabletTemplateTabletTemplate = new WineTemplate;
     wineScreenwineDescriptionsTabletTemplateTabletTemplate.wineDescriptionsTabletTemplate(displayData);
   }
@@ -662,6 +690,18 @@ const UICtrl = (function(){
   const paintUntappdSearchResultsList = (data) => {
     const searchUntappdTemplate = new BeerTemplate;
     searchUntappdTemplate.paintUntappdSearchResultsList(data);
+  }
+  const getBeerIdFromUI = (event) => {
+    // get and return id from UI
+    let id = event.target.parentElement.parentElement.querySelector('.beer-id').innerHTML;
+    let radioName = `beer-${id}`;
+    // console.log(radioName);
+    // let querySelector = `input[value=Draft]`;
+    let querySelector = `input[name=${radioName}]:checked`;
+    // console.log(event.target.parentElement.parentElement.parentElement.parentElement.querySelector('input[name=radioName]:checked').value);
+    let selectedRadioVal = document.querySelector(querySelector).value;
+    // console.log(selectedRadioVal);
+    return { "id": id, "selectedRadioVal": selectedRadioVal };
   }
 
   // Public methods
@@ -719,6 +759,9 @@ const UICtrl = (function(){
     },
     callPaintUntappdSearchResultsList: (data) => {
       paintUntappdSearchResultsList(data);
+    },
+    callGetBeerIdFromUI: (event) => {
+      return getBeerIdFromUI(event);
     }
   }
 })();
@@ -734,35 +777,34 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
   const UISelectors = UICtrl.getSelectors();
 
   async function addUpdateScreens(data) {
-    console.log("///////////////////////////////////////////////////////////////////////////");
+    // console.log("///////////////////////////////////////////////////////////////////////////");
     console.log("ADD UPDATE SCREENS");
-    console.log(data.venue_db_id);
-    console.log("///////////////////////////////////////////////////////////////////////////");
+    // console.log(data.venue_db_id);
+    // console.log("///////////////////////////////////////////////////////////////////////////");
 
     // // add new beer to current screen edit_beer_list
-    // BeerCtrl.callFetchTotBeerlist(UICtrl.callAddBeerToListEditor);
 
     let userNameScreenId = UserCtrl.callGetUserNameFromURL();
     // console.log(userNameScreenId);
 
     // query the DB for the current beerlist
     let currentBeers = await BeerCtrl.callFetchCurBeerlist(userNameScreenId);
-    console.log(currentBeers);
+    // console.log(currentBeers);
 
     // query the DB for the next beerlist
     let nextBeers = await BeerCtrl.callFetchNextBeerlist(userNameScreenId);
     // console.log(nextBeers);
     // query the DB for the list history
     let beerslistTotal = await BeerCtrl.callFetchBeerhistoryList(userNameScreenId);
-    console.log(beerslistTotal);
+    // console.log(beerslistTotal);
     // query the DB for the ticker news info
     let bottleBeerlist = await BeerCtrl.callFetchBottleBeerlist(userNameScreenId);
-    console.log(bottleBeerlist);
+    // console.log(bottleBeerlist);
     let tickerInfo = await TickerCtrl.callFetchTickerInfo(userNameScreenId);
-    console.log(tickerInfo);
+    // console.log(tickerInfo);
     // query the DB for the events
     let events = await EventCtrl.callGetCurrentEventlist(userNameScreenId);
-    console.log(events);
+    // console.log(events);
     // let userData = await UserCtrl.callFetchUserData();
     let screenSettings = await ScreenSettingsCtrl.callFetchScreenSettings(userNameScreenId);
     // console.log(screenSettings);
@@ -801,11 +843,11 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
   }
 
   async function deleteUpdateScreens(data) {
-    console.log("///////////////////////////////////////////////////////////////////////////");
+    // console.log("///////////////////////////////////////////////////////////////////////////");
     console.log("DELETE UPDATE SCREENS");
-    console.log("///////////////////////////////////////////////////////////////////////////");
-    console.log(data);
-    console.log(data.venue_db_id);
+    // console.log("///////////////////////////////////////////////////////////////////////////");
+    // console.log(data);
+    // console.log(data.venue_db_id);
 
     // delete beer from current screen from edit_beer_list
     // function call to delete
@@ -814,27 +856,27 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     // console.log(userNameScreenId);
 
     let currentBeers = await BeerCtrl.callFetchCurBeerlist(userNameScreenId);
-    console.log(currentBeers);
+    // console.log(currentBeers);
     // query the DB for the next beerlist
     let nextBeers = await BeerCtrl.callFetchNextBeerlist(userNameScreenId);
-    console.log(nextBeers);
+    // console.log(nextBeers);
     // query the DB for the list history
     let beerslistTotal = await BeerCtrl.callFetchBeerhistoryList(userNameScreenId);
-    console.log(beerslistTotal);
+    // console.log(beerslistTotal);
     // query the DB for the ticker news info
     let bottleBeerlist = await BeerCtrl.callFetchBottleBeerlist(userNameScreenId);
-    console.log(bottleBeerlist);
+    // console.log(bottleBeerlist);
     let tickerInfo = await TickerCtrl.callFetchTickerInfo(userNameScreenId);
-    console.log(tickerInfo);
+    // console.log(tickerInfo);
     // query the DB for the events
     let events = await EventCtrl.callGetCurrentEventlist(userNameScreenId);
-    console.log(events);
+    // console.log(events);
     // let userData = await UserCtrl.callFetchUserData();
     // console.log(userData);
     let screenSettings = await ScreenSettingsCtrl.callFetchScreenSettings(userNameScreenId);
     // console.log(screenSettings);
     userData = data.venue_db_id;
-    console.log(userData);
+    // console.log(userData);
     let onNext;
     let displayData = {};
     displayData = {
@@ -847,7 +889,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       "screenSettings": screenSettings,
       "userSettings": { "venue_db_id": userData }
     }
-    console.log(displayData);
+    // console.log(displayData);
     // // update all screens
     // // repaint beers_tv_screen
     UICtrl.callUpdateDisplayScreen(displayData);
@@ -871,29 +913,43 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
         let userNameScreenId = UserCtrl.callGetUserNameFromURL();
         // console.log(userNameScreenId);
         let currentBeers = await BeerCtrl.callFetchCurBeerlist(userNameScreenId);
-        console.log(currentBeers);
+        // console.log(currentBeers);
         let nextBeers = await BeerCtrl.callFetchNextBeerlist(userNameScreenId);
-        console.log(nextBeers);
+        // console.log(nextBeers);
         let beerslistTotal = await BeerCtrl.callFetchBeerhistoryList(userNameScreenId);
-        console.log(beerslistTotal);
+        // console.log(beerslistTotal);
         let bottleBeerlist = await BeerCtrl.callFetchBottleBeerlist(userNameScreenId);
-        console.log(bottleBeerlist);
+        // console.log(bottleBeerlist);
         let tickerInfo = await TickerCtrl.callFetchTickerInfo(userNameScreenId);
-        console.log(tickerInfo)
+        // console.log(tickerInfo)
         let events = await EventCtrl.callGetCurrentEventlist(userNameScreenId);
-        console.log(events);
+        // console.log(events);
         let userData = await UserCtrl.callFetchUserData(userNameScreenId);
-        console.log(userData);
+        // console.log(userData);
         let screenSettings = await ScreenSettingsCtrl.callFetchScreenSettings(userNameScreenId);
-        console.log(screenSettings);
-        userData = userData.id[0];
+        // console.log(screenSettings);
+        if (userData.id !== undefined){
+          userData = userData.id[0];
+        }
         // console.log(userData);
         let onNext;
 
-        currentBeers.forEach(beer => {
-          onNext = beer.id_on_next;
-          nextBeers.push(onNext);
-        });
+        // for (var key in currentBeers) {
+        //   if (currentBeers.hasOwnProperty(key)) {
+            // console.log("NO KEYS");
+            // console.log(key);
+        //   } else {
+            // console.log("HAS KEYS");
+        //   }
+        // }
+        // console.log(Object.getOwnPropertyNames(currentBeers).length)
+        if (Object.getOwnPropertyNames(currentBeers).length >= 1) {
+          // console.log(currentBeers);
+          currentBeers.forEach(beer => {
+            onNext = beer.id_on_next;
+            nextBeers.push(onNext);
+          });
+        }
 
         // console.log("onNext: " + onNext + "nextBeers: " + nextBeers);
 
@@ -907,7 +963,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
           "screenSettings": screenSettings,
           "userSettings": { "venue_db_id": userData }
         }
-        console.log(displayData);
+        // console.log(displayData);
 
         UICtrl.callUpdateDisplayScreen(displayData);
         UICtrl.callUdpateDraftBeersPrintScreen(displayData);
@@ -930,7 +986,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
 
   const initWineScreens = (data) => {
     if (data !== undefined) {
-        console.log(data.updated);
+        // console.log(data.updated);
         if (data.updated == true) {
             WineCtrl.callFetchCurrentWinelist(UICtrl.callUpdateWineTabletScreen);
             WineCtrl.callFetchCurrentWinelist(UICtrl.callUpdateWineDescriptionsTabletScreen);
@@ -939,7 +995,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
   }
   const editWineScreens = (data) => {
     if (data !== undefined) {
-        console.log(data.updated);
+        // console.log(data.updated);
         if (data.updated == true) {
           console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
           console.log("WINE DATA CAN AND WILL BE UPDATED NOW!")
@@ -952,7 +1008,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
 
   const updateBeerScreen = (data) => {
     if (data !== undefined) {
-      console.log(data.updated);
+      // console.log(data.updated);
       if (data.updated == true) {
         console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
         console.log("DATA CAN AND WILL BE UPDATED NOW!")
@@ -975,17 +1031,17 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
         // console.log(userNameScreenId);
 
         let currentBeers = await BeerCtrl.callFetchCurBeerlist(userNameScreenId);
-        console.log(currentBeers);
+        // console.log(currentBeers);
         let nextBeers = await BeerCtrl.callFetchNextBeerlist(userNameScreenId);
         let beerslistTotal = await BeerCtrl.callFetchBeerhistoryList(userNameScreenId);
-        console.log(beerslistTotal);
+        // console.log(beerslistTotal);
         let bottleBeerlist = await BeerCtrl.callFetchBottleBeerlist(userNameScreenId);
-        console.log(bottleBeerlist);
+        // console.log(bottleBeerlist);
         let tickerInfo = await TickerCtrl.callFetchTickerInfo(userNameScreenId);
-        console.log(tickerInfo)
+        // console.log(tickerInfo)
         // query the DB for the events
         let events = await EventCtrl.callGetCurrentEventlist(userNameScreenId);
-        console.log(events);
+        // console.log(events);
         // let userData = await UserCtrl.callFetchUserData();
         let screenSettings = await ScreenSettingsCtrl.callFetchScreenSettings(userNameScreenId);
         let onNext;
@@ -1026,27 +1082,29 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
   const loadUpdatePusher = function() {
     ///////////////////////////////////////////////////////
     // // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
+    // Pusher.logToConsole = true;
+    Pusher.logToConsole = false;
     var addPusher = new Pusher('55b76ba88af32c57990c', {
       cluster: 'us2',
       forceTLS: true
     });
     var addChannel = addPusher.subscribe('my-update-channel');
     addChannel.bind('new-addUpdate-event', function(data) {
-      console.log('*****************************************');
-      console.log('*****************************************');
-      console.log('*****************************************');
-      console.log(data.message);
-      console.log('*****************************************');
-      console.log('*****************************************');
-      console.log('*****************************************');
+      // console.log('*****************************************');
+      // console.log('*****************************************');
+      // console.log('*****************************************');
+      // console.log(data.message);
+      // console.log('*****************************************');
+      // console.log('*****************************************');
+      // console.log('*****************************************');
       addUpdateScreens(data.message);
     });
     ///////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////
     // // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
+    // Pusher.logToConsole = true;
+    Pusher.logToConsole = false;
     var deletePusher = new Pusher('55b76ba88af32c57990c', {
       cluster: 'us2',
       forceTLS: true
@@ -1061,7 +1119,8 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
 
     ///////////////////////////////////////////////////////
     // // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
+    // Pusher.logToConsole = true;
+    Pusher.logToConsole = false;
     var nextPusher = new Pusher('55b76ba88af32c57990c', {
       cluster: 'us2',
       forceTLS: true
@@ -1081,7 +1140,8 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
   const loadPusher = function() {
     ///////////////////////////////////////////////////////
     // // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
+    // Pusher.logToConsole = true;
+    Pusher.logToConsole = false;
     var pusher = new Pusher('55b76ba88af32c57990c', {
       cluster: 'us2',
       forceTLS: true
@@ -1097,7 +1157,8 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
   const loadWinePusher = function() {
     ///////////////////////////////////////////////////////
     // // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
+    // Pusher.logToConsole = true;
+    Pusher.logToConsole = false;
     var pusher = new Pusher('55b76ba88af32c57990c', {
       cluster: 'us2',
       forceTLS: true
@@ -1119,7 +1180,8 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
   const addWinePusher = function() {
     ///////////////////////////////////////////////////////
     // // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
+    // Pusher.logToConsole = true;
+    Pusher.logToConsole = false;
     var pusher = new Pusher('55b76ba88af32c57990c', {
       cluster: 'us2',
       forceTLS: true
@@ -1142,7 +1204,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
   //   });
   //   var channel = pusher.subscribe('beer-event-channel');
   //   channel.bind('new-beer-event', function(data) {
-  //       console.log(data.message);
+        // console.log(data.message);
   //       updateBeerScreen(data.message);
   //   });
   //   ///////////////////////////////////////////////////////
@@ -1151,7 +1213,8 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
   const addBeerToDbPusher = function() {
     ///////////////////////////////////////////////////////
     // // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
+    // Pusher.logToConsole = true;
+    Pusher.logToConsole = false;
     var pusher = new Pusher('55b76ba88af32c57990c', {
       cluster: 'us2',
       forceTLS: true
@@ -1167,7 +1230,8 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
   const editBeerToDbPusher = function() {
     ///////////////////////////////////////////////////////
     // // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
+    // Pusher.logToConsole = true;
+    Pusher.logToConsole = false;
     var pusher = new Pusher('55b76ba88af32c57990c', {
       cluster: 'us2',
       forceTLS: true
@@ -1184,7 +1248,8 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
   const delBeerFromDbPusher = function() {
     ///////////////////////////////////////////////////////
     // // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
+    // Pusher.logToConsole = true;
+    Pusher.logToConsole = false;
     var pusher = new Pusher('55b76ba88af32c57990c', {
       cluster: 'us2',
       forceTLS: true
@@ -1238,6 +1303,9 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       if (e.target.classList.contains('toggle-table')) {
         expandBeerOnDashboard(e);
       }
+      if (e.target.classList.contains('untappd-add-beer-to-db')) {
+        untappdAddBeerToDB(e);
+      }
     });
     if (document.querySelector(UISelectors.dashboardSearchBeer) != null) {
       document.querySelector(UISelectors.dashboardSearchBeer).addEventListener('keyup', searchBeerDashboard);
@@ -1266,7 +1334,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     const editBeerlistFormSubmit = function(e) {
       console.log('CLICK EDIT BEERLIST FORM SUBMIT');
       const editBeerlistForm = document.querySelector(UISelectors.editBeerlistForm);
-      console.log(editBeerlistForm);
+      // console.log(editBeerlistForm);
       (function(loadPusher){
         // console.log(loadPusher);
         editBeerlistForm.submit();
@@ -1300,7 +1368,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       const addWineForm = document.querySelector(UISelectors.addWineForm);
       (function(addWinePusher){
         addWineForm.submit();
-        console.log("ADDWINEPUSHER()");
+        // console.log("ADDWINEPUSHER()");
         addWinePusher();
         console.log("LINE 598");
       })(addWinePusher);
@@ -1315,22 +1383,28 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     }
 
     async function addBeerToBeerlist(e) {
+      // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+      // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
       console.log('CLICK PLUS BUTTON TO ADD BEER TO LISTS');
+      // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+      // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
       let userNameScreenId = UserCtrl.callGetUserNameFromURL();
-      console.log(userNameScreenId);
+      // console.log(userNameScreenId);
 
       // add new beer to listCurrent DB
       // find id of first beer of current user
       let listData = await BeerCtrl.callFetchBeerhistoryList(userNameScreenId);
+      // console.log(listData);
       let listHistory = listData.beerlist;
+      // console.log(listHistory);
       let id_history = listHistory[0].id[0];
-      console.log(id_history);
+      // console.log(id_history);
       // get the current beerlist
       let currentBeerlist = await BeerCtrl.callFetchCurBeerlist(userNameScreenId);
-      console.log(currentBeerlist);
-      console.log(currentBeerlist.length + 1);
+      // console.log(currentBeerlist);
+      // console.log(currentBeerlist.length + 1);
       let id_dropdown = currentBeerlist.length + 1;
-      console.log(id_dropdown);
+      // console.log(id_dropdown);
 
       let newBeer = {
         "id_history": id_history,
@@ -1339,7 +1413,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
         "beerscreen_id": "1",
         "venue_db_id": ""
       }
-      console.log(newBeer);
+      // console.log(newBeer);
       // Add new beer to list_current table in DB
       BeerCtrl.callFetchAddBeerToDB(newBeer);
       // use pusher to update UI on all screens with the new beer
@@ -1350,7 +1424,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     async function delBeerFromBeerlist(e) {
       console.log('CLICK MINUS BUTTON TO DELETE BEER FROM LISTS');
       let userNameScreenId = UserCtrl.callGetUserNameFromURL();
-      console.log(userNameScreenId);
+      // console.log(userNameScreenId);
 
 
       let res = await UserCtrl.callFetchUserData(userNameScreenId);
@@ -1404,9 +1478,9 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       let dashboardBeerInfo = document.querySelector(UISelectors.dashboardBeerInfo);
       // clear dashboard search input
       let getValue = dashboardSearchBeerInput.value;
-      console.log(getValue);
+      // console.log(getValue);
       // clear the dashboard beerlist to start a new search
-      console.log(dashboardBeerInfo);
+      // console.log(dashboardBeerInfo);
       dashboardBeerInfo.innerHTML = '';
 
       // repopulate/repaint beerlist table on beer_dashboard.html
@@ -1427,6 +1501,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       e.target.parentElement.nextElementSibling.firstElementChild.classList.toggle('d-none');
     }
 
+    // search the current beers on the dashboard for a particular beer
     const searchBeerDashboard = function(e) {
       let beerDashboardTableRows = document.querySelectorAll(UISelectors.dashboardTableRowName);
       console.log('SEARCHING BEERLIST ON DASHBOARD');
@@ -1438,7 +1513,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
           // console.log(name);
           if (name.toLowerCase().indexOf(userText) > -1) {
             // console.log(name);
-            console.log(tableRow);
+            // console.log(tableRow);
             tableRow.classList.remove('d-none');
           } else {
             tableRow.classList.add('d-none');
@@ -1458,14 +1533,14 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       let targetId = e.target.id
       // split the id to get the new page
       targetPage = targetId.split('-').slice(0,2).join('_');
-      console.log(targetPage);
+      // console.log(targetPage);
 
       // get the current window url
       let currentWindowURL = window.location.href;
-      console.log(currentWindowURL);
+      // console.log(currentWindowURL);
       // split the current window url to replace with target url info
       currentWindowSplitURL = currentWindowURL.split('/');
-      console.log(currentWindowSplitURL);
+      // console.log(currentWindowSplitURL);
 
       // let currentButton = currentWindowSplitURL[3];
       // console.log(currentButton);
@@ -1474,19 +1549,20 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       currentWindowSplitURL[3] = targetPage;
       // create new url
       let newPage = currentWindowSplitURL.join('/');
-      console.log(newPage);
+      // console.log(newPage);
       // redirect to new page
       window.location.replace(newPage);
     }
 
+    // search untappd for beers with enter key
     const searchBeerKey = (e) => {
       // Get input text from user
       const userSearchUntappdText = e.target.value;
-      console.log(userSearchUntappdText);
+      // console.log(userSearchUntappdText);
       // get the event of the key pushed
       // looking for keyCode 13 which is "enter" key
       // if keyCode === 13 process user text input and query Untappd DB
-      console.log(e.keyCode);
+      // console.log(e.keyCode);
       if (e.keyCode === 13) {
         // process user text input and search Untappd DB
         if (userSearchUntappdText !== '') {
@@ -1500,9 +1576,8 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
           // clear the list of searched beers
         }
       }
-
     }
-
+    // search untappd for beers with click
     const searchBeerClick = async (e) => {
       console.log("SEARCH BEER FROM UNTAPPD - TO ADD TO DB");
       let userSearchUntappdText = document.querySelector(UISelectors.searchBeerText).value;
@@ -1517,13 +1592,33 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
 
         let untappdInfo = { "beerData": beerData, "userData": userData }
 
-        console.log(untappdInfo);
+        // console.log(untappdInfo);
         // load data into the UI
         let untappdResultsTemplate = UICtrl;
         untappdResultsTemplate.callPaintUntappdSearchResultsList(untappdInfo);
       } else {
         // clear the list of searched beers
       }
+      e.preventDefault();
+    }
+
+    // add all or one of the beers from the untapd search list
+    const untappdAddBeerToDB = async (e) => {
+      // console.log(e);
+      // get beerID from UI
+      const uictrl = UICtrl;
+      let beerInfo = uictrl.callGetBeerIdFromUI(e);
+      // console.log(beerInfo);
+      // use untappd to get beer and brewery info with beerID
+      let untappd = UntappdCtrl;
+      let newBeer = await untappd.callGetSingleBeerById(beerInfo.id);
+      let newBeerInfo = { "beer": newBeer, "draftBottleSelection": beerInfo.selectedRadioVal }
+      // create beer object and add draft-bottle selection
+      let newBeerObj = BeerCtrl.callCreateNewBeerObj(newBeerInfo);
+      // console.log(newBeerObj);
+      // add beer to DB
+      BeerCtrl.callFetchAddNewBeerToDB(newBeerObj);
+
       e.preventDefault();
     }
 

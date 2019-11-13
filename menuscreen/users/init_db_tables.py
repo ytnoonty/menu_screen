@@ -5,7 +5,8 @@ from menuscreen.models import (User, List_history, List_current, Wines,
                                 Font_size_options, Template, Event, Item)
 
 def getVenueId(name):
-    user = User.query.filter_by(name=name).first()
+    user = User.query.filter_by(venue_name=name).first()
+    print(user)
     return user.id
 
 def initListHistory(id):

@@ -31,14 +31,17 @@ def _logged_in_user_data():
     print(data)
     if (data):
         current_user_id = getVenueId(data['userName'])
-        print("DATA HERE")
+        print("NOT LOGGED IN")
         print(data['userName'])
         print(current_user_id)
         data = get_user_data(current_user_id)
-    else:
-        print("NO DATA HERE")
+    elif (current_user.is_authenticated):
+        print("LOGGED IN")
         print(current_user.id)
         data = get_user_data(current_user.id)
+    else:
+        print("NOT LOGGED IN AND NO URL INFO")
+        data = {}
     print("**************************************")
     print("**************************************")
     return jsonify(data)
@@ -51,7 +54,7 @@ def _logged_in_user_data():
 @users.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('list_history.dashboard'))
+        return redirect(url_for('list_history.beer_dashboard'))
     form = RegisterForm(request.form)
     if form.validate_on_submit():
         name = form.name.data
@@ -62,6 +65,7 @@ def register():
         user = User(name=name, venue_name=venuename, email=email, username=username, password=password)
         db.session.add(user)
         db.session.commit()
+
 
         # init new venue DB for wine tables
         initListHistory(getVenueId(venuename))
@@ -74,7 +78,6 @@ def register():
         initTemplate(getVenueId(venuename))
         # initEvent(getVenueId(venuename))
         initItem(getVenueId(venuename))
-
 
         flash('{}, you are now registered and can log in!'.format(username), 'success')
         return redirect(url_for('users.login'))

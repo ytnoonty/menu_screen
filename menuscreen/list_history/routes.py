@@ -4,7 +4,7 @@ from flask_login import current_user, login_required
 from menuscreen import db
 from menuscreen.models import User, List_history, List_current, Font_size_options, User_settings, Template, Ticker
 from menuscreen.list_history.forms import BeerForm, CurrentBeerListForm, NextBeerListForm
-from menuscreen.list_history.utils import getDefaultSelect, getDefaultNextSelect, _getTotalBeerlist, _getCurrentBeerlist, _getOnTapNextBeerlist, _addBeer, _deleteBeer, _getBottleBeers
+from menuscreen.list_history.utils import getDefaultSelect, getDefaultNextSelect, _getTotalBeerlist, _getCurrentBeerlist, _getOnTapNextBeerlist, _addBeer, _deleteBeer, _getBottleBeers, addNewBeerToDB
 from menuscreen.settttings.utils import _getFontSizes, _getTemplates, _getSettings, _getNameFontSize, _getTemplateName, _getAbvFontSize, _getIbuFontSize, _getBreweryFontSize
 from menuscreen.users.init_db_tables import getVenueId
 
@@ -17,17 +17,17 @@ list_history = Blueprint('list_history', __name__)
 @list_history.route('/_add_update_ui', methods=['GET','POST'])
 # @login_required
 def _add_update_ui():
-    print("***********************************************")
-    print("***********************************************")
-    print("***********************************************")
+    # print("***********************************************")
+    # print("***********************************************")
+    # print("***********************************************")
     settings = {
         "venue_db_id": current_user.id,
         "updated": True,
     }
-    print(settings)
-    print("***********************************************")
-    print("***********************************************")
-    print("***********************************************")
+    # print(settings)
+    # print("***********************************************")
+    # print("***********************************************")
+    # print("***********************************************")
 
 
     ######################################
@@ -56,106 +56,134 @@ def _delete_update_ui():
 # @login_required
 def _getBottleBeerlist():
     data = request.get_json()
-    print("**************************************")
-    print("**************************************")
-    print("list_history. /_getBottleBeers")
-    print(data)
+    # print("**************************************")
+    # print("**************************************")
+    # print("list_history. /_getBottleBeers")
+    # print(data)
     if (data):
         current_user_id = getVenueId(data['userName'])
-        print("DATA HERE")
-        print(data['userName'])
-        print(current_user_id)
+        # print("NOT LOGGED IN")
+        # print(data['userName'])
+        # print(current_user_id)
         bottleBeerlist = _getBottleBeers(current_user_id)
         data = {
             "beerlist": bottleBeerlist,
             "venue_db_id": current_user_id
         }
-    else:
-        print("NO DATA HERE")
-        print(current_user.id)
+    elif (current_user.is_authenticated):
+        # print("LOGGED IN")
+        # print(current_user.id)
         bottleBeerlist = _getBottleBeers(current_user.id)
         data = {
             "beerlist": bottleBeerlist,
             "venue_db_id": current_user.id
         }
-    print("**************************************")
-    print("**************************************")
+    else:
+        # print("NOT LOGGED IN AND NO URL INFO")
+        data = {}
+    # print("**************************************")
+    # print("**************************************")
     return jsonify(data)
 
 @list_history.route('/_getTotBeerlist', methods=['GET', 'POST'])
 # @login_required
 def _getTotBeerlist():
     data = request.get_json()
-    print("**************************************")
-    print("**************************************")
-    print("list_history. /_getTotBeerlist")
-    print(data)
+    # print("**************************************")
+    # print("**************************************")
+    # print("list_history. /_getTotBeerlist")
+    # print(data)
     if (data):
+        # print("NOT LOGGED IN")
         current_user_id = getVenueId(data['userName'])
-        print("DATA HERE")
-        print(data['userName'])
-        print(current_user_id)
+        # print(data['userName'])
+        # print(current_user_id)
         beerlist = _getTotalBeerlist(current_user_id)
         data = {
             "beerlist": beerlist,
             "venue_db_id": current_user_id
         }
-    else:
-        print("NO DATA HERE")
-        print(current_user.id)
+    elif (current_user.is_authenticated):
+        # print("LOGGED IN")
+        # print(current_user.id)
         beerlist = _getTotalBeerlist(current_user.id)
+        # print(beerlist)
         data = {
             "beerlist": beerlist,
             "venue_db_id": current_user.id
         }
-    print("**************************************")
-    print("**************************************")
+    else:
+        # print("NOT LOGGED IN AND NO URL INFO")
+        data = {}
+    # print("**************************************")
+    # print("**************************************")
     return jsonify(data)
 
 @list_history.route('/_getCurBeerlist', methods=['GET', 'POST'])
 # @login_required
 def _getCurBeerlist():
     data = request.get_json()
-    print("**************************************")
-    print("**************************************")
-    print("list_history. /_getCurBeerlist")
-    print(data)
+    # print("**************************************")
+    # print("**************************************")
+    # print("list_history. /_getCurBeerlist")
+    # print(data)
     if (data):
-        print("DATA HERE")
-        print(data['userName'])
+        # print("NOT LOGGED IN")
+        # print(data['userName'])
         current_user_id = getVenueId(data['userName'])
-        print(current_user_id)
+        # print(current_user_id)
         beerlist = _getCurrentBeerlist(current_user_id)
-    else:
-        print("NO DATA HERE")
-        print(current_user.id)
+    elif (current_user.is_authenticated):
+        # print("LOGGED IN")
+        # print(current_user.id)
         beerlist = _getCurrentBeerlist(current_user.id)
-        print(beerlist)
-    print("**************************************")
-    print("**************************************")
+        # print(beerlist)
+    else:
+        # print("NOT LOGGED IN AND NO URL INFO")
+        beerlist = {}
+
+    # print("**************************************")
+    # print("**************************************")
     return jsonify(beerlist)
 
 @list_history.route('/_getNextBeerlist', methods=['GET', 'POST'])
 # @login_required
 def _getNextBeerlist():
     data = request.get_json()
-    print("**************************************")
-    print("**************************************")
-    print("list_history. /_getOnTapNextBeerlist")
-    print(data)
+    # print("**************************************")
+    # print("**************************************")
+    # print("list_history. /_getOnTapNextBeerlist")
+    # print(data)
     if (data):
-        print("DATA HERE")
-        print(data['userName'])
+        # print("NOT LOGGED IN")
+        # print(data['userName'])
         current_user_id = getVenueId(data['userName'])
-        print(current_user_id)
+        # print(current_user_id)
         beerlist = _getOnTapNextBeerlist(current_user_id)
-    else:
-        print("NO DATA HERE")
-        print(current_user.id)
+    elif (current_user.is_authenticated):
+        # print("LOGGED IN")
+        # print(current_user.id)
         beerlist = _getOnTapNextBeerlist(current_user.id)
-    print("**************************************")
-    print("**************************************")
+    else:
+        # print("NOT LOGGED IN AND NO URL INFO")
+        beerlist = {}
+    # print("**************************************")
+    # print("**************************************")
     return jsonify(beerlist)
+
+@list_history.route('/_addNewBeerToDB', methods=['GET', 'POST'])
+@login_required
+def _addNewBeerToDB():
+    # print("currentRoute: '/_addNewBeerToDB'")
+    data = request.get_json()
+    addNewBeerToDB(data, current_user.id)
+
+    return jsonify({
+        "venue_db_id": current_user.id,
+        "updated": "true",
+        "currentRoute": "_addNewBeerToDB",
+    })
+
 
 @list_history.route('/_add_beer_to_list', methods=['GET', 'POST'])
 @login_required
@@ -179,14 +207,14 @@ def _add_beer_to_list():
 def _delete_beer_from_list():
 
     req = request.get_json()
-    print("req: ", req)
+    # print("req: ", req)
     beer_id = req
-    print("beer_id: ",beer_id)
+    # print("beer_id: ",beer_id)
     res = make_response(jsonify({"data": req}), 200)
-    print("res: ", res)
-    print("DELETE BEER FROM LIST: ", req, res)
+    # print("res: ", res)
+    # print("DELETE BEER FROM LIST: ", req, res)
     # print(beer)
-    print(beer_id)
+    # print(beer_id)
     if beer_id > 1:
         _deleteBeer(beer_id, current_user.id)
     # flash('The beer has been deleted!', 'success')
@@ -261,7 +289,7 @@ def _getAllTotalCurrentNextLists():
     #     "nextBeers": nextBeers
     # }
     #
-    # print(settings)
+    print(settings)
     # #######################################
     # #PUSHER
     # pusher_client.trigger('my-update-channel', 'new-nextUpdate-event', {'message': settings})
@@ -466,16 +494,16 @@ def edit_beer_list():
         beerlist.append(beer)
 
     # for b in beerlist:
-    #     print(b['defaultDropdown'].beer_of_month)
-    # #     print(b['defaultDropdown'].id_history )
+        # print(b['defaultDropdown'].beer_of_month)
+        # print(b['defaultDropdown'].id_history )
 
     # beerselect = []
     # for i, b in enumerate(beerlist):
-    #     print('i = {}, '.format(i), b['id_dropdown'], b['name'], b['id'])
+        # print('i = {}, '.format(i), b['id_dropdown'], b['name'], b['id'])
     #     beerselect.append(getDefaultSelect(b['id_dropdown']))
     #
     # for b in beerselect:
-    #     print(b.id_history)
+        # print(b.id_history)
 
     tickerInfo = db.session.query(
         Ticker.id,
@@ -495,28 +523,28 @@ def edit_beer_list():
     if request.method == 'POST':
         rdata = request.form
 
-        # print(rdata)
-        # print(len(rdata))
+        print(rdata)
+        print(len(rdata))
 
         newData = rdata.copy()
         tickerText = newData.popitem()[1]
-        # print(tickerText)
+        print(tickerText)
 
         beerCandidateList = []
 
         for i, (key, value) in enumerate(rdata.items()):
-            # print(key)
+            print(key)
             if key != 'ticker-text':
-                # print(key, value)
+                print(key, value)
                 beerCandidate = {
                     "id_dropdown": "",
                     "id_history": "",
                     "bom": "",
                     "cs": ""
                 }
-                # print(i+1 , key, value)
+                print(i+1 , key, value)
                 splitData = key.split('_')
-                # print(splitData)
+                print(splitData)
 
                 splitKeyName = splitData[0]
                 splitKeyIter = splitData[1]
@@ -528,7 +556,7 @@ def edit_beer_list():
                     beerCandidate['bom'] = 0
                     beerCandidate['cs'] = 0
 
-                    # print(beerCandidate)
+                    print(beerCandidate)
 
                     beerCandidateList.append(beerCandidate)
 
@@ -536,47 +564,47 @@ def edit_beer_list():
         for i, (key, value) in enumerate(rdata.items()):
 
             if key != 'ticker-text':
-                # print(i+1 , key, value)
+                print(i+1 , key, value)
                 splitData = key.split('_')
                 splitKeyName = splitData[0]
                 splitKeyIter = splitData[1]
                 splitKeyIterNum = int(splitKeyIter)
 
                 if splitKeyName == 'beer-of-month':
-                    # print(splitKeyName + "_" + splitKeyIter + " ---- value= " + value)
-                    # print(splitKeyIter)
-                    # print(splitKeyIterNum-1)
-                    # print(beerCandidateList[splitKeyIterNum-1]['bom'])
+                    print(splitKeyName + "_" + splitKeyIter + " ---- value= " + value)
+                    print(splitKeyIter)
+                    print(splitKeyIterNum-1)
+                    print(beerCandidateList[splitKeyIterNum-1]['bom'])
                     if value != "":
                         beerCandidateList[splitKeyIterNum-1]['bom'] = True
                     else:
                         beerCandidateList[splitKeyIterNum-1]['bom'] = False
                 elif splitKeyName == 'coming-soon':
-                    # print(splitKeyName + "_" + splitKeyIter + " ---- value= " + value)
-                    # print(splitKeyIter)
-                    # print(splitKeyIterNum-1)
-                    # print(beerCandidateList[splitKeyIterNum-1]['cs'])
+                    print(splitKeyName + "_" + splitKeyIter + " ---- value= " + value)
+                    print(splitKeyIter)
+                    print(splitKeyIterNum-1)
+                    print(beerCandidateList[splitKeyIterNum-1]['cs'])
                     if value != "":
                         beerCandidateList[splitKeyIterNum-1]['cs'] = True
                     else:
                         beerCandidateList[splitKeyIterNum-1]['cs'] = False
 
         # for b in beerCandidateList:
-        #     print(b)
+            print(b)
 
         beerCandidate = List_current.query.filter_by(id_dropdown=1, venue_db_id=current_user.id).first()
-        # print("beerCandidate: {}".format(beerCandidate))
+        print("beerCandidate: {}".format(beerCandidate))
 
         for x in range(1, len(beerCandidateList) + 1, 1):
             beerCandidate = List_current.query.filter_by(id_dropdown=x, venue_db_id=current_user.id).first()
-            # print("beerCandidate: {}".format(beerCandidate))
+            print("beerCandidate: {}".format(beerCandidate))
             beerCandidate.id_history = beerCandidateList[x-1]['id_history']
             beerCandidate.beer_of_month = beerCandidateList[x-1]['bom']
             beerCandidate.coming_soon = beerCandidateList[x-1]['cs']
             db.session.commit()
 
         if (tickerInfo):
-            print(tickerText)
+            # print(tickerText)
             tickerCandidate = Ticker.query.filter_by(venue_db_id=current_user.id).first()
             tickerCandidate.ticker_text = tickerText
             db.session.commit()
@@ -655,10 +683,10 @@ def testing_pusher_beerlist():
             beer['beer_of_month'] = b.beer_of_month
             beer['coming_soon'] = b.coming_soon
             beerlist.append(beer)
-        # print(beerlist)
+        print(beerlist)
 
         eventsDb = user.event_sort_asc
-        # print(eventsDb)
+        print(eventsDb)
         events = []
         for event in eventsDb:
             event = {
@@ -673,7 +701,7 @@ def testing_pusher_beerlist():
             }
             events.append(event)
 
-        # print('events:{}'.format(events))
+        print('events:{}'.format(events))
 
         nameFontSize = _getNameFontSize(current_user.id, Font_size_options.id)
         abvFontSize = _getAbvFontSize(current_user.id, Font_size_options.id)
@@ -748,28 +776,28 @@ def testing_pusher_beerlist():
             "userSettings":userSettings,
         }
 
-        print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-        print("BEGIN EDIT BEERLIST list_history")
-        print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-        print("^^^^^^^^^^^^BEGIN BEERS^^^^^^^^^^")
-        for beer in settings['beers']:
-            print(beer['name'])
-        print("^^^^^^^^^^^^END BEERS^^^^^^^^^^")
-        print("")
-        print("^^^^^^^^^^^^BEGIN EVENTS^^^^^^^^^^")
-        for event in settings['events']:
-            print(event)
-        print("^^^^^^^^^^^^END EVENTS^^^^^^^^^^")
-        print("")
-        print("^^^^^^^^^^^^BEGIN USERSETTINGS^^^^^^^^^^")
-        print(settings['userSettings'])
-        print("^^^^^^^^^^^^END USERSETTINGS^^^^^^^^^^")
-        print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-        print("END EDIT BEERLIST list_history")
-        print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+        # print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+        # print("BEGIN EDIT BEERLIST list_history")
+        # print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+        # print("^^^^^^^^^^^^BEGIN BEERS^^^^^^^^^^")
+        # for beer in settings['beers']:
+        #     print(beer['name'])
+        # print("^^^^^^^^^^^^END BEERS^^^^^^^^^^")
+        # print("")
+        # print("^^^^^^^^^^^^BEGIN EVENTS^^^^^^^^^^")
+        # for event in settings['events']:
+        #     print(event)
+        # print("^^^^^^^^^^^^END EVENTS^^^^^^^^^^")
+        # print("")
+        # print("^^^^^^^^^^^^BEGIN USERSETTINGS^^^^^^^^^^")
+        # print(settings['userSettings'])
+        # print("^^^^^^^^^^^^END USERSETTINGS^^^^^^^^^^")
+        # print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+        # print("END EDIT BEERLIST list_history")
+        # print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
 
         settings = json.dumps(settings)
-        print(settings)
+        # print(settings)
 
         # ######################################
         # #PUSHER
@@ -877,7 +905,7 @@ def on_tap_next_editor():
 
         for x in range(1, beerlistLength + 1, 1):
             beer = request.form['beer_{}'.format(x)]
-            print(beer)
+            # print(beer)
             beerCandidate = List_current.query.filter_by(id_dropdown=x, venue_db_id=current_user.id).first()
             beerCandidate.id_on_next = beer
             db.session.commit()
