@@ -1394,9 +1394,9 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       // add new beer to listCurrent DB
       // find id of first beer of current user
       let listData = await BeerCtrl.callFetchBeerhistoryList(userNameScreenId);
-      // console.log(listData);
+      console.log(listData);
       let listHistory = listData.beerlist;
-      // console.log(listHistory);
+      console.log(listHistory);
       let id_history = listHistory[0].id[0];
       // console.log(id_history);
       // get the current beerlist

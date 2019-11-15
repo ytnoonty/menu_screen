@@ -89,25 +89,25 @@ def _getBottleBeerlist():
 # @login_required
 def _getTotBeerlist():
     data = request.get_json()
-    # print("**************************************")
-    # print("**************************************")
-    # print("list_history. /_getTotBeerlist")
-    # print(data)
+    print("**************************************")
+    print("**************************************")
+    print("list_history. /_getTotBeerlist")
+    print(data)
     if (data):
-        # print("NOT LOGGED IN")
+        print("NOT LOGGED IN")
         current_user_id = getVenueId(data['userName'])
-        # print(data['userName'])
-        # print(current_user_id)
+        print(data['userName'])
+        print(current_user_id)
         beerlist = _getTotalBeerlist(current_user_id)
         data = {
             "beerlist": beerlist,
             "venue_db_id": current_user_id
         }
     elif (current_user.is_authenticated):
-        # print("LOGGED IN")
-        # print(current_user.id)
+        print("LOGGED IN")
+        print(current_user.id)
         beerlist = _getTotalBeerlist(current_user.id)
-        # print(beerlist)
+        print(beerlist)
         data = {
             "beerlist": beerlist,
             "venue_db_id": current_user.id
@@ -117,6 +117,11 @@ def _getTotBeerlist():
         data = {}
     # print("**************************************")
     # print("**************************************")
+    print("line 120 *******************************")
+    print("**************************************")
+    print(data)
+    print("**************************************")
+    print("**************************************")
     return jsonify(data)
 
 @list_history.route('/_getCurBeerlist', methods=['GET', 'POST'])
