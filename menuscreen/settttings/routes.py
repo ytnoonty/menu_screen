@@ -79,8 +79,8 @@ def add_font_size():
 def settings():
     form = SettingsForm(request.form)
 
-    beerlist = _getCurrentBeerlist(current_user.id)
-    events = _getEventsSortAsc(current_user.id)
+    # beerlist = _getCurrentBeerlist(current_user.id)
+    # events = _getEventsSortAsc(current_user.id)
     settings = _getSettings(current_user.id)
 
     print(settings)
@@ -230,8 +230,8 @@ def settings():
         userSettings['breweryFontSize'] = breweryFontSize
 
         settings = {
-            "beers":beerlist,
-            "events":events,
+            # "beers":beerlist,
+            # "events":events,
             "userSettings":userSettings,
             "updated": True,
         }
