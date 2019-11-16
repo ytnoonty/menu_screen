@@ -2,7 +2,7 @@ from flask_login import current_user
 from menuscreen import db
 from menuscreen.models import (User, List_history, List_current, Wines,
                                 Winelist_current, Wine_type, User_settings,
-                                Font_size_options, Template, Event, Item)
+                                Font_size_options, Template, Event, Item, Ticker)
 
 def getVenueId(name):
     user = User.query.filter_by(venue_name=name).first()
@@ -158,9 +158,9 @@ def initItem(id):
     db.session.commit()
     print('********** INIT ITEM *********')
 
-def ititTicker(id):
+def initTicker(id):
     tickerInfo = Ticker(
-        ticker_text='Ticker text INIT',
+        ticker_text='Test Ticker Text',
         tickerscreen_id='1',
         venue_db_id=id
     )
