@@ -571,7 +571,7 @@ class BeerTemplate {
               <li class="list-group-item card-beerscreen-display background">
                 <table class="beerscreen-display-table">
                   <tr class="">
-                    <td class="font-weight-bold font-italic txt-clr-ylw pl-2 pt-1"><span class="beer-name">${beer.name}</span></td>
+                    <td class="font-weight-bold font-italic txt-clr-ylw pl-2 pt-1" colspan="3"><span class="beer-name">${beer.name}</span></td>
                   </tr>
                   <tr class="">
                     <td class="beerscreen-table-td-30 font-weight-bold pl-2"><span class="beer-style">${beer.style}</span></td>
@@ -593,7 +593,7 @@ class BeerTemplate {
               <li class="list-group-item card-beerscreen-display background">
                 <table class="beerscreen-display-table">
                   <tr class="">
-                    <td class="font-weight-bold font-italic txt-clr-ylw pl-2 pt-1"><span class="beer-name">${beer.name}</span></td>
+                    <td class="font-weight-bold font-italic txt-clr-ylw pl-2 pt-1" colspan="3"><span class="beer-name">${beer.name}</span></td>
                   </tr>
                   <tr class="">
                     <td class="beerscreen-table-td-30 font-weight-bold pl-2"><span class="beer-style">${beer.style}</span></td>
