@@ -83,9 +83,9 @@ def _winemenu_list():
 def getTickerInfo():
     data = request.get_json()
     print("**************************************")
-    print("**************************************")
     print("list_history. /_getTickerInfo")
     print(data)
+    print("**************************************")
     if (data):
         current_user_id = getVenueId(data['userName'])
         print("NOT LOGGED IN")
@@ -100,6 +100,7 @@ def getTickerInfo():
         print("LOGGED IN")
         print(current_user.id)
         data = _getTickerInfo(current_user.id)
+        print("data: {}".format(data))
         tickerInfo = {}
         tickerInfo['id'] = data.id
         tickerInfo['ticker_text'] = data.ticker_text
