@@ -1077,7 +1077,7 @@ class BeerTemplate {
             <div class="card">
               <div class="card-header" id="heading-${beer.beer.bid}">
                 <h2 class="mb-0">
-                  <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#${beer.beer.bid}" aria-expanded="true" aria-controls="${beer.beer.bid}">
+                  <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#${beer.beer.bid}" aria-expanded="false" aria-controls="${beer.beer.bid}">
                     <div>
                       <span class="beer-id">${beer.beer.bid}</span> - <span>${beer.beer.beer_name}</span><br><span>${beer.brewery.brewery_name}</span>
                     </div>
@@ -1087,7 +1087,7 @@ class BeerTemplate {
                   </div>
                 </h2>
               </div>
-              <div id="${beer.beer.bid}" class="collapse show" aria-labelledby="heading-${beer.beer.bid}" data-parent="#beerlistAccordion">
+              <div id="${beer.beer.bid}" class="collapse" aria-labelledby="heading-${beer.beer.bid}" data-parent="#beerlistAccordion">
                 <div class="card-body">
                   <table class="table-striped">
                     <tr>
