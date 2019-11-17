@@ -662,6 +662,16 @@ class BeerTemplate {
         <div class="col-6 beerlist-col">
           <ul id="" class="list-group mr-2">`;
             beerlistSecondHalf.forEach(function(beer){
+
+              if (!beer.beer_of_month) {
+                screenDisplayHTML += `
+                <li class="list-group-item card-beerscreen-display background">
+                `;
+              } else {
+                screenDisplayHTML += `
+                <li class="list-group-item card-beerscreen-display bom-background">
+                `;
+              }
               screenDisplayHTML += `
               <li class="list-group-item card-beerscreen-display background">
                 <table class="beerscreen-display-table">
