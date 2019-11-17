@@ -45,7 +45,7 @@ class BeerTemplate {
         background.style.backgroundImage = `linear-gradient(${settings.backgroundColorDirection}, ${settings.backgroundColorOne}, ${settings.backgroundColorTwo}, ${settings.backgroundColorThree})`;
       });
       bomBackgrounds.forEach(background => {
-        background.style.backgroundImage = `linear-gradient(to bottom right, ${settings.breweryFontColor}, #222,${settings.nameFontColor}, rgba(255,255,255,.5), rgba(200,0,0,.75), ${settings.nameFontColor}, rgba(200,0,0,.85))`;
+        background.style.backgroundImage = `linear-gradient(to bottom right, ${settings.breweryFontColor}, #222,${settings.nameFontColor}, rgba(255,255,255,.5), rgba(200,0,0,.75), ${settings.nameFontColor}, rgba(200,0,0,.85)`;
       });
       tickerText.forEach(text => {
         text.style.fontSize = `${settings.nameFontSizeHTML}`;
