@@ -673,7 +673,6 @@ class BeerTemplate {
                 `;
               }
               screenDisplayHTML += `
-              <li class="list-group-item card-beerscreen-display background">
                 <table class="beerscreen-display-table">
                   <tr class="">
                     <td class="font-weight-bold font-italic txt-clr-ylw pl-2 pt-1" colspan="3"><span class="beer-name">${beer.name}</span></td>
