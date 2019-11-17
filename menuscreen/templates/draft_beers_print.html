@@ -24,6 +24,7 @@
       {% if beer.coming_soon != True %}
         <li class="list-group-item-bp list-group-item">{{beer.id_dropdown}}.  <span class="larger-text txt-clr-grn">{{beer.name}}</span> - {{beer.style}} - {{beer.abv}}% ABV - {{beer.ibu}} IBU - {{beer.location}} - <span class="italic-font">{{beer.brewery}}</span></li>
       {% endif %}
+      <hr>
     {% endfor %}
     </ul>
   </div>

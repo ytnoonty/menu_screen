@@ -568,32 +568,6 @@ const UICtrl = (function(){
     },2500);
   }
 
-  // move ticker on beers_display_screen.html
-  const moveTicker = function () {
-    let ticker = document.querySelector(UISelectors.ticker);
-    let tickerItems = document.querySelector(UISelectors.tickerItems);
-    let tickerItem = document.querySelectorAll(UISelectors.tickerItem);
-    const tickerAnimation = new Animation();
-
-    let liTotalWidth = 0;
-    let tickerWidth = 0;
-    let totalDivTicker = 0;
-    let totalLiWidth = 0;
-    tickerItem.forEach(item => {
-      let elWidth = tickerAnimation.getElementWidth(item);
-      let beforePseudoWidth = tickerAnimation.getPseudoElementWidth(item, "before", "width");
-      let afterPseudoWidth = tickerAnimation.getPseudoElementWidth(item, "after", "width");
-      totalLiWidth += elWidth + beforePseudoWidth + afterPseudoWidth;
-    });
-    // console.log(totalLiWidth);
-    let widthMovement = "translateX(-" + totalLiWidth + "px)";
-    // console.log(widthMovement);
-    let tickerDuration = totalLiWidth *10;
-    // console.log(tickerDuration);
-    // console.log(tickerItems);
-    tickerAnimation.animateTicker(tickerItems, widthMovement, tickerDuration);
-  }
-
   const loadBeerlist = function() {
     // console.log('LOAD BEERLIST');
   }
@@ -711,9 +685,6 @@ const UICtrl = (function(){
     },
     callHideFlashMsg: () => {
       hideFlashMsg();
-    },
-    callMoveTicker: () => {
-      moveTicker();
     },
     callLoadBeerlist: () => {
       loadBeerlist();
@@ -838,8 +809,6 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     UICtrl.callAddBeerOnTapNextDisplay(displayData);
     // repaint on_tap_next_editor
     UICtrl.callAddBeerOnTapNextEditor(displayData);
-    // Move ticker on beers_display_screen.html
-    UICtrl.callMoveTicker();
   }
 
   async function deleteUpdateScreens(data) {
@@ -901,8 +870,6 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     UICtrl.callAddBeerOnTapNextDisplay(displayData);
     // repaint on_tap_next_editor
     UICtrl.callAddBeerOnTapNextEditor(displayData);
-    // Move ticker on beers_display_screen.html
-    UICtrl.callMoveTicker();
   }
 
 
@@ -974,8 +941,6 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
 
         // update bottle beer list asynconously
         UICtrl.callUpdateBottleBeersTabletScreen(displayData);
-        // Move ticker on beers_display_screen.html
-        UICtrl.callMoveTicker();
       }
     }
   }
@@ -1072,8 +1037,6 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
         UICtrl.callAddBeerOnTapNextDisplay(displayData);
         // update bottle beer list asynconously
         UICtrl.callUpdateBottleBeersTabletScreen(displayData);
-        // Move ticker on beers_display_screen.html
-        UICtrl.callMoveTicker();
       }
     }
   }
@@ -1555,7 +1518,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     }
 
     // search untappd for beers with enter key
-    const searchBeerKey = (e) => {
+    const searchBeerKey = async (e) => {
       // Get input text from user
       const userSearchUntappdText = e.target.value;
       // console.log(userSearchUntappdText);
@@ -1567,14 +1530,23 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
         // process user text input and search Untappd DB
         if (userSearchUntappdText !== '') {
           const untappd = UntappdCtrl;
-          let loadedBeerData = untappd.callLoadData(userSearchUntappdText);
-          // console.log(loadedBeerData);
+          let beerData = await untappd.callLoadData(userSearchUntappdText);
+          // console.log(beerData);
+          let userNameScreenId = UserCtrl.callGetUserNameFromURL();
+          // console.log(userNameScreenId);
+          let userData = await UserCtrl.callFetchUserData(userNameScreenId);
+          // console.log(userData);
+
+          let untappdInfo = { "beerData": beerData, "userData": userData }
+
+          // console.log(untappdInfo);
           // load data into the UI
           let untappdResultsTemplate = UICtrl;
-          untappdResultsTemplate.callPaintUntappdSearchResultsList(loadedBeerData);
+          untappdResultsTemplate.callPaintUntappdSearchResultsList(untappdInfo);
         } else {
           // clear the list of searched beers
         }
+        e.preventDefault();
       }
     }
     // search untappd for beers with click
@@ -1640,8 +1612,6 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       loadEventListeners();
       // console.log("TRYING TO INITIALIZE THE SCREENS!!!!!!!!!")
       initScreens({"updated":"True"});
-      // Move ticker on beers_display_screen.html
-      UICtrl.callMoveTicker();
     }
   }
 

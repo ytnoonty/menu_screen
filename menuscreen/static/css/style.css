@@ -120,8 +120,16 @@ body {
   margin-left: 10px;
 }
 .spacing-sml {
-  letter-spacing: .09em;
+  letter-spacing: .25rem;
 }
+
+#screen-display {
+  letter-spacing: .25rem;
+}
+.ticker-wrapper {
+  letter-spacing: .25rem;
+}
+
 .ticker-wrapper {
   padding: 0;
   margin: 0;
@@ -144,7 +152,11 @@ body {
 tr {
   width: 100%;
 }
-
+.bom-background {
+  background: linear-gradient(to bottom right, #aaa, #333, #000);
+  background: linear-gradient(to bottom right, red, red, #333, #777, #333, red, red);
+  background: linear-gradient(to bottom right, rgba(255,0,0,.75), rgba(0,0,255,.75));
+}
 
 
 

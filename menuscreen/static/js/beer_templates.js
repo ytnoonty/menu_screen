@@ -10,6 +10,8 @@ class BeerTemplate {
       let beerAbvs = document.querySelectorAll('.beer-abv');
       let beerBrewerys = document.querySelectorAll('.beer-brewery');
       let backgrounds = document.querySelectorAll('.background');
+      let bomBackgrounds = document.querySelectorAll('.bom-background');
+      let tickerWrapper = document.querySelector('.ticker-wrapper');
       let tickerText = document.querySelectorAll('.ticker-text');
       let tickerNews = document.querySelectorAll('.ticker-news');
       let data = {
@@ -42,6 +44,9 @@ class BeerTemplate {
       backgrounds.forEach(background => {
         background.style.backgroundImage = `linear-gradient(${settings.backgroundColorDirection}, ${settings.backgroundColorOne}, ${settings.backgroundColorTwo}, ${settings.backgroundColorThree})`;
       });
+      bomBackgrounds.forEach(background => {
+        background.style.backgroundImage = `linear-gradient(to bottom right, ${settings.breweryFontColor}, #222,${settings.nameFontColor}, rgba(255,255,255,.5), rgba(200,0,0,.75), ${settings.nameFontColor}, rgba(200,0,0,.85))`;
+      });
       tickerText.forEach(text => {
         text.style.fontSize = `${settings.nameFontSizeHTML}`;
         text.style.color = `${settings.nameFontColor}`;
@@ -51,8 +56,67 @@ class BeerTemplate {
         news.style.color = `${settings.nameFontColor}`;
       });
 
-    }
-  }
+      (function(Ticker, settings, tickerWrapper){
+        const ticker = Ticker();
+        ticker.callLoadTicker(settings, tickerWrapper);
+        ticker.callMoveTicker(settings);
+
+      })(Ticker, settings, tickerWrapper);
+
+
+    } //END updateScreenTemplates
+
+
+    const Ticker = () => {
+      // Animation comes from animations.js
+      const loadTicker = (settings, tickerWrapper) => {
+        console.log('function loadTicker()');
+        let tickerAnimation = Animation;
+
+        if (settings.tickerToggle) {
+          tickerWrapper.classList.remove('d-none');
+        } else {
+          tickerWrapper.classList.add('d-none');
+        }
+      } // end loadTicker
+
+      const moveTicker = (settings) => {
+        console.log('function moveTicker()');
+        let ticker = document.querySelector('.ticker');
+        let tickerItems = document.querySelector('.ticker-items');
+        let tickerItem = document.querySelectorAll('.ticker-item');
+        const tickerAnimation = new Animation();
+
+        let liTotalWidth = 0;
+        let tickerWidth = 0;
+        let totalDivTicker = 0;
+        let totalLiWidth = 0;
+        tickerItem.forEach(item => {
+          let elWidth = tickerAnimation.getElementWidth(item);
+          let beforePseudoWidth = tickerAnimation.getPseudoElementWidth(item, "before", "width");
+          let afterPseudoWidth = tickerAnimation.getPseudoElementWidth(item, "after", "width");
+          totalLiWidth += elWidth + beforePseudoWidth + afterPseudoWidth;
+        });
+        // console.log(totalLiWidth);
+        let widthMovement = "translateX(-" + totalLiWidth + "px)";
+        // console.log(widthMovement);
+        console.log(settings.tickerScrollSpeed);
+        let tickerDuration = totalLiWidth * settings.tickerScrollSpeed;
+        // console.log(tickerDuration);
+        // console.log(tickerItems);
+        tickerAnimation.animateTicker(tickerItems, widthMovement, tickerDuration);
+      } // end moveTicker
+
+      return {
+        callLoadTicker: (x, y) => {
+          loadTicker(x, y);
+        },
+        callMoveTicker: (x) => {
+          moveTicker(x);
+        },
+      }
+    } // END FUNCITON TICKER
+  } // END CONSTRUCTOR
 
   addBeerOnTapNextDisplayTemplate(data) {
     // console.log("/////////////////////////////////////////////////////////");
@@ -567,8 +631,17 @@ class BeerTemplate {
 
 
             beerlistFirstHalf.forEach(function(beer){
+
+              if (!beer.beer_of_month) {
+                screenDisplayHTML += `
+                <li class="list-group-item card-beerscreen-display background">
+                `;
+              } else {
+                screenDisplayHTML += `
+                <li class="list-group-item card-beerscreen-display bom-background">
+                `;
+              }
               screenDisplayHTML += `
-              <li class="list-group-item card-beerscreen-display background">
                 <table class="beerscreen-display-table">
                   <tr class="">
                     <td class="font-weight-bold font-italic txt-clr-ylw pl-2 pt-1" colspan="3"><span class="beer-name">${beer.name}</span></td>
@@ -903,7 +976,7 @@ class BeerTemplate {
               let beersPrintHTML = '';
               beersPrintHTML += `<ul id="" class='list-group-flush'>`;
               beerlist.forEach(function(beer){
-                beersPrintHTML += `<li id="" class='list-group-item'>${beer.id_dropdown}.  <span class="larger-text txt-clr-grn">${beer.name}</span> - ${beer.style} - ${beer.abv}% ABV - ${beer.ibu} IBU - ${beer.location} - <span class="italic-font">${beer.brewery}</span></li>`;
+                beersPrintHTML += `<li id="" class='list-group-item'>${beer.id_dropdown}.  <span class="larger-text txt-clr-grn">${beer.name}</span> - ${beer.style} - ${beer.abv}% ABV - ${beer.ibu} IBU - ${beer.location} - <span class="italic-font">${beer.brewery}</span></li><hr>`;
               });
               beersPrintHTML += `</ul>`;
 
@@ -987,7 +1060,7 @@ class BeerTemplate {
               let beersTabletHTML = '';
                   beersTabletHTML += `<ul id="" class='beer-list-loop-pp list-group-flush'>`;
               beerlist.forEach(function(beer){
-                beersTabletHTML += `<li id="" class='list-group-item-pp list-group-item'>${beer.id_dropdown}.  <span class="larger-text txt-clr-grn">${beer.name}</span> - <span class="bold-font italic-font">${beer.style}</span> - ${beer.abv}% ABV - ${beer.ibu} IBU - ${beer.location} - <span class="italic-font">${beer.brewery}</span></li>`;
+                beersTabletHTML += `<li id="" class='list-group-item-pp list-group-item'>${beer.id_dropdown}.  <span class="larger-text txt-clr-grn">${beer.name}</span> - <span class="bold-font italic-font">${beer.style}</span> - ${beer.abv}% ABV - ${beer.ibu} IBU - ${beer.location} - <span class="italic-font">${beer.brewery}</span></li><hr>`;
               });
               beersTabletHTML += `</ul>`;
 
