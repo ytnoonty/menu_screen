@@ -131,7 +131,7 @@ def beerscreen_settings():
         beerBomIbuFontUnderlineToggle = settings['beerBomIbuFontUnderlineToggle'],
 
         beerBomBreweryFont = settings['beerBomBreweryFont'],
-        beerBomBreweryFontColof = settings['beerBomBreweryFontColof'],
+        beerBomBreweryFontColor = settings['beerBomBreweryFontColof'],
         beerBomBreweryFontSize = settings['beerBomBreweryFontSize'],
         beerBomBreweryFontBoldToggle = settings['beerBomBreweryFontBoldToggle'],
         beerBomBreweryFontItalicToggle = settings['beerBomBreweryFontItalicToggle'],
@@ -183,6 +183,7 @@ def beerscreen_settings():
         beerTickerBgColorFour = settings['beerTickerBgColorFour'],
         beerTickerBgColorFive = settings['beerTickerBgColorFive'],
         beerTickerBgColorDirection = settings['beerTickerBgColorDirection'],
+
         beerTickerBeernamesFont = settings['beerTickerBeernamesFont'],
         beerTickerFont = settings['beerTickerFont'],
         beerTickerFontColor = settings['beerTickerFontColor'],
@@ -235,7 +236,7 @@ def beerscreen_settings():
         },
         {
             "id":"to top left",
-            "direction":"to left",
+            "direction":"to top left",
         },
         {
             "id":"to top right",
@@ -244,25 +245,38 @@ def beerscreen_settings():
     ]
     fonts = [
         {
-            "id" : "Times Roman",
+            "id":'0',
             "font" : "Times Roman"
         },
         {
-            "id" : "Courier New",
+            "id":'1',
             "font" : "Courier New"
         }
     ]
 
     # function called from this module to query font size table
     sizes = _getFontSizes(current_user.id)
+    print(sizes)
     # function called from this module to query template table
     templates = _getTemplates(current_user.id)
+    print(templates)
 
     form.beerSettingsScreenId.choices = [ (number['id'], number['number']) for number in screenNumSettings ]
 
     form.fontColorDirection.choices = [ (direction['id'], direction['direction']) for direction in directions ]
     form.shadowFontColorDirection.choices = [ (direction['id'], direction['direction']) for direction in directions ]
     form.beerBomBgColorDirection.choices = [ (direction['id'], direction['direction']) for direction in directions ]
+    form.beerBgColorDirection.choices = [ (direction['id'], direction['direction']) for direction in directions ]
+    form.beerTickerBgColorDirection.choices = [ (direction['id'], direction['direction']) for direction in directions ]
+
+    form.beerNameFont.choices = [ (font['id'], font['font']) for font in fonts ]
+    form.beerBomNameFont.choices = [ (font['id'], font['font']) for font in fonts ]
+    form.beerBomStyleFont.choices = [ (font['id'], font['font']) for font in fonts ]
+    form.beerStyleFont.choices = [ (font['id'], font['font']) for font in fonts ]
+    form.beerBomBreweryFont.choices = [ (font['id'], font['font']) for font in fonts ]
+    form.beerBreweryFont.choices = [ (font['id'], font['font']) for font in fonts ]
+    form.beerTickerBeernamesFont.choices = [ (font['id'], font['font']) for font in fonts ]
+    form.beerTickerFont.choices = [ (font['id'], font['font']) for font in fonts ]
 
     form.beerBomNameFontSize.choices = [ (size['id'], size['font_sizes']) for size in sizes ]
     form.beerBomStyleFontSize.choices = [ (size['id'], size['font_sizes']) for size in sizes ]
@@ -274,6 +288,7 @@ def beerscreen_settings():
     form.beerStyleFontSize.choices = [ (size['id'], size['font_sizes']) for size in sizes ]
     form.beerAbvFontSize.choices = [ (size['id'], size['font_sizes']) for size in sizes ]
     form.beerIbuFontSize.choices = [ (size['id'], size['font_sizes']) for size in sizes ]
+    form.beerBreweryFontSize.choices = [ (size['id'], size['font_sizes']) for size in sizes ]
     form.beerTickerFontSize.choices = [ (size['id'], size['font_sizes']) for size in sizes ]
 
 
