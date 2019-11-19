@@ -19,6 +19,9 @@ class RegisterForm(FlaskForm):
         validators.Length(min=5, max=25),
         validators.DataRequired()
     ])
+    websiteURL = StringField('Website Address', [
+        validators.Length(min=15, max=200)
+    ])
     email = StringField('Email', [
         validators.Length(min=5, max=100),
         validators.DataRequired(),

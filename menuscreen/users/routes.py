@@ -11,8 +11,9 @@ from menuscreen.users.utils import save_picture, send_reset_email, get_user_data
 
 from menuscreen.users.init_db_tables import (getVenueId, initListHistory,
                                 initListCurrent, initWinelist, initWinelistCurrent,
-                                initWinetype, initUserSettings, initFontSizeOptions,
-                                initTemplate, initEvent, initItem, initTicker)
+                                initWinetype, initBeerscreenSettings, initWinescreenSettings,
+                                initEventscreenSettings, initItemscreenSettings,
+                                initFontSizeOptions, initTemplate, initEvent, initItem, initTicker)
 
 
 users = Blueprint('users', __name__)
@@ -59,10 +60,11 @@ def register():
     if form.validate_on_submit():
         name = form.name.data
         venuename = form.venuename.data
-        email = form.email.data
         username = form.username.data
+        websiteURL = form.websiteURL.data
+        email = form.email.data
         password = sha256_crypt.encrypt(str(form.password.data))
-        user = User(name=name, venue_name=venuename, email=email, username=username, password=password)
+        user = User(name=name, venue_name=venuename, websiteURL=websiteURL, email=email, username=username, password=password)
         db.session.add(user)
         db.session.commit()
 
@@ -73,7 +75,10 @@ def register():
         initWinelist(getVenueId(venuename))
         initWinelistCurrent(getVenueId(venuename))
         initWinetype(getVenueId(venuename))
-        initUserSettings(getVenueId(venuename))
+        initBeerscreenSettings(getVenueId(venuename))
+        initWinescreenSettings(getVenueId(venuename))
+        initEventscreenSettings(getVenueId(venuename))
+        initItemscreenSettings(getVenueId(venuename))
         initFontSizeOptions(getVenueId(venuename))
         initTemplate(getVenueId(venuename))
         # initEvent(getVenueId(venuename))
@@ -88,7 +93,7 @@ def register():
 @users.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('list_history.dashboard'))
+        return redirect(url_for('list_history.beer_dashboard'))
     form = LoginForm()
     if form.validate_on_submit():
         # Get Form Fields

@@ -2,7 +2,9 @@ from flask import (render_template, url_for, flash, redirect,
                     request, abort, jsonify, Blueprint, make_response)
 from flask_login import current_user, login_required
 from menuscreen import db
-from menuscreen.models import User, List_history, List_current, Font_size_options, User_settings, Template, Ticker
+from menuscreen.models import (User, List_history, List_current, Font_size_options,
+                        Beerscreen_settings, Winescreen_settings, Eventscreen_settings,
+                        Itemscreen_settings, Template, Ticker)
 from menuscreen.list_history.forms import BeerForm, CurrentBeerListForm, NextBeerListForm
 from menuscreen.list_history.utils import getDefaultSelect, getDefaultNextSelect, _getTotalBeerlist, _getCurrentBeerlist, _getOnTapNextBeerlist, _addBeer, _deleteBeer, _getBottleBeers, addNewBeerToDB
 from menuscreen.settttings.utils import _getFontSizes, _getTemplates, _getSettings, _getNameFontSize, _getTemplateName, _getAbvFontSize, _getIbuFontSize, _getBreweryFontSize
