@@ -273,6 +273,22 @@ const BeerCtrl = (function(){
     return beer;
   }
 
+  const sendScreenSettingsInfoToDb = async data => {
+    // console.log(data);
+    const fetchResponse = await fetch('/_init_new_beerscreen_settings', {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify(data),
+      cache: "no-cache",
+      headers: new Headers({
+        "content-type": "application/json"
+      })
+    });
+    data = await fetchResponse.json();
+    // console.log(data);
+    return data;
+  }
+
   // Public methods
   return {
     getItems: function(){
@@ -311,6 +327,9 @@ const BeerCtrl = (function(){
     },
     callCreateNewBeerObj: function(data) {
       return createNewBeerOBJ(data);
+    },
+    callSendScreenSettingsInfoToDb: function(data) {
+      return sendScreenSettingsInfoToDb(data);
     }
 
   }
@@ -558,8 +577,13 @@ const UICtrl = (function(){
     searchBeerResults: '#search-beer-results',
     untappdAddBeerToDB: '.untappd-add-beer-to-db',
 
-    addBeerTemplateBtn: '#add-beerscreen-btn-id',
-    delBeerTemplateBtn: '#del-beerscreen-btn-id',
+    beerscreenDisplayId: '#beerscreen-display-id',
+    // beerscreen_settings.html
+    addBeerTemplateBtn: '#add-beerscreen-template-btn',
+    delBeerTemplateBtn: '#del-beerscreen-template-btn',
+
+
+
 
   }
 
@@ -1297,7 +1321,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     if (document.querySelector(UISelectors.addBeerTemplateBtn) != null) {
       document.querySelector(UISelectors.addBeerTemplateBtn).addEventListener('click', addBeerTemplate);
     }
-    if (document.querySelector(UISelectors.delBeerTempladeltn) != null) {
+    if (document.querySelector(UISelectors.delBeerTemplateBtn) != null) {
       document.querySelector(UISelectors.delBeerTemplateBtn).addEventListener('click', delBeerTemplate);
     }
   }
@@ -1603,8 +1627,23 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       e.preventDefault();
     }
 
-    const addBeerTemplate = (e) => {
+    const addBeerTemplate = async (e) => {
       console.log('addBeerTemplate');
+      // get current number of beer display screens/ beersettings
+      let displayScreenIdElement = document.querySelector(UISelectors.beerscreenDisplayId);
+      let displayScreenIds = displayScreenIdElement.options.length;
+      let optionEl = document.createElement('option');
+      displayScreenIds++;
+      optionEl.innerText = displayScreenIds;
+      optionEl.value = displayScreenIds;
+      displayScreenIdElement.appendChild(optionEl);
+
+      // send number of screens to database to init new setting options
+      // call route to add this to the database
+      let res = await BeerCtrl.callSendScreenSettingsInfoToDb(displayScreenIds);
+      console.log(res);
+
+
       e.preventDefault();
     }
     const delBeerTemplate = (e) => {

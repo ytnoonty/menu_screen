@@ -72,11 +72,11 @@ def register():
 
         # init new venue DB for wine tables
         initListHistory(getVenueId(venuename))
-        initListCurrent(getVenueId(venuename))
+        initListCurrent({"id":getVenueId(venuename), "screenId": ""})
         initWinelist(getVenueId(venuename))
         initWinelistCurrent(getVenueId(venuename))
         initWinetype(getVenueId(venuename))
-        initBeerscreenSettings(getVenueId(venuename))
+        initBeerscreenSettings({"id":getVenueId(venuename), "screenId": ""})
         initWinescreenSettings(getVenueId(venuename))
         initEventscreenSettings(getVenueId(venuename))
         initItemscreenSettings(getVenueId(venuename))

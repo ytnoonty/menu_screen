@@ -16,16 +16,18 @@
     <div class="col-6">
       <div class="form-group">
         <label for="">Screen Id Number</label>
-        <select id="" class="form-control" name="">
-          <option value="1">1</option>
+        <select id="beerscreen-display-id" class="form-control" name="">
+          {% for beerscreenId in beerscreenSettingsIds %}
+            <option value="{{ beerscreenId }}">{{ beerscreenId }}</option>
+          {% endfor %}
         </select>
       </div>
     </div>
     <div class="col-6">
       <label for="screen-btns">Add or Delete Beer displays</label>
       <div id="screen-btns" class="form-group">
-        <div class="btn btn-sm btn-outline-info">+</div>
-        <div class="btn btn-sm btn-outline-danger">-</div>
+        <div id="add-beerscreen-template-btn" class="btn btn-sm btn-outline-info">+</div>
+        <div id="del-beerscreen-template-btn" class="btn btn-sm btn-outline-danger">-</div>
       </div>
     </div>
   </div>

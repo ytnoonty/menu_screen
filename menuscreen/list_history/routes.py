@@ -8,13 +8,29 @@ from menuscreen.models import (User, List_history, List_current, Font_size_optio
 from menuscreen.list_history.forms import BeerForm, CurrentBeerListForm, NextBeerListForm
 from menuscreen.list_history.utils import getDefaultSelect, getDefaultNextSelect, _getTotalBeerlist, _getCurrentBeerlist, _getOnTapNextBeerlist, _addBeer, _deleteBeer, _getBottleBeers, addNewBeerToDB
 from menuscreen.settttings.utils import _getFontSizes, _getTemplates, _getSettings, _getNameFontSize, _getTemplateName, _getAbvFontSize, _getIbuFontSize, _getBreweryFontSize
-from menuscreen.users.init_db_tables import getVenueId
+from menuscreen.users.init_db_tables import getVenueId, initBeerscreenSettings, initListCurrent
 
 from menuscreen import pusher_client
 
 import json
 
 list_history = Blueprint('list_history', __name__)
+
+@list_history.route('/_init_new_beerscreen_settings', methods=['GET', 'POST'])
+@login_required
+def _init_new_beerscreen_settings():
+    data = request.get_json()
+    print(data)
+    screenData = {
+        "id": current_user.id,
+        "screenId": data,
+    }
+    print(screenData)
+    initListCurrent(screenData)
+    initBeerscreenSettings(screenData)
+
+    return jsonify(data)
+
 
 @list_history.route('/_add_update_ui', methods=['GET','POST'])
 # @login_required
@@ -441,6 +457,14 @@ def delete_beer(beer_id):
 @login_required
 def edit_beer_list():
 
+    beerscreenSettings = db.session.query(
+        Beerscreen_settings.beer_settings_screen_id
+    ).filter(Beerscreen_settings.venue_db_id == current_user.id
+    ).all()
+    beerscreenSettingsIds = []
+    for data in beerscreenSettings:
+        beerscreenSettingsIds.append(data[0])
+
     user = User.query.filter_by(id=current_user.id).first()
     datas = user.beerlist_sort_asc
     beersDropdown = []
@@ -479,6 +503,7 @@ def edit_beer_list():
         List_current.coming_soon,
         ).outerjoin(List_current, List_history.id == List_current.id_history
         ).filter(List_current.venue_db_id == current_user.id
+        ).filter(List_current.beer_screen_id == 1
         ).order_by(List_current.id.asc()
         ).all()
 
@@ -629,7 +654,7 @@ def edit_beer_list():
         #######################################
 
 
-    return render_template('edit_beer_list.html', title='Testing', legend='Testing', currentUserId=current_user.id, beersDropdown=beersDropdown, beerlist=beerlist, tickerText=tickerText)
+    return render_template('edit_beer_list.html', title='Testing', legend='Testing', currentUserId=current_user.id, beersDropdown=beersDropdown, beerlist=beerlist, tickerText=tickerText, beerscreenSettingsIds=beerscreenSettingsIds)
 
 
 

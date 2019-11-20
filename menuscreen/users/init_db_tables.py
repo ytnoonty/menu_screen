@@ -30,7 +30,14 @@ def initListHistory(id):
     db.session.commit()
     print('********** INIT LIST_CURRENT *********')
 
-def initListCurrent(id):
+def initListCurrent(data):
+    id = data['id']
+    if data['screenId'] == "":
+        screenId = 1
+    else:
+        screenId = data['screenId']
+    print('Here is the info: id={}, screenId={}'.format(id, screenId))
+
     user = User.query.filter_by(id=id).first()
     print('user: {}'.format(user))
     print('id: {}'.format(id))
@@ -40,7 +47,7 @@ def initListCurrent(id):
     print('beer.id: {}'.format(beer.id))
 
     for x in range(1, 2, 1):
-        beer = List_current(id_history=beer_id, id_on_next=beer_id, id_dropdown=x, beer_screen_id=1, venue_db_id=id)
+        beer = List_current(id_history=beer_id, id_on_next=beer_id, id_dropdown=x, beer_screen_id=screenId, venue_db_id=id)
         db.session.add(beer)
         db.session.commit()
     print('********** INIT LIST_HISTORY *********')
@@ -85,7 +92,13 @@ def initWinetype(id):
 
 
 
-def initBeerscreenSettings(id):
+def initBeerscreenSettings(data):
+    id = data['id']
+    if data['screenId'] == "":
+        screenId = 1
+    else:
+        screenId = data['screenId']
+    print('Here is the info: id={}, screenId={}'.format(id, screenId))
     beerscreen_settings = Beerscreen_settings(
         font_color_one='#ffffff',
         font_color_two='#ffffff',
@@ -194,7 +207,7 @@ def initBeerscreenSettings(id):
 
         beer_ticker_toggle=0,
         beer_ticker_scroll_speed=10,
-        beer_settings_screen_id ='1',
+        beer_settings_screen_id =screenId,
         beer_screen_template ='1',
         venue_db_id=id,
     )
