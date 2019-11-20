@@ -281,7 +281,6 @@ def _getBeerSettings(current_user_id):
     ).filter(Beerscreen_settings.venue_db_id == current_user_id
     ).first()
 
-
     this_setting = {
         "fontColorOne" : settings_db.font_color_one,
         "fontColorTwo" : settings_db.font_color_two,
@@ -927,18 +926,10 @@ def _getSettings(current_user_id):
 
 
     this_setting = {
-        "numberOfScreens" : settings_db.number_of_screens,
         "fontColorOne" : settings_db.font_color_one,
         "fontColorTwo" : settings_db.font_color_two,
         "fontColorThree" : settings_db.font_color_three,
         "fontColorDirection" : settings_db.font_color_direction,
-        "shadowFontColorOne" : settings_db.shadow_font_color_one,
-        "shadowFontColorTwo" : settings_db.shadow_font_color_two,
-        "shadowFontColorThree" : settings_db.shadow_font_color_three,
-        "shadowFontColorDirection" : settings_db.shadow_font_color_direction,
-
-        "screenTemplate" : settings_db.screen_template,
-
         "shadowFontColorOne" : settings_db.shadow_font_color_one,
         "shadowFontColorTwo" : settings_db.shadow_font_color_two,
         "shadowFontColorThree" : settings_db.shadow_font_color_three,

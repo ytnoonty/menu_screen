@@ -426,10 +426,22 @@ class Ticker(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     ticker_text = db.Column(db.Text)
     ticker_screen_id = db.Column(db.Integer)
+    ticker_type = db.Column(db.Integer)
+    ticker_type_id = db.relationship('Ticker_type_id', backref='ticker_type_id', lazy=True)
     venue_db_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
         return '************ Ticker: {}, {}, {}'.format(self.id,self.ticker_text,self.tickerscreen_id,self.venue_db_id)
+
+class Ticker_type_id(db.Model):
+    __tablename__= 'ticker_type_id'
+    id = db.Column(db.Integer, primary_key=True)
+    ticker_type = db.Column(db.String(25))
+    ticker_type_id_fk = db.Column(db.Integer, db.ForeignKey('ticker.id'), nullable=False)
+    venue_db_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    def __repr__(self):
+        return '************ TickerTypeId: {}, {}, {}'.format(self.id, self.ticker_type, self.venue_db_id)
 
 class Font_size_options(db.Model):
     __tablename__ = 'font_size_options'

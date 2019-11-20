@@ -97,7 +97,8 @@ def getTickerInfo():
         tickerInfo = {}
         tickerInfo['id'] = data.id
         tickerInfo['ticker_text'] = data.ticker_text
-        tickerInfo['tickerscreen_id'] = data.tickerscreen_id
+        tickerInfo['ticker_screen_id'] = data.ticker_screen_id
+        tickerInfo['tickery_type'] = data.ticker_type
     elif (current_user.is_authenticated):
         print("LOGGED IN")
         print(current_user.id)
@@ -106,7 +107,8 @@ def getTickerInfo():
         tickerInfo = {}
         tickerInfo['id'] = data.id
         tickerInfo['ticker_text'] = data.ticker_text
-        tickerInfo['tickerscreen_id'] = data.tickerscreen_id
+        tickerInfo['ticker_screen_id'] = data.ticker_screen_id
+        tickerInfo['tickery_type'] = data.ticker_type
     else:
         print("NOT LOGGED IN AND NO URL INFO")
         tickerInfo = {}

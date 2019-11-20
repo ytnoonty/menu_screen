@@ -23,38 +23,66 @@ class BeerTemplate {
         "tickerText": tickerText,
         "tickerNews": tickerNews,
       }
-      console.log(data);
+      // console.log(data);
       console.log(settings);
       beerNames.forEach(name => {
-        name.style.fontSize = `${settings.nameFontSizeHTML}`;
-        name.style.color = `${settings.nameFontColor}`;
+        name.style.color = `${settings.beerNameFontColor}`;
+        name.style.fontFamily = `${settings.beerNameFont}`;
+        name.style.fontSize = `${settings.beerNameFontSize}`;
+        if (settings.beerNameFontBoldToggle == true) {
+          console.log(settings.beerNameFontBoldToggle);
+          name.style.fontStyle = "bold";
+        } else {
+          name.style.fontStyle = "normal";
+        }
+        if (settings.beerNameFontItalicToggle == true) {
+          console.log(settings.beerNameFontItalicToggle);
+          name.style.fontStyle = "italic";
+        } else {
+          name.style.fontStyle = "normal";
+        }
+        if (settings.beerNameFontUnderlineToggle == true) {
+          console.log(settings.beerNameFontUnderlineToggle);
+          name.style.borderBottom = `thin solid ${settings.beerNameFontColor}`;
+        } else {
+          name.style.borderBottom = "none";
+        }
       });
+
+
       beerStyles.forEach(style => {
-        style.style.fontSize = `${settings.styleFontSizeHTML}`;
-        style.style.color = `${settings.styleFontColor}`;
+        style.style.color = `${settings.beerStyleFontColor}`;
+        style.style.fontSize = `${settings.beerStyleFontSize}`;
       });
+
       beerAbvs.forEach(abv => {
-        abv.style.fontSize = `${settings.abvFontSizeHTML}`;
-        abv.style.color = `${settings.abvFontColor}`;
+        abv.style.color = `${settings.beerAbvFontColor}`;
+        abv.style.fontSize = `${settings.beerAbvFontSize}`;
       });
+
       beerBrewerys.forEach(brewery => {
-        brewery.style.fontSize = `${settings.breweryFontSizeHTML}`;
-        brewery.style.color = `${settings.breweryFontColor}`;
+        brewery.style.color = `${settings.beerBreweryFontColor}`;
+        brewery.style.fontSize = `${settings.beerBreweryFontSize}`;
       });
+
       backgrounds.forEach(background => {
-        background.style.backgroundImage = `linear-gradient(${settings.backgroundColorDirection}, ${settings.backgroundColorOne}, ${settings.backgroundColorTwo}, ${settings.backgroundColorThree})`;
+        background.style.backgroundImage = `linear-gradient(${settings.beerBgColorDirection}, ${settings.beerBgColorOne}, ${settings.beerBgColorTwo}, ${settings.beerBgColorThree}, ${settings.beerBgColorFour}, ${settings.beerBgColorFive})`;
       });
+
       bomBackgrounds.forEach(background => {
-        background.style.backgroundImage = `linear-gradient(to bottom right, ${settings.breweryFontColor}, #222,${settings.nameFontColor}, rgba(255,255,255,.5), rgba(200,0,0,.75), ${settings.nameFontColor}, rgba(200,0,0,.85)`;
+        background.style.backgroundImage = `linear-gradient(${settings.beerBomBgColorDirection}, ${settings.beerBomBgColorOne}, ${settings.beerBomBgColorTwo},${settings.beerBomBgColorThree}, ${settings.beerBomBgColorFour}, ${settings.beerBomBgColorFive})`;
       });
+
       tickerText.forEach(text => {
-        text.style.fontSize = `${settings.nameFontSizeHTML}`;
-        text.style.color = `${settings.nameFontColor}`;
+        text.style.color = `${settings.beerTickerFontColor}`;
+        text.style.fontSize = `${settings.beerTickerFontSize}`;
       });
       tickerNews.forEach(news => {
-        news.style.fontSize = `${settings.nameFontSizeHTML}`;
-        news.style.color = `${settings.nameFontColor}`;
+        news.style.color = `${settings.beerTickerFontColor}`;
+        news.style.fontSize = `${settings.beerTickerFontSize}`;
       });
+
+      tickerWrapper.style.backgroundImage = `linear-gradient(${settings.beerTickerBgColorDirection}, ${settings.beerTickerBgColorOne}, ${settings.beerTickerBgColorTwo},${settings.beerTickerBgColorThree}, ${settings.beerTickerBgColorFour}, ${settings.beerTickerBgColorFive})`;
 
       (function(Ticker, settings, tickerWrapper){
         const ticker = Ticker();
@@ -73,7 +101,7 @@ class BeerTemplate {
         console.log('function loadTicker()');
         let tickerAnimation = Animation;
 
-        if (settings.tickerToggle) {
+        if (settings.beerTickerToggle) {
           tickerWrapper.classList.remove('d-none');
         } else {
           tickerWrapper.classList.add('d-none');
@@ -85,6 +113,7 @@ class BeerTemplate {
         let ticker = document.querySelector('.ticker');
         let tickerItems = document.querySelector('.ticker-items');
         let tickerItem = document.querySelectorAll('.ticker-item');
+        let tickerDuration;
         const tickerAnimation = new Animation();
 
         let liTotalWidth = 0;
@@ -100,8 +129,12 @@ class BeerTemplate {
         // console.log(totalLiWidth);
         let widthMovement = "translateX(-" + totalLiWidth + "px)";
         // console.log(widthMovement);
-        console.log(settings.tickerScrollSpeed);
-        let tickerDuration = totalLiWidth * settings.tickerScrollSpeed;
+        // console.log(settings.beerTickerScrollSpeed);
+        if (settings.beerTickerScrollSpeed !== null || settings.beerTickerScrollSpeed !== '') {
+          tickerDuration = totalLiWidth * settings.beerTickerScrollSpeed;
+        } else {
+          tickerDuration = totalLiWidth * 10;
+        }
         // console.log(tickerDuration);
         // console.log(tickerItems);
         tickerAnimation.animateTicker(tickerItems, widthMovement, tickerDuration);

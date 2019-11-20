@@ -22,7 +22,6 @@ class BeerscreenSettingsForm(FlaskForm):
     beerBomBgColorFive = StringField('Background Color Code Five:')
     beerBomBgColorDirection = SelectField(u'Background Font Color Direction', option_widget=None)
 
-
     beerBomNameFont = SelectField(u'Beer of the Month Name Font', coerce=int, option_widget=None)
     beerBomNameFontColor = StringField('Beer of the Month Name Font Color')
     beerBomNameFontSize = SelectField(u'Beer of the Month Name Font Size', coerce=int, option_widget=None)
@@ -62,7 +61,6 @@ class BeerscreenSettingsForm(FlaskForm):
     beerBgColorFour = StringField('Background Color Code Four:')
     beerBgColorFive = StringField('Background Color Code Five:')
     beerBgColorDirection = SelectField(u'Background Font Color Direction', option_widget=None)
-
 
     beerNameFont = SelectField(u'Beer Name font', coerce=int, option_widget=None)
     beerNameFontColor = StringField('Beer Name font color')

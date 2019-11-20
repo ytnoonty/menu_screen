@@ -14,24 +14,24 @@ from menuscreen import pusher_client
 settttings = Blueprint('settttings', __name__)
 
 # GET USER SETTINGS
-@settttings.route('/_get_screen_settings', methods=['GET', 'POST'])
+@settttings.route('/_get_beerscreen_settings', methods=['GET', 'POST'])
 # @login_required
-def _get_screen_settings():
+def _get_beerscreen_settings():
     data = request.get_json()
     print("**************************************")
     print("**************************************")
-    print("list_history. /_get_screen_settings")
+    print("list_history. /_get_beerscreen_settings")
     print(data)
     if (data):
         current_user_id = getVenueId(data['userName'])
         print("NOT LOGGED IN")
         print(data['userName'])
         print(current_user_id)
-        data = _getSettings(current_user_id)
+        data = _getBeerSettings(current_user_id)
     elif (current_user.is_authenticated):
         print("LOGGED IN")
         print(current_user.id)
-        data = _getSettings(current_user.id)
+        data = _getBeerSettings(current_user.id)
     else:
         print("NOT LOGGED IN AND NO URL INFO")
         data = {}
@@ -79,11 +79,13 @@ def add_font_size():
 def beerscreen_settings():
     form = BeerscreenSettingsForm(request.form)
 
-    # beerlist = _getCurrentBeerlist(current_user.id)
-    # events = _getEventsSortAsc(current_user.id)
     settings = _getBeerSettings(current_user.id)
+    # print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+    # print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+    # print(settings)
+    # print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+    # print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
 
-    print(settings)
 
     form = BeerscreenSettingsForm(request.form,
         fontColorOne = settings['fontColorOne'],
@@ -256,10 +258,10 @@ def beerscreen_settings():
 
     # function called from this module to query font size table
     sizes = _getFontSizes(current_user.id)
-    print(sizes)
+    # print(sizes)
     # function called from this module to query template table
     templates = _getTemplates(current_user.id)
-    print(templates)
+    # print(templates)
 
     form.beerSettingsScreenId.choices = [ (number['id'], number['number']) for number in screenNumSettings ]
 
@@ -290,91 +292,271 @@ def beerscreen_settings():
     form.beerIbuFontSize.choices = [ (size['id'], size['font_sizes']) for size in sizes ]
     form.beerBreweryFontSize.choices = [ (size['id'], size['font_sizes']) for size in sizes ]
     form.beerTickerFontSize.choices = [ (size['id'], size['font_sizes']) for size in sizes ]
-
-
-
     form.beerscreenTemplate.choices = [ (template['id'], template['template_name']) for template in templates ]
 
-    if form.validate_on_submit():
+
+    if request.method == 'GET':
+        print('```````````````````````````````````````````````````')
+        print('```````````````````````````````````````````````````')
+        print('THIS COULD BE A PROBLEM')
+        print('```````````````````````````````````````````````````')
+        print('```````````````````````````````````````````````````')
+        form.beerTickerFontSize.data = settings['beerTickerFontSize']
+
+
+
+    if request.method == 'POST' or form.validate_on_submit():
+    # if request.method =='POST':
+        print('***************************************************************')
+        print('***************************************************************')
+        print('SUBMITTING SETTINGS DATA NOW')
+        print('***************************************************************')
+        print('***************************************************************')
         userSettings = {}
-        userSettings['number_of_screens'] = form.numberOfScreens.data
-        userSettings['beerscreen_settings_id'] = form.beerscreenSettingsId.data
-        userSettings['font_color_one'] = form.fontColorOne.data
-        userSettings['font_color_two'] = form.fontColorTwo.data
-        userSettings['font_color_three'] = form.fontColorThree.data
-        userSettings['font_color_direction'] = form.fontColorDirection.data
-        userSettings['shadow_font_color_one'] = form.shadowFontColorOne.data
-        userSettings['shadow_font_color_two'] = form.shadowFontColorTwo.data
-        userSettings['shadow_font_color_three'] = form.shadowFontColorThree.data
-        userSettings['shadow_font_color_direction'] = form.shadowFontColorDirection.data
-        userSettings['background_color_one'] = form.backgroundColorOne.data
-        userSettings['background_color_two'] = form.backgroundColorTwo.data
-        userSettings['background_color_three'] = form.backgroundColorThree.data
-        userSettings['background_color_direction'] = form.backgroundColorDirection.data
-        userSettings['name_font_color'] = form.nameFontColor.data
-        userSettings['style_font_color'] = form.styleFontColor.data
-        userSettings['abv_font_color'] = form.abvFontColor.data
-        userSettings['ibu_font_color'] = form.ibuFontColor.data
-        userSettings['brewery_font_color'] = form.breweryFontColor.data
-        userSettings['name_font_size'] = form.nameFontSize.data
-        userSettings['style_font_size'] = form.styleFontSize.data
-        userSettings['abv_font_size'] = form.abvFontSize.data
-        userSettings['ibu_font_size'] = form.ibuFontSize.data
-        userSettings['brewery_font_size'] = form.breweryFontSize.data
-        userSettings['screen_template'] = form.screenTemplate.data
-        userSettings['ticker_toggle'] = form.tickerToggle.data
-        userSettings['ticker_scroll_speed'] = form.tickerScrollSpeed.data
+        userSettings['fontColorOne'] = form.fontColorOne.data
+        userSettings['fontColorTwo'] = form.fontColorTwo.data
+        userSettings['fontColorThree'] = form.fontColorThree.data
+        userSettings['fontColorDirection'] = form.fontColorDirection.data
+        userSettings['shadowFontColorOne'] = form.shadowFontColorOne.data
+        userSettings['shadowFontColorTwo'] = form.shadowFontColorTwo.data
+        userSettings['shadowFontColorThree'] = form.shadowFontColorThree.data
+        userSettings['shadowFontColorDirection'] = form.shadowFontColorDirection.data
+
+        userSettings['beerBomBgColorOne'] = form.beerBomBgColorOne.data
+        userSettings['beerBomBgColorTwo'] = form.beerBomBgColorTwo.data
+        userSettings['beerBomBgColorThree'] = form.beerBomBgColorThree.data
+        userSettings['beerBomBgColorFour'] = form.beerBomBgColorFour.data
+        userSettings['beerBomBgColorFive'] = form.beerBomBgColorFive.data
+        userSettings['beerBomBgColorDirection'] = form.beerBomBgColorDirection.data
+
+        userSettings['beerBomNameFont'] = form.beerBomNameFont.data
+        userSettings['beerBomNameFontColor'] = form.beerBomNameFontColor.data
+        userSettings['beerBomNameFontSize'] = form.beerBomNameFontSize.data
+        userSettings['beerBomNameFontBoldToggle'] = form.beerBomNameFontBoldToggle.data
+        userSettings['beerBomNameFontItalicToggle'] = form.beerBomNameFontItalicToggle.data
+        userSettings['beerBomNameFontUnderlineToggle'] = form.beerBomNameFontUnderlineToggle.data
+
+        userSettings['beerBomStyleFont'] = form.beerBomStyleFont.data
+        userSettings['beerBomStyleFontColor'] = form.beerBomStyleFontColor.data
+        userSettings['beerBomStyleFontSize'] = form.beerBomStyleFontSize.data
+        userSettings['beerBomStyleFontBoldToggle'] = form.beerBomStyleFontBoldToggle.data
+        userSettings['beerBomStyleFontItalicToggle'] = form.beerBomStyleFontItalicToggle.data
+        userSettings['beerBomStyleFontUnderlineToggle'] = form.beerBomStyleFontUnderlineToggle.data
+
+        userSettings['beerBomAbvFontColor'] = form.beerBomAbvFontColor.data
+        userSettings['beerBomAbvFontSize'] = form.beerBomAbvFontSize.data
+        userSettings['beerBomAbvFontBoldToggle'] = form.beerBomAbvFontBoldToggle.data
+        userSettings['beerBomAbvFontItalicToggle'] = form.beerBomAbvFontItalicToggle.data
+        userSettings['beerBomAbvFontUnderlineToggle'] = form.beerBomAbvFontUnderlineToggle.data
+
+        userSettings['beerBomIbuFontColor'] = form.beerBomIbuFontColor.data
+        userSettings['beerBomIbuFontSize'] = form.beerBomIbuFontSize.data
+        userSettings['beerBomIbuFontBoldToggle'] = form.beerBomIbuFontBoldToggle.data
+        userSettings['beerBomIbuFontItalicToggle'] = form.beerBomIbuFontItalicToggle.data
+        userSettings['beerBomIbuFontUnderlineToggle'] = form.beerBomIbuFontUnderlineToggle.data
+
+        userSettings['beerBomBreweryFont'] = form.beerBomBreweryFont.data
+        userSettings['beerBomBreweryFontColof'] = form.beerBomBreweryFontColor.data
+        userSettings['beerBomBreweryFontSize'] = form.beerBomBreweryFontSize.data
+        userSettings['beerBomBreweryFontBoldToggle'] = form.beerBomBreweryFontBoldToggle.data
+        userSettings['beerBomBreweryFontItalicToggle'] = form.beerBomBreweryFontItalicToggle.data
+        userSettings['beerBomBreweryFontUnderlineToggle'] = form.beerBomBreweryFontUnderlineToggle.data
+
+        userSettings['beerBgColorOne'] = form.beerBgColorOne.data
+        userSettings['beerBgColorTwo'] = form.beerBgColorTwo.data
+        userSettings['beerBgColorThree'] = form.beerBgColorThree.data
+        userSettings['beerBgColorFour'] = form.beerBgColorFour.data
+        userSettings['beerBgColorFive'] = form.beerBgColorFive.data
+        userSettings['beerBgColorDirection'] = form.beerBgColorDirection.data
+
+        userSettings['beerNameFont'] = form.beerNameFont.data
+        userSettings['beerNameFontColor'] = form.beerNameFontColor.data
+        userSettings['beerNameFontSize'] = form.beerNameFontSize.data
+        userSettings['beerNameFontBoldToggle'] = form.beerNameFontBoldToggle.data
+        userSettings['beerNameFontItalicToggle'] = form.beerNameFontItalicToggle.data
+        userSettings['beerNameFontUnderlineToggle'] = form.beerNameFontUnderlineToggle.data
+
+        userSettings['beerStyleFont'] = form.beerStyleFont.data
+        userSettings['beerStyleFontColor'] = form.beerStyleFontColor.data
+        userSettings['beerStyleFontSize'] = form.beerStyleFontSize.data
+        userSettings['beerStyleFontBoldToggle'] = form.beerStyleFontBoldToggle.data
+        userSettings['beerStyleFontItalicToggle'] = form.beerStyleFontItalicToggle.data
+        userSettings['beerStyleFontUnderlineToggle'] = form.beerStyleFontUnderlineToggle.data
+
+        userSettings['beerAbvFontColor'] = form.beerAbvFontColor.data
+        userSettings['beerAbvFontSize'] = form.beerAbvFontSize.data
+        userSettings['beerAbvFontBoldToggle'] = form.beerAbvFontBoldToggle.data
+        userSettings['beerAbvFontItalicToggle'] = form.beerAbvFontItalicToggle.data
+        userSettings['beerAbvFontUnderlineToggle'] = form.beerAbvFontUnderlineToggle.data
+
+        userSettings['beerIbuFontColor'] = form.beerIbuFontColor.data
+        userSettings['beerIbuFontSize'] = form.beerIbuFontSize.data
+        userSettings['beerIbuFontBoldToggle'] = form.beerIbuFontBoldToggle.data
+        userSettings['beerIbuFontItalicToggle'] = form.beerIbuFontItalicToggle.data
+        userSettings['beerIbuFontUnderlineToggle'] = form.beerIbuFontUnderlineToggle.data
+
+        userSettings['beerBreweryFont'] = form.beerBreweryFont.data
+        userSettings['beerBreweryFontColor'] = form.beerBreweryFontColor.data
+        userSettings['beerBreweryFontSize'] = form.beerBreweryFontSize.data
+        userSettings['beerBreweryFontBoldToggle'] = form.beerBreweryFontBoldToggle.data
+        userSettings['beerBreweryFontItalicToggle'] = form.beerBreweryFontItalicToggle.data
+        userSettings['beerBreweryFontUnderlineToggle'] = form.beerBreweryFontUnderlineToggle.data
+
+        userSettings['beerTickerBgColorOne'] = form.beerTickerBgColorOne.data
+        userSettings['beerTickerBgColorTwo'] = form.beerTickerBgColorTwo.data
+        userSettings['beerTickerBgColorThree'] = form.beerTickerBgColorThree.data
+        userSettings['beerTickerBgColorFour'] = form.beerTickerBgColorFour.data
+        userSettings['beerTickerBgColorFive'] = form.beerTickerBgColorFive.data
+        userSettings['beerTickerBgColorDirection'] = form.beerTickerBgColorDirection.data
+
+        userSettings['beerTickerBeernamesFont'] = form.beerTickerBeernamesFont.data
+        userSettings['beerTickerFont'] = form.beerTickerFont.data
+        userSettings['beerTickerFontColor'] = form.beerTickerFontColor.data
+        userSettings['beerTickerFontSize'] = form.beerTickerFontSize.data
+        userSettings['beerTickerFontBoldToggle'] = form.beerTickerFontBoldToggle.data
+        userSettings['beerTickerFontItalicToggle'] = form.beerTickerFontItalicToggle.data
+        userSettings['beerTickerFontUnderlineToggle'] = form.beerTickerFontUnderlineToggle.data
+
+        userSettings['beerTickerToggle'] = form.beerTickerToggle.data
+        userSettings['beerTickerScrollSpeed'] = form.beerTickerScrollSpeed.data
+
+        userSettings['beerSettingsScreenId'] = form.beerSettingsScreenId.data
+        userSettings['beerscreenTemplate'] = form.beerscreenTemplate.data
         userSettings['venue_db_id'] = current_user.id
 
-        settingsCandidate = User_settings.query.filter_by(beerscreen_settings_id=userSettings['beerscreen_settings_id'], venue_db_id=current_user.id).first()
+        settingsCandidate = Beerscreen_settings.query.filter_by(beer_settings_screen_id=userSettings['beerSettingsScreenId'], venue_db_id=userSettings['venue_db_id']).first()
 
-        settingsCandidate.number_of_screens = userSettings['number_of_screens']
-        settingsCandidate.beerscreen_settings_id = userSettings['beerscreen_settings_id']
-        settingsCandidate.font_color_one = userSettings['font_color_one']
-        settingsCandidate.font_color_two = userSettings['font_color_two']
-        settingsCandidate.font_color_three = userSettings['font_color_three']
-        settingsCandidate.font_color_direction = userSettings['font_color_direction']
-        settingsCandidate.shadow_font_color_one = userSettings['shadow_font_color_one']
-        settingsCandidate.shadow_font_color_two = userSettings['shadow_font_color_two']
-        settingsCandidate.shadow_font_color_three = userSettings['shadow_font_color_three']
-        settingsCandidate.shadow_font_color_direction = userSettings['shadow_font_color_direction']
-        settingsCandidate.background_color_one = userSettings['background_color_one']
-        settingsCandidate.background_color_two = userSettings['background_color_two']
-        settingsCandidate.background_color_three = userSettings['background_color_three']
-        settingsCandidate.background_color_direction = userSettings['background_color_direction']
-        settingsCandidate.name_font_color = userSettings['name_font_color']
-        settingsCandidate.style_font_color = userSettings['style_font_color']
-        settingsCandidate.abv_font_color = userSettings['abv_font_color']
-        settingsCandidate.ibu_font_color = userSettings['ibu_font_color']
-        settingsCandidate.brewery_font_color = userSettings['brewery_font_color']
-        settingsCandidate.name_font_size = userSettings['name_font_size']
-        settingsCandidate.style_font_size = userSettings['style_font_size']
-        settingsCandidate.abv_font_size = userSettings['abv_font_size']
-        settingsCandidate.ibu_font_size = userSettings['ibu_font_size']
-        settingsCandidate.brewery_font_size = userSettings['brewery_font_size']
-        settingsCandidate.screen_template = userSettings['screen_template']
-        settingsCandidate.ticker_toggle = userSettings['ticker_toggle']
-        settingsCandidate.ticker_scroll_speed = userSettings['ticker_scroll_speed']
+        settingsCandidate.font_color_one = userSettings['fontColorOne']
+        settingsCandidate.font_color_two = userSettings['fontColorTwo']
+        settingsCandidate.font_color_three = userSettings['fontColorThree']
+        settingsCandidate.font_color_direction = userSettings['fontColorDirection']
+        settingsCandidate.shadow_font_color_one = userSettings['shadowFontColorOne']
+        settingsCandidate.shadow_font_color_two = userSettings['shadowFontColorTwo']
+        settingsCandidate.shadow_font_color_three = userSettings['shadowFontColorThree']
+        settingsCandidate.shadow_font_color_direction = userSettings['shadowFontColorDirection']
+
+
+        settingsCandidate.beer_bom_background_color_one = userSettings['beerBomBgColorOne']
+        settingsCandidate.beer_bom_background_color_two = userSettings['beerBomBgColorTwo']
+        settingsCandidate.beer_bom_background_color_three = userSettings['beerBomBgColorThree']
+        settingsCandidate.beer_bom_background_color_four = userSettings['beerBomBgColorFour']
+        settingsCandidate.beer_bom_background_color_five = userSettings['beerBomBgColorFive']
+        settingsCandidate.beer_bom_background_color_direction = userSettings['beerBomBgColorDirection']
+
+        settingsCandidate.beer_bom_name_font = userSettings['beerBomNameFont']
+        settingsCandidate.beer_bom_name_font_color = userSettings['beerBomNameFontColor']
+        settingsCandidate.beer_bom_name_font_size = userSettings['beerBomNameFontSize']
+        settingsCandidate.beer_bom_name_font_bold_toggle = userSettings['beerBomNameFontBoldToggle']
+        settingsCandidate.beer_bom_name_font_italic_toggle = userSettings['beerBomNameFontItalicToggle']
+        settingsCandidate.beer_bom_name_font_underline_toggle = userSettings['beerBomNameFontUnderlineToggle']
+
+        settingsCandidate.beer_bom_style_font = userSettings['beerBomStyleFont']
+        settingsCandidate.beer_bom_style_font_color = userSettings['beerBomStyleFontColor']
+        settingsCandidate.beer_bom_style_font_size = userSettings['beerBomStyleFontSize']
+        settingsCandidate.beer_bom_style_font_bold_toggle = userSettings['beerBomStyleFontBoldToggle']
+        settingsCandidate.beer_bom_style_font_italic_toggle = userSettings['beerBomStyleFontItalicToggle']
+        settingsCandidate.beer_bom_style_font_underline_toggle = userSettings['beerBomStyleFontUnderlineToggle']
+
+        settingsCandidate.beer_bom_abv_font_color = userSettings['beerBomAbvFontColor']
+        settingsCandidate.beer_bom_abv_font_size = userSettings['beerBomAbvFontSize']
+        settingsCandidate.beer_bom_abv_font_bold_toggle = userSettings['beerBomAbvFontBoldToggle']
+        settingsCandidate.beer_bom_abv_font_italic_toggle = userSettings['beerBomAbvFontItalicToggle']
+        settingsCandidate.beer_bom_abv_font_underline_toggle = userSettings['beerBomAbvFontUnderlineToggle']
+
+        settingsCandidate.beer_bom_ibu_font_color = userSettings['beerBomIbuFontColor']
+        settingsCandidate.beer_bom_ibu_font_size = userSettings['beerBomIbuFontSize']
+        settingsCandidate.beer_bom_ibu_font_bold_toggle = userSettings['beerBomIbuFontBoldToggle']
+        settingsCandidate.beer_bom_ibu_font_italic_toggle = userSettings['beerBomIbuFontItalicToggle']
+        settingsCandidate.beer_bom_ibu_font_underline_toggle = userSettings['beerBomIbuFontUnderlineToggle']
+
+        settingsCandidate.beer_bom_brewery_font = userSettings['beerBomBreweryFont']
+        settingsCandidate.beer_bom_brewery_font_color = userSettings['beerBomBreweryFontColof']
+        settingsCandidate.beer_bom_brewery_font_size = userSettings['beerBomBreweryFontSize']
+        settingsCandidate.beer_bom_brewery_font_bold_toggle = userSettings['beerBomBreweryFontBoldToggle']
+        settingsCandidate.beer_bom_brewery_font_italic_toggle = userSettings['beerBomBreweryFontItalicToggle']
+        settingsCandidate.beer_bom_brewery_font_underline_toggle = userSettings['beerBomBreweryFontUnderlineToggle']
+
+        settingsCandidate.beer_background_color_one = userSettings['beerBgColorOne']
+        settingsCandidate.beer_background_color_two = userSettings['beerBgColorTwo']
+        settingsCandidate.beer_background_color_three = userSettings['beerBgColorThree']
+        settingsCandidate.beer_background_color_four = userSettings['beerBgColorFour']
+        settingsCandidate.beer_background_color_five = userSettings['beerBgColorFive']
+        settingsCandidate.beer_background_color_direction = userSettings['beerBgColorDirection']
+
+        settingsCandidate.beer_name_font = userSettings['beerNameFont']
+        settingsCandidate.beer_name_font_color = userSettings['beerNameFontColor']
+        settingsCandidate.beer_name_font_size = userSettings['beerNameFontSize']
+        settingsCandidate.beer_name_font_bold_toggle = userSettings['beerNameFontBoldToggle']
+        settingsCandidate.beer_name_font_italic_toggle = userSettings['beerNameFontItalicToggle']
+        settingsCandidate.beer_name_font_underline_toggle = userSettings['beerNameFontUnderlineToggle']
+
+        settingsCandidate.beer_style_font = userSettings['beerStyleFont']
+        settingsCandidate.beer_style_font_color = userSettings['beerStyleFontColor']
+        settingsCandidate.beer_style_font_size = userSettings['beerStyleFontSize']
+        settingsCandidate.beer_style_font_bold_toggle = userSettings['beerStyleFontBoldToggle']
+        settingsCandidate.beer_style_font_italic_toggle = userSettings['beerStyleFontItalicToggle']
+        settingsCandidate.beer_style_font_underline_toggle = userSettings['beerStyleFontUnderlineToggle']
+
+        settingsCandidate.beer_abv_font_color = userSettings['beerAbvFontColor']
+        settingsCandidate.beer_abv_font_size = userSettings['beerAbvFontSize']
+        settingsCandidate.beer_abv_font_bold_toggle = userSettings['beerAbvFontBoldToggle']
+        settingsCandidate.beer_abv_font_italic_toggle = userSettings['beerAbvFontItalicToggle']
+        settingsCandidate.beer_abv_font_underline_toggle = userSettings['beerAbvFontUnderlineToggle']
+
+        settingsCandidate.beer_ibu_font_color = userSettings['beerIbuFontColor']
+        settingsCandidate.beer_ibu_font_size = userSettings['beerIbuFontSize']
+        settingsCandidate.beer_ibu_font_bold_toggle = userSettings['beerIbuFontBoldToggle']
+        settingsCandidate.beer_ibu_font_italic_toggle = userSettings['beerIbuFontItalicToggle']
+        settingsCandidate.beer_ibu_font_underline_toggle = userSettings['beerIbuFontUnderlineToggle']
+
+        settingsCandidate.beer_brewery_font = userSettings['beerBreweryFont']
+        settingsCandidate.beer_brewery_font_color = userSettings['beerBreweryFontColor']
+        settingsCandidate.beer_brewery_font_size = userSettings['beerBreweryFontSize']
+        settingsCandidate.beer_brewery_font_bold_toggle = userSettings['beerBreweryFontBoldToggle']
+        settingsCandidate.beer_brewery_font_italic_toggle = userSettings['beerBreweryFontItalicToggle']
+        settingsCandidate.beer_brewery_font_underline_toggle = userSettings['beerBreweryFontUnderlineToggle']
+
+        settingsCandidate.beer_ticker_bg_color_one = userSettings['beerTickerBgColorOne']
+        settingsCandidate.beer_ticker_bg_color_two = userSettings['beerTickerBgColorTwo']
+        settingsCandidate.beer_ticker_bg_color_three = userSettings['beerTickerBgColorThree']
+        settingsCandidate.beer_ticker_bg_color_four = userSettings['beerTickerBgColorFour']
+        settingsCandidate.beer_ticker_bg_color_five = userSettings['beerTickerBgColorFive']
+        settingsCandidate.beer_ticker_bg_color_direction = userSettings['beerTickerBgColorDirection']
+
+        settingsCandidate.beer_ticker_beernames_font = userSettings['beerTickerBeernamesFont']
+        settingsCandidate.beer_ticker_font = userSettings['beerTickerFont']
+        settingsCandidate.beer_ticker_font_color = userSettings['beerTickerFontColor']
+        settingsCandidate.beer_ticker_font_size = userSettings['beerTickerFontSize']
+        settingsCandidate.beer_ticker_font_bold_toggle = userSettings['beerTickerFontBoldToggle']
+        settingsCandidate.beer_ticker_font_italic_toggle = userSettings['beerTickerFontItalicToggle']
+        settingsCandidate.beer_ticker_font_underline_toggle = userSettings['beerTickerFontUnderlineToggle']
+
+        settingsCandidate.beer_ticker_toggle = userSettings['beerTickerToggle']
+        settingsCandidate.beer_ticker_scroll_speed = userSettings['beerTickerScrollSpeed']
+
+        settingsCandidate.beer_settings_screen_id = userSettings['beerSettingsScreenId']
+        settingsCandidate.beer_screen_template = userSettings['beerscreenTemplate']
         db.session.commit()
 
-        templateName = _getTemplateName(userSettings['screen_template'])
-        nameFontSize = _getNameFontSize(current_user.id, Font_size_options.id)
-        styleFontSize = _getStyleFontSize(current_user.id, Font_size_options.id)
-        abvFontSize = _getAbvFontSize(current_user.id, Font_size_options.id)
-        ibuFontSize = _getIbuFontSize(current_user.id, Font_size_options.id)
-        breweryFontSize = _getBreweryFontSize(current_user.id, Font_size_options.id)
-
-        userSettings['template_name'] = templateName
-        userSettings['nameFontSize'] = nameFontSize
-        userSettings['styleFontSize'] = styleFontSize
-        userSettings['abvFontSize'] = abvFontSize
-        userSettings['ibuFontSize'] = ibuFontSize
-        userSettings['breweryFontSize'] = breweryFontSize
+        # templateName = _getTemplateName(userSettings['screen_template'])
+        # nameFontSize = _getNameFontSize(current_user.id, Font_size_options.id)
+        # styleFontSize = _getStyleFontSize(current_user.id, Font_size_options.id)
+        # abvFontSize = _getAbvFontSize(current_user.id, Font_size_options.id)
+        # ibuFontSize = _getIbuFontSize(current_user.id, Font_size_options.id)
+        # breweryFontSize = _getBreweryFontSize(current_user.id, Font_size_options.id)
+        #
+        # userSettings['template_name'] = templateName
+        # userSettings['nameFontSize'] = nameFontSize
+        # userSettings['styleFontSize'] = styleFontSize
+        # userSettings['abvFontSize'] = abvFontSize
+        # userSettings['ibuFontSize'] = ibuFontSize
+        # userSettings['breweryFontSize'] = breweryFontSize
 
         settings = {
             # "beers":beerlist,
             # "events":events,
-            "userSettings":userSettings,
+            # "userSettings":userSettings,
+            "venue_db_id": userSettings['venue_db_id'],
             "updated": True,
         }
 
@@ -386,7 +568,7 @@ def beerscreen_settings():
 
         flash('Beerscreen Settings Updated', 'success')
         return redirect(url_for('settttings.beerscreen_settings'))
-    return render_template('beerscreen_settings.html', title='Settings', form=form, settings=settings)
+    return render_template('beerscreen_settings.html', title='Beerscreen settings', form=form, settings=settings)
 
 
 # beerscreen_settings page

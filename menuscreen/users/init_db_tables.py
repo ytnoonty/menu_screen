@@ -4,7 +4,7 @@ from menuscreen.models import (User, List_history, List_current, Wines,
                                 Winelist_current, Wine_type, Beerscreen_settings,
                                 Winescreen_settings, Eventscreen_settings,
                                 Itemscreen_settings, Font_size_options, Template,
-                                Event, Item, Ticker)
+                                Event, Item, Ticker, Ticker_type_id)
 
 def getVenueId(name):
     user = User.query.filter_by(venue_name=name).first()
@@ -465,10 +465,60 @@ def initItem(id):
 
 def initTicker(id):
     tickerInfo = Ticker(
-        ticker_text='Test Ticker Text',
+        ticker_text='Initialized BEER Ticker Text please add your news and information to show in the scrolling ticker on the display screen.',
         ticker_screen_id='1',
+        ticker_type='1',
+        venue_db_id=id
+    )
+    db.session.add(tickerInfo)
+    tickerInfo = Ticker(
+        ticker_text='Initialized WINE Ticker Text please add your news and information to show in the scrolling ticker on the display screen.',
+        ticker_screen_id='1',
+        ticker_type='2',
+        venue_db_id=id
+    )
+    db.session.add(tickerInfo)
+    tickerInfo = Ticker(
+        ticker_text='Initialized EVENT Ticker Text please add your news and information to show in the scrolling ticker on the display screen.',
+        ticker_screen_id='1',
+        ticker_type='3',
+        venue_db_id=id
+    )
+    db.session.add(tickerInfo)
+    tickerInfo = Ticker(
+        ticker_text='Initialized ITEM Ticker Text please add your news and information to show in the scrolling ticker on the display screen.',
+        ticker_screen_id='1',
+        ticker_type='4',
         venue_db_id=id
     )
     db.session.add(tickerInfo)
     db.session.commit()
     print('********** INIT TICKER *********')
+
+def initTickerTypeId(id):
+    tickerTypeCandidate = Ticker_type_id(
+        ticker_type='Beer',
+        ticker_type_id_fk='1',
+        venue_db_id=id
+    )
+    db.session.add(tickerTypeCandidate)
+    tickerTypeCandidate = Ticker_type_id(
+        ticker_type='Wine',
+        ticker_type_id_fk='2',
+        venue_db_id=id
+    )
+    db.session.add(tickerTypeCandidate)
+    tickerTypeCandidate = Ticker_type_id(
+        ticker_type='Event',
+        ticker_type_id_fk='3',
+        venue_db_id=id
+    )
+    db.session.add(tickerTypeCandidate)
+    tickerTypeCandidate = Ticker_type_id(
+        ticker_type='Item',
+        ticker_type_id_fk='4',
+        venue_db_id=id
+    )
+    db.session.add(tickerTypeCandidate)
+    db.session.commit()
+    print('********** INIT TICKER TYPE ID ***********')

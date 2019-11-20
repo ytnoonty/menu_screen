@@ -13,7 +13,8 @@ from menuscreen.users.init_db_tables import (getVenueId, initListHistory,
                                 initListCurrent, initWinelist, initWinelistCurrent,
                                 initWinetype, initBeerscreenSettings, initWinescreenSettings,
                                 initEventscreenSettings, initItemscreenSettings,
-                                initFontSizeOptions, initTemplate, initEvent, initItem, initTicker)
+                                initFontSizeOptions, initTemplate, initEvent, initItem,
+                                initTicker, initTickerTypeId)
 
 
 users = Blueprint('users', __name__)
@@ -84,6 +85,7 @@ def register():
         # initEvent(getVenueId(venuename))
         initItem(getVenueId(venuename))
         initTicker(getVenueId(venuename))
+        initTickerTypeId(getVenueId(venuename))
 
         flash('{}, you are now registered and can log in!'.format(username), 'success')
         return redirect(url_for('users.login'))

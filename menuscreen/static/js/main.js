@@ -472,7 +472,7 @@ const EventCtrl = (function(){
 const ScreenSettingsCtrl = (function() {
   async function fetchScreenSettings(userData) {
     // console.log(userData);
-    const res = await fetch('/_get_screen_settings', {
+    const res = await fetch('/_get_beerscreen_settings', {
       method: "POST",
       credentials: "include",
       body: JSON.stringify(userData),
@@ -557,6 +557,9 @@ const UICtrl = (function(){
     searchBeerBtn: '#search-beer-btn',
     searchBeerResults: '#search-beer-results',
     untappdAddBeerToDB: '.untappd-add-beer-to-db',
+
+    addBeerTemplateBtn: '#add-beerscreen-btn-id',
+    delBeerTemplateBtn: '#del-beerscreen-btn-id',
 
   }
 
@@ -1291,6 +1294,12 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     if (document.querySelector(UISelectors.searchBeerBtn) != null) {
       document.querySelector(UISelectors.searchBeerBtn).addEventListener('click', searchBeerClick);
     }
+    if (document.querySelector(UISelectors.addBeerTemplateBtn) != null) {
+      document.querySelector(UISelectors.addBeerTemplateBtn).addEventListener('click', addBeerTemplate);
+    }
+    if (document.querySelector(UISelectors.delBeerTempladeltn) != null) {
+      document.querySelector(UISelectors.delBeerTemplateBtn).addEventListener('click', delBeerTemplate);
+    }
   }
 
     // Edit beerlist submit
@@ -1591,6 +1600,15 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       // add beer to DB
       BeerCtrl.callFetchAddNewBeerToDB(newBeerObj);
 
+      e.preventDefault();
+    }
+
+    const addBeerTemplate = (e) => {
+      console.log('addBeerTemplate');
+      e.preventDefault();
+    }
+    const delBeerTemplate = (e) => {
+      console.log('delBeerTemplate');
       e.preventDefault();
     }
 
