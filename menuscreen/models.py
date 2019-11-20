@@ -86,7 +86,7 @@ class List_current(db.Model):
     venue_db_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
-        return '************ List_current: {}, {}, {}, {}, {}, {}, {}, {}'.format(self.id,self.id_history,self.id_on_next,self.id_dropdown,self.beer_of_month,self.coming_soon,self.beerscreen_id,self.venue_db_id)
+        return '************ List_current: {}, {}, {}, {}, {}, {}, {}, {}'.format(self.id,self.id_history,self.id_on_next,self.id_dropdown,self.beer_of_month,self.coming_soon,self.beer_screen_id,self.venue_db_id)
 
 
 class Beerscreen_settings(db.Model):

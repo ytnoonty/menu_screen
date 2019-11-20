@@ -4,7 +4,7 @@ from flask_login import current_user, login_required
 from menuscreen import db
 from menuscreen.models import (User, List_history, List_current, Font_size_options,
                         Beerscreen_settings, Winescreen_settings, Eventscreen_settings,
-                        Itemscreen_settings, Template, Ticker)
+                        Itemscreen_settings, Template, Ticker, Ticker_type_id)
 from menuscreen.list_history.forms import BeerForm, CurrentBeerListForm, NextBeerListForm
 from menuscreen.list_history.utils import getDefaultSelect, getDefaultNextSelect, _getTotalBeerlist, _getCurrentBeerlist, _getOnTapNextBeerlist, _addBeer, _deleteBeer, _getBottleBeers, addNewBeerToDB
 from menuscreen.settttings.utils import _getFontSizes, _getTemplates, _getSettings, _getNameFontSize, _getTemplateName, _getAbvFontSize, _getIbuFontSize, _getBreweryFontSize
@@ -515,8 +515,10 @@ def edit_beer_list():
     tickerInfo = db.session.query(
         Ticker.id,
         Ticker.ticker_text,
-        Ticker.tickerscreen_id,
-        Ticker.venue_db_id
+        Ticker.ticker_screen_id,
+        Ticker.venue_db_id,
+        Ticker_type_id.ticker_type
+    ).join(Ticker_type_id, Ticker_type_id.ticker_type_id_fk == Ticker.ticker_type
     ).filter(Ticker.venue_db_id == current_user.id
     ).first()
     if (tickerInfo):
