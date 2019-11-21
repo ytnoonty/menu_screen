@@ -151,7 +151,7 @@ const BeerCtrl = (function(){
   }
 
   async function fetchCurBeerlist(userData) {
-    // console.log(userData);
+    console.log(userData);
     const res = await fetch('/_getCurBeerlist', {
       method: "POST",
       credentials: "include",
@@ -289,6 +289,22 @@ const BeerCtrl = (function(){
     return data;
   }
 
+  const removeScreenSettingsInfoFromDb = async data => {
+    // console.log(data);
+    const fetchResponse = await fetch('/_remove_beerscreen_settings', {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify(data),
+      cache: "no-cache",
+      headers: new Headers({
+        "content-type": "application/json"
+      })
+    });
+    data = await fetchResponse.json();
+    // console.log(data);
+    return data;
+  }
+
   // Public methods
   return {
     getItems: function(){
@@ -330,7 +346,10 @@ const BeerCtrl = (function(){
     },
     callSendScreenSettingsInfoToDb: function(data) {
       return sendScreenSettingsInfoToDb(data);
-    }
+    },
+    callRemoveScreenSettingsInfoFromDb: data => {
+      return removeScreenSettingsInfoFromDb(data);
+    },
 
   }
 
@@ -577,14 +596,13 @@ const UICtrl = (function(){
     searchBeerResults: '#search-beer-results',
     untappdAddBeerToDB: '.untappd-add-beer-to-db',
 
+    // edit_beer_list.html
     beerscreenDisplayId: '#beerscreen-display-id',
+    // beerscreen_settings.html
+    beerSettingsScreenId: '#beerSettingsScreenId',
     // beerscreen_settings.html
     addBeerTemplateBtn: '#add-beerscreen-template-btn',
     delBeerTemplateBtn: '#del-beerscreen-template-btn',
-
-
-
-
   }
 
   // flash message dissapear after 2.5 seconds
@@ -705,6 +723,45 @@ const UICtrl = (function(){
     return { "id": id, "selectedRadioVal": selectedRadioVal };
   }
 
+  const addToEditBeerlistScreenSelect = () => {
+    // get current number of beer display screens/ beersettings
+    let displayScreenIdElement = document.querySelector(UISelectors.beerscreenDisplayId);
+    if (displayScreenIdElement === null) {
+      displayScreenIdElement = document.querySelector(UISelectors.beerSettingsScreenId);
+    }
+    // console.log(displayScreenIdElement);
+    // grab the number of ids from the select
+    let displayScreenIds = displayScreenIdElement.options.length;
+    // create option element to go into the select
+    let optionEl = document.createElement('option');
+    // increment ids to go back on the option value
+    displayScreenIds++;
+    optionEl.innerText = displayScreenIds;
+    optionEl.value = displayScreenIds;
+    // append optionEl to select
+    displayScreenIdElement.appendChild(optionEl);
+    return displayScreenIds;
+  }
+
+  const delFromEditBeerlistScreenSelect = () => {
+    // get current number of beer display screens/ beersettings
+    let displayScreenIdElement = document.querySelector(UISelectors.beerscreenDisplayId);
+    if (displayScreenIdElement === null) {
+      displayScreenIdElement = document.querySelector(UISelectors.beerSettingsScreenId);
+    }
+    // console.log(displayScreenIdElement);
+    // grab the number of ids from the select
+    let displayScreenIds = displayScreenIdElement.options.length;
+    // console.log(displayScreenIds);
+    // check if last element in select
+    if (displayScreenIds > 1) {
+      // remove() last option from select on UI
+      let lastElOfScreenIdElement = displayScreenIdElement.lastElementChild;
+      lastElOfScreenIdElement.remove();
+    }
+    return displayScreenIds;
+  }
+
   // Public methods
   return {
     getSelectors: function () {
@@ -760,6 +817,12 @@ const UICtrl = (function(){
     },
     callGetBeerIdFromUI: (event) => {
       return getBeerIdFromUI(event);
+    },
+    callAddToEditBeerlistScreenSelect: () => {
+      return addToEditBeerlistScreenSelect();
+    },
+    callDelFromEditBeerlistScreenSelect: () => {
+      return delFromEditBeerlistScreenSelect();
     }
   }
 })();
@@ -1319,10 +1382,13 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       document.querySelector(UISelectors.searchBeerBtn).addEventListener('click', searchBeerClick);
     }
     if (document.querySelector(UISelectors.addBeerTemplateBtn) != null) {
-      document.querySelector(UISelectors.addBeerTemplateBtn).addEventListener('click', addBeerTemplate);
+      document.querySelector(UISelectors.addBeerTemplateBtn).addEventListener('click', addBeerscreenTemplate);
     }
     if (document.querySelector(UISelectors.delBeerTemplateBtn) != null) {
-      document.querySelector(UISelectors.delBeerTemplateBtn).addEventListener('click', delBeerTemplate);
+      document.querySelector(UISelectors.delBeerTemplateBtn).addEventListener('click', delBeerscreenTemplate);
+    }
+    if (document.querySelector(UISelectors.beerscreenDisplayId) != null) {
+      document.querySelector(UISelectors.beerscreenDisplayId).addEventListener('change', getBeerlistScreen);
     }
   }
 
@@ -1385,7 +1451,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
       // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
       let userNameScreenId = UserCtrl.callGetUserNameFromURL();
-      // console.log(userNameScreenId);
+      console.log(userNameScreenId);
 
       // add new beer to listCurrent DB
       // find id of first beer of current user
@@ -1396,7 +1462,12 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       let id_history = listHistory[0].id[0];
       // console.log(id_history);
       // get the current beerlist
+      let beerscreenDisplayId = document.querySelector(UISelectors.beerscreenDisplayId).value;
+      console.log(beerscreenDisplayId);
+      userNameScreenId.screenNumber = beerscreenDisplayId;
       let currentBeerlist = await BeerCtrl.callFetchCurBeerlist(userNameScreenId);
+      // let currentBeerlist = await BeerCtrl.callFetchCurBeerlist( {"user_id": userNameScreenId, "beerscreenDisplayId": beerscreenDisplayId} );
+
       // console.log(currentBeerlist);
       // console.log(currentBeerlist.length + 1);
       let id_dropdown = currentBeerlist.length + 1;
@@ -1406,7 +1477,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
         "id_history": id_history,
         "id_on_next": id_history,
         "id_dropdown": id_dropdown,
-        "beerscreen_id": "1",
+        "beer_screen_id": beerscreenDisplayId,
         "venue_db_id": ""
       }
       // console.log(newBeer);
@@ -1627,28 +1698,34 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       e.preventDefault();
     }
 
-    const addBeerTemplate = async (e) => {
-      console.log('addBeerTemplate');
-      // get current number of beer display screens/ beersettings
-      let displayScreenIdElement = document.querySelector(UISelectors.beerscreenDisplayId);
-      let displayScreenIds = displayScreenIdElement.options.length;
-      let optionEl = document.createElement('option');
-      displayScreenIds++;
-      optionEl.innerText = displayScreenIds;
-      optionEl.value = displayScreenIds;
-      displayScreenIdElement.appendChild(optionEl);
-
-      // send number of screens to database to init new setting options
+    const addBeerscreenTemplate = async (e) => {
+      console.log('addBeerscreenTemplate');
+      // get number of screens current in the UI to increment and add to UI
+      let displayScreenIds = UICtrl.callAddToEditBeerlistScreenSelect();
+      // send number of screens to database to init new setting options, new current_list, new ticker
       // call route to add this to the database
       let res = await BeerCtrl.callSendScreenSettingsInfoToDb(displayScreenIds);
-      console.log(res);
-
-
+      // console.log(res);
       e.preventDefault();
     }
-    const delBeerTemplate = (e) => {
-      console.log('delBeerTemplate');
+
+    const delBeerscreenTemplate = async (e) => {
+      console.log('delBeerscreenTemplate');
+      // get current number of beer display screens/ beersettings
+      let displayScreenIds = UICtrl.callDelFromEditBeerlistScreenSelect();
+      // console.log(displayScreenIds);
+      if (displayScreenIds > 1) {
+        // remove screenId row number from database tables list_current & beerscreen_settings
+        let res = await BeerCtrl.callRemoveScreenSettingsInfoFromDb(displayScreenIds);
+        // console.log(res);
+      }
       e.preventDefault();
+    }
+
+    const getBeerlistScreen = (e) => {
+      console.log('SWITCHING BEERSCREEN EDITORS NOW');
+      let screenId = e.target.value;
+      console.log(screenId);
     }
 
   // Public methods

@@ -1,6 +1,45 @@
+from flask import (jsonify)
 from flask_login import current_user, login_required
 from menuscreen import db
-from menuscreen.models import User, List_history, List_current
+from menuscreen.models import (User, List_history, List_current, Beerscreen_settings,
+                            Ticker)
+
+def _deleteBeerscreenSettingByScreenId(data):
+    print('Data: {}'.format(data))
+    userId = data['id']
+    screenId = data['screenId']
+    screenSettingCandidate = Beerscreen_settings.query.filter_by(beer_settings_screen_id=screenId, venue_db_id=userId).first()
+    if screenSettingCandidate.venue_db_id != current_user.id:
+        abort(403)
+    db.session.delete(screenSettingCandidate)
+    db.session.commit()
+    return jsonify(data)
+
+def _deleteBeerFromListCurrentByScreenId(data):
+    print('Data: {}'.format(data))
+    userId = data['id']
+    screenId = data['screenId']
+    beerCandidate = List_current.query.filter_by(beer_screen_id=screenId, venue_db_id=userId).first()
+    if beerCandidate.venue_db_id != current_user.id:
+        abort(403)
+    db.session.delete(beerCandidate)
+    db.session.commit()
+    return jsonify(data)
+
+def _deleteBeertickerFromTickerByScreenId(data):
+    print('Data: {}'.format(data))
+    userId = data['id']
+    screenId = data['screenId']
+    tickerTypeId = data['tickerTypeId']
+    tickerCandidate = Ticker.query.filter_by(ticker_screen_id=screenId, ticker_type=tickerTypeId, venue_db_id=userId).first()
+    if tickerCandidate.venue_db_id != current_user.id:
+        abort(403)
+    db.session.delete(tickerCandidate)
+    db.session.commit()
+    return jsonify(data)
+
+
+
 
 def getDefaultSelect(currentId):
     thisBeer = List_current.query.filter_by(id_dropdown=currentId, venue_db_id=current_user.id).first()
@@ -11,8 +50,12 @@ def getDefaultNextSelect(nextId):
     thisBeer = List_current.query.filter_by(id_dropdown=nextId, venue_db_id=current_user.id).first()
     return thisBeer
 
-def _getCurrentBeerlist(user_id):
-    # user = User.query.filter_by(id=user_id).first()
+def _getCurrentBeerlist(screenData):
+    print("screenData: {}".format(screenData))
+    userId = screenData['userId']
+    displayId = 1
+
+    # user = User.query.filter_by(id=screenData).first()
     # beers = user.beerlist_current
     beers = db.session.query(
         List_history.id,
@@ -30,7 +73,8 @@ def _getCurrentBeerlist(user_id):
         List_current.beer_of_month,
         List_current.coming_soon,
         ).outerjoin(List_current, List_history.id == List_current.id_history
-        ).filter(List_current.venue_db_id == user_id
+        ).filter(List_current.beer_screen_id == displayId
+        ).filter(List_current.venue_db_id == userId
         ).order_by(List_current.id_dropdown.asc()
         ).all()
     beerlist = []
@@ -133,7 +177,7 @@ def _addBeer(data, user_id):
     print('line 124 - data: {}'.format(data))
     print('*******************************************************************************')
     print('*******************************************************************************')
-    newBeer = List_current(id_history=data['id_history'], id_on_next=data['id_on_next'], id_dropdown=data['id_dropdown'], beerscreen_id=data['beerscreen_id'], venue_db_id=user_id)
+    newBeer = List_current(id_history=data['id_history'], id_on_next=data['id_on_next'], id_dropdown=data['id_dropdown'], beer_screen_id=data['beer_screen_id'], venue_db_id=user_id)
     db.session.add(newBeer)
     db.session.commit()
     return data

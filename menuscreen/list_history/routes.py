@@ -6,9 +6,14 @@ from menuscreen.models import (User, List_history, List_current, Font_size_optio
                         Beerscreen_settings, Winescreen_settings, Eventscreen_settings,
                         Itemscreen_settings, Template, Ticker, Ticker_type_id)
 from menuscreen.list_history.forms import BeerForm, CurrentBeerListForm, NextBeerListForm
-from menuscreen.list_history.utils import getDefaultSelect, getDefaultNextSelect, _getTotalBeerlist, _getCurrentBeerlist, _getOnTapNextBeerlist, _addBeer, _deleteBeer, _getBottleBeers, addNewBeerToDB
+from menuscreen.list_history.utils import (getDefaultSelect, getDefaultNextSelect,
+                        _getTotalBeerlist, _getCurrentBeerlist, _getOnTapNextBeerlist,
+                        _addBeer, _deleteBeer, _getBottleBeers, addNewBeerToDB,
+                        _deleteBeerscreenSettingByScreenId, _deleteBeerFromListCurrentByScreenId,
+                        _deleteBeertickerFromTickerByScreenId)
 from menuscreen.settttings.utils import _getFontSizes, _getTemplates, _getSettings, _getNameFontSize, _getTemplateName, _getAbvFontSize, _getIbuFontSize, _getBreweryFontSize
-from menuscreen.users.init_db_tables import getVenueId, initBeerscreenSettings, initListCurrent
+from menuscreen.users.init_db_tables import (getVenueId, initBeerscreenSettings,
+                        initListCurrent, initTickerSingleTicker)
 
 from menuscreen import pusher_client
 
@@ -19,17 +24,37 @@ list_history = Blueprint('list_history', __name__)
 @list_history.route('/_init_new_beerscreen_settings', methods=['GET', 'POST'])
 @login_required
 def _init_new_beerscreen_settings():
-    data = request.get_json()
-    print(data)
+    screenId = request.get_json()
+    # print(screenId)
     screenData = {
         "id": current_user.id,
-        "screenId": data,
+        "screenId": screenId,
     }
-    print(screenData)
+    # print(screenData)
+    # init list_current with new beer for new screen
     initListCurrent(screenData)
+    # init beerscreen_settings with new setting for new screen
     initBeerscreenSettings(screenData)
+    # ticker type id used for puting right ticker in 1=beer, 2=wine, 3=event, 4=item
+    screenData['tickerTypeId']=1
+    initTickerSingleTicker(screenData)
+    return jsonify(screenData)
 
-    return jsonify(data)
+@list_history.route('/_remove_beerscreen_settings', methods=['GET', 'POST'])
+@login_required
+def _remove_beerscreen_settings():
+    screenId = request.get_json()
+    screenData = {
+        "id": current_user.id,
+        "screenId": screenId,
+    }
+    print("screenData: {}".format(screenData))
+    _deleteBeerscreenSettingByScreenId(screenData)
+    _deleteBeerFromListCurrentByScreenId(screenData)
+    screenData['tickerTypeId']=1
+    _deleteBeertickerFromTickerByScreenId(screenData)
+    return jsonify(screenData)
+
 
 
 @list_history.route('/_add_update_ui', methods=['GET','POST'])
@@ -135,7 +160,7 @@ def _getTotBeerlist():
         data = {}
     # print("**************************************")
     # print("**************************************")
-    print("line 120 *******************************")
+    print("*********** LINE 120 *****************")
     print("**************************************")
     print(data)
     print("**************************************")
@@ -146,27 +171,33 @@ def _getTotBeerlist():
 # @login_required
 def _getCurBeerlist():
     data = request.get_json()
-    # print("**************************************")
-    # print("**************************************")
-    # print("list_history. /_getCurBeerlist")
-    # print(data)
-    if (data):
-        # print("NOT LOGGED IN")
-        # print(data['userName'])
+    print("list_history. /_getCurBeerlist")
+    print("**************************************")
+    print("******LINE  175***********************")
+    print("**************************************")
+    print("data: {}".format(data))
+    print("**************************************")
+    print("**************************************")
+    data['userId'] = current_user.id
+    print(data)
+    if (current_user.is_authenticated):
+        print("LOGGED IN")
+        print(current_user.id)
+        beerlist = _getCurrentBeerlist(data)
+        # beerlist = _getCurrentBeerlist(current_user.id)
+        print(beerlist)
+    elif (data):
+        print("NOT LOGGED IN")
+        print(data['userName'])
         current_user_id = getVenueId(data['userName'])
-        # print(current_user_id)
+        print(current_user_id)
         beerlist = _getCurrentBeerlist(current_user_id)
-    elif (current_user.is_authenticated):
-        # print("LOGGED IN")
-        # print(current_user.id)
-        beerlist = _getCurrentBeerlist(current_user.id)
-        # print(beerlist)
     else:
-        # print("NOT LOGGED IN AND NO URL INFO")
+        print("NOT LOGGED IN AND NO URL INFO")
         beerlist = {}
 
-    # print("**************************************")
-    # print("**************************************")
+    print("**************************************")
+    print("**************************************")
     return jsonify(beerlist)
 
 @list_history.route('/_getNextBeerlist', methods=['GET', 'POST'])

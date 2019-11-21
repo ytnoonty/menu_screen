@@ -508,6 +508,17 @@ def initTicker(id):
     db.session.commit()
     print('********** INIT TICKER *********')
 
+def initTickerSingleTicker(data):
+    newTickerInfo = Ticker(
+        ticker_text='Initialized NEW Ticker Text please add your news and information to show in the scrolling ticker on the display screen.',
+        ticker_screen_id=data['screenId'],
+        ticker_type=data['tickerTypeId'],
+        venue_db_id=data['id'],
+    )
+    db.session.add(newTickerInfo)
+    db.session.commit()
+    print('********** INIT SINGLE TICKER WITH SPECIFIC TICKER TYPE FOR A NEW DISPLAY SCREEN*******')
+
 def initTickerTypeId(id):
     tickerTypeCandidate = Ticker_type_id(
         ticker_type='Beer',
