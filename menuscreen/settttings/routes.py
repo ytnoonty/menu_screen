@@ -22,16 +22,16 @@ def _get_beerscreen_settings():
     print("**************************************")
     print("list_history. /_get_beerscreen_settings")
     print(data)
-    if (data):
+    if (current_user.is_authenticated):
+        print("LOGGED IN")
+        print(current_user.id)
+        data = _getBeerSettings(current_user.id)
+    elif (data):
         current_user_id = getVenueId(data['userName'])
         print("NOT LOGGED IN")
         print(data['userName'])
         print(current_user_id)
         data = _getBeerSettings(current_user_id)
-    elif (current_user.is_authenticated):
-        print("LOGGED IN")
-        print(current_user.id)
-        data = _getBeerSettings(current_user.id)
     else:
         print("NOT LOGGED IN AND NO URL INFO")
         data = {}

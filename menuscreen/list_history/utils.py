@@ -53,7 +53,7 @@ def getDefaultNextSelect(nextId):
 def _getCurrentBeerlist(screenData):
     print("screenData: {}".format(screenData))
     userId = screenData['userId']
-    displayId = 1
+    displayId = screenData['screenNumber']
 
     # user = User.query.filter_by(id=screenData).first()
     # beers = user.beerlist_current

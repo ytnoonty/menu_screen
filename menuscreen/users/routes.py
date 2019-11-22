@@ -31,16 +31,16 @@ def _logged_in_user_data():
     print("**************************************")
     print("users. /_logged_in_user_data")
     print(data)
-    if (data):
+    if (current_user.is_authenticated):
+        print("LOGGED IN")
+        print(current_user.id)
+        data = get_user_data(current_user.id)
+    elif (data):
         current_user_id = getVenueId(data['userName'])
         print("NOT LOGGED IN")
         print(data['userName'])
         print(current_user_id)
         data = get_user_data(current_user_id)
-    elif (current_user.is_authenticated):
-        print("LOGGED IN")
-        print(current_user.id)
-        data = get_user_data(current_user.id)
     else:
         print("NOT LOGGED IN AND NO URL INFO")
         data = {}

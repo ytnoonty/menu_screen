@@ -88,22 +88,22 @@ def getTickerInfo():
     print("list_history. /_getTickerInfo")
     print(data)
     print("**************************************")
-    if (data):
-        current_user_id = getVenueId(data['userName'])
-        print("NOT LOGGED IN")
-        print(data['userName'])
-        print(current_user_id)
-        data = _getTickerInfo(current_user_id)
+    if (current_user.is_authenticated):
+        print("LOGGED IN")
+        print(current_user.id)
+        data = _getTickerInfo(current_user.id)
+        print("data: {}".format(data))
         tickerInfo = {}
         tickerInfo['id'] = data.id
         tickerInfo['ticker_text'] = data.ticker_text
         tickerInfo['ticker_screen_id'] = data.ticker_screen_id
         tickerInfo['tickery_type'] = data.ticker_type
-    elif (current_user.is_authenticated):
-        print("LOGGED IN")
-        print(current_user.id)
-        data = _getTickerInfo(current_user.id)
-        print("data: {}".format(data))
+    elif (data):
+        current_user_id = getVenueId(data['userName'])
+        print("NOT LOGGED IN")
+        print(data['userName'])
+        print(current_user_id)
+        data = _getTickerInfo(current_user_id)
         tickerInfo = {}
         tickerInfo['id'] = data.id
         tickerInfo['ticker_text'] = data.ticker_text

@@ -740,6 +740,7 @@ const UICtrl = (function(){
     optionEl.value = displayScreenIds;
     // append optionEl to select
     displayScreenIdElement.appendChild(optionEl);
+    displayScreenIdElement.value = displayScreenIds;
     return displayScreenIds;
   }
 
@@ -752,12 +753,13 @@ const UICtrl = (function(){
     // console.log(displayScreenIdElement);
     // grab the number of ids from the select
     let displayScreenIds = displayScreenIdElement.options.length;
-    // console.log(displayScreenIds);
+    console.log(displayScreenIds);
     // check if last element in select
     if (displayScreenIds > 1) {
       // remove() last option from select on UI
       let lastElOfScreenIdElement = displayScreenIdElement.lastElementChild;
       lastElOfScreenIdElement.remove();
+      displayScreenIdElement.value = displayScreenIds - 1;
     }
     return displayScreenIds;
   }
@@ -914,6 +916,13 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     let userNameScreenId = UserCtrl.callGetUserNameFromURL();
     // console.log(userNameScreenId);
 
+
+    // get the current screenId from the select to query for the current_list of beers
+    let beerscreenDisplayId = document.querySelector(UISelectors.beerscreenDisplayId).value;
+    console.log(beerscreenDisplayId);
+    userNameScreenId.screenNumber = beerscreenDisplayId;
+    console.log(userNameScreenId);
+    // get the current beerlist for user and screenId
     let currentBeers = await BeerCtrl.callFetchCurBeerlist(userNameScreenId);
     // console.log(currentBeers);
     // query the DB for the next beerlist
@@ -969,6 +978,14 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       if (data.updated) {
         let userNameScreenId = UserCtrl.callGetUserNameFromURL();
         // console.log(userNameScreenId);
+
+
+        // get the current screenId from the select to query for the current_list of beers
+        let beerscreenDisplayId = document.querySelector(UISelectors.beerscreenDisplayId).value;
+        console.log(beerscreenDisplayId);
+        userNameScreenId.screenNumber = beerscreenDisplayId;
+        console.log(userNameScreenId);
+        // get the current beerlist for user and screenId
         let currentBeers = await BeerCtrl.callFetchCurBeerlist(userNameScreenId);
         // console.log(currentBeers);
         let nextBeers = await BeerCtrl.callFetchNextBeerlist(userNameScreenId);
@@ -1085,6 +1102,12 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
         let userNameScreenId = UserCtrl.callGetUserNameFromURL();
         // console.log(userNameScreenId);
 
+        // get the current screenId from the select to query for the current_list of beers
+        let beerscreenDisplayId = document.querySelector(UISelectors.beerscreenDisplayId).value;
+        console.log(beerscreenDisplayId);
+        userNameScreenId.screenNumber = beerscreenDisplayId;
+        console.log(userNameScreenId);
+        // get the current beerlist for user and screenId
         let currentBeers = await BeerCtrl.callFetchCurBeerlist(userNameScreenId);
         // console.log(currentBeers);
         let nextBeers = await BeerCtrl.callFetchNextBeerlist(userNameScreenId);
@@ -1451,6 +1474,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
       // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
       let userNameScreenId = UserCtrl.callGetUserNameFromURL();
+      // returns { "userName": userName, "screenNumber": screenNumber }
       console.log(userNameScreenId);
 
       // add new beer to listCurrent DB
@@ -1461,10 +1485,13 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       console.log(listHistory);
       let id_history = listHistory[0].id[0];
       // console.log(id_history);
-      // get the current beerlist
+
+      // get the current screenId from the select to query for the current_list of beers
       let beerscreenDisplayId = document.querySelector(UISelectors.beerscreenDisplayId).value;
       console.log(beerscreenDisplayId);
       userNameScreenId.screenNumber = beerscreenDisplayId;
+      console.log(userNameScreenId);
+      // get the current beerlist for user and screenId
       let currentBeerlist = await BeerCtrl.callFetchCurBeerlist(userNameScreenId);
       // let currentBeerlist = await BeerCtrl.callFetchCurBeerlist( {"user_id": userNameScreenId, "beerscreenDisplayId": beerscreenDisplayId} );
 
