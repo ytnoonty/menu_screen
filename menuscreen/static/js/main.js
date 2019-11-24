@@ -839,146 +839,13 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
   // Get UI Selectors
   const UISelectors = UICtrl.getSelectors();
 
-  async function addUpdateScreens(data) {
-    // console.log("///////////////////////////////////////////////////////////////////////////");
-    console.log("ADD UPDATE SCREENS");
-    // console.log(data.venue_db_id);
-    // console.log("///////////////////////////////////////////////////////////////////////////");
-
-    // // add new beer to current screen edit_beer_list
-
-    let userNameScreenId = UserCtrl.callGetUserNameFromURL();
-    // console.log(userNameScreenId);
-
-    // query the DB for the current beerlist
-    let currentBeers = await BeerCtrl.callFetchCurBeerlist(userNameScreenId);
-    // console.log(currentBeers);
-
-    // query the DB for the next beerlist
-    let nextBeers = await BeerCtrl.callFetchNextBeerlist(userNameScreenId);
-    // console.log(nextBeers);
-    // query the DB for the list history
-    let beerslistTotal = await BeerCtrl.callFetchBeerhistoryList(userNameScreenId);
-    // console.log(beerslistTotal);
-    // query the DB for the ticker news info
-    let bottleBeerlist = await BeerCtrl.callFetchBottleBeerlist(userNameScreenId);
-    // console.log(bottleBeerlist);
-    let tickerInfo = await TickerCtrl.callFetchTickerInfo(userNameScreenId);
-    // console.log(tickerInfo);
-    // query the DB for the events
-    let events = await EventCtrl.callGetCurrentEventlist(userNameScreenId);
-    // console.log(events);
-    // let userData = await UserCtrl.callFetchUserData();
-    let screenSettings = await ScreenSettingsCtrl.callFetchScreenSettings(userNameScreenId);
-    // console.log(screenSettings);
-    userData = data.venue_db_id;
-    // console.log(userData);
-    let onNext;
-    let displayData = {};
-
-    displayData = {
-      "currentBeers": currentBeers,
-      "nextBeers": nextBeers,
-      "beerslistTotal": beerslistTotal,
-      "bottleBeerlist": bottleBeerlist,
-      "tickerInfo": tickerInfo,
-      "events": events,
-      "screenSettings": screenSettings,
-      "userSettings": { "venue_db_id": userData }
-    }
-
-    // console.log(displayData);
-    // // update all screens
-    // // update edit_beer_list
-    UICtrl.callAddBeerToListEditor(displayData);
-    // // repaint beers_tv_screen
-    UICtrl.callUpdateDisplayScreen(displayData);
-    // // repaint draft_beers_print
-    UICtrl.callUdpateDraftBeersPrintScreen(displayData);
-    // // repaint draft_beers tablet screen
-    UICtrl.callUpdateDraftBeersTabletScreen(displayData);
-    // repaint on_tap_next_display
-    UICtrl.callAddBeerOnTapNextDisplay(displayData);
-    // repaint on_tap_next_editor
-    UICtrl.callAddBeerOnTapNextEditor(displayData);
-  }
-
-  async function deleteUpdateScreens(data) {
-    // console.log("///////////////////////////////////////////////////////////////////////////");
-    console.log("DELETE UPDATE SCREENS");
-    // console.log("///////////////////////////////////////////////////////////////////////////");
-    // console.log(data);
-    // console.log(data.venue_db_id);
-
-    // delete beer from current screen from edit_beer_list
-    // function call to delete
-    // query the DB for the current beerlist
-    let userNameScreenId = UserCtrl.callGetUserNameFromURL();
-    // console.log(userNameScreenId);
-
-
-    // get the current screenId from the select to query for the current_list of beers
-    let beerscreenDisplayId = document.querySelector(UISelectors.beerscreenDisplayId).value;
-    console.log(beerscreenDisplayId);
-    userNameScreenId.screenNumber = beerscreenDisplayId;
-    console.log(userNameScreenId);
-    // get the current beerlist for user and screenId
-    let currentBeers = await BeerCtrl.callFetchCurBeerlist(userNameScreenId);
-    // console.log(currentBeers);
-    // query the DB for the next beerlist
-    let nextBeers = await BeerCtrl.callFetchNextBeerlist(userNameScreenId);
-    // console.log(nextBeers);
-    // query the DB for the list history
-    let beerslistTotal = await BeerCtrl.callFetchBeerhistoryList(userNameScreenId);
-    // console.log(beerslistTotal);
-    // query the DB for the ticker news info
-    let bottleBeerlist = await BeerCtrl.callFetchBottleBeerlist(userNameScreenId);
-    // console.log(bottleBeerlist);
-    let tickerInfo = await TickerCtrl.callFetchTickerInfo(userNameScreenId);
-    // console.log(tickerInfo);
-    // query the DB for the events
-    let events = await EventCtrl.callGetCurrentEventlist(userNameScreenId);
-    // console.log(events);
-    // let userData = await UserCtrl.callFetchUserData();
-    // console.log(userData);
-    let screenSettings = await ScreenSettingsCtrl.callFetchScreenSettings(userNameScreenId);
-    // console.log(screenSettings);
-    userData = data.venue_db_id;
-    // console.log(userData);
-    let onNext;
-    let displayData = {};
-    displayData = {
-      "currentBeers": currentBeers,
-      "nextBeers": nextBeers,
-      "beerslistTotal": beerslistTotal,
-      "bottleBeerlist": bottleBeerlist,
-      "tickerInfo": tickerInfo,
-      "events": events,
-      "screenSettings": screenSettings,
-      "userSettings": { "venue_db_id": userData }
-    }
-    // console.log(displayData);
-    // // update all screens
-    // // repaint beers_tv_screen
-    UICtrl.callUpdateDisplayScreen(displayData);
-    // // repaint draft_beers_print
-    UICtrl.callUdpateDraftBeersPrintScreen(displayData);
-    // // repaint draft_beers tablet screen
-    UICtrl.callUpdateDraftBeersTabletScreen(displayData);
-    // repaint on_tap_next_display
-    UICtrl.callAddBeerOnTapNextDisplay(displayData);
-    // repaint on_tap_next_editor
-    UICtrl.callAddBeerOnTapNextEditor(displayData);
-  }
-
-
-  async function initScreens(data) {
+  async function updateScreens(data) {
     // console.log(data);
     if (data !== undefined) {
-      if (data.updated) {
+      // console.log(data.updated);
+      if (data.updated == true) {
         let userNameScreenId = UserCtrl.callGetUserNameFromURL();
         // console.log(userNameScreenId);
-
 
         // get the current screenId from the select to query for the current_list of beers
         let beerscreenDisplayId = document.querySelector(UISelectors.beerscreenDisplayId).value;
@@ -986,16 +853,20 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
         userNameScreenId.screenNumber = beerscreenDisplayId;
         console.log(userNameScreenId);
         // get the current beerlist for user and screenId
+        // query the DB for the current beerlist
         let currentBeers = await BeerCtrl.callFetchCurBeerlist(userNameScreenId);
         // console.log(currentBeers);
+        // query the DB for the next beerlist
         let nextBeers = await BeerCtrl.callFetchNextBeerlist(userNameScreenId);
         // console.log(nextBeers);
         let beerslistTotal = await BeerCtrl.callFetchBeerhistoryList(userNameScreenId);
         // console.log(beerslistTotal);
+        // query the DB for the ticker news info
         let bottleBeerlist = await BeerCtrl.callFetchBottleBeerlist(userNameScreenId);
         // console.log(bottleBeerlist);
         let tickerInfo = await TickerCtrl.callFetchTickerInfo(userNameScreenId);
         // console.log(tickerInfo)
+        // query the DB for the events
         let events = await EventCtrl.callGetCurrentEventlist(userNameScreenId);
         // console.log(events);
         let userData = await UserCtrl.callFetchUserData(userNameScreenId);
@@ -1004,19 +875,11 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
         // console.log(screenSettings);
         if (userData.id !== undefined){
           userData = userData.id[0];
+        } else {
+          userData = data.venue_db_id;
         }
         // console.log(userData);
         let onNext;
-
-        // for (var key in currentBeers) {
-        //   if (currentBeers.hasOwnProperty(key)) {
-            // console.log("NO KEYS");
-            // console.log(key);
-        //   } else {
-            // console.log("HAS KEYS");
-        //   }
-        // }
-        // console.log(Object.getOwnPropertyNames(currentBeers).length)
         if (Object.getOwnPropertyNames(currentBeers).length >= 1) {
           // console.log(currentBeers);
           currentBeers.forEach(beer => {
@@ -1024,10 +887,9 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
             nextBeers.push(onNext);
           });
         }
-
         // console.log("onNext: " + onNext + "nextBeers: " + nextBeers);
-
-        let displayData = {
+        let displayData = {};
+        displayData = {
           "currentBeers": currentBeers,
           "nextBeers": nextBeers,
           "beerslistTotal": beerslistTotal,
@@ -1038,23 +900,51 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
           "userSettings": { "venue_db_id": userData }
         }
         // console.log(displayData);
-
+        // // update all screens
+        // // update edit_beer_list
+        UICtrl.callAddBeerToListEditor(displayData);
+        // // repaint beers_tv_screen
         UICtrl.callUpdateDisplayScreen(displayData);
+        // // repaint draft_beers_print
         UICtrl.callUdpateDraftBeersPrintScreen(displayData);
+        // // repaint draft_beers tablet screen
         UICtrl.callUpdateDraftBeersTabletScreen(displayData);
-
+        // repaint on_tap_next_display
         UICtrl.callAddBeerOnTapNextDisplay(displayData);
+        // repaint on_tap_next_editor
         UICtrl.callAddBeerOnTapNextEditor(displayData);
-
         // update bottle beer list asynconously
         UICtrl.callUpdateBottleBeersTabletScreen(displayData);
       }
     }
+  } // end udpateScreens();
+
+  async function initScreens(data) {
+    await updateScreens(data);
+  }
+  async function addUpdateScreens(data) {
+    // console.log("///////////////////////////////////////////////////////////////////////////");
+    console.log("ADD UPDATE SCREENS");
+    // console.log(data.venue_db_id);
+    // console.log("///////////////////////////////////////////////////////////////////////////");
+    // // add new beer to current screen edit_beer_list
+    await updateScreens(data);
   }
 
-
-
-
+  async function deleteUpdateScreens(data) {
+    // console.log("///////////////////////////////////////////////////////////////////////////");
+    console.log("DELETE UPDATE SCREENS");
+    // console.log("///////////////////////////////////////////////////////////////////////////");
+    // console.log(data);
+    // console.log(data.venue_db_id);
+    // delete beer from current screen from edit_beer_list
+    // function call to delete
+    // query the DB for the current beerlist
+    await updateScreens(data);
+  }
+  async function updateBottleBeerScreen (data) {
+    await updateScreens(data);
+  }
 
   const initWineScreens = (data) => {
     if (data !== undefined) {
@@ -1089,70 +979,6 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     }
   }
 
-  async function updateBottleBeerScreen (data) {
-    // console.log(data);
-    if (data !== undefined) {
-      // console.log(data.updated);
-      if (data.updated == true) {
-        // console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-        // console.log("BOTTLE BEER CAN AND WILL BE UPDATED NOW!")
-        // console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-        // call to fetch bottle beerlist
-        // update user interface for bottle beerlist screen
-        let userNameScreenId = UserCtrl.callGetUserNameFromURL();
-        // console.log(userNameScreenId);
-
-        // get the current screenId from the select to query for the current_list of beers
-        let beerscreenDisplayId = document.querySelector(UISelectors.beerscreenDisplayId).value;
-        console.log(beerscreenDisplayId);
-        userNameScreenId.screenNumber = beerscreenDisplayId;
-        console.log(userNameScreenId);
-        // get the current beerlist for user and screenId
-        let currentBeers = await BeerCtrl.callFetchCurBeerlist(userNameScreenId);
-        // console.log(currentBeers);
-        let nextBeers = await BeerCtrl.callFetchNextBeerlist(userNameScreenId);
-        let beerslistTotal = await BeerCtrl.callFetchBeerhistoryList(userNameScreenId);
-        // console.log(beerslistTotal);
-        let bottleBeerlist = await BeerCtrl.callFetchBottleBeerlist(userNameScreenId);
-        // console.log(bottleBeerlist);
-        let tickerInfo = await TickerCtrl.callFetchTickerInfo(userNameScreenId);
-        // console.log(tickerInfo)
-        // query the DB for the events
-        let events = await EventCtrl.callGetCurrentEventlist(userNameScreenId);
-        // console.log(events);
-        // let userData = await UserCtrl.callFetchUserData();
-        let screenSettings = await ScreenSettingsCtrl.callFetchScreenSettings(userNameScreenId);
-        let onNext;
-        userData = data.venue_db_id;
-        // console.log(nextBeers);
-
-        currentBeers.forEach(beer => {
-          onNext = beer.id_on_next;
-          nextBeers.push(onNext);
-        });
-        // console.log("onNext: " + onNext + "nextBeers: " + nextBeers);
-
-        let displayData = {
-          "currentBeers": currentBeers,
-          "nextBeers": nextBeers,
-          "beerslistTotal": beerslistTotal,
-          "bottleBeerlist": bottleBeerlist,
-          "tickerInfo": tickerInfo,
-          "events": events,
-          "screenSettings": screenSettings,
-          "userSettings": { "venue_db_id": userData }
-        }
-        // console.log(displayData);
-
-        UICtrl.callUpdateDisplayScreen(displayData);
-        UICtrl.callUdpateDraftBeersPrintScreen(displayData);
-        UICtrl.callUpdateDraftBeersTabletScreen(displayData);
-        UICtrl.callAddBeerOnTapNextDisplay(displayData);
-        // update bottle beer list asynconously
-        UICtrl.callUpdateBottleBeersTabletScreen(displayData);
-      }
-    }
-  }
 
   // load update pusher
   const loadUpdatePusher = function() {
@@ -1191,7 +1017,6 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       deleteUpdateScreens(data.message);
     });
     ///////////////////////////////////////////////////////
-
 
     ///////////////////////////////////////////////////////
     // // Enable pusher logging - don't include this in production
@@ -1269,22 +1094,6 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     });
     ///////////////////////////////////////////////////////
   }
-
-  // const loadBeerPusher = function() {
-  //   ///////////////////////////////////////////////////////
-  //   // // Enable pusher logging - don't include this in production
-  //   Pusher.logToConsole = true;
-  //   var pusher = new Pusher('55b76ba88af32c57990c', {
-  //     cluster: 'us2',
-  //     forceTLS: true
-  //   });
-  //   var channel = pusher.subscribe('beer-event-channel');
-  //   channel.bind('new-beer-event', function(data) {
-        // console.log(data.message);
-  //       updateBeerScreen(data.message);
-  //   });
-  //   ///////////////////////////////////////////////////////
-  // }
 
   const addBeerToDbPusher = function() {
     ///////////////////////////////////////////////////////
@@ -1495,7 +1304,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       let currentBeerlist = await BeerCtrl.callFetchCurBeerlist(userNameScreenId);
       // let currentBeerlist = await BeerCtrl.callFetchCurBeerlist( {"user_id": userNameScreenId, "beerscreenDisplayId": beerscreenDisplayId} );
 
-      // console.log(currentBeerlist);
+      console.log(currentBeerlist);
       // console.log(currentBeerlist.length + 1);
       let id_dropdown = currentBeerlist.length + 1;
       // console.log(id_dropdown);
@@ -1507,7 +1316,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
         "beer_screen_id": beerscreenDisplayId,
         "venue_db_id": ""
       }
-      // console.log(newBeer);
+      console.log(newBeer);
       // Add new beer to list_current table in DB
       BeerCtrl.callFetchAddBeerToDB(newBeer);
       // use pusher to update UI on all screens with the new beer
