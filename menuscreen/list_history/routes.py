@@ -184,7 +184,7 @@ def _getCurBeerlist():
         print(current_user.id)
 
         data['userId'] = current_user.id
-        print(data)
+        print("data: {}".format(data))
         beerlist = _getCurrentBeerlist(data)
         # beerlist = _getCurrentBeerlist(current_user.id)
         print(beerlist)
@@ -195,12 +195,11 @@ def _getCurBeerlist():
         print(current_user_id)
 
         data['userId'] = current_user_id
-        print(data)
-        beerlist = _getCurrentBeerlist(current_user_id)
+        print("data: {}".format(data))
+        beerlist = _getCurrentBeerlist(data)
     else:
         print("NOT LOGGED IN AND NO URL INFO")
         beerlist = {}
-
     print("**************************************")
     print("**************************************")
     return jsonify(beerlist)

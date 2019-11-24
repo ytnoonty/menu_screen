@@ -22,12 +22,19 @@ def _get_event_current_list():
     if (current_user.is_authenticated):
         print("LOGGED IN")
         print(current_user.id)
-        data = _getEventsSortAsc(current_user.id)
+
+        data['userId'] = current_user.id
+        print("data: {}".format(data))
+        data = _getEventsSortAsc(data)
+
     elif (data):
-        current_user_id = getVenueId(data['userName'])
         print("NOT LOGGED IN")
-        print(data['userName'])
         print(current_user_id)
+
+        current_user_id = getVenueId(data['userName'])
+
+        data['userId'] = current_user_id
+        print("data: {}".format(data))
         data = _getEventsSortAsc(current_user_id)
     else:
         print("NOT LOGGED IN AND NO URL INFO")

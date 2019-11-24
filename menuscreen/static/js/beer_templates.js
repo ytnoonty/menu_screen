@@ -448,6 +448,118 @@ class BeerTemplate {
       }
   }
 
+  repaintBeerListEditorTemplate(data) {
+    if (userId == userIdData) {
+      console.log("TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE");
+      // console.log("TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE");
+      // console.log("TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE");
+      let screenElementUserId = 'user-id-' + userIdData;
+      // console.log(screenElementUserId);
+
+      let screenDisplay;
+      let displayElement = document.querySelector('#' + screenElementUserId);
+      // console.log(displayElement);
+      if (displayElement != null) {
+        // console.log("IN THE DISPLAY ELEMENT");
+        // console.log(displayElement);
+        displayElement = document.querySelector('#' + screenElementUserId + ' #beerlist');
+        // console.log(displayElement);
+        screenDisplay = displayElement;
+        // console.log(screenDisplay);
+      }
+
+      const beerlistForm = document.querySelector('#edit-beerlist-form');
+      const beerlistId = document.querySelector('#beerlist');
+      const beers = document.querySelectorAll('.beers');
+      let beersLen = beers.length;
+
+      var beerContainerDivNode = document.createElement("div");
+      var opsContainerDivNode = document.createElement("div");
+
+      var selectDivNode = document.createElement("div");;
+      var selectLabelNode = document.createElement("label");
+      var selectNode = document.createElement("select");
+      var option = document.createElement("option");
+
+      var bomDivNode = document.createElement("div");;
+      var bomCheckLabelNode = document.createElement("label");
+      var bomCheckbox = document.createElement("input");
+
+      var comingSoonDivNode = document.createElement("div");;
+      var comingSoonCheckLabelNode = document.createElement("label");
+      var comingSoonCheckbox = document.createElement("input");
+      var breakNode = document.createElement("br");
+      var hrEl = document.createElement("hr");
+
+      beerContainerDivNode.classList = "beers";
+
+      selectDivNode.classList = "form-group";
+      selectNode.classlist = "form-contol, beer";
+      selectNode.id = `beer_${beersLen + 1}`;
+      selectLabelNode.innerHTML = `Beer ${beersLen + 1}`;
+      selectLabelNode.htmlFor = selectNode.id;
+      selectNode.classList = "form-control beer";
+      selectNode.name = `beer_${beersLen + 1}`;
+
+      for (let i = 0; i < beerlistData.length; i++) {
+          // console.log(beerlistData[i]);
+          option.value = beerlistData[i].id;
+          option.text = beerlistData[i].name;
+          selectNode.options[i] = new Option(beerlistData[i].name, i);
+          selectNode.options[i].value = beerlistData[i].id;
+          // console.log(selectNode.innerHTML);
+      }
+
+      // edit_beer_list add beer of the month checkbox
+      bomDivNode.classList.add("form-group");
+      bomCheckbox.id = `bom-beer_${beersLen + 1}`;
+      bomCheckbox.setAttribute("type", "checkbox");
+      bomCheckbox.setAttribute("name", `beer-of-month_${beersLen + 1}`);
+      bomCheckbox.setAttribute("value", `1`);
+      var spanBomTextNode = document.createElement("span");
+      spanBomTextNode.innerHTML = " Beer of the month";
+      bomCheckLabelNode.htmlFor = bomCheckbox.id;
+      bomDivNode.appendChild(bomCheckLabelNode);
+      bomDivNode.appendChild(bomCheckbox);
+      bomDivNode.appendChild(spanBomTextNode);
+      bomDivNode.appendChild(breakNode);
+
+      // edit_beer_list add coming soon checkbox
+      comingSoonDivNode.classList.add("form-group");
+      comingSoonDivNode.classList.add("pl-5");
+      comingSoonCheckbox.id = `comingSoon-beer_${beersLen + 1}`;
+      comingSoonCheckbox.setAttribute("type", "checkbox");
+      comingSoonCheckbox.setAttribute("name", `coming-soon_${beersLen + 1}`);
+      comingSoonCheckbox.setAttribute("value", `1`);
+      var spanBomTextNode = document.createElement("span");
+      spanBomTextNode.innerHTML = " Coming soon";
+      comingSoonCheckLabelNode.htmlFor = comingSoonCheckbox.id;
+      comingSoonDivNode.appendChild(comingSoonCheckLabelNode);
+      comingSoonDivNode.appendChild(comingSoonCheckbox);
+      comingSoonDivNode.appendChild(spanBomTextNode);
+      comingSoonDivNode.appendChild(breakNode);
+
+      opsContainerDivNode.classList = "ops-container d-flex flex-row";
+      opsContainerDivNode.appendChild(bomDivNode);
+      opsContainerDivNode.appendChild(comingSoonDivNode);
+
+      selectDivNode.appendChild(selectLabelNode);
+      selectDivNode.appendChild(selectNode);
+
+      beerContainerDivNode.appendChild(selectDivNode);
+      beerContainerDivNode.appendChild(opsContainerDivNode);
+      beerContainerDivNode.appendChild(hrEl);
+
+      // beers[beersLen-1].parentElement.insertAdjacentElement("beforeend", beerContainerDivNode);
+      if (screenDisplay != null) {
+        screenDisplay.insertAdjacentElement("beforeend", beerContainerDivNode);
+        }
+    } else {
+      console.log("FALSE FALSE FALSE FALSE FALSE");
+    }
+  } // END repaintBeerListEditorTemplate
+  //////////////////////////////////
+
 
   // delete last beer from the beerlist editor when the minus sign button is clicked
   deleteBeerFromListEditorTemplate(data) {

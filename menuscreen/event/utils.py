@@ -18,9 +18,28 @@ def _getEvents(user_id):
     events = Event.query.filter_by(venue_db_id=user_id).all()
     return events
 
-def _getEventsSortAsc(user_id):
-    user = User.query.filter_by(id=user_id).first()
+def _getEventsSortAsc(screenData):
+    print("screenData: {}".format(screenData))
+    userId = screenData['userId']
+    displayId = screenData['screenNumber']
+
+    user = User.query.filter_by(id=userId).first()
     eventsDb = user.event_sort_asc
+    eventsDb = db.session.query(
+        Event.id,
+        Event.name,
+        Event.artist,
+        Event.date_of_event,
+        Event.starttime_of_event,
+        Event.endtime_of_event,
+        Event.location,
+        Event.event_screen_id,
+        Event.venue_db_id,
+    ).filter(Event.event_screen_id == displayId
+    ).filter(Event.venue_db_id == userId
+    ).order_by(Event.date_of_event
+    ).order_by(Event.starttime_of_event
+    ).all()
     events = []
     for event in eventsDb:
         event = {

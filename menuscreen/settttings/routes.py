@@ -19,19 +19,29 @@ settttings = Blueprint('settttings', __name__)
 def _get_beerscreen_settings():
     data = request.get_json()
     print("**************************************")
+    print("******LINE  22***********************")
+    print("settttings. /_get_beerscreen_settings")
     print("**************************************")
-    print("list_history. /_get_beerscreen_settings")
-    print(data)
+    print("data: {}".format(data))
+    print("**************************************")
+    print("**************************************")
+
     if (current_user.is_authenticated):
         print("LOGGED IN")
         print(current_user.id)
-        data = _getBeerSettings(current_user.id)
+
+        data['userId'] = current_user.id
+        print("data: {}".format(data))
+        data = _getBeerSettings(data)
     elif (data):
-        current_user_id = getVenueId(data['userName'])
         print("NOT LOGGED IN")
         print(data['userName'])
         print(current_user_id)
-        data = _getBeerSettings(current_user_id)
+        current_user_id = getVenueId(data['userName'])
+
+        data['userId'] = current_user_id
+        print("data: {}".format(data))
+        data = _getBeerSettings(data)
     else:
         print("NOT LOGGED IN AND NO URL INFO")
         data = {}

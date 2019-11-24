@@ -22,24 +22,28 @@ users = Blueprint('users', __name__)
 @users.route('/_logged_in_user_data', methods=['GET', 'POST'])
 # @login_required
 def _logged_in_user_data():
-    # if current_user.is_authenticated:
-    #     userData = get_user_data(current_user.id)
-    #     return jsonify(userData)
-
     data = request.get_json()
     print("**************************************")
-    print("**************************************")
+    print("******LINE  27************************")
     print("users. /_logged_in_user_data")
-    print(data)
+    print("**************************************")
+    print("data: {}".format(data))
+    print("**************************************")
+    print("**************************************")
     if (current_user.is_authenticated):
         print("LOGGED IN")
-        print(current_user.id)
-        data = get_user_data(current_user.id)
+        # data['userId'] = current_user.id
+        print("data: {}".format(data))
+        data = get_user_data(data)
+
     elif (data):
-        current_user_id = getVenueId(data['userName'])
         print("NOT LOGGED IN")
         print(data['userName'])
+        current_user_id = getVenueId(data['userName'])
         print(current_user_id)
+
+        data['userId'] = current_user_id
+        print("data: {}".format(data))
         data = get_user_data(current_user_id)
     else:
         print("NOT LOGGED IN AND NO URL INFO")

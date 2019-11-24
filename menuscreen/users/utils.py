@@ -33,8 +33,8 @@ If you did not make this request then simply ignore this email and no changes wi
     mail.send(msg)
 
 
-def get_user_data(user_id):
-    user = User.query.filter_by(id=user_id).first()
+def get_user_data(data):
+    user = User.query.filter_by(id=data['userId']).first()
     data = {}
     data['id'] = user.id,
     data['venue_name'] = user.venue_name,
