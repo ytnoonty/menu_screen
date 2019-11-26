@@ -44,7 +44,7 @@
             <div class="beers">
                 <div class="form-group">
                   <label for="beer_{{beers.id_dropdown}}">Beer {{beers.id_dropdown}}</label>
-                  <select id="beer_{{beers.id_dropdown}}" class="form-control edit-beer1" name="beer_{{beers.id_dropdown}}">
+                  <select id="beer_{{beers.id_dropdown}}" class="form-control edit-beer edit-beer-{{beers.id_dropdown}}" name="beer_{{beers.id_dropdown}}">
                     {% for beer in beersDropdown %}
                       {% if beer.id == beers.defaultDropdown.id_history %}
                         <option value="{{beer.id}}" selected>{{beer.name}}</option>

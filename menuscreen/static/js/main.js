@@ -524,9 +524,20 @@ const ScreenSettingsCtrl = (function() {
     return data;
   }
 
+  async function fetchNumberOfBeerscreens() {
+    return await fetch('/_get_number_of_beer_screens')
+    .then((res) => res.json())
+    .then((data) => {
+      return data;
+    });
+  }
+
   return {
     callFetchBeerscreenSettings: async function(data) {
       return await fetchBeerscreenSettings(data);
+    },
+    callFetchNumberOfBeerScreens: async function(data) {
+      return await fetchNumberOfBeerscreens();
     }
   }
 })();
@@ -603,6 +614,10 @@ const UICtrl = (function(){
     // beerscreen_settings.html
     addBeerTemplateBtn: '#add-beerscreen-template-btn',
     delBeerTemplateBtn: '#del-beerscreen-template-btn',
+    // beers_display_screen
+    screenDisplay: '#screen-display',
+    beersDisplayNavPrev: '#beers-display-nav-prev',
+    beersDisplayNavNext: '#beers-display-nav-next',
   }
 
   // flash message dissapear after 2.5 seconds
@@ -846,86 +861,102 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
   // Get UI Selectors
   const UISelectors = UICtrl.getSelectors();
 
-  async function updateScreens(data) {
+  async function getScreenInfo(userNameScreenId) {
+    console.log(userNameScreenId);
+    // get the current beerlist for user and screenId
+    // query the DB for the current beerlist
+    let currentBeers = await BeerCtrl.callFetchCurBeerlist(userNameScreenId);
+    // console.log(currentBeers);
+    // query the DB for the next beerlist
+    let nextBeers = await BeerCtrl.callFetchNextBeerlist(userNameScreenId);
+    // console.log(nextBeers);
+    let beerslistTotal = await BeerCtrl.callFetchBeerhistoryList(userNameScreenId);
+    // console.log(beerslistTotal);
+    // query the DB for the ticker news info
+    let bottleBeerlist = await BeerCtrl.callFetchBottleBeerlist(userNameScreenId);
+    // console.log(bottleBeerlist);
+    let tickerInfo = await TickerCtrl.callFetchTickerInfo(userNameScreenId);
+    // console.log(tickerInfo)
+    // query the DB for the events
+    let events = await EventCtrl.callGetCurrentEventlist(userNameScreenId);
+    // console.log(events);
+    let userData = await UserCtrl.callFetchUserData(userNameScreenId);
+    // console.log(userData);
+    let screenSettings = await ScreenSettingsCtrl.callFetchBeerscreenSettings(userNameScreenId);
+    // console.log(screenSettings);
+    if (userData.id !== undefined){
+      userData = userData.id[0];
+    } else {
+      userData = userNameScreenId.userId;
+    }
+    // console.log(userData);
+    let onNext;
+    if (Object.getOwnPropertyNames(currentBeers).length >= 1) {
+      // console.log(currentBeers);
+      currentBeers.forEach(beer => {
+        onNext = beer.id_on_next;
+        nextBeers.push(onNext);
+      });
+    }
+    // console.log("onNext: " + onNext + "nextBeers: " + nextBeers);
+    let displayData = {};
+    displayData = {
+      "currentBeers": currentBeers,
+      "nextBeers": nextBeers,
+      "beerslistTotal": beerslistTotal,
+      "bottleBeerlist": bottleBeerlist,
+      "tickerInfo": tickerInfo,
+      "events": events,
+      "screenSettings": screenSettings,
+      "userSettings": { "venue_db_id": userData }
+    }
+    // console.log(displayData);
+    return displayData;
+  }
+
+  async function setScreenInfo(displayData) {
+    // // update all screens
+    // // update edit_beer_list
+    UICtrl.callAddBeerToListEditor(displayData);
+    // // repaint beers_tv_screen
+    UICtrl.callUpdateDisplayScreen(displayData);
+    // // repaint draft_beers_print
+    UICtrl.callUdpateDraftBeersPrintScreen(displayData);
+    // // repaint draft_beers tablet screen
+    UICtrl.callUpdateDraftBeersTabletScreen(displayData);
+    // repaint on_tap_next_display
+    UICtrl.callAddBeerOnTapNextDisplay(displayData);
+    // repaint on_tap_next_editor
+    UICtrl.callAddBeerOnTapNextEditor(displayData);
+    // update bottle beer list asynconously
+    UICtrl.callUpdateBottleBeersTabletScreen(displayData);
+  }
+
+  async function getUserInfo(data) {
     console.log(data);
+    let userNameScreenId = UserCtrl.callGetUserNameFromURL();
+    console.log(userNameScreenId);
+    // get the current screenId from the select to query for the current_list of beers
+    let beerscreenDisplayId = document.querySelector(UISelectors.beerscreenDisplayId).value;
+    console.log(beerscreenDisplayId);
+    userNameScreenId.screenNumber = beerscreenDisplayId;
+    userNameScreenId.userId = data.venue_db_id;
+    console.log(userNameScreenId);
+    return userNameScreenId;
+  }
+
+  async function updateScreens(data) {
+    // console.log(data);
     if (data !== undefined) {
       // console.log(data.updated);
       if (data.updated == true) {
-        let userNameScreenId = UserCtrl.callGetUserNameFromURL();
-        // console.log(userNameScreenId);
-
-        // get the current screenId from the select to query for the current_list of beers
-        let beerscreenDisplayId = document.querySelector(UISelectors.beerscreenDisplayId).value;
-        console.log(beerscreenDisplayId);
-        userNameScreenId.screenNumber = beerscreenDisplayId;
-        userNameScreenId.userId = data.venue_db_id;
-        console.log(userNameScreenId);
-        // get the current beerlist for user and screenId
-        // query the DB for the current beerlist
-        let currentBeers = await BeerCtrl.callFetchCurBeerlist(userNameScreenId);
-        // console.log(currentBeers);
-        // query the DB for the next beerlist
-        let nextBeers = await BeerCtrl.callFetchNextBeerlist(userNameScreenId);
-        // console.log(nextBeers);
-        let beerslistTotal = await BeerCtrl.callFetchBeerhistoryList(userNameScreenId);
-        // console.log(beerslistTotal);
-        // query the DB for the ticker news info
-        let bottleBeerlist = await BeerCtrl.callFetchBottleBeerlist(userNameScreenId);
-        // console.log(bottleBeerlist);
-        let tickerInfo = await TickerCtrl.callFetchTickerInfo(userNameScreenId);
-        // console.log(tickerInfo)
-        // query the DB for the events
-        let events = await EventCtrl.callGetCurrentEventlist(userNameScreenId);
-        // console.log(events);
-        let userData = await UserCtrl.callFetchUserData(userNameScreenId);
-        // console.log(userData);
-        let screenSettings = await ScreenSettingsCtrl.callFetchBeerscreenSettings(userNameScreenId);
-        console.log(screenSettings);
-        if (userData.id !== undefined){
-          userData = userData.id[0];
-        } else {
-          userData = data.venue_db_id;
-        }
-        // console.log(userData);
-        let onNext;
-        if (Object.getOwnPropertyNames(currentBeers).length >= 1) {
-          // console.log(currentBeers);
-          currentBeers.forEach(beer => {
-            onNext = beer.id_on_next;
-            nextBeers.push(onNext);
-          });
-        }
-                    // console.log("onNext: " + onNext + "nextBeers: " + nextBeers);
-                    let displayData = {};
-                    displayData = {
-                      "currentBeers": currentBeers,
-                      "nextBeers": nextBeers,
-                      "beerslistTotal": beerslistTotal,
-                      "bottleBeerlist": bottleBeerlist,
-                      "tickerInfo": tickerInfo,
-                      "events": events,
-                      "screenSettings": screenSettings,
-                      "userSettings": { "venue_db_id": userData }
-                    }
-                    // console.log(displayData);
-                    // // update all screens
-                    // // update edit_beer_list
-                    UICtrl.callAddBeerToListEditor(displayData);
-                    // // repaint beers_tv_screen
-                    UICtrl.callUpdateDisplayScreen(displayData);
-                    // // repaint draft_beers_print
-                    UICtrl.callUdpateDraftBeersPrintScreen(displayData);
-                    // // repaint draft_beers tablet screen
-                    UICtrl.callUpdateDraftBeersTabletScreen(displayData);
-                    // repaint on_tap_next_display
-                    UICtrl.callAddBeerOnTapNextDisplay(displayData);
-                    // repaint on_tap_next_editor
-                    UICtrl.callAddBeerOnTapNextEditor(displayData);
-                    // update bottle beer list asynconously
-                    UICtrl.callUpdateBottleBeersTabletScreen(displayData);
+        let userNameScreenId = await getUserInfo(data);
+        let displayData = await getScreenInfo(userNameScreenId);
+        setScreenInfo(displayData);
       }
     }
   } // end udpateScreens();
+
 
   async function initScreens(data) {
     await updateScreens(data);
@@ -1230,6 +1261,17 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     if (document.querySelector(UISelectors.beerscreenDisplayId) != null) {
       document.querySelector(UISelectors.beerscreenDisplayId).addEventListener('change', getBeerlistScreen);
     }
+    document.addEventListener('mousemove', (e) => {
+      if (document.querySelector(UISelectors.screenDisplay) != null) {
+        displayScreenNavBtns();
+      }
+    });
+    if (document.querySelector(UISelectors.beersDisplayNavPrev) != null) {
+      document.querySelector(UISelectors.beersDisplayNavPrev).addEventListener('click', changeToPrevBeersDisplayScreen);
+    }
+    if (document.querySelector(UISelectors.beersDisplayNavNext) != null) {
+      document.querySelector(UISelectors.beersDisplayNavNext).addEventListener('click', changeToNextBeersDisplayScreen);
+    }
   }
 
     // Edit beerlist submit
@@ -1441,9 +1483,9 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     const switchTabletScreen = (e) => {
       console.log('SWITCH TABLET SCREEN NOW');
       // get the clicked button id
-      let targetId = e.target.id
+      let targetId = e.target.id;
       // split the id to get the new page
-      targetPage = targetId.split('-').slice(0,2).join('_');
+      let targetPage = targetId.split('-').slice(0,2).join('_');
       // console.log(targetPage);
 
       // get the current window url
@@ -1549,7 +1591,10 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       // send number of screens to database to init new setting options, new current_list, new ticker
       // call route to add this to the database
       let res = await BeerCtrl.callSendScreenSettingsInfoToDb(displayScreenIds);
-      // console.log(res);
+      res.venue_db_id = res.id;
+      let userNameScreenId = await getUserInfo(res);
+      let displayRes = await getScreenInfo(userNameScreenId);
+      UICtrl.callRepaintBeerlistEditor(displayRes);
       e.preventDefault();
     }
 
@@ -1561,14 +1606,16 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       if (displayScreenIds > 1) {
         // remove screenId row number from database tables list_current & beerscreen_settings
         let res = await BeerCtrl.callRemoveScreenSettingsInfoFromDb(displayScreenIds);
-        // console.log(res);
+        res.venue_db_id = res.id;
+        let userNameScreenId = await getUserInfo(res);
+        let displayRes = await getScreenInfo(userNameScreenId);
+        UICtrl.callRepaintBeerlistEditor(displayRes);
       }
       e.preventDefault();
     }
 
 
-
-
+    //edit beerlist switching screens edit list
     const getBeerlistScreen = async (e) => {
       console.log('SWITCHING BEERSCREEN EDITORS NOW');
       let screenId = e.target.value;
@@ -1581,64 +1628,95 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       userNameScreenId.userId = userId;
       // console.log(userNameScreenId);
 
-      // get the current beerlist for user and screenId
-      // query the DB for the current beerlist
-      let currentBeers = await BeerCtrl.callFetchCurBeerlist(userNameScreenId);
-      // console.log(currentBeers);
-      // query the DB for the next beerlist
-      let nextBeers = await BeerCtrl.callFetchNextBeerlist(userNameScreenId);
-      // console.log(nextBeers);
-      let beerslistTotal = await BeerCtrl.callFetchBeerhistoryList(userNameScreenId);
-      // console.log(beerslistTotal);
-      // query the DB for the ticker news info
-      let bottleBeerlist = await BeerCtrl.callFetchBottleBeerlist(userNameScreenId);
-      // console.log(bottleBeerlist);
-      let tickerInfo = await TickerCtrl.callFetchTickerInfo(userNameScreenId);
-      // console.log(tickerInfo)
-      // query the DB for the events
-      let events = await EventCtrl.callGetCurrentEventlist(userNameScreenId);
-      // console.log(events);
-      let userData = await UserCtrl.callFetchUserData(userNameScreenId);
-      // console.log(userData);
-      let screenSettings = await ScreenSettingsCtrl.callFetchBeerscreenSettings(userNameScreenId);
-      // console.log(screenSettings);
-      if (userData.id !== undefined){
-        userData = userData.id[0];
-      } else {
-        userData = data.venue_db_id;
-      }
-      // console.log(userData);
-      let onNext;
-      if (Object.getOwnPropertyNames(currentBeers).length >= 1) {
-        // console.log(currentBeers);
-        currentBeers.forEach(beer => {
-          onNext = beer.id_on_next;
-          nextBeers.push(onNext);
-        });
-      }
-      // console.log("onNext: " + onNext + "nextBeers: " + nextBeers);
-      let displayData = {};
-      displayData = {
-        "currentBeers": currentBeers,
-        "nextBeers": nextBeers,
-        "beerslistTotal": beerslistTotal,
-        "bottleBeerlist": bottleBeerlist,
-        "tickerInfo": tickerInfo,
-        "events": events,
-        "screenSettings": screenSettings,
-        "userSettings": { "venue_db_id": userData }
-      }
-      console.log(displayData);
       // switch from a screen to selected screen
-      // // update edit_beer_list
-      UICtrl.callAddBeerToListEditor(displayData);
+      // update edit_beer_list
+      // console.log("Query fetchCurBeerlist");
+      // console.log("Query fetchNextBeerlist");
+      // console.log("Query fetchBeerhistoryList");
+      // console.log("Query fetchTickerInfo");
+      // console.log("repaint Edit beerlist")
+      let displayData = await getScreenInfo(userNameScreenId);
+      console.log(displayData);
       UICtrl.callRepaintBeerlistEditor(displayData);
-      console.log("Query fetchCurBeerlist");
-      console.log("Query fetchNextBeerlist");
-      console.log("Query fetchBeerhistoryList");
-      console.log("Query fetchTickerInfo");
-      console.log("repaint Edit beerlist")
       e.preventDefault();
+    }
+
+    const displayScreenNavBtns = () => {
+      let prevBtn = document.querySelector(UISelectors.beersDisplayNavPrev);
+      let nextBtn = document.querySelector(UISelectors.beersDisplayNavNext);
+      prevBtn.classList.remove("d-none");
+      nextBtn.classList.remove("d-none");
+      prevBtn.classList.add("fade-in");
+      nextBtn.classList.add("fade-in");
+      setTimeout(function(){
+        prevBtn.classList.add("d-none");
+        nextBtn.classList.add("d-none");
+        prevBtn.classList.remove("fade-in");
+        nextBtn.classList.remove("fade-in");
+      },10000);
+    }
+
+    // on beers_display_screen switch previous screen accordingly
+    const changeToPrevBeersDisplayScreen = async (e) => {
+      // console.log(e.target);
+      // get the current window URL
+      let currentWindowURL = window.location.href;
+      console.log(currentWindowURL);
+      // split the curren window url to replace with the target url info
+      currentWindowSplitURL = currentWindowURL.split('/');
+      console.log(currentWindowSplitURL);
+      let currentPage = currentWindowSplitURL[3];
+      let currentUser = currentWindowSplitURL[4];
+      let currentScreenNumber = currentWindowSplitURL[5];
+      console.log(`${currentPage} - ${currentUser} - ${currentScreenNumber}`);
+      // replace fifth element of url with the previous screen number
+      if (currentScreenNumber > 1) {
+        currentScreenNumber--;
+      } else {
+        let screenNumberArr = await ScreenSettingsCtrl.callFetchNumberOfBeerScreens();
+        let screenNumberLength = screenNumberArr.length;
+        currentScreenNumber = screenNumberLength;
+      }
+      let targetScreenNumber = currentScreenNumber;
+      console.log(targetScreenNumber);
+      currentWindowSplitURL[5] = targetScreenNumber;
+      console.log(currentWindowSplitURL);
+      // create new URL
+      let newPage = currentWindowSplitURL.join('/');
+      console.log(newPage);
+      // redirect to new page
+      window.location.replace(newPage);
+    }
+    // on beers_display_screen switch to next screen accordingly
+    const changeToNextBeersDisplayScreen = async (e) => {
+      // console.log(e.target);
+      // get the current window URL
+      let currentWindowURL = window.location.href;
+      console.log(currentWindowURL);
+      // split the curren window url to replace with the target url info
+      currentWindowSplitURL = currentWindowURL.split('/');
+      console.log(currentWindowSplitURL);
+      let currentPage = currentWindowSplitURL[3];
+      let currentUser = currentWindowSplitURL[4];
+      let currentScreenNumber = currentWindowSplitURL[5];
+      console.log(`${currentPage} - ${currentUser} - ${currentScreenNumber}`);
+      // replace fifth element of url with the previous screen number
+      let screenNumberArr = await ScreenSettingsCtrl.callFetchNumberOfBeerScreens();
+      let screenNumberLength = screenNumberArr.length;
+      if (currentScreenNumber < screenNumberLength) {
+        currentScreenNumber++;
+      } else {
+        currentScreenNumber = 1;
+      }
+      let targetScreenNumber = currentScreenNumber;
+      console.log(targetScreenNumber);
+      currentWindowSplitURL[5] = targetScreenNumber;
+      console.log(currentWindowSplitURL);
+      // create new URL
+      let newPage = currentWindowSplitURL.join('/');
+      console.log(newPage);
+      // redirect to new page
+      window.location.replace(newPage);
     }
 
   // Public methods

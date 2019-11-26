@@ -11,14 +11,16 @@
           </div>
         </div>
       </div>
+      <div id="beers-display-nav-prev" class="btn btn-sm btn-secondary position-fixed d-none">
+        Prev Screen
+      </div>
+      <div id="beers-display-nav-next" class="btn btn-sm btn-secondary position-fixed d-none">
+        Next Screen
+      </div>
       <div id="screen-display" class="container-fluid">
-
-
         <div class="row mt-1">
           <div class="col-6 beerlist-col">
               <ul id="" class="list-group mx-2">
-
-
                 {% for beer in beerlistFirstHalf %}
                   <li class="list-group-item card-beerscreen-display background">
                     <table class="beerscreen-display-table">
@@ -38,10 +40,7 @@
 
           <div class="col-6 beerlist-col">
               <ul id="" class="list-group mr-2">
-
-
-
-                {% for beer in beerlistFirstHalf %}
+                {% for beer in beerlistSecondHalf %}
                   <li class="list-group-item card-beerscreen-display background">
                     <table class="beerscreen-display-table">
                       <tr class="">
@@ -65,11 +64,8 @@
     <!-- START Ticker -->
     <!-- ***************************************** -->
     <div class="ticker-wrapper background">
-
       <div class="ticker d-flex align-items-center move-left">
         <ul class="list-group ticker-items list-group-inline ml-3">
-
-
             {% if beerlistBom %}
             <li class="list-group-inline align-middle font-weight-bold ticker-item txt-clr-grn-shdw spacing-sml"><span class="ticker-text">Beer 'O the Month:</span></li>
             {% endif %}
@@ -90,12 +86,9 @@
             <li class="list-group-inline align-middle font-weight-bold ticker-item txt-clr-grn-shdw left-spacer spacing-sml"><span class="ticker-text">Shamrock News:</span></li>
             <li class="list-group-inline align-middle font-weight-bold font-italic ticker-item txt-clr-ylw left-spacer card-img"><span class="ticker-news">{{ tickerText }}</span></li>
             {% endif %}
-
         </ul>
       </div>
-
     </div>
-
     <!-- ***************************************** -->
     <!-- END Ticker -->
     <!-- ***************************************** -->

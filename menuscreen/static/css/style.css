@@ -158,9 +158,29 @@ tr {
   background: linear-gradient(to bottom right, rgba(255,0,0,.75), rgba(0,0,255,.75));
 }
 
-
-
-
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* NAVIGATION BETWEEN BEER DISPLAY SCREENS */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#beers-display-nav-prev,
+#beers-display-nav-next {
+  z-index: 1100;
+  position: fixed;
+}
+#beers-display-nav-prev {
+  top: 50px;
+  left: 50px;
+}
+#beers-display-nav-next {
+  top: 50px;
+  right: 50px;
+}
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* NAVIGATION BETWEEN BEER DISPLAY SCREENS */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 
 
@@ -404,5 +424,34 @@ i {
   }
   100% {
     opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn .5s ease-in-out 0s forwards;
+}
+.fade-out {
+  animation: fadeOut .5s ease-in-out 0s forwards;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0.0;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.0;
   }
 }

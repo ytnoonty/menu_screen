@@ -19,11 +19,13 @@ def _deleteBeerFromListCurrentByScreenId(data):
     print('Data: {}'.format(data))
     userId = data['id']
     screenId = data['screenId']
-    beerCandidate = List_current.query.filter_by(beer_screen_id=screenId, venue_db_id=userId).first()
-    if beerCandidate.venue_db_id != current_user.id:
-        abort(403)
-    db.session.delete(beerCandidate)
-    db.session.commit()
+    beerlistCurrent = List_current.query.filter_by(beer_screen_id=screenId, venue_db_id=userId).all()
+    for b in beerlistCurrent:
+        print(b)
+        if b.venue_db_id != current_user.id:
+            abort(403)
+        db.session.delete(b)
+        db.session.commit()
     return jsonify(data)
 
 def _deleteBeertickerFromTickerByScreenId(data):

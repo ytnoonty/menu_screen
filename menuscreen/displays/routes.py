@@ -5,7 +5,7 @@ from menuscreen.models import (User, List_history, List_current, Wines, Winelist
                                 Beerscreen_settings, Winescreen_settings,
                                 Eventscreen_settings, Itemscreen_settings, Template,
                                 Font_size_options)
-from menuscreen.displays.utils import _getTickerInfo
+from menuscreen.displays.utils import _getTickerInfo, _getNumberOfBeerScreens
 from menuscreen.settttings.utils import _getFontSizes, _getTemplates, _getSettings, _getNameFontSize, _getTemplateName, _getAbvFontSize, _getIbuFontSize, _getBreweryFontSize
 from menuscreen.wine.utils import _getWinelistDisplay, _getWines, _getWinetypes, _convertToWinelist
 from menuscreen.users.init_db_tables import getVenueId
@@ -125,6 +125,15 @@ def getTickerInfo():
     print("**************************************")
     print("**************************************")
     return jsonify(tickerInfo)
+
+@displays.route('/_get_number_of_beer_screens', methods=['GET', 'POST'])
+@login_required
+def _get_number_of_beer_screens():
+    numberOfScreens = _getNumberOfBeerScreens()
+    print("*****************numberOfScreens*********************")
+    print("numberOfScreens: {}".format(numberOfScreens))
+    print("*****************************************************")
+    return jsonify(numberOfScreens)
 
 # Update screen display
 @displays.route('/_screen_display', methods=['GET', 'POST'])
@@ -588,12 +597,15 @@ def beers_display_screen():
 
 @displays.route('/beers_display_screen/<string:venuename>/<string:screen_id>')
 def beers_display_screen_nologin(venuename, screen_id):
-
     print('******************************************************************')
-    print(venuename)
+    print("venuename: {}".format(venuename))
     current_user_id = getVenueId(venuename)
-    print(current_user_id)
-    print(screen_id)
+    print("current_user_id: {}".format(current_user_id))
+    print("screen_id: {}".format(screen_id))
+    screenData = {
+        "userId": current_user_id,
+        "screenNumber": screen_id,
+    }
     print('******************************************************************')
 
     user = User.query.filter_by(id=current_user_id).first()
@@ -613,7 +625,8 @@ def beers_display_screen_nologin(venuename, screen_id):
         List_current.coming_soon,
         ).outerjoin(List_current, List_history.id == List_current.id_history
         ).filter(List_current.venue_db_id == current_user_id
-        ).filter(List_current.beerscreen_id == screen_id).all()
+        ).filter(List_current.beer_screen_id == screen_id
+        ).all()
 
     beerlist = []
     beerlistBom = []
@@ -632,38 +645,47 @@ def beers_display_screen_nologin(venuename, screen_id):
         elif beer.coming_soon:
             beerlistCs.append(beer)
 
+    print("")
     print("beerlist")
     for beer in beerlist:
         print(beer)
+    print("")
     print("beerlistBom")
     for beer in beerlistBom:
         print(beer)
+    print("")
     print("beerlistCs")
     for beer in beerlistCs:
         print(beer)
     print("")
 
-    halflistNum = math.trunc((len(beerlist)/2))
+    # halflistNum = math.trunc((len(beerlist)/2))
+    halflistNum = math.ceil((len(beerlist)/2))
+    # halflistNum = (len(beerlist)/2)
+    print("halflistNum: {}".format(halflistNum))
     beerlistFirstHalf = beerlist[:halflistNum]
     beerlistSecondHalf = beerlist[halflistNum:]
 
+    print("")
+    print("beerlistFirstHalf")
     for beer in beerlistFirstHalf:
         print(beer)
-    print("")
 
+    print("")
+    print("beerlistSecondHalf")
     for beer in beerlistSecondHalf:
         print(beer)
-    print("")
-
-    print("LINE 561*******************************************************")
-    tickerText = _getTickerInfo(current_user_id).ticker_text
+    print("*******************************************************")
+    print("*************LINE 668**********************************")
+    print("*******************************************************")
+    tickerText = _getTickerInfo(screenData).ticker_text
     print(tickerText)
 
     if len(beers) > 0:
-        return render_template('beers_display_screen.html', beers=beers, beerlistFirstHalf=beerlistFirstHalf, beerlistSecondHalf=beerlistSecondHalf, beerlistBom=beerlistBom, beerlistCs=beerlistCs, tickerText=tickerText, currentUserId=current_user_id)
+        return render_template('beers_display_screen.html', beers=beers, beerlistFirstHalf=beerlistFirstHalf, beerlistSecondHalf=beerlistSecondHalf, beerlistBom=beerlistBom, beerlistCs=beerlistCs, tickerText=tickerText, currentUserId=current_user_id, beerlistScreenId=screen_id)
     else:
         msg = 'No Beers Found'
-    return render_template('beers_display_screen.html', msg=msg, currentUserId=current_user_id)
+    return render_template('beers_display_screen.html', msg=msg, currentUserId=current_user_id, beerlistScreenId=screen_id)
 
 
 @displays.route('/on_tap_next_display', methods=['GET','POST'])
@@ -754,7 +776,16 @@ def bottle_beers():
 
 @displays.route('/bottle_beers/<string:venuename>/<string:screen_id>', methods=['GET','POST'])
 def bottle_beers_nologin(venuename, screen_id):
+    print('******************************************************************')
+    print("venuename: {}".format(venuename))
     current_user_id = getVenueId(venuename)
+    print("current_user_id: {}".format(current_user_id))
+    print("screen_id: {}".format(screen_id))
+    screenData = {
+        "userId": current_user_id,
+        "screenNumber": screen_id,
+    }
+    print('******************************************************************')
     # user = User.query.filter_by(id=current_user.id).first()
     # datas = user.beerlist_sort_asc
 
@@ -770,11 +801,10 @@ def bottle_beers_nologin(venuename, screen_id):
         List_history.description,
         List_history.draft_bottle_selection,
         ).filter(List_history.draft_bottle_selection != "Draft"
-        ).filter(List_history.venue_db_id == current_user_id
-        # ).filter(List_history.beerscreen_id == screen_id
+        ).filter(List_history.venue_db_id == screenData['userId']
+        # ).filter(List_history.beer_screen_id == screenData['screenNumber']
         ).order_by(List_history.name.asc()
         ).all()
-
 
     beers = []
     for data in datas:
@@ -793,10 +823,10 @@ def bottle_beers_nologin(venuename, screen_id):
         beers.append(beer)
     if len(beers) > 0:
         jsonify(beers);
-        return render_template('bottle_beers.html', title='Bottle beers list', currentUserId=current_user_id, beers=beers)
+        return render_template('bottle_beers.html', title='Bottle beers list', beers=beers, currentUserId=screenData['userId'], bottleBeersScreenId=screenData['screenNumber'])
     else:
         msg = 'No Beers Found!!!'
-    return render_template('bottle_beers.html', title='Bottle beers list', currentUserId=current_user_id, msg=msg, beers=beers)
+    return render_template('bottle_beers.html', title='Bottle beers list', msg=msg, beers=beers, currentUserId=screenData['userId'], bottleBeersScreenId=screenData['screenNumber'])
 
 @displays.route('/draft_beers', methods=['GET', 'POST'])
 @login_required
@@ -824,17 +854,24 @@ def draft_beers():
     for beer in beers:
         print(beer)
 
-    beers_01_16 = beers[0:16]
-    beers_17_22 = beers[16:22]
     if len(beers) > 0:
-        return render_template('draft_beers.html', title='Beer Print', legend='Beer Print', beers=beers, beers0116=beers_01_16, beers1722=beers_17_22, currentUserId=current_user.id)
+        return render_template('draft_beers.html', title='Beer Print', legend='Beer Print', beers=beers, currentUserId=current_user.id)
     else:
         msg = 'No Beers Found'
     return render_template('draft_beers.html', msg=msg, currentUserId=current_user.id)
 
 @displays.route('/draft_beers/<string:venuename>/<string:screen_id>', methods=['GET', 'POST'])
 def draft_beers_nologin(venuename, screen_id):
+    print('******************************************************************')
+    print("venuename: {}".format(venuename))
     current_user_id = getVenueId(venuename)
+    print("current_user_id: {}".format(current_user_id))
+    print("screen_id: {}".format(screen_id))
+    screenData = {
+        "userId": current_user_id,
+        "screenNumber": screen_id,
+    }
+    print('******************************************************************')
     user = User.query.filter_by(id=current_user_id).first()
     beers = db.session.query(
         List_current.id,
@@ -853,19 +890,18 @@ def draft_beers_nologin(venuename, screen_id):
         List_current.coming_soon,
         ).outerjoin(List_current, List_history.id == List_current.id_history
         ).filter(List_current.venue_db_id == current_user_id
-        ).filter(List_current.beerscreen_id == screen_id).all()
+        # ).filter(List_current.beer_screen_id == screen_id
+        ).all()
 
-    print('THIS IS draft_beers\n')
+    print('\nTHIS IS draft_beers\n')
     for beer in beers:
         print(beer)
 
-    beers_01_16 = beers[0:16]
-    beers_17_22 = beers[16:22]
     if len(beers) > 0:
-        return render_template('draft_beers.html', title='Beer Print', legend='Beer Print', beers=beers, beers0116=beers_01_16, beers1722=beers_17_22, currentUserId=current_user_id)
+        return render_template('draft_beers.html', title='Beer Print', legend='Beer Print', beers=beers, currentUserId=screenData['userId'], draftBeersScreenId=screenData['screenNumber'])
     else:
         msg = 'No Beers Found'
-    return render_template('draft_beers.html', msg=msg, currentUserId=current_user_id)
+    return render_template('draft_beers.html', msg=msg,  currentUserId=screenData['userId'], draftBeersScreenId=screenData['screenNumber'])
 
 @displays.route('/draft_beers_print', methods=['GET','POST'])
 @login_required
@@ -886,14 +922,12 @@ def draft_beers_print():
         List_current.beer_of_month,
         List_current.coming_soon
         ).outerjoin(List_current, List_history.id == List_current.id_history
-        ).filter(List_current.venue_db_id == current_user.id).all()
-
-    beers_01_16 = beers[0:16]
-    beers_17_22 = beers[16:22]
+        ).filter(List_current.venue_db_id == current_user.id
+        ).all()
 
     image_file = url_for('static', filename='img/profile_pics/' + current_user.image_file)
     if len(beers) > 0:
-        return render_template('draft_beers_print.html', title='Beer Print', legend='Beer Print', beers=beers, beers0116=beers_01_16, beers1722=beers_17_22, image_file=image_file, currentUserId=current_user.id)
+        return render_template('draft_beers_print.html', title='Beer Print', legend='Beer Print', beers=beers, image_file=image_file, currentUserId=current_user.id)
     else:
         msg = 'No Beers Found'
     return render_template('draft_beers_print.html', msg=msg, image_file=image_file, currentUserId=current_user.id)
@@ -901,7 +935,17 @@ def draft_beers_print():
 
 @displays.route('/draft_beers_print/<string:venuename>/<string:screen_id>', methods=['GET','POST'])
 def draft_beers_print_nologin(venuename, screen_id):
+    print('******************************************************************')
+    print("venuename: {}".format(venuename))
     current_user_id = getVenueId(venuename)
+    print("current_user_id: {}".format(current_user_id))
+    print("screen_id: {}".format(screen_id))
+    screenData = {
+        "userId": current_user_id,
+        "screenNumber": screen_id,
+    }
+    print('******************************************************************')
+
     user = User.query.filter_by(id=current_user_id).first()
     beers = db.session.query(
         List_history.id,
@@ -919,12 +963,11 @@ def draft_beers_print_nologin(venuename, screen_id):
         List_current.coming_soon
         ).outerjoin(List_current, List_history.id == List_current.id_history
         ).filter(List_current.venue_db_id == current_user_id
-        ).filter(List_current.beerscreen_id == screen_id).all()
+        # ).filter(List_current.beerscreen_id == screen_id
+        ).all()
 
-    beers_01_16 = beers[0:16]
-    beers_17_22 = beers[16:22]
     if len(beers) > 0:
-        return render_template('draft_beers_print.html', title='Beer Print', legend='Beer Print', beers=beers, beers0116=beers_01_16, beers1722=beers_17_22, currentUserId=current_user_id)
+        return render_template('draft_beers_print.html', title='Beer Print', legend='Beer Print', beers=beers, currentUserId=current_user_id)
     else:
         msg = 'No Beers Found'
     return render_template('draft_beers_print.html', msg=msg, currentUserId=current_user_id)
