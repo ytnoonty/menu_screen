@@ -621,9 +621,9 @@ class BeerTemplate {
       //remove last beer in the list
       displayElement.lastElementChild.remove();
     }
-    // return last beer of the list's number to be used for DB manipulation
-    // i.e. delete the beer from the list in the DB
-    return beersLen;
+    // // return last beer of the list's number to be used for DB manipulation
+    // // i.e. delete the beer from the list in the DB
+    // return beersLen;
   }
   // delete last beer from beerlist for the on_tap_next_display
   deleteBeerFromOnTapNextDisplayTemplate(data) {

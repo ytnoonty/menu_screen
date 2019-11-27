@@ -32,7 +32,7 @@ def _logged_in_user_data():
     print("**************************************")
     if (current_user.is_authenticated):
         print("LOGGED IN")
-        # data['userId'] = current_user.id
+        data['userId'] = current_user.id
         print("data: {}".format(data))
         data = get_user_data(data)
 
@@ -44,7 +44,7 @@ def _logged_in_user_data():
 
         data['userId'] = current_user_id
         print("data: {}".format(data))
-        data = get_user_data(current_user_id)
+        data = get_user_data(data)
     else:
         print("NOT LOGGED IN AND NO URL INFO")
         data = {}

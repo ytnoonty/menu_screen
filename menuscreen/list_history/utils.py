@@ -227,7 +227,7 @@ def _getTotalBeerlist(user_id):
 def _addBeer(data, user_id):
     print('*******************************************************************************')
     print('*******************************************************************************')
-    print('line 124 - data: {}'.format(data))
+    print('line 230 - data: {}'.format(data))
     print('*******************************************************************************')
     print('*******************************************************************************')
     newBeer = List_current(id_history=data['id_history'], id_on_next=data['id_on_next'], id_dropdown=data['id_dropdown'], beer_screen_id=data['beer_screen_id'], venue_db_id=user_id)
@@ -235,17 +235,19 @@ def _addBeer(data, user_id):
     db.session.commit()
     return data
 
-def _deleteBeer(beer_id, user_id):
+def _deleteBeer(data):
     print('*******************************************************************************')
     print('*******************************************************************************')
-    print('beer_id = {}, user_id = {}'.format(beer_id, user_id))
+    print('line 241 utils.py _deleteBeer()')
+    print('data: {}'.format(data))
     print('*******************************************************************************')
     print('*******************************************************************************')
-    beer = List_current.query.filter_by(id_dropdown=beer_id, venue_db_id=user_id).first()
+    beer = List_current.query.filter_by(id_dropdown=data['beerIdToBeDeleted'], beer_screen_id=data['userNameScreenId']['screenNumber'], venue_db_id=data['userNameScreenId']['userId']).first()
     if beer.venue_db_id != current_user.id:
         abort(403)
     db.session.delete(beer)
     db.session.commit()
+    return data
 
 
 def _getBottleBeers(user_id):

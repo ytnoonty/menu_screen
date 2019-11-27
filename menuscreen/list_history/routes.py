@@ -270,24 +270,25 @@ def _add_beer_to_list():
     }
     return jsonify(data)
 
-@list_history.route('/_delete_beer_from_list', methods=['POST'])
+@list_history.route('/_delete_beer_from_current_list', methods=['POST'])
 @login_required
-def _delete_beer_from_list():
+def _delete_beer_from_current_list():
+    data = request.get_json()
+    print("**************************************")
+    print("******LINE  278***********************")
+    print("users. /_delete_beer_from_current_list")
+    print("**************************************")
+    print("data: {}".format(data))
+    print("beerIdToBeDeleted: {}".format(data['beerIdToBeDeleted']))
+    print("**************************************")
+    print("**************************************")
+    data['userNameScreenId']['userId'] = current_user.id
 
-    req = request.get_json()
-    # print("req: ", req)
-    beer_id = req
-    # print("beer_id: ",beer_id)
-    res = make_response(jsonify({"data": req}), 200)
-    # print("res: ", res)
-    # print("DELETE BEER FROM LIST: ", req, res)
-    # print(beer)
-    # print(beer_id)
-    if beer_id > 1:
-        _deleteBeer(beer_id, current_user.id)
-    # flash('The beer has been deleted!', 'success')
+    if data['beerIdToBeDeleted'] > 1:
+        _deleteBeer(data)
+    flash('The beer has been deleted!', 'success')
     # return redirect(url_for('list_history.edit_beer_list'))
-    return res
+    return data
 
 @list_history.route('/_getAllTotalCurrentNextLists', methods=['GET','POST'])
 @login_required

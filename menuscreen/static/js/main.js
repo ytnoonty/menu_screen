@@ -201,22 +201,20 @@ const BeerCtrl = (function(){
     // addBeer(newBeer);
   }
 
-  const fetchDeleteBeerFromDb = function(id) {
-    const deleteBeerFromDb = function(beer) {
-      // console.log(beer);
-      fetch('/_delete_beer_from_list', {
-        method: "POST",
-        credentials: "include",
-        body: JSON.stringify(beer),
-        cache: "no-cache",
-        headers: new Headers({
-          "content-type": "application/json"
-        })
+  async function fetchDeleteBeerFromCurrentListDb(beerData) {
+    console.log(beerData);
+    const fetchResponse = await fetch('/_delete_beer_from_current_list', {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify(beerData),
+      cache: "no-cache",
+      headers: new Headers({
+        "content-type": "application/json"
       })
-      .then((res) => res.json())
-      .then((data) => console.log(data))
-    }
-    deleteBeerFromDb(id);
+    });
+    const data = await fetchResponse.json();
+    console.log(data);
+    return data;
   }
 
   async function fetchAllTotalCurrentNextLists() {
@@ -328,9 +326,9 @@ const BeerCtrl = (function(){
     callFetchAddBeerToDB: function(beer_id) {
       fetchAddBeerToDB(beer_id);
     },
-    callFetchDeleteBeerFromDb: function(beer_id) {
-      console.log(beer_id);
-      fetchDeleteBeerFromDb(beer_id);
+    callFetchDeleteBeerFromCurrentListDb: function(beerData) {
+      console.log(beerData);
+      return fetchDeleteBeerFromCurrentListDb(beerData);
     },
     callFetchAllTotalCurrentNextLists: function() {
       return fetchAllTotalCurrentNextLists();
@@ -937,21 +935,26 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     let userNameScreenId = UserCtrl.callGetUserNameFromURL();
     console.log(userNameScreenId);
     // get the current screenId from the select to query for the current_list of beers
-    let beerscreenDisplayId = document.querySelector(UISelectors.beerscreenDisplayId).value;
-    console.log(beerscreenDisplayId);
-    userNameScreenId.screenNumber = beerscreenDisplayId;
+    if (document.querySelector(UISelectors.beerscreenDisplayId) != null) {
+      let beerscreenDisplayId = document.querySelector(UISelectors.beerscreenDisplayId).value;
+      console.log(beerscreenDisplayId);
+      userNameScreenId.screenNumber = beerscreenDisplayId;
+    }
     userNameScreenId.userId = data.venue_db_id;
     console.log(userNameScreenId);
     return userNameScreenId;
   }
 
   async function updateScreens(data) {
-    // console.log(data);
+    console.log("line 947 - udpateScreens");
+    console.log(data);
     if (data !== undefined) {
       // console.log(data.updated);
       if (data.updated == true) {
         let userNameScreenId = await getUserInfo(data);
+        console.log(userNameScreenId);
         let displayData = await getScreenInfo(userNameScreenId);
+        console.log(displayData);
         setScreenInfo(displayData);
       }
     }
@@ -1377,22 +1380,29 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     async function delBeerFromBeerlist(e) {
       console.log('CLICK MINUS BUTTON TO DELETE BEER FROM LISTS');
       let userNameScreenId = UserCtrl.callGetUserNameFromURL();
-      // console.log(userNameScreenId);
+      let screenNumber = document.querySelector(UISelectors.beerscreenDisplayId).value;
+      userNameScreenId.screenNumber = screenNumber;
+      userNameScreenId.venueName = "";
+      userNameScreenId.userId = "";
+      userNameScreenId.userName = "";
+      console.log(userNameScreenId);
+      let currentBeerlist = await BeerCtrl.callFetchCurBeerlist(userNameScreenId);
+      console.log(currentBeerlist);
+      let beerIdToBeDeleted = currentBeerlist.length;
+      console.log(beerIdToBeDeleted);
+      let dataToSend = {
+        "userNameScreenId": userNameScreenId,
+        "beerIdToBeDeleted": beerIdToBeDeleted,
+      };
+      let beerData = await BeerCtrl.callFetchDeleteBeerFromCurrentListDb(dataToSend);
+      console.log(beerData);
 
-
-      let res = await UserCtrl.callFetchUserData(userNameScreenId);
-      // console.log(res);
-      let { id,  updated } = res;
-      userId = id[0];
-      // console.log(userId);
-      // get the ID of the last beer in the beerlist to be removed from the DB
-      // deletes last beer of the beerlist on the edit_beer_list UI
-      let beer_id = UICtrl.callDeleteBeerFromListEditor(userId);
-      // console.log(beer_id);
+      // // get the ID of the last beer in the beerlist to be removed from the DB
+      // // deletes last beer of the beerlist on the edit_beer_list UI
+      let beer_id = UICtrl.callDeleteBeerFromListEditor(beerData.userNameScreenId.userId);
+      // let res = await UserCtrl.callFetchUserData(userNameScreenId);
       // deletes the beer from the DB using the ID of the beer return deleting on the UI
-      BeerCtrl.callFetchDeleteBeerFromDb(beer_id);
-
-      UpdateCtrl.callFetchDeleteUpdateScreenUI();
+      // UpdateCtrl.callFetchDeleteUpdateScreenUI();
       e.preventDefault();
     }
 
