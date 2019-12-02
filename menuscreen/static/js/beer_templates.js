@@ -553,6 +553,7 @@ class BeerTemplate {
                       console.log(`beer.beer_of_month = ${beer.beer_of_month}`);
                       if (beer.beer_of_month == true) {
                         bomCheckbox.setAttribute("value", beer.beer_of_month);
+
                       } else {
                         bomCheckbox.setAttribute("value", beer.beer_of_month);
                       }
