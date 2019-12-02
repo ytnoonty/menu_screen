@@ -12,34 +12,34 @@
       <a class="btn btn-sm btn-outline-danger" href="{{ '/on_tap_next_editor' }}">On Tap Next Editor</a>
     </div>
   </div>
-  <div class="row my-1">
-    <div class="col-6">
-      <div class="form-group">
-        <label for="">Screen Id Number</label>
-        <select id="beerscreen-display-id" class="form-control" name="">
-          {% for beerscreenId in beerscreenSettingsIds %}
-            <option value="{{ beerscreenId }}">{{ beerscreenId }}</option>
-          {% endfor %}
-        </select>
-      </div>
-    </div>
-    <div class="col-6">
-      <label for="screen-btns">Add or Delete Beer displays</label>
-      <div id="screen-btns" class="form-group">
-        <div id="add-beerscreen-template-btn" class="btn btn-sm btn-outline-info">+</div>
-        <div id="del-beerscreen-template-btn" class="btn btn-sm btn-outline-danger">-</div>
-      </div>
-    </div>
-  </div>
-  <hr>
-
   {% from "includes/_formhelpers.html" import  render_field %}
   <!-- <form id="edit_form" method="POST" action="" onsubmit="alert('crap in a bag!'); return true"> -->
   <div id="user-id-{{ currentUserId }}" class="user-id-edit-beerlist">
     <div id="edit-beerlist-screen-id-{{ beerlistScreenId }}">
       <form id="edit-beerlist-form" method="POST" action="" onsubmit="">
-        <div id="beerlist">
 
+        <div class="row my-1">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="beerscreen-display-id">Screen Id Number</label>
+              <select id="beerscreen-display-id" class="form-control" name="beerscreen-display-id">
+                {% for beerscreenId in beerscreenSettingsIds %}
+                  <option value="{{ beerscreenId }}">{{ beerscreenId }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="col-6">
+            <label for="screen-btns">Add or Delete Beer displays</label>
+            <div id="screen-btns" class="form-group">
+              <div id="add-beerscreen-template-btn" class="btn btn-sm btn-outline-info">+</div>
+              <div id="del-beerscreen-template-btn" class="btn btn-sm btn-outline-danger">-</div>
+            </div>
+          </div>
+        </div>
+        <hr>
+
+        <div id="beerlist">
             {% for beers in beerlist %}
             <div class="beers">
                 <div class="form-group">
@@ -78,13 +78,11 @@
             </div>
             {% endfor %}
         </div>
-
         <div id="ticker-message">
           <label for="ticker-text">Ticker Message:</label><br>
           <textarea id="ticker-text" name="ticker-text" rows="8" cols="50" placeholder="Ticker news can be input here...">{{ tickerText }}</textarea>
         </div>
         <hr>
-
 
         <div class="form-group">
             <div class="d-flex flex-row justify-content-end beer-list-btns">

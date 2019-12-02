@@ -502,6 +502,13 @@ def delete_beer(beer_id):
 @list_history.route('/edit_beer_list', methods=['GET', 'POST'])
 @login_required
 def edit_beer_list():
+    print("``````````````````````````````````````````````````````````````````")
+    print("``````````````````````````````````````````````````````````````````")
+    print("EDIT_BEER_LIST")
+    print("``````````````````````````````````````````````````````````````````")
+    print("``````````````````````````````````````````````````````````````````")
+
+    screenId = 1
 
     beerscreenSettings = db.session.query(
         Beerscreen_settings.beer_settings_screen_id
@@ -530,7 +537,6 @@ def edit_beer_list():
         }
         beersDropdown.append(beer)
 
-
     beers = db.session.query(
         List_history.id,
         List_history.name,
@@ -549,10 +555,9 @@ def edit_beer_list():
         List_current.coming_soon,
         ).outerjoin(List_current, List_history.id == List_current.id_history
         ).filter(List_current.venue_db_id == current_user.id
-        ).filter(List_current.beer_screen_id == 1
+        ).filter(List_current.beer_screen_id == screenId
         ).order_by(List_current.id.asc()
         ).all()
-
     beerlist = []
     for b in beers:
         beer = {}
@@ -571,18 +576,6 @@ def edit_beer_list():
         beer['defaultDropdown'] = getDefaultSelect(b.id_dropdown)
         beerlist.append(beer)
 
-    # for b in beerlist:
-        # print(b['defaultDropdown'].beer_of_month)
-        # print(b['defaultDropdown'].id_history )
-
-    # beerselect = []
-    # for i, b in enumerate(beerlist):
-        # print('i = {}, '.format(i), b['id_dropdown'], b['name'], b['id'])
-    #     beerselect.append(getDefaultSelect(b['id_dropdown']))
-    #
-    # for b in beerselect:
-        # print(b.id_history)
-
     tickerInfo = db.session.query(
         Ticker.id,
         Ticker.ticker_text,
@@ -591,65 +584,69 @@ def edit_beer_list():
         Ticker_type_id.ticker_type
     ).join(Ticker_type_id, Ticker_type_id.ticker_type_id_fk == Ticker.ticker_type
     ).filter(Ticker.venue_db_id == current_user.id
+    ).filter(Ticker.ticker_screen_id == screenId
     ).first()
     if (tickerInfo):
         tickerText = tickerInfo.ticker_text
     else:
         tickerText = ''
-        newTicker = Ticker(ticker_text='', tickerscreen_id='1', venue_db_id=current_user.id)
+        newTicker = Ticker(ticker_text='', tickerscreen_id=screenId, venue_db_id=current_user.id)
         db.session.add(newTicker)
         db.session.commit()
 
     if request.method == 'POST':
         rdata = request.form
 
-        print(rdata)
-        print(len(rdata))
 
+        # print("rdata: {}".format(rdata))
+        print("`````````````````````````````````````````````````````````")
+        print("`````````````````````````````````````````````````````````")
+        for data in rdata:
+            print("data: {}".format(data))
+            # print("len(rdata): {}".format(len(rdata)))
+        print("`````````````````````````````````````````````````````````")
+        print("`````````````````````````````````````````````````````````")
         newData = rdata.copy()
+        print("newData: {}".format(newData))
+        print("`````````````````````````````````````````````````````````")
+        screenId = newData.get("beerscreen-display-id")
+        print("screenId: {}".format(screenId))
+        print("`````````````````````````````````````````````````````````")
         tickerText = newData.popitem()[1]
-        print(tickerText)
+        print("tickerText: {}".format(tickerText))
+        print("`````````````````````````````````````````````````````````")
+        print("`````````````````````````````````````````````````````````")
 
         beerCandidateList = []
-
         for i, (key, value) in enumerate(rdata.items()):
-            print(key)
-            if key != 'ticker-text':
-                print(key, value)
+            print("620 -- key: {}".format(key))
+            if key != 'ticker-text' and key != 'beerscreen-display-id':
+                print("622 -- key, value: {}, {}".format(key, value))
                 beerCandidate = {
                     "id_dropdown": "",
                     "id_history": "",
                     "bom": "",
                     "cs": ""
                 }
-                print(i+1 , key, value)
+                print("629 -- i+1 , key, value: {} -- {} -- {}".format(i+1, key, value))
                 splitData = key.split('_')
-                print(splitData)
-
+                print("631 -- splitData: {}".format(splitData))
                 splitKeyName = splitData[0]
                 splitKeyIter = splitData[1]
-
-
                 if splitKeyName == 'beer':
                     beerCandidate['id_dropdown'] = splitKeyIter
                     beerCandidate['id_history'] = value
                     beerCandidate['bom'] = 0
                     beerCandidate['cs'] = 0
-
-                    print(beerCandidate)
-
+                    print("beerCandidate: {}".format(beerCandidate))
                     beerCandidateList.append(beerCandidate)
-
-
         for i, (key, value) in enumerate(rdata.items()):
-
-            if key != 'ticker-text':
+            if key != 'ticker-text' and key != 'beerscreen-display-id':
                 print(i+1 , key, value)
                 splitData = key.split('_')
                 splitKeyName = splitData[0]
                 splitKeyIter = splitData[1]
                 splitKeyIterNum = int(splitKeyIter)
-
                 if splitKeyName == 'beer-of-month':
                     print(splitKeyName + "_" + splitKeyIter + " ---- value= " + value)
                     print(splitKeyIter)
@@ -670,13 +667,18 @@ def edit_beer_list():
                         beerCandidateList[splitKeyIterNum-1]['cs'] = False
 
         # for b in beerCandidateList:
-            print(b)
+        #     print(b)
 
-        beerCandidate = List_current.query.filter_by(id_dropdown=1, venue_db_id=current_user.id).first()
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        beerCandidate = List_current.query.filter_by(id_dropdown=1, beer_screen_id=screenId, venue_db_id=current_user.id).first()
         print("beerCandidate: {}".format(beerCandidate))
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+
 
         for x in range(1, len(beerCandidateList) + 1, 1):
-            beerCandidate = List_current.query.filter_by(id_dropdown=x, venue_db_id=current_user.id).first()
+            beerCandidate = List_current.query.filter_by(id_dropdown=x, beer_screen_id=screenId, venue_db_id=current_user.id).first()
             print("beerCandidate: {}".format(beerCandidate))
             beerCandidate.id_history = beerCandidateList[x-1]['id_history']
             beerCandidate.beer_of_month = beerCandidateList[x-1]['bom']
@@ -685,7 +687,7 @@ def edit_beer_list():
 
         if (tickerInfo):
             # print(tickerText)
-            tickerCandidate = Ticker.query.filter_by(venue_db_id=current_user.id).first()
+            tickerCandidate = Ticker.query.filter_by(ticker_screen_id=screenId, venue_db_id=current_user.id).first()
             tickerCandidate.ticker_text = tickerText
             db.session.commit()
 
@@ -698,9 +700,9 @@ def edit_beer_list():
         pusher_client.trigger('my-event-channel', 'new-event', { 'message': settings })
         #PUSHER
         #######################################
-
-
-    return render_template('edit_beer_list.html', title='Testing', legend='Testing', currentUserId=current_user.id, beersDropdown=beersDropdown, beerlist=beerlist, tickerText=tickerText, beerscreenSettingsIds=beerscreenSettingsIds)
+        flash('Beer List Updated', 'success')
+        return redirect(url_for('list_history.edit_beer_list'))
+    return render_template('edit_beer_list.html', title='Edit Beerlist', legend='Edit Beerlist', currentUserId=current_user.id, beersDropdown=beersDropdown, beerlist=beerlist, tickerText=tickerText, beerscreenSettingsIds=beerscreenSettingsIds)
 
 
 

@@ -550,7 +550,13 @@ class BeerTemplate {
                       bomCheckbox.id = `bom-beer_${beer.id_dropdown}`;
                       bomCheckbox.setAttribute("type", "checkbox");
                       bomCheckbox.setAttribute("name", `beer-of-month_${beer.id_dropdown}`);
-                      bomCheckbox.setAttribute("value", `1`);
+                      console.log(`beer.beer_of_month = ${beer.beer_of_month}`);
+                      if (beer.beer_of_month == true) {
+                        bomCheckbox.setAttribute("value", beer.beer_of_month);
+                      } else {
+                        bomCheckbox.setAttribute("value", beer.beer_of_month);
+                      }
+
                       var spanBomTextNode = document.createElement("span");
                       spanBomTextNode.innerHTML = " Beer of the month";
                       bomCheckLabelNode.htmlFor = bomCheckbox.id;

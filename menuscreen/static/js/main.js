@@ -1277,7 +1277,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     }
   }
 
-    // Edit beerlist submit
+    // Edit beer list submit
     const editBeerlistFormSubmit = function(e) {
       console.log('CLICK EDIT BEERLIST FORM SUBMIT');
       const editBeerlistForm = document.querySelector(UISelectors.editBeerlistForm);
@@ -1287,7 +1287,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
         editBeerlistForm.submit();
         loadPusher();
       })(loadPusher);
-      e.preventDefault();
+      // e.preventDefault();
     }
 
       // Settings form submit
