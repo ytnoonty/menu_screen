@@ -38,13 +38,24 @@ def _logged_in_user_data():
 
     elif (data):
         print("NOT LOGGED IN")
-        print(data['userName'])
-        current_user_id = getVenueId(data['userName'])
-        print(current_user_id)
-
-        data['userId'] = current_user_id
         print("data: {}".format(data))
-        data = get_user_data(data)
+        if (hasattr(data, 'userName')):
+            print("data['userName']: {}".format(data['userName']))
+            print("HASATTR")
+        # try:
+        #     attr = getattr(data, 'userName')
+        #     print(attr)
+        # except AttributeError:
+        #     print ("DOESN'T EXIST")
+        # else:
+        #     print ("EXISTS")
+        #     print(data['userName'])
+        #     current_user_id = getVenueId(data['userName'])
+        #     print(current_user_id)
+        #
+        #     data['userId'] = current_user_id
+        #     print("data: {}".format(data))
+        #     data = get_user_data(data)
     else:
         print("NOT LOGGED IN AND NO URL INFO")
         data = {}

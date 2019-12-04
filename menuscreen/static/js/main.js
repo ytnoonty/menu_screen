@@ -18,7 +18,7 @@ const UserCtrl = (function() {
 
   async function fetchUserData(userData) {
     // console.log("FETCHING USER DATA");
-    // console.log(userData);
+    console.log(userData);
     const res = await fetch('/_logged_in_user_data', {
       method: "POST",
       credentials: "include",
@@ -29,7 +29,7 @@ const UserCtrl = (function() {
       })
     });
     const data = await res.json();
-    // console.log(data);
+    console.log(data);
     return data;
   }
 
@@ -915,7 +915,8 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
   async function setScreenInfo(displayData) {
     // // update all screens
     // // update edit_beer_list
-    UICtrl.callAddBeerToListEditor(displayData);
+    // UICtrl.callAddBeerToListEditor(displayData);
+    UICtrl.callRepaintBeerlistEditor(displayData);
     // // repaint beers_tv_screen
     UICtrl.callUpdateDisplayScreen(displayData);
     // // repaint draft_beers_print
@@ -931,26 +932,49 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
   }
 
   async function getUserInfo(data) {
-    console.log(data);
+    // console.log(data);
     let userNameScreenId = UserCtrl.callGetUserNameFromURL();
-    console.log(userNameScreenId);
+    // console.log(userNameScreenId);
     // get the current screenId from the select to query for the current_list of beers
     if (document.querySelector(UISelectors.beerscreenDisplayId) != null) {
       let beerscreenDisplayId = document.querySelector(UISelectors.beerscreenDisplayId).value;
-      console.log(beerscreenDisplayId);
+      // console.log(beerscreenDisplayId);
+      userNameScreenId.screenNumber = beerscreenDisplayId;
+    } else if (document.querySelector(UISelectors.beerSettingsScreenId) != null) {
+      let beerscreenDisplayId = document.querySelector(UISelectors.beerSettingsScreenId).value;
+      // console.log(beerscreenDisplayId);
       userNameScreenId.screenNumber = beerscreenDisplayId;
     }
     userNameScreenId.userId = data.venue_db_id;
+    let x;
+    if (userNameScreenId.userId != undefined){
+      console.log("DATA IS DEFINED");
+    } else {
+      console.log("DATA NOT UNDEFINED");
+       x = await UserCtrl.callFetchUserData(data);
+       if (x.username) {
+         userNameScreenId.userName = x.username[0];
+         userNameScreenId.userId = x.id[0];
+       } else {
+         x = await UserCtrl.callGetUserNameFromURL();
+         console.log(x);
+         x = await UserCtrl.callFetchUserData(x);
+         console.log(x);
+
+       }
+    }
+
     console.log(userNameScreenId);
     return userNameScreenId;
   }
 
   async function updateScreens(data) {
-    console.log("line 947 - udpateScreens");
-    console.log(data);
+    console.log("line 963 - udpateScreens");
+    // console.log(data);
     if (data !== undefined) {
       // console.log(data.updated);
-      if (data.updated == true) {
+      if (data.updated) {
+        console.log(data);
         let userNameScreenId = await getUserInfo(data);
         console.log(userNameScreenId);
         let displayData = await getScreenInfo(userNameScreenId);
@@ -964,6 +988,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
   async function initScreens(data) {
     await updateScreens(data);
   }
+
   async function addUpdateScreens(data) {
     // console.log("///////////////////////////////////////////////////////////////////////////");
     console.log("ADD UPDATE SCREENS");
@@ -1732,12 +1757,12 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
   // Public methods
   return {
     init: function(){
-      loadUpdatePusher();
-      loadPusher();
-      addBeerToDbPusher();
-      editBeerToDbPusher();
-      delBeerFromDbPusher();
-      loadWinePusher();
+      // loadUpdatePusher();
+      // loadPusher();
+      // addBeerToDbPusher();
+      // editBeerToDbPusher();
+      // delBeerFromDbPusher();
+      // loadWinePusher();
 
       // Show flash message div and then hide after 2.5 seconds
       UICtrl.callHideFlashMsg();
@@ -1745,8 +1770,8 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       // WineCtrl.callFetchCurrentWinelist(UICtrl.callUpdateWineTabletScreen);
       // Call load event listeners function
       loadEventListeners();
-      // console.log("TRYING TO INITIALIZE THE SCREENS!!!!!!!!!")
-      initScreens({"updated":"True"});
+      console.log("TRYING TO INITIALIZE THE SCREENS!!!!!!!!!")
+      initScreens({"updated":"true"});
     }
   }
 

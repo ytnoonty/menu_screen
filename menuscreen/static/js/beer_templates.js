@@ -527,7 +527,6 @@ class BeerTemplate {
                       var breakNode = document.createElement("br");
                       var hrEl = document.createElement("hr");
 
-
                       selectDivNode.classList = "form-group";
                       selectNode.classList = `form-control edit-beer edit-beer-${beer.id_dropdown}`;
 
@@ -547,17 +546,13 @@ class BeerTemplate {
 
                       // edit_beer_list add beer of the month checkbox
                       bomDivNode.classList.add("form-group");
+                      // have to put a marginLeft in to compensate for textNode created when page is rendered
+                      bomDivNode.style.marginLeft = "4px";
                       bomCheckbox.id = `bom-beer_${beer.id_dropdown}`;
                       bomCheckbox.setAttribute("type", "checkbox");
                       bomCheckbox.setAttribute("name", `beer-of-month_${beer.id_dropdown}`);
-                      console.log(`beer.beer_of_month = ${beer.beer_of_month}`);
-                      if (beer.beer_of_month == true) {
-                        bomCheckbox.setAttribute("value", beer.beer_of_month);
-
-                      } else {
-                        bomCheckbox.setAttribute("value", beer.beer_of_month);
-                      }
-
+                      bomCheckbox.setAttribute("value", beer.beer_of_month);
+                      bomCheckbox.checked = beer.beer_of_month;
                       var spanBomTextNode = document.createElement("span");
                       spanBomTextNode.innerHTML = " Beer of the month";
                       bomCheckLabelNode.htmlFor = bomCheckbox.id;
@@ -569,10 +564,13 @@ class BeerTemplate {
                       // edit_beer_list add coming soon checkbox
                       comingSoonDivNode.classList.add("form-group");
                       comingSoonDivNode.classList.add("pl-5");
+                      // have to put a marginLeft in to compensate for textNode created when page is rendered
+                      comingSoonDivNode.style.marginLeft = "4px";
                       comingSoonCheckbox.id = `comingSoon-beer_${beer.id_dropdown}`;
                       comingSoonCheckbox.setAttribute("type", "checkbox");
                       comingSoonCheckbox.setAttribute("name", `coming-soon_${beer.id_dropdown}`);
-                      comingSoonCheckbox.setAttribute("value", `1`);
+                      comingSoonCheckbox.setAttribute("value", beer.coming_soon);
+                      comingSoonCheckbox.checked = beer.coming_soon;
                       var spanBomTextNode = document.createElement("span");
                       spanBomTextNode.innerHTML = " Coming soon";
                       comingSoonCheckLabelNode.htmlFor = comingSoonCheckbox.id;

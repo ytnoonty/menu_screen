@@ -88,8 +88,14 @@ def add_font_size():
 @login_required
 def beerscreen_settings():
     form = BeerscreenSettingsForm(request.form)
+    print(form)
 
-    settings = _getBeerSettings(current_user.id)
+    screenData = {
+        "userId": current_user.id,
+        "screenNumber": "1",
+    }
+
+    settings = _getBeerSettings(screenData)
     # print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     # print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     # print(settings)
