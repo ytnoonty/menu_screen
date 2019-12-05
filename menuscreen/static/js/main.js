@@ -17,6 +17,7 @@ const UserCtrl = (function() {
   }
 
   async function fetchUserData(userData) {
+    // users-routes.py
     // console.log("FETCHING USER DATA");
     console.log(userData);
     const res = await fetch('/_logged_in_user_data', {
@@ -167,7 +168,7 @@ const BeerCtrl = (function(){
   }
 
   async function fetchNextBeerlist(userData) {
-    // console.log(userData);
+    console.log(userData);
     const res = await fetch('/_getNextBeerlist', {
       method: "POST",
       credentials: "include",
@@ -178,7 +179,7 @@ const BeerCtrl = (function(){
       })
     });
     const data = await res.json();
-    // console.log(data);
+    console.log(data);
     return data;
   }
 
@@ -522,12 +523,28 @@ const ScreenSettingsCtrl = (function() {
     return data;
   }
 
-  async function fetchNumberOfBeerscreens() {
-    return await fetch('/_get_number_of_beer_screens')
-    .then((res) => res.json())
-    .then((data) => {
-      return data;
+  async function fetchNumberOfBeerscreens(userData) {
+    // displays-routes.py
+    console.log(userData);
+    const res = await fetch('/_get_number_of_beer_screens', {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify(userData),
+      cache: "no-cache",
+      headers: new Headers({
+        "content-type": "application/json"
+      })
     });
+    const data = await res.json();
+    console.log(data);
+    return data;
+
+    // if no data passed in can use this code
+    // return await fetch('/_get_number_of_beer_screens')
+    // .then((res) => res.json())
+    // .then((data) => {
+    //   return data;
+    // });
   }
 
   return {
@@ -535,7 +552,8 @@ const ScreenSettingsCtrl = (function() {
       return await fetchBeerscreenSettings(data);
     },
     callFetchNumberOfBeerScreens: async function(data) {
-      return await fetchNumberOfBeerscreens();
+      // console.log(data);
+      return await fetchNumberOfBeerscreens(data);
     }
   }
 })();
@@ -864,33 +882,33 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     // get the current beerlist for user and screenId
     // query the DB for the current beerlist
     let currentBeers = await BeerCtrl.callFetchCurBeerlist(userNameScreenId);
-    // console.log(currentBeers);
+    console.log(currentBeers);
     // query the DB for the next beerlist
     let nextBeers = await BeerCtrl.callFetchNextBeerlist(userNameScreenId);
-    // console.log(nextBeers);
+    console.log(nextBeers);
     let beerslistTotal = await BeerCtrl.callFetchBeerhistoryList(userNameScreenId);
-    // console.log(beerslistTotal);
+    console.log(beerslistTotal);
     // query the DB for the ticker news info
     let bottleBeerlist = await BeerCtrl.callFetchBottleBeerlist(userNameScreenId);
-    // console.log(bottleBeerlist);
+    console.log(bottleBeerlist);
     let tickerInfo = await TickerCtrl.callFetchTickerInfo(userNameScreenId);
-    // console.log(tickerInfo)
+    console.log(tickerInfo)
     // query the DB for the events
     let events = await EventCtrl.callGetCurrentEventlist(userNameScreenId);
-    // console.log(events);
+    console.log(events);
     let userData = await UserCtrl.callFetchUserData(userNameScreenId);
-    // console.log(userData);
+    console.log(userData);
     let screenSettings = await ScreenSettingsCtrl.callFetchBeerscreenSettings(userNameScreenId);
-    // console.log(screenSettings);
+    console.log(screenSettings);
     if (userData.id !== undefined){
       userData = userData.id[0];
     } else {
       userData = userNameScreenId.userId;
     }
-    // console.log(userData);
+    console.log(userData);
     let onNext;
     if (Object.getOwnPropertyNames(currentBeers).length >= 1) {
-      // console.log(currentBeers);
+      console.log(currentBeers);
       currentBeers.forEach(beer => {
         onNext = beer.id_on_next;
         nextBeers.push(onNext);
@@ -972,7 +990,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     console.log("line 963 - udpateScreens");
     // console.log(data);
     if (data !== undefined) {
-      // console.log(data.updated);
+      console.log(data.updated);
       if (data.updated) {
         console.log(data);
         let userNameScreenId = await getUserInfo(data);
@@ -986,6 +1004,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
 
 
   async function initScreens(data) {
+    console.log(data);
     await updateScreens(data);
   }
 
@@ -1700,19 +1719,24 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       // split the curren window url to replace with the target url info
       currentWindowSplitURL = currentWindowURL.split('/');
       console.log(currentWindowSplitURL);
-      let currentPage = currentWindowSplitURL[3];
-      let currentUser = currentWindowSplitURL[4];
-      let currentScreenNumber = currentWindowSplitURL[5];
-      console.log(`${currentPage} - ${currentUser} - ${currentScreenNumber}`);
+      let urlData = {
+         "currentPage": currentWindowSplitURL[3],
+         "userName": currentWindowSplitURL[4],
+         "screenNumber": currentWindowSplitURL[5],
+      };
+      console.log(`${urlData.currentPage} - ${urlData.userName} - ${urlData.screenNumber}`);
+      let userData = await UserCtrl.callFetchUserData(urlData);
+      let userId = userData.id[0];
+      console.log(userId);
       // replace fifth element of url with the previous screen number
-      if (currentScreenNumber > 1) {
-        currentScreenNumber--;
+      if (urlData.screenNumber > 1) {
+        urlData.screenNumber--;
       } else {
-        let screenNumberArr = await ScreenSettingsCtrl.callFetchNumberOfBeerScreens();
+        let screenNumberArr = await ScreenSettingsCtrl.callFetchNumberOfBeerScreens(userId);
         let screenNumberLength = screenNumberArr.length;
-        currentScreenNumber = screenNumberLength;
+        urlData.screenNumber = screenNumberLength;
       }
-      let targetScreenNumber = currentScreenNumber;
+      let targetScreenNumber = urlData.screenNumber;
       console.log(targetScreenNumber);
       currentWindowSplitURL[5] = targetScreenNumber;
       console.log(currentWindowSplitURL);
@@ -1722,6 +1746,8 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       // redirect to new page
       window.location.replace(newPage);
     }
+
+
     // on beers_display_screen switch to next screen accordingly
     const changeToNextBeersDisplayScreen = async (e) => {
       // console.log(e.target);
@@ -1731,19 +1757,24 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       // split the curren window url to replace with the target url info
       currentWindowSplitURL = currentWindowURL.split('/');
       console.log(currentWindowSplitURL);
-      let currentPage = currentWindowSplitURL[3];
-      let currentUser = currentWindowSplitURL[4];
-      let currentScreenNumber = currentWindowSplitURL[5];
-      console.log(`${currentPage} - ${currentUser} - ${currentScreenNumber}`);
+      let urlData = {
+         "currentPage": currentWindowSplitURL[3],
+         "userName": currentWindowSplitURL[4],
+         "screenNumber": currentWindowSplitURL[5],
+      };
+      console.log(`${urlData.currentPage} - ${urlData.userName} - ${urlData.screenNumber}`);
+      let userData = await UserCtrl.callFetchUserData(urlData);
+      let userId = userData.id[0];
+      console.log(userId);
       // replace fifth element of url with the previous screen number
-      let screenNumberArr = await ScreenSettingsCtrl.callFetchNumberOfBeerScreens();
+      let screenNumberArr = await ScreenSettingsCtrl.callFetchNumberOfBeerScreens(userId);
       let screenNumberLength = screenNumberArr.length;
-      if (currentScreenNumber < screenNumberLength) {
-        currentScreenNumber++;
+      if (urlData.screenNumber < screenNumberLength) {
+        urlData.screenNumber++;
       } else {
-        currentScreenNumber = 1;
+        urlData.screenNumber = 1;
       }
-      let targetScreenNumber = currentScreenNumber;
+      let targetScreenNumber = urlData.screenNumber;
       console.log(targetScreenNumber);
       currentWindowSplitURL[5] = targetScreenNumber;
       console.log(currentWindowSplitURL);
@@ -1757,21 +1788,45 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
   // Public methods
   return {
     init: function(){
-      // loadUpdatePusher();
-      // loadPusher();
-      // addBeerToDbPusher();
-      // editBeerToDbPusher();
-      // delBeerFromDbPusher();
-      // loadWinePusher();
+      loadUpdatePusher();
+      loadPusher();
+      addBeerToDbPusher();
+      editBeerToDbPusher();
+      delBeerFromDbPusher();
+      loadWinePusher();
 
       // Show flash message div and then hide after 2.5 seconds
       UICtrl.callHideFlashMsg();
-      // BeerCtrl.callFetchCurrentBeerList(UICtrl.callUpdateDisplayScreen);
-      // WineCtrl.callFetchCurrentWinelist(UICtrl.callUpdateWineTabletScreen);
       // Call load event listeners function
       loadEventListeners();
+
       console.log("TRYING TO INITIALIZE THE SCREENS!!!!!!!!!")
-      initScreens({"updated":"true"});
+      // get the current window URL
+      let currentWindowURL = window.location.href;
+      console.log(currentWindowURL);
+      // split the curren window url to replace with the target url info
+      currentWindowSplitURL = currentWindowURL.split('/');
+      console.log(currentWindowSplitURL);
+      let urlData = {
+         "currentPage": currentWindowSplitURL[3],
+         "userName": currentWindowSplitURL[4],
+         "screenNumber": currentWindowSplitURL[5],
+      };
+      console.log(`${urlData.currentPage} - ${urlData.userName} - ${urlData.screenNumber}`);
+      const getUserId = async data => {
+        let userData = await UserCtrl.callFetchUserData(data);
+        let userId = userData.id[0];
+        return userId;
+      }
+      let userId = getUserId(urlData);
+      console.log(userId);
+      if (urlData.userName != undefined) {
+        initScreens({"updated":"true", "userName":urlData.userName, "userId":userId, "screenNumber": urlData.screenNumber, });
+      } else {
+        initScreens({"updated":""})
+      }
+
+
     }
   }
 

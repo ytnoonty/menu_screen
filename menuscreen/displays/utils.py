@@ -17,9 +17,10 @@ def _getTickerInfo(screenData):
     ).first()
     return ticker
 
-def _getNumberOfBeerScreens():
+def _getNumberOfBeerScreens(id):
+    print("id: {}".format(id))
     numberOfScreens = db.session.query(
         Beerscreen_settings.beer_settings_screen_id,
-    ).filter(Beerscreen_settings.venue_db_id == current_user.id
+    ).filter(Beerscreen_settings.venue_db_id == id
     ).all()
     return numberOfScreens

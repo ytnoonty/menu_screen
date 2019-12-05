@@ -127,11 +127,15 @@ def getTickerInfo():
     return jsonify(tickerInfo)
 
 @displays.route('/_get_number_of_beer_screens', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def _get_number_of_beer_screens():
-    numberOfScreens = _getNumberOfBeerScreens()
+    data = request.get_json()
+    numberOfScreens = _getNumberOfBeerScreens(data)
+    print("*****************************************************")
     print("*****************numberOfScreens*********************")
+    print("displays. /_get_number_of_beer_screens")
     print("numberOfScreens: {}".format(numberOfScreens))
+    print("*****************************************************")
     print("*****************************************************")
     return jsonify(numberOfScreens)
 

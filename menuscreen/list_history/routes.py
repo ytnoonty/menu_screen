@@ -227,11 +227,11 @@ def _getNextBeerlist():
         print("NOT LOGGED IN")
         print(data['userName'])
         current_user_id = getVenueId(data['userName'])
-        print(current_user_id)
+        print("current_user_id: {}".format(current_user_id))
 
         data['userId'] = current_user_id
-        print(data)
-        beerlist = _getOnTapNextBeerlist(current_user_id)
+        print("data: {}".format(data))
+        beerlist = _getOnTapNextBeerlist(data)
     else:
         print("NOT LOGGED IN AND NO URL INFO")
         beerlist = {}
