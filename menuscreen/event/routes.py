@@ -29,13 +29,11 @@ def _get_event_current_list():
 
     elif (data):
         print("NOT LOGGED IN")
-        print(current_user_id)
-
         current_user_id = getVenueId(data['userName'])
-
+        print(current_user_id)
         data['userId'] = current_user_id
         print("data: {}".format(data))
-        data = _getEventsSortAsc(current_user_id)
+        data = _getEventsSortAsc(data)
     else:
         print("NOT LOGGED IN AND NO URL INFO")
         data = {}

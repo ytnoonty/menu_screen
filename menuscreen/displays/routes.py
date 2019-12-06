@@ -106,9 +106,8 @@ def getTickerInfo():
         tickerInfo['tickery_type'] = data.ticker_type
     elif (data):
         print("NOT LOGGED IN")
-        print(current_user_id)
-
         current_user_id = getVenueId(data['userName'])
+        print(current_user_id)
         data['userId'] = current_user_id
         print("data: {}".format(data))
         data = _getTickerInfo(data)

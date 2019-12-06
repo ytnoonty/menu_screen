@@ -62,6 +62,7 @@ const UserCtrl = (function() {
 
 const UpdateCtrl = (function() {
   async function fetchAddUpdateScreenUI() {
+    // list_history-routes.py
     console.log("FETCHING SCREEN ADD UPDATE STATUS");
     const fetchResponse = await fetch('/_add_update_ui');
     const data = await fetchResponse.json();
@@ -70,6 +71,7 @@ const UpdateCtrl = (function() {
   }
 
   async function fetchDeleteUpdateScreenUI() {
+    // list_history-routes.py
     console.log("FETCHING SCREEN DELETE UPDATE STATUS");
     const fetchResponse = await fetch('/_delete_update_ui');
     const data = await fetchResponse.json();
@@ -1422,8 +1424,14 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     }
 
     async function delBeerFromBeerlist(e) {
+      // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+      // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
       console.log('CLICK MINUS BUTTON TO DELETE BEER FROM LISTS');
+      // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+      // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
       let userNameScreenId = UserCtrl.callGetUserNameFromURL();
+      console.log(userNameScreenId);
+
       let screenNumber = document.querySelector(UISelectors.beerscreenDisplayId).value;
       userNameScreenId.screenNumber = screenNumber;
       userNameScreenId.venueName = "";
@@ -1437,6 +1445,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       let dataToSend = {
         "userNameScreenId": userNameScreenId,
         "beerIdToBeDeleted": beerIdToBeDeleted,
+        "venue_db_id": "",
       };
       let beerData = await BeerCtrl.callFetchDeleteBeerFromCurrentListDb(dataToSend);
       console.log(beerData);
@@ -1446,7 +1455,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       let beer_id = UICtrl.callDeleteBeerFromListEditor(beerData.userNameScreenId.userId);
       // let res = await UserCtrl.callFetchUserData(userNameScreenId);
       // deletes the beer from the DB using the ID of the beer return deleting on the UI
-      // UpdateCtrl.callFetchDeleteUpdateScreenUI();
+      UpdateCtrl.callFetchDeleteUpdateScreenUI();
       e.preventDefault();
     }
 
