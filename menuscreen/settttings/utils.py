@@ -399,7 +399,9 @@ def _getBeerSettings(screenData):
         # font for headings of ticker ie. 'Beer 'O the Month, Tapping Soon and Shamrock News:'
         "beerTickerFont" : settings_db.beer_ticker_font,
         "beerTickerFontColor" : settings_db.beer_ticker_font_color,
-        "beerTickerFontSize" : beerTickerFontSize.font_sizes,
+        # "beerTickerFontSize" : beerTickerFontSize.font_sizes,
+        # "beerTickerFontSize" : settings_db.beer_ticker_font_size,
+        "beerTickerFontSize" : 5,
         "beerTickerFontBoldToggle" : settings_db.beer_ticker_font_bold_toggle,
         "beerTickerFontItalicToggle" : settings_db.beer_ticker_font_italic_toggle,
         "beerTickerFontUnderlineToggle" : settings_db.beer_ticker_font_underline_toggle,

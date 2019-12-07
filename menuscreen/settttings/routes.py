@@ -86,6 +86,14 @@ def add_font_size():
 @settttings.route('/beerscreen_settings', methods=['GET', 'POST'])
 @login_required
 def beerscreen_settings():
+    print("``````````````````````````````````````````````````````````````````")
+    print("``````````````````````````````````````````````````````````````````")
+    print("BEERSCREEN_SETTINGS")
+    print("``````````````````````````````````````````````````````````````````")
+    print("``````````````````````````````````````````````````````````````````")
+
+    screenId = 1
+
     form = BeerscreenSettingsForm(request.form)
     print(form)
 
@@ -95,11 +103,11 @@ def beerscreen_settings():
     }
 
     settings = _getBeerSettings(screenData)
-    # print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-    # print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-    # print(settings)
-    # print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-    # print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+    print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+    print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+    print(settings)
+    print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+    print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
 
 
     form = BeerscreenSettingsForm(request.form,
@@ -218,14 +226,25 @@ def beerscreen_settings():
         templateName = settings['templateName'],
     )
 
+    beerscreenSettings = db.session.query(
+    Beerscreen_settings.beer_settings_screen_id
+    ).filter(Beerscreen_settings.venue_db_id == current_user.id
+    ).all()
+    beerscreenSettingsIds = []
+    for id in beerscreenSettings:
+        beerscreenSettingsIds.append(id[0])
+    print("beerscreenSettingsIds: {}".format(beerscreenSettingsIds))
+
     numOfScreens = []
-    for x in range(1, 2, 1):
+    for x in range(1, len(beerscreenSettingsIds) + 1, 1):
         number = {
             "id":x,
             "number":x,
         }
         numOfScreens.append(number)
     screenNumSettings = numOfScreens
+    print("screenNumSettings: {}".format(screenNumSettings))
+
     directions = [
         {
             "id":"to bottom",
@@ -583,7 +602,7 @@ def beerscreen_settings():
 
         flash('Beerscreen Settings Updated', 'success')
         return redirect(url_for('settttings.beerscreen_settings'))
-    return render_template('beerscreen_settings.html', title='Beerscreen settings', form=form, settings=settings)
+    return render_template('beerscreen_settings.html', title='Beerscreen settings', currentUserId=current_user.id, form=form, settings=settings)
 
 
 # beerscreen_settings page

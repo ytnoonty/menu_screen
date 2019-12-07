@@ -1442,4 +1442,31 @@ class BeerTemplate {
     });
   }
 
+  repaintBeerscreenSettingsTemplate(displayData) {
+    console.log(displayData);
+    const { screenSettings } = displayData;
+    console.log(screenSettings);
+    let beerscreenSettingsDiv = document.querySelector('#beerscreen_settings');
+    // console.log(beerscreenSettingsDiv);
+    // beerscreenTemplate select
+    // clear the beerscreenSettings UI
+    beerscreenSettingsDiv.innerHTML = ``;
+    // build screen ID select
+    let beerscreenIdSelectHTML = `
+      <div class="row border border-secondary rounded mb-2">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="beerscreenTemplate">Screen Template</label>
+            <select id="beerscreenTemplate" class="form-control" name="beerscreenTemplate">
+              <option selected="" value="1">2 Columns, Name, ABV, IBU</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    `;
+
+    beerscreenSettingsDiv.innerHTML += beerscreenIdSelectHTML;
+
+  }
+
 }

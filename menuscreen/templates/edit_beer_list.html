@@ -21,12 +21,17 @@
         <div class="row my-1">
           <div class="col-6">
             <div class="form-group">
+
+
               <label for="beerscreen-display-id">Screen Id Number</label>
               <select id="beerscreen-display-id" class="form-control" name="beerscreen-display-id">
                 {% for beerscreenId in beerscreenSettingsIds %}
                   <option value="{{ beerscreenId }}">{{ beerscreenId }}</option>
                 {% endfor %}
               </select>
+
+
+              
             </div>
           </div>
           <div class="col-6">

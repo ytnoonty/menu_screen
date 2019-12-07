@@ -515,8 +515,8 @@ def edit_beer_list():
     ).filter(Beerscreen_settings.venue_db_id == current_user.id
     ).all()
     beerscreenSettingsIds = []
-    for data in beerscreenSettings:
-        beerscreenSettingsIds.append(data[0])
+    for id in beerscreenSettings:
+        beerscreenSettingsIds.append(id[0])
 
     user = User.query.filter_by(id=current_user.id).first()
     datas = user.beerlist_sort_asc

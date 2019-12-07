@@ -29,743 +29,747 @@
             <div class="form-group">
             </div>
           </div>
-          <div class="col-6">
-            <div class="form-group">
-              {{ render_field(form.beerscreenTemplate, class_="form-control") }}
-            </div>
-          </div>
         </div>
 
-        <div class="row border border-secondary rounded mb-2">
-          <div class="col-3">
-                <div class="form-group">
-                  <label for="fontColorOne">Font Color One:</label>
-                  <input id="fontColorOne" class="form-control" name="fontColorOne" type="color" value="{{ settings.fontColorOne }}">
-                  {{ render_field(form.fontColorOne, class_="form-control", disabled=true) }}
-                </div>
-          </div>
-          <div class="col-3">
-                <div class="form-group">
-                  <label for="fontColorTwo">Font Color Two:</label>
-                  <input id="fontColorTwo" class="form-control" name="fontColorTwo" type="color" value="{{ settings.fontColorTwo }}">
-                  {{ render_field(form.fontColorTwo, class_="form-control", disabled=true) }}
-                </div>
-          </div>
-          <div class="col-3">
-                <div class="form-group">
-                  <label for="fontColorThree">Font Color Three:</label>
-                  <input id="fontColorThree" class="form-control" name="fontColorThree" type="color" value="{{ settings.fontColorThree }}">
-                  {{ render_field(form.fontColorThree, class_="form-control", disabled=true) }}
-                </div>
-          </div>
-          <div class="col-3">
-                <div class="form-group">
-                  {{ render_field(form.fontColorDirection, class_="form-control") }}
-                </div>
-          </div>
-        </div>
+        <div id="beerscreen_settings">
+                      <div class="row border border-secondary rounded mb-2">
+                          <div class="col-6">
+                            <div class="form-group">
+                              {{ render_field(form.beerscreenTemplate, class_="form-control") }}
+                            </div>
+                          </div>
+                      </div>
 
-        <div class="row border border-secondary rounded mb-2">
-          <div class="col-3">
-                <div class="form-group">
-                  <label for="shadowFontColorOne">Shadow Font Color One:</label>
-                  <input id="shadowFontColorOne" class="form-control" name="shadowFontColorOne" type="color" value="{{ settings.shadowFontColorOne }}">
-                  {{ render_field(form.shadowFontColorOne, class_="form-control", disabled=true) }}
-                </div>
-          </div>
-          <div class="col-3">
-                <div class="form-group">
-                  <label for="shadowFontColorTwo">Shadow Font Color Two:</label>
-                  <input id="shadowFontColorTwo" class="form-control" name="shadowFontColorTwo" type="color" value="{{ settings.shadowFontColorTwo }}">
-                  {{ render_field(form.shadowFontColorTwo, class_="form-control", disabled=true) }}
-                </div>
-          </div>
-          <div class="col-3">
-                <div class="form-group">
-                  <label for="shadowFontColorThree">Shadow Font Color Three:</label>
-                  <input id="shadowFontColorThree" class="form-control" name="shadowFontColorThree" type="color" value="{{ settings.shadowFontColorThree }}">
-                  {{ render_field(form.shadowFontColorThree, class_="form-control", disabled=true) }}
-                </div>
-          </div>
-          <div class="col-3">
-                <div class="form-group">
-                  {{ render_field(form.shadowFontColorDirection, class_="form-control") }}
-                </div>
-          </div>
-        </div>
+                      <div class="row border border-secondary rounded mb-2">
+                        <div class="col-3">
+                              <div class="form-group">
+                                <label for="fontColorOne">Font Color One:</label>
+                                <input id="fontColorOne" class="form-control" name="fontColorOne" type="color" value="{{ settings.fontColorOne }}">
+                                {{ render_field(form.fontColorOne, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-3">
+                              <div class="form-group">
+                                <label for="fontColorTwo">Font Color Two:</label>
+                                <input id="fontColorTwo" class="form-control" name="fontColorTwo" type="color" value="{{ settings.fontColorTwo }}">
+                                {{ render_field(form.fontColorTwo, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-3">
+                              <div class="form-group">
+                                <label for="fontColorThree">Font Color Three:</label>
+                                <input id="fontColorThree" class="form-control" name="fontColorThree" type="color" value="{{ settings.fontColorThree }}">
+                                {{ render_field(form.fontColorThree, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-3">
+                              <div class="form-group">
+                                {{ render_field(form.fontColorDirection, class_="form-control") }}
+                              </div>
+                        </div>
+                      </div>
 
-        <div class="row border border-secondary rounded mb-2">
-          <div class="col-2">
-                <div class="form-group">
-                  <label for="beerBomBgColorOne">Background Color One:</label>
-                  <input id="beerBomBgColorOne" class="form-control" name="beerBomBgColorOne" type="color" value="{{ settings.beerBomBgColorOne }}">
-                  {{ render_field(form.beerBomBgColorOne, class_="form-control", disabled=true) }}
-                </div>
-          </div>
-          <div class="col-2">
-                <div class="form-group">
-                  <label for="beerBomBgColorTwo">Background Color Two:</label>
-                  <input id="beerBomBgColorTwo" class="form-control" name="beerBomBgColorTwo" type="color" value="{{ settings.beerBomBgColorTwo }}">
-                  {{ render_field(form.beerBomBgColorTwo, class_="form-control", disabled=true) }}
-                </div>
-          </div>
-          <div class="col-2">
-                <div class="form-group">
-                  <label for="beerBomBgColorThree">Background Color Three:</label>
-                  <input id="beerBomBgColorThree" class="form-control" name="beerBomBgColorThree" type="color" value="{{ settings.beerBomBgColorThree }}">
-                  {{ render_field(form.beerBomBgColorThree, class_="form-control", disabled=true) }}
-                </div>
-          </div>
-          <div class="col-2">
-                <div class="form-group">
-                  <label for="beerBomBgColorFour">Background Color Four:</label>
-                  <input id="beerBomBgColorFour" class="form-control" name="beerBomBgColorFour" type="color" value="{{ settings.beerBomBgColorFour }}">
-                  {{ render_field(form.beerBomBgColorFour, class_="form-control", disabled=true) }}
-                </div>
-          </div>
-          <div class="col-2">
-                <div class="form-group">
-                  <label for="beerBomBgColorFive">Background Color Five:</label>
-                  <input id="beerBomBgColorFive" class="form-control" name="beerBomBgColorFive" type="color" value="{{ settings.beerBomBgColorFive }}">
-                  {{ render_field(form.beerBomBgColorFive, class_="form-control", disabled=true) }}
-                </div>
-          </div>
-          <div class="col-2">
-                <div class="form-group">
-                  {{ render_field(form.beerBomBgColorDirection, class_="form-control") }}
-                </div>
-          </div>
-        </div>
+                      <div class="row border border-secondary rounded mb-2">
+                        <div class="col-3">
+                              <div class="form-group">
+                                <label for="shadowFontColorOne">Shadow Font Color One:</label>
+                                <input id="shadowFontColorOne" class="form-control" name="shadowFontColorOne" type="color" value="{{ settings.shadowFontColorOne }}">
+                                {{ render_field(form.shadowFontColorOne, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-3">
+                              <div class="form-group">
+                                <label for="shadowFontColorTwo">Shadow Font Color Two:</label>
+                                <input id="shadowFontColorTwo" class="form-control" name="shadowFontColorTwo" type="color" value="{{ settings.shadowFontColorTwo }}">
+                                {{ render_field(form.shadowFontColorTwo, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-3">
+                              <div class="form-group">
+                                <label for="shadowFontColorThree">Shadow Font Color Three:</label>
+                                <input id="shadowFontColorThree" class="form-control" name="shadowFontColorThree" type="color" value="{{ settings.shadowFontColorThree }}">
+                                {{ render_field(form.shadowFontColorThree, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-3">
+                              <div class="form-group">
+                                {{ render_field(form.shadowFontColorDirection, class_="form-control") }}
+                              </div>
+                        </div>
+                      </div>
 
+                      <div class="row border border-secondary rounded mb-2">
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerBomBgColorOne">Background Color One:</label>
+                                <input id="beerBomBgColorOne" class="form-control" name="beerBomBgColorOne" type="color" value="{{ settings.beerBomBgColorOne }}">
+                                {{ render_field(form.beerBomBgColorOne, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerBomBgColorTwo">Background Color Two:</label>
+                                <input id="beerBomBgColorTwo" class="form-control" name="beerBomBgColorTwo" type="color" value="{{ settings.beerBomBgColorTwo }}">
+                                {{ render_field(form.beerBomBgColorTwo, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerBomBgColorThree">Background Color Three:</label>
+                                <input id="beerBomBgColorThree" class="form-control" name="beerBomBgColorThree" type="color" value="{{ settings.beerBomBgColorThree }}">
+                                {{ render_field(form.beerBomBgColorThree, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerBomBgColorFour">Background Color Four:</label>
+                                <input id="beerBomBgColorFour" class="form-control" name="beerBomBgColorFour" type="color" value="{{ settings.beerBomBgColorFour }}">
+                                {{ render_field(form.beerBomBgColorFour, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerBomBgColorFive">Background Color Five:</label>
+                                <input id="beerBomBgColorFive" class="form-control" name="beerBomBgColorFive" type="color" value="{{ settings.beerBomBgColorFive }}">
+                                {{ render_field(form.beerBomBgColorFive, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                {{ render_field(form.beerBomBgColorDirection, class_="form-control") }}
+                              </div>
+                        </div>
+                      </div>
 
-        <div class="row border border-secondary rounded mb-2">
-          <div class="col-2">
-                <div class="form-group">
-                  {{ render_field(form.beerBomNameFont, class_="form-control") }}
-                </div>
-          </div>
-          <div class="col-2">
-                <div class="form-group">
-                  <label for="beerBomNameFontColor">Beer of Month Name font color</label>
-                  <input id="beerBomNameFontColor" class="form-control" name="beerBomNameFontColor" type="color" value="{{ settings.beerBomNameFontColor }}">
-                  {{ render_field(form.beerBomNameFontColor, class_="form-control", disabled=true) }}
-                </div>
-          </div>
-          <div class="col-2">
-                <div class="form-group">
-                  {{ render_field(form.beerBomNameFontSize, class_="form-control", disabled=false) }}
-                </div>
-          </div>
-          <div class="col-2">
-            <div class="form-group">
-              {% if settings.beerBomNameFontBoldToggle != True %}
-                {{ render_field(form.beerBomNameFontBoldToggle, class_="form-control", checked=False) }}
-              {% else %}
-                {{ render_field(form.beerBomNameFontBoldToggle, class_="form-control", checked=True) }}
-              {% endif %}
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="form-group">
-              {% if settings.beerBomNameFontItalicToggle != True %}
-                {{ render_field(form.beerBomNameFontItalicToggle, class_="form-control", checked=False) }}
-              {% else %}
-                {{ render_field(form.beerBomNameFontItalicToggle, class_="form-control", checked=True) }}
-              {% endif %}
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="form-group">
-              {% if settings.beerBomNameFontUnderlineToggle != True %}
-                {{ render_field(form.beerBomNameFontUnderlineToggle, class_="form-control", checked=False) }}
-              {% else %}
-                {{ render_field(form.beerBomNameFontUnderlineToggle, class_="form-control", checked=True) }}
-              {% endif %}
-            </div>
-          </div>
-        </div>
+                      <div class="row border border-secondary rounded mb-2">
+                        <div class="col-2">
+                              <div class="form-group">
+                                {{ render_field(form.beerBomNameFont, class_="form-control") }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerBomNameFontColor">Beer of Month Name font color</label>
+                                <input id="beerBomNameFontColor" class="form-control" name="beerBomNameFontColor" type="color" value="{{ settings.beerBomNameFontColor }}">
+                                {{ render_field(form.beerBomNameFontColor, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                {{ render_field(form.beerBomNameFontSize, class_="form-control", disabled=false) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerBomNameFontBoldToggle != True %}
+                              {{ render_field(form.beerBomNameFontBoldToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerBomNameFontBoldToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerBomNameFontItalicToggle != True %}
+                              {{ render_field(form.beerBomNameFontItalicToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerBomNameFontItalicToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerBomNameFontUnderlineToggle != True %}
+                              {{ render_field(form.beerBomNameFontUnderlineToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerBomNameFontUnderlineToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
 
-          <div class="row border border-secondary rounded mb-2">
-            <div class="col-2">
-                  <div class="form-group">
-                    {{ render_field(form.beerBomStyleFont, class_="form-control", disabled=false) }}
-                  </div>
-            </div>
-            <div class="col-2">
-                  <div class="form-group">
-                    <label for="beerBomStyleFontColor">Beer of Month Name Style font color</label>
-                    <input id="beerBomStyleFontColor" class="form-control" name="beerBomStyleFontColor" type="color" value="{{ settings.beerBomStyleFontColor }}">
-                    {{ render_field(form.beerBomStyleFontColor, class_="form-control", disabled=true) }}
-                  </div>
-            </div>
-            <div class="col-2">
-                  <div class="form-group">
-                    {{ render_field(form.beerBomStyleFontSize, class_="form-control", disabled=false) }}
-                  </div>
-            </div>
-            <div class="col-2">
-              <div class="form-group">
-                {% if settings.beerBomStyleFontBoldToggle != True %}
-                  {{ render_field(form.beerBomStyleFontBoldToggle, class_="form-control", checked=False) }}
-                {% else %}
-                  {{ render_field(form.beerBomStyleFontBoldToggle, class_="form-control", checked=True) }}
-                {% endif %}
-              </div>
-            </div>
-            <div class="col-2">
-              <div class="form-group">
-                {% if settings.beerBomStyleFontItalicToggle != True %}
-                  {{ render_field(form.beerBomStyleFontItalicToggle, class_="form-control", checked=False) }}
-                {% else %}
-                  {{ render_field(form.beerBomStyleFontItalicToggle, class_="form-control", checked=True) }}
-                {% endif %}
-              </div>
-            </div>
-            <div class="col-2">
-              <div class="form-group">
-                {% if settings.beerBomStyleFontUnderlineToggle != True %}
-                  {{ render_field(form.beerBomStyleFontUnderlineToggle, class_="form-control", checked=False) }}
-                {% else %}
-                  {{ render_field(form.beerBomStyleFontUnderlineToggle, class_="form-control", checked=True) }}
-                {% endif %}
-              </div>
-            </div>
-          </div>
+                      <div class="row border border-secondary rounded mb-2">
+                        <div class="col-2">
+                              <div class="form-group">
+                                {{ render_field(form.beerBomStyleFont, class_="form-control", disabled=false) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerBomStyleFontColor">Beer of Month Name Style font color</label>
+                                <input id="beerBomStyleFontColor" class="form-control" name="beerBomStyleFontColor" type="color" value="{{ settings.beerBomStyleFontColor }}">
+                                {{ render_field(form.beerBomStyleFontColor, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                {{ render_field(form.beerBomStyleFontSize, class_="form-control", disabled=false) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerBomStyleFontBoldToggle != True %}
+                              {{ render_field(form.beerBomStyleFontBoldToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerBomStyleFontBoldToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerBomStyleFontItalicToggle != True %}
+                              {{ render_field(form.beerBomStyleFontItalicToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerBomStyleFontItalicToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerBomStyleFontUnderlineToggle != True %}
+                              {{ render_field(form.beerBomStyleFontUnderlineToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerBomStyleFontUnderlineToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
 
-            <div class="row border border-secondary rounded mb-2">
-              <div class="col-2">
-                <div class="form-group">
-                </div>
-              </div>
-              <div class="col-2">
-                  <div class="form-group">
-                    <label for="beerBomAbvFontColor">Beer of Month Name ABV font color</label>
-                    <input id="beerBomAbvFontColor" class="form-control" name="beerBomAbvFontColor" type="color" value="{{ settings.beerBomAbvFontColor }}">
-                    {{ render_field(form.beerBomAbvFontColor, class_="form-control", disabled=true) }}
-                  </div>
-              </div>
-              <div class="col-2">
-                    <div class="form-group">
-                      {{ render_field(form.beerBomAbvFontSize, class_="form-control", disabled=false) }}
-                    </div>
-              </div>
-              <div class="col-2">
-                <div class="form-group">
-                  {% if settings.beerBomAbvFontBoldToggle != True %}
-                    {{ render_field(form.beerBomAbvFontBoldToggle, class_="form-control", checked=False) }}
-                  {% else %}
-                    {{ render_field(form.beerBomAbvFontBoldToggle, class_="form-control", checked=True) }}
-                  {% endif %}
-                </div>
-              </div>
-              <div class="col-2">
-                <div class="form-group">
-                  {% if settings.beerBomAbvFontItalicToggle != True %}
-                    {{ render_field(form.beerBomAbvFontItalicToggle, class_="form-control", checked=False) }}
-                  {% else %}
-                    {{ render_field(form.beerBomAbvFontItalicToggle, class_="form-control", checked=True) }}
-                  {% endif %}
-                </div>
-              </div>
-              <div class="col-2">
-                <div class="form-group">
-                  {% if settings.beerBomAbvFontUnderlineToggle != True %}
-                    {{ render_field(form.beerBomAbvFontUnderlineToggle, class_="form-control", checked=False) }}
-                  {% else %}
-                    {{ render_field(form.beerBomAbvFontUnderlineToggle, class_="form-control", checked=True) }}
-                  {% endif %}
-                </div>
-              </div>
-            </div>
+                      <div class="row border border-secondary rounded mb-2">
+                        <div class="col-2">
+                          <div class="form-group">
+                          </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                              <label for="beerBomAbvFontColor">Beer of Month Name ABV font color</label>
+                              <input id="beerBomAbvFontColor" class="form-control" name="beerBomAbvFontColor" type="color" value="{{ settings.beerBomAbvFontColor }}">
+                              {{ render_field(form.beerBomAbvFontColor, class_="form-control", disabled=true) }}
+                            </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                {{ render_field(form.beerBomAbvFontSize, class_="form-control", disabled=false) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerBomAbvFontBoldToggle != True %}
+                              {{ render_field(form.beerBomAbvFontBoldToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerBomAbvFontBoldToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerBomAbvFontItalicToggle != True %}
+                              {{ render_field(form.beerBomAbvFontItalicToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerBomAbvFontItalicToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerBomAbvFontUnderlineToggle != True %}
+                              {{ render_field(form.beerBomAbvFontUnderlineToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerBomAbvFontUnderlineToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
 
-              <div class="row border border-secondary rounded mb-2">
-                <div class="col-2">
-                  <div class="form-group">
-                  </div>
-                </div>
-                <div class="col-2">
-                      <div class="form-group">
-                        <label for="beerBomIbuFontColor">Beer of Month Name IBU font color</label>
-                        <input id="beerBomIbuFontColor" class="form-control" name="beerBomIbuFontColor" type="color" value="{{ settings.beerBomIbuFontColor }}">
-                        {{ render_field(form.beerBomIbuFontColor, class_="form-control", disabled=true) }}
+                      <div class="row border border-secondary rounded mb-2">
+                        <div class="col-2">
+                          <div class="form-group">
+                          </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerBomIbuFontColor">Beer of Month Name IBU font color</label>
+                                <input id="beerBomIbuFontColor" class="form-control" name="beerBomIbuFontColor" type="color" value="{{ settings.beerBomIbuFontColor }}">
+                                {{ render_field(form.beerBomIbuFontColor, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                {{ render_field(form.beerBomIbuFontSize, class_="form-control", disabled=false) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerBomIbuFontBoldToggle != True %}
+                              {{ render_field(form.beerBomIbuFontBoldToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerBomIbuFontBoldToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerBomIbuFontItalicToggle != True %}
+                              {{ render_field(form.beerBomIbuFontItalicToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerBomIbuFontItalicToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerBomIbuFontUnderlineToggle != True %}
+                              {{ render_field(form.beerBomIbuFontUnderlineToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerBomIbuFontUnderlineToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
                       </div>
-                </div>
-                <div class="col-2">
-                      <div class="form-group">
-                        {{ render_field(form.beerBomIbuFontSize, class_="form-control", disabled=false) }}
-                      </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    {% if settings.beerBomIbuFontBoldToggle != True %}
-                      {{ render_field(form.beerBomIbuFontBoldToggle, class_="form-control", checked=False) }}
-                    {% else %}
-                      {{ render_field(form.beerBomIbuFontBoldToggle, class_="form-control", checked=True) }}
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    {% if settings.beerBomIbuFontItalicToggle != True %}
-                      {{ render_field(form.beerBomIbuFontItalicToggle, class_="form-control", checked=False) }}
-                    {% else %}
-                      {{ render_field(form.beerBomIbuFontItalicToggle, class_="form-control", checked=True) }}
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    {% if settings.beerBomIbuFontUnderlineToggle != True %}
-                      {{ render_field(form.beerBomIbuFontUnderlineToggle, class_="form-control", checked=False) }}
-                    {% else %}
-                      {{ render_field(form.beerBomIbuFontUnderlineToggle, class_="form-control", checked=True) }}
-                    {% endif %}
-                  </div>
-                </div>
-              </div>
 
+                      <div class="row border border-secondary rounded mb-2">
+                        <div class="col-2">
+                              <div class="form-group">
+                                {{ render_field(form.beerBomBreweryFont, class_="form-control", disabled=false) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerBomBreweryFontColor">Beer of Month Brewery font color</label>
+                                <input id="beerBomBreweryFontColor" class="form-control" name="beerBomBreweryFontColor" type="color" value="{{ settings.beerBomBreweryFontColor }}">
+                                {{ render_field(form.beerBomBreweryFontColor, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                {{ render_field(form.beerBomBreweryFontSize, class_="form-control", disabled=false) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerBomBreweryFontBoldToggle != True %}
+                              {{ render_field(form.beerBomBreweryFontBoldToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerBomBreweryFontBoldToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerBomBreweryFontItalicToggle != True %}
+                              {{ render_field(form.beerBomBreweryFontItalicToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerBomBreweryFontItalicToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerBomBreweryFontUnderlineToggle != True %}
+                              {{ render_field(form.beerBomBreweryFontUnderlineToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerBomBreweryFontUnderlineToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
 
+                      <div class="row border border-secondary rounded mb-2">
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerBgColorOne">Beer of Month Background color #1</label>
+                                <input id="beerBgColorOne" class="form-control" name="beerBgColorOne" type="color" value="{{ settings.beerBgColorOne }}">
+                                {{ render_field(form.beerBgColorOne, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerBgColorTwo">Beer of Month Background color #2</label>
+                                <input id="beerBgColorTwo" class="form-control" name="beerBgColorTwo" type="color" value="{{ settings.beerBgColorTwo }}">
+                                {{ render_field(form.beerBgColorTwo, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerBgColorThree">Beer of Month Background color #3</label>
+                                <input id="beerBgColorThree" class="form-control" name="beerBgColorThree" type="color" value="{{ settings.beerBgColorThree }}">
+                                {{ render_field(form.beerBgColorThree, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerBgColorFour">Beer of Month Background color #4</label>
+                                <input id="beerBgColorFour" class="form-control" name="beerBgColorFour" type="color" value="{{ settings.beerBgColorFour }}">
+                                {{ render_field(form.beerBgColorFour, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerBgColorFive">Beer of Month Background color #5</label>
+                                <input id="beerBgColorFive" class="form-control" name="beerBgColorFive" type="color" value="{{ settings.beerBgColorFive }}">
+                                {{ render_field(form.beerBgColorFive, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                {{ render_field(form.beerBgColorDirection, class_="form-control", disabled=false) }}
+                              </div>
+                        </div>
+                      </div>
 
-
-              <div class="row border border-secondary rounded mb-2">
-                <div class="col-2">
-                      <div class="form-group">
-                        {{ render_field(form.beerBomBreweryFont, class_="form-control", disabled=false) }}
+                      <div class="row border border-secondary rounded mb-2">
+                        <div class="col-2">
+                              <div class="form-group">
+                                {{ render_field(form.beerNameFont, class_="form-control", disabled=false) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerNameFontColor">Beer of Month Background color direction</label>
+                                <input id="beerNameFontColor" class="form-control" name="beerNameFontColor" type="color" value="{{ settings.beerNameFontColor }}">
+                                {{ render_field(form.beerNameFontColor, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                {{ render_field(form.beerNameFontSize, class_="form-control", disabled=false) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerNameFontBoldToggle != True %}
+                              {{ render_field(form.beerNameFontBoldToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerNameFontBoldToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerNameFontItalicToggle != True %}
+                              {{ render_field(form.beerNameFontItalicToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerNameFontItalicToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerNameFontUnderlineToggle != True %}
+                              {{ render_field(form.beerNameFontUnderlineToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerNameFontUnderlineToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
                       </div>
-                </div>
-                <div class="col-2">
-                      <div class="form-group">
-                        <label for="beerBomBreweryFontColor">Beer of Month Brewery font color</label>
-                        <input id="beerBomBreweryFontColor" class="form-control" name="beerBomBreweryFontColor" type="color" value="{{ settings.beerBomBreweryFontColor }}">
-                        {{ render_field(form.beerBomBreweryFontColor, class_="form-control", disabled=true) }}
-                      </div>
-                </div>
-                <div class="col-2">
-                      <div class="form-group">
-                        {{ render_field(form.beerBomBreweryFontSize, class_="form-control", disabled=false) }}
-                      </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    {% if settings.beerBomBreweryFontBoldToggle != True %}
-                      {{ render_field(form.beerBomBreweryFontBoldToggle, class_="form-control", checked=False) }}
-                    {% else %}
-                      {{ render_field(form.beerBomBreweryFontBoldToggle, class_="form-control", checked=True) }}
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    {% if settings.beerBomBreweryFontItalicToggle != True %}
-                      {{ render_field(form.beerBomBreweryFontItalicToggle, class_="form-control", checked=False) }}
-                    {% else %}
-                      {{ render_field(form.beerBomBreweryFontItalicToggle, class_="form-control", checked=True) }}
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    {% if settings.beerBomBreweryFontUnderlineToggle != True %}
-                      {{ render_field(form.beerBomBreweryFontUnderlineToggle, class_="form-control", checked=False) }}
-                    {% else %}
-                      {{ render_field(form.beerBomBreweryFontUnderlineToggle, class_="form-control", checked=True) }}
-                    {% endif %}
-                  </div>
-                </div>
-              </div>
-
-              <div class="row border border-secondary rounded mb-2">
-                <div class="col-2">
-                      <div class="form-group">
-                        <label for="beerBgColorOne">Beer of Month Background color #1</label>
-                        <input id="beerBgColorOne" class="form-control" name="beerBgColorOne" type="color" value="{{ settings.beerBgColorOne }}">
-                        {{ render_field(form.beerBgColorOne, class_="form-control", disabled=true) }}
-                      </div>
-                </div>
-                <div class="col-2">
-                      <div class="form-group">
-                        <label for="beerBgColorTwo">Beer of Month Background color #2</label>
-                        <input id="beerBgColorTwo" class="form-control" name="beerBgColorTwo" type="color" value="{{ settings.beerBgColorTwo }}">
-                        {{ render_field(form.beerBgColorTwo, class_="form-control", disabled=true) }}
-                      </div>
-                </div>
-                <div class="col-2">
-                      <div class="form-group">
-                        <label for="beerBgColorThree">Beer of Month Background color #3</label>
-                        <input id="beerBgColorThree" class="form-control" name="beerBgColorThree" type="color" value="{{ settings.beerBgColorThree }}">
-                        {{ render_field(form.beerBgColorThree, class_="form-control", disabled=true) }}
-                      </div>
-                </div>
-                <div class="col-2">
-                      <div class="form-group">
-                        <label for="beerBgColorFour">Beer of Month Background color #4</label>
-                        <input id="beerBgColorFour" class="form-control" name="beerBgColorFour" type="color" value="{{ settings.beerBgColorFour }}">
-                        {{ render_field(form.beerBgColorFour, class_="form-control", disabled=true) }}
-                      </div>
-                </div>
-                <div class="col-2">
-                      <div class="form-group">
-                        <label for="beerBgColorFive">Beer of Month Background color #5</label>
-                        <input id="beerBgColorFive" class="form-control" name="beerBgColorFive" type="color" value="{{ settings.beerBgColorFive }}">
-                        {{ render_field(form.beerBgColorFive, class_="form-control", disabled=true) }}
-                      </div>
-                </div>
-                <div class="col-2">
-                      <div class="form-group">
-                        {{ render_field(form.beerBgColorDirection, class_="form-control", disabled=false) }}
-                      </div>
-                </div>
-              </div>
-
-              <div class="row border border-secondary rounded mb-2">
-                <div class="col-2">
-                      <div class="form-group">
-                        {{ render_field(form.beerNameFont, class_="form-control", disabled=false) }}
-                      </div>
-                </div>
-                <div class="col-2">
-                      <div class="form-group">
-                        <label for="beerNameFontColor">Beer of Month Background color direction</label>
-                        <input id="beerNameFontColor" class="form-control" name="beerNameFontColor" type="color" value="{{ settings.beerNameFontColor }}">
-                        {{ render_field(form.beerNameFontColor, class_="form-control", disabled=true) }}
-                      </div>
-                </div>
-                <div class="col-2">
-                      <div class="form-group">
-                        {{ render_field(form.beerNameFontSize, class_="form-control", disabled=false) }}
-                      </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    {% if settings.beerNameFontBoldToggle != True %}
-                      {{ render_field(form.beerNameFontBoldToggle, class_="form-control", checked=False) }}
-                    {% else %}
-                      {{ render_field(form.beerNameFontBoldToggle, class_="form-control", checked=True) }}
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    {% if settings.beerNameFontItalicToggle != True %}
-                      {{ render_field(form.beerNameFontItalicToggle, class_="form-control", checked=False) }}
-                    {% else %}
-                      {{ render_field(form.beerNameFontItalicToggle, class_="form-control", checked=True) }}
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    {% if settings.beerNameFontUnderlineToggle != True %}
-                      {{ render_field(form.beerNameFontUnderlineToggle, class_="form-control", checked=False) }}
-                    {% else %}
-                      {{ render_field(form.beerNameFontUnderlineToggle, class_="form-control", checked=True) }}
-                    {% endif %}
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="row border border-secondary rounded mb-2">
-                <div class="col-2">
-                      <div class="form-group">
-                        {{ render_field(form.beerStyleFont, class_="form-control", disabled=false) }}
-                      </div>
-                </div>
-                <div class="col-2">
-                      <div class="form-group">
-                        <label for="beerStyleFontColor">Beer of Month Background color direction</label>
-                        <input id="beerStyleFontColor" class="form-control" name="beerStyleFontColor" type="color" value="{{ settings.beerStyleFontColor }}">
-                        {{ render_field(form.beerStyleFontColor, class_="form-control", disabled=true) }}
-                      </div>
-                </div>
-                <div class="col-2">
-                      <div class="form-group">
-                        {{ render_field(form.beerStyleFontSize, class_="form-control", disabled=false) }}
-                      </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    {% if settings.beerStyleFontBoldToggle != True %}
-                      {{ render_field(form.beerStyleFontBoldToggle, class_="form-control", checked=False) }}
-                    {% else %}
-                      {{ render_field(form.beerStyleFontBoldToggle, class_="form-control", checked=True) }}
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    {% if settings.beerStyleFontItalicToggle != True %}
-                      {{ render_field(form.beerStyleFontItalicToggle, class_="form-control", checked=False) }}
-                    {% else %}
-                      {{ render_field(form.beerStyleFontItalicToggle, class_="form-control", checked=True) }}
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    {% if settings.beerStyleFontUnderlineToggle != True %}
-                      {{ render_field(form.beerStyleFontUnderlineToggle, class_="form-control", checked=False) }}
-                    {% else %}
-                      {{ render_field(form.beerStyleFontUnderlineToggle, class_="form-control", checked=True) }}
-                    {% endif %}
-                  </div>
-                </div>
-              </div>
 
 
-              <div class="row border border-secondary rounded mb-2">
-                <div class="col-2">
-                  <div class="form-group">
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    <label for="beerAbvFontColor">Beer of Month Background color direction</label>
-                    <input id="beerAbvFontColor" class="form-control" name="beerAbvFontColor" type="color" value="{{ settings.beerAbvFontColor }}">
-                    {{ render_field(form.beerAbvFontColor, class_="form-control", disabled=true) }}
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    {{ render_field(form.beerAbvFontSize, class_="form-control", disabled=false) }}
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    {% if settings.beerAbvFontBoldToggle != True %}
-                      {{ render_field(form.beerAbvFontBoldToggle, class_="form-control", checked=False) }}
-                    {% else %}
-                      {{ render_field(form.beerAbvFontBoldToggle, class_="form-control", checked=True) }}
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    {% if settings.beerAbvFontItalicToggle != True %}
-                      {{ render_field(form.beerAbvFontItalicToggle, class_="form-control", checked=False) }}
-                    {% else %}
-                      {{ render_field(form.beerAbvFontItalicToggle, class_="form-control", checked=True) }}
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    {% if settings.beerAbvFontUnderlineToggle != True %}
-                      {{ render_field(form.beerAbvFontUnderlineToggle, class_="form-control", checked=False) }}
-                    {% else %}
-                      {{ render_field(form.beerAbvFontUnderlineToggle, class_="form-control", checked=True) }}
-                    {% endif %}
-                  </div>
-                </div>
-              </div>
+                      <div class="row border border-secondary rounded mb-2">
+                        <div class="col-2">
+                              <div class="form-group">
+                                {{ render_field(form.beerStyleFont, class_="form-control", disabled=false) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerStyleFontColor">Beer of Month Background color direction</label>
+                                <input id="beerStyleFontColor" class="form-control" name="beerStyleFontColor" type="color" value="{{ settings.beerStyleFontColor }}">
+                                {{ render_field(form.beerStyleFontColor, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                {{ render_field(form.beerStyleFontSize, class_="form-control", disabled=false) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerStyleFontBoldToggle != True %}
+                              {{ render_field(form.beerStyleFontBoldToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerStyleFontBoldToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerStyleFontItalicToggle != True %}
+                              {{ render_field(form.beerStyleFontItalicToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerStyleFontItalicToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerStyleFontUnderlineToggle != True %}
+                              {{ render_field(form.beerStyleFontUnderlineToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerStyleFontUnderlineToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
 
 
-              <div class="row border border-secondary rounded mb-2">
-                <div class="col-2">
-                  <div class="form-group">
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    <label for="beerIbuFontColor">Beer of Month Background color direction</label>
-                    <input id="beerIbuFontColor" class="form-control" name="beerIbuFontColor" type="color" value="{{ settings.beerIbuFontColor }}">
-                    {{ render_field(form.beerIbuFontColor, class_="form-control", disabled=true) }}
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    {{ render_field(form.beerIbuFontSize, class_="form-control", disabled=false) }}
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    {% if settings.beerIbuFontBoldToggle != True %}
-                      {{ render_field(form.beerIbuFontBoldToggle, class_="form-control", checked=False) }}
-                    {% else %}
-                      {{ render_field(form.beerIbuFontBoldToggle, class_="form-control", checked=True) }}
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    {% if settings.beerIbuFontItalicToggle != True %}
-                      {{ render_field(form.beerIbuFontItalicToggle, class_="form-control", checked=False) }}
-                    {% else %}
-                      {{ render_field(form.beerIbuFontItalicToggle, class_="form-control", checked=True) }}
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    {% if settings.beerIbuFontUnderlineToggle != True %}
-                      {{ render_field(form.beerIbuFontUnderlineToggle, class_="form-control", checked=False) }}
-                    {% else %}
-                      {{ render_field(form.beerIbuFontUnderlineToggle, class_="form-control", checked=True) }}
-                    {% endif %}
-                  </div>
-                </div>
-              </div>
+                      <div class="row border border-secondary rounded mb-2">
+                        <div class="col-2">
+                          <div class="form-group">
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            <label for="beerAbvFontColor">Beer of Month Background color direction</label>
+                            <input id="beerAbvFontColor" class="form-control" name="beerAbvFontColor" type="color" value="{{ settings.beerAbvFontColor }}">
+                            {{ render_field(form.beerAbvFontColor, class_="form-control", disabled=true) }}
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {{ render_field(form.beerAbvFontSize, class_="form-control", disabled=false) }}
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerAbvFontBoldToggle != True %}
+                              {{ render_field(form.beerAbvFontBoldToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerAbvFontBoldToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerAbvFontItalicToggle != True %}
+                              {{ render_field(form.beerAbvFontItalicToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerAbvFontItalicToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerAbvFontUnderlineToggle != True %}
+                              {{ render_field(form.beerAbvFontUnderlineToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerAbvFontUnderlineToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
 
 
-              <div class="row border border-secondary rounded mb-2">
-                <div class="col-2">
-                      <div class="form-group">
-                        {{ render_field(form.beerBreweryFont, class_="form-control", disabled=false) }}
+                      <div class="row border border-secondary rounded mb-2">
+                        <div class="col-2">
+                          <div class="form-group">
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            <label for="beerIbuFontColor">Beer of Month Background color direction</label>
+                            <input id="beerIbuFontColor" class="form-control" name="beerIbuFontColor" type="color" value="{{ settings.beerIbuFontColor }}">
+                            {{ render_field(form.beerIbuFontColor, class_="form-control", disabled=true) }}
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {{ render_field(form.beerIbuFontSize, class_="form-control", disabled=false) }}
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerIbuFontBoldToggle != True %}
+                              {{ render_field(form.beerIbuFontBoldToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerIbuFontBoldToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerIbuFontItalicToggle != True %}
+                              {{ render_field(form.beerIbuFontItalicToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerIbuFontItalicToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerIbuFontUnderlineToggle != True %}
+                              {{ render_field(form.beerIbuFontUnderlineToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerIbuFontUnderlineToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
                       </div>
-                </div>
-                <div class="col-2">
-                      <div class="form-group">
-                        <label for="beerBreweryFontColor">Beer of Month Background color direction</label>
-                        <input id="beerBreweryFontColor" class="form-control" name="beerBreweryFontColor" type="color" value="{{ settings.beerBreweryFontColor }}">
-                        {{ render_field(form.beerBreweryFontColor, class_="form-control", disabled=true) }}
-                      </div>
-                </div>
-                <div class="col-2">
-                      <div class="form-group">
-                        {{ render_field(form.beerBreweryFontSize, class_="form-control", disabled=false) }}
-                      </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    {% if settings.beerBreweryFontBoldToggle != True %}
-                      {{ render_field(form.beerBreweryFontBoldToggle, class_="form-control", checked=False) }}
-                    {% else %}
-                      {{ render_field(form.beerBreweryFontBoldToggle, class_="form-control", checked=True) }}
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    {% if settings.beerBreweryFontItalicToggle != True %}
-                      {{ render_field(form.beerBreweryFontItalicToggle, class_="form-control", checked=False) }}
-                    {% else %}
-                      {{ render_field(form.beerBreweryFontItalicToggle, class_="form-control", checked=True) }}
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    {% if settings.beerBreweryFontUnderlineToggle != True %}
-                      {{ render_field(form.beerBreweryFontUnderlineToggle, class_="form-control", checked=False) }}
-                    {% else %}
-                      {{ render_field(form.beerBreweryFontUnderlineToggle, class_="form-control", checked=True) }}
-                    {% endif %}
-                  </div>
-                </div>
-              </div>
 
 
-              <div class="row border border-secondary rounded mb-2">
-                <div class="col-2">
-                      <div class="form-group">
-                        <label for="beerTickerBgColorOne">Beer of Month Background color #1</label>
-                        <input id="beerTickerBgColorOne" class="form-control" name="beerTickerBgColorOne" type="color" value="{{ settings.beerTickerBgColorOne }}">
-                        {{ render_field(form.beerTickerBgColorOne, class_="form-control", disabled=true) }}
+                      <div class="row border border-secondary rounded mb-2">
+                        <div class="col-2">
+                              <div class="form-group">
+                                {{ render_field(form.beerBreweryFont, class_="form-control", disabled=false) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerBreweryFontColor">Beer of Month Background color direction</label>
+                                <input id="beerBreweryFontColor" class="form-control" name="beerBreweryFontColor" type="color" value="{{ settings.beerBreweryFontColor }}">
+                                {{ render_field(form.beerBreweryFontColor, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                {{ render_field(form.beerBreweryFontSize, class_="form-control", disabled=false) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerBreweryFontBoldToggle != True %}
+                              {{ render_field(form.beerBreweryFontBoldToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerBreweryFontBoldToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerBreweryFontItalicToggle != True %}
+                              {{ render_field(form.beerBreweryFontItalicToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerBreweryFontItalicToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerBreweryFontUnderlineToggle != True %}
+                              {{ render_field(form.beerBreweryFontUnderlineToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerBreweryFontUnderlineToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
                       </div>
-                </div>
-                <div class="col-2">
-                      <div class="form-group">
-                        <label for="beerTickerBgColorTwo">Beer of Month Background color #2</label>
-                        <input id="beerTickerBgColorTwo" class="form-control" name="beerTickerBgColorTwo" type="color" value="{{ settings.beerTickerBgColorTwo }}">
-                        {{ render_field(form.beerTickerBgColorTwo, class_="form-control", disabled=true) }}
-                      </div>
-                </div>
-                <div class="col-2">
-                      <div class="form-group">
-                        <label for="beerTickerBgColorThree">Beer of Month Background color #3</label>
-                        <input id="beerTickerBgColorThree" class="form-control" name="beerTickerBgColorThree" type="color" value="{{ settings.beerTickerBgColorThree }}">
-                        {{ render_field(form.beerTickerBgColorThree, class_="form-control", disabled=true) }}
-                      </div>
-                </div>
-                <div class="col-2">
-                      <div class="form-group">
-                        <label for="beerTickerBgColorFour">Beer of Month Background color #4</label>
-                        <input id="beerTickerBgColorFour" class="form-control" name="beerTickerBgColorFour" type="color" value="{{ settings.beerTickerBgColorFour }}">
-                        {{ render_field(form.beerTickerBgColorFour, class_="form-control", disabled=true) }}
-                      </div>
-                </div>
-                <div class="col-2">
-                      <div class="form-group">
-                        <label for="beerTickerBgColorFive">Beer of Month Background color #5</label>
-                        <input id="beerTickerBgColorFive" class="form-control" name="beerTickerBgColorFive" type="color" value="{{ settings.beerTickerBgColorFive }}">
-                        {{ render_field(form.beerTickerBgColorFive, class_="form-control", disabled=true) }}
-                      </div>
-                </div>
-                <div class="col-2">
-                      <div class="form-group">
-                        {{ render_field(form.beerTickerBgColorDirection, class_="form-control", disabled=false) }}
-                      </div>
-                </div>
-              </div>
 
 
-              <div class="row border border-secondary rounded mb-2">
-                <div class="col-2">
-                      <div class="form-group">
-                        {{ render_field(form.beerTickerBeernamesFont, class_="form-control", disabled=false) }}
+                      <div class="row border border-secondary rounded mb-2">
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerTickerBgColorOne">Beer of Month Background color #1</label>
+                                <input id="beerTickerBgColorOne" class="form-control" name="beerTickerBgColorOne" type="color" value="{{ settings.beerTickerBgColorOne }}">
+                                {{ render_field(form.beerTickerBgColorOne, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerTickerBgColorTwo">Beer of Month Background color #2</label>
+                                <input id="beerTickerBgColorTwo" class="form-control" name="beerTickerBgColorTwo" type="color" value="{{ settings.beerTickerBgColorTwo }}">
+                                {{ render_field(form.beerTickerBgColorTwo, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerTickerBgColorThree">Beer of Month Background color #3</label>
+                                <input id="beerTickerBgColorThree" class="form-control" name="beerTickerBgColorThree" type="color" value="{{ settings.beerTickerBgColorThree }}">
+                                {{ render_field(form.beerTickerBgColorThree, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerTickerBgColorFour">Beer of Month Background color #4</label>
+                                <input id="beerTickerBgColorFour" class="form-control" name="beerTickerBgColorFour" type="color" value="{{ settings.beerTickerBgColorFour }}">
+                                {{ render_field(form.beerTickerBgColorFour, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerTickerBgColorFive">Beer of Month Background color #5</label>
+                                <input id="beerTickerBgColorFive" class="form-control" name="beerTickerBgColorFive" type="color" value="{{ settings.beerTickerBgColorFive }}">
+                                {{ render_field(form.beerTickerBgColorFive, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                {{ render_field(form.beerTickerBgColorDirection, class_="form-control", disabled=false) }}
+                              </div>
+                        </div>
                       </div>
-                </div>
-                <div class="col-2">
-                      <div class="form-group">
-                        {{ render_field(form.beerTickerFont, class_="form-control", disabled=false) }}
-                      </div>
-                </div>
-                <div class="col-2">
-                      <div class="form-group">
-                        <label for="beerTickerFontColor">Beer of Month Background color direction</label>
-                        <input id="beerTickerFontColor" class="form-control" name="beerTickerFontColor" type="color" value="{{ settings.beerTickerFontColor }}">
-                        {{ render_field(form.beerTickerFontColor, class_="form-control", disabled=true) }}
-                      </div>
-                </div>
-                <div class="col-2">
-                      <div class="form-group">
-                        {{ render_field(form.beerTickerFontSize, class_="form-control", disabled=false) }}
-                      </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    {% if settings.beerTickerFontBoldToggle != True %}
-                      {{ render_field(form.beerTickerFontBoldToggle, class_="form-control", checked=False) }}
-                    {% else %}
-                      {{ render_field(form.beerTickerFontBoldToggle, class_="form-control", checked=True) }}
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    {% if settings.beerTickerFontItalicToggle != True %}
-                      {{ render_field(form.beerTickerFontItalicToggle, class_="form-control", checked=False) }}
-                    {% else %}
-                      {{ render_field(form.beerTickerFontItalicToggle, class_="form-control", checked=True) }}
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    {% if settings.beerTickerFontUnderlineToggle != True %}
-                      {{ render_field(form.beerTickerFontUnderlineToggle, class_="form-control", checked=False) }}
-                    {% else %}
-                      {{ render_field(form.beerTickerFontUnderlineToggle, class_="form-control", checked=True) }}
-                    {% endif %}
-                  </div>
-                </div>
-              </div>
 
-        <div class="row border border-secondary rounded mb-2">
-          <div class="col-3">
-            <div class="form-group">
-              {% if settings.beerTickerToggle != True %}
-                {{ render_field(form.beerTickerToggle, class_="form-control", checked=False) }}
-              {% else %}
-                {{ render_field(form.beerTickerToggle, class_="form-control", checked=True) }}
-              {% endif %}
-            </div>
-          </div>
-          <div class="col-3">
-            <div class="form-group">
-              {{ render_field(form.beerTickerScrollSpeed, class_="form-control") }}
-            </div>
-          </div>
+
+                      <div class="row border border-secondary rounded mb-2">
+                        <div class="col-2">
+                              <div class="form-group">
+                                {{ render_field(form.beerTickerBeernamesFont, class_="form-control", disabled=false) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                {{ render_field(form.beerTickerFont, class_="form-control", disabled=false) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerTickerFontColor">Beer of Month Background color direction</label>
+                                <input id="beerTickerFontColor" class="form-control" name="beerTickerFontColor" type="color" value="{{ settings.beerTickerFontColor }}">
+                                {{ render_field(form.beerTickerFontColor, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                {{ render_field(form.beerTickerFontSize, class_="form-control", disabled=false) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerTickerFontBoldToggle != True %}
+                              {{ render_field(form.beerTickerFontBoldToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerTickerFontBoldToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerTickerFontItalicToggle != True %}
+                              {{ render_field(form.beerTickerFontItalicToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerTickerFontItalicToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="form-group">
+                            {% if settings.beerTickerFontUnderlineToggle != True %}
+                              {{ render_field(form.beerTickerFontUnderlineToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerTickerFontUnderlineToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row border border-secondary rounded mb-2">
+                        <div class="col-3">
+                          <div class="form-group">
+                            {% if settings.beerTickerToggle != True %}
+                              {{ render_field(form.beerTickerToggle, class_="form-control", checked=False) }}
+                            {% else %}
+                              {{ render_field(form.beerTickerToggle, class_="form-control", checked=True) }}
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="col-3">
+                          <div class="form-group">
+                            {{ render_field(form.beerTickerScrollSpeed, class_="form-control") }}
+                          </div>
+                        </div>
+                      </div>
+
+
+
         </div>
         <hr>
         <div class="col-4">
