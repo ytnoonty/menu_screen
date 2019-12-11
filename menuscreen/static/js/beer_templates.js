@@ -1464,8 +1464,166 @@ class BeerTemplate {
         </div>
       </div>
     `;
-
     beerscreenSettingsDiv.innerHTML += beerscreenIdSelectHTML;
+
+    let fontColorsDivHTML = `
+      <div class="row border border-secondary rounded mb-2">
+        <div class="col-3">
+          <div class="form-group">
+            <label for="fontColorOne">Font Color One:</label>
+            <input id="fontColorOne" class="form-control" name="fontColorOne" type="color" value="#ffffff">
+            <label for="fontColorOne">Font Color Code One:</label>
+            <input class="form-control" disabled="" id="fontColorOne" name="fontColorOne" type="text" value="#ffffff">
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-group">
+            <label for="fontColorTwo">Font Color Two:</label>
+            <input id="fontColorTwo" class="form-control" name="fontColorTwo" type="color" value="#ffffff">
+            <label for="fontColorTwo">Font Color Code Two</label>
+            <input class="form-control" disabled="" id="fontColorTwo" name="fontColorTwo" type="text" value="#ffffff">
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-group">
+            <label for="fontColorThree">Font Color Three:</label>
+            <input id="fontColorThree" class="form-control" name="fontColorThree" type="color" value="#ffffff">
+            <label for="fontColorThree">Font Color Code Three</label>
+            <input class="form-control" disabled="" id="fontColorThree" name="fontColorThree" type="text" value="#ffffff">
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-group">
+            <label for="fontColorDirection">Font Color Direction</label>
+            <select class="form-control" id="fontColorDirection" name="fontColorDirection">
+              <option selected="" value="to bottom">to bottom</option>
+              <option value="to top">to top</option>
+              <option value="to left">to left</option>
+              <option value="to right">to right</option>
+              <option value="to bottom left">to bottom left</option>
+              <option value="to bottom right">to bottom right</option>
+              <option value="to top left">to top left</option>
+              <option value="to top right">to top right</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    `;
+
+    beerscreenSettingsDiv.innerHTML += fontColorsDivHTML;
+
+    let shadowFontColorHTML = `
+      <div class="row border border-secondary rounded mb-2">
+        <div class="col-3">
+          <div class="form-group">
+            <label for="shadowFontColorOne">Shadow Font Color One:</label>
+            <input id="shadowFontColorOne" class="form-control" name="shadowFontColorOne" type="color" value="#ffffff">
+            <label for="shadowFontColorOne">Shadow Font Color Code One:</label>
+            <input class="form-control" disabled="" id="shadowFontColorOne" name="shadowFontColorOne" type="text" value="#ffffff">
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-group">
+            <label for="shadowFontColorTwo">Shadow Font Color Two:</label>
+            <input id="shadowFontColorTwo" class="form-control" name="shadowFontColorTwo" type="color" value="#ffffff">
+            <label for="shadowFontColorTwo">Shadow Font Color Code Two</label>
+            <input class="form-control" disabled="" id="shadowFontColorTwo" name="shadowFontColorTwo" type="text" value="#ffffff">
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-group">
+            <label for="shadowFontColorThree">Shadow Font Color Three:</label>
+            <input id="shadowFontColorThree" class="form-control" name="shadowFontColorThree" type="color" value="#ffffff">
+            <label for="shadowFontColorThree">Shadow Font Color Code Three</label>
+            <input class="form-control" disabled="" id="shadowFontColorThree" name="shadowFontColorThree" type="text" value="#ffffff">
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-group">
+            <label for="shadowFontColorDirection">Shadow Font Color Direction</label>
+            <select class="form-control" id="shadowFontColorDirection" name="shadowFontColorDirection">
+              <option selected="" value="to bottom">to bottom</option>
+              <option value="to top">to top</option>
+              <option value="to left">to left</option>
+              <option value="to right">to right</option>
+              <option value="to bottom left">to bottom left</option>
+              <option value="to bottom right">to bottom right</option>
+              <option value="to top left">to top left</option>
+              <option value="to top right">to top right</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    `;
+    beerscreenSettingsDiv.innerHTML += shadowFontColorHTML;
+
+    let bomBgColorDivHTML = `
+      <div class="row border border-secondary rounded mb-2">
+        <div class="col-2">
+              <div class="form-group">
+                <label for="beerBomBgColorOne">Background Color One:</label>
+                <input id="beerBomBgColorOne" class="form-control" name="beerBomBgColorOne" type="color" value="#8597ff">
+                <label for="beerBomBgColorOne">Background Color Code One:</label>
+                <input class="form-control" disabled="" id="beerBomBgColorOne" name="beerBomBgColorOne" type="text" value="#8597ff">
+              </div>
+        </div>
+        <div class="col-2">
+              <div class="form-group">
+                <label for="beerBomBgColorTwo">Background Color Two:</label>
+                <input id="beerBomBgColorTwo" class="form-control" name="beerBomBgColorTwo" type="color" value="#c9c9ff">
+                <label for="beerBomBgColorTwo">Background Color Code Two:</label>
+                <input class="form-control" disabled="" id="beerBomBgColorTwo" name="beerBomBgColorTwo" type="text" value="#c9c9ff">
+              </div>
+        </div>
+        <div class="col-2">
+              <div class="form-group">
+                <label for="beerBomBgColorThree">Background Color Three:</label>
+                <input id="beerBomBgColorThree" class="form-control" name="beerBomBgColorThree" type="color" value="#6b6bff">
+                <label for="beerBomBgColorThree">Background Color Code Three:</label>
+                <input class="form-control" disabled="" id="beerBomBgColorThree" name="beerBomBgColorThree" type="text" value="#6b6bff">
+              </div>
+        </div>
+        <div class="col-2">
+              <div class="form-group">
+                <label for="beerBomBgColorFour">Background Color Four:</label>
+                <input id="beerBomBgColorFour" class="form-control" name="beerBomBgColorFour" type="color" value="#4d4dff">
+                <label for="beerBomBgColorFour">Background Color Code Four:</label>
+                <input class="form-control" disabled="" id="beerBomBgColorFour" name="beerBomBgColorFour" type="text" value="#4d4dff">
+              </div>
+        </div>
+        <div class="col-2">
+              <div class="form-group">
+                <label for="beerBomBgColorFive">Background Color Five:</label>
+                <input id="beerBomBgColorFive" class="form-control" name="beerBomBgColorFive" type="color" value="#59ffff">
+                <label for="beerBomBgColorFive">Background Color Code Five:</label>
+                <input class="form-control" disabled="" id="beerBomBgColorFive" name="beerBomBgColorFive" type="text" value="#59ffff">
+              </div>
+        </div>
+        <div class="col-2">
+              <div class="form-group">
+                <label for="beerBomBgColorDirection">Background Font Color Direction</label>
+                <select class="form-control" id="beerBomBgColorDirection" name="beerBomBgColorDirection">
+                  <option value="to bottom">to bottom</option>
+                  <option value="to top">to top</option>
+                  <option value="to left">to left</option>
+                  <option value="to right">to right</option>
+                  <option value="to bottom left">to bottom left</option>
+                  <option selected="" value="to bottom right">to bottom right</option>
+                  <option value="to top left">to top left</option>
+                  <option value="to top right">to top right</option>
+                </select>
+              </div>
+        </div>
+      </div>
+    `;
+
+    beerscreenSettingsDiv.innerHTML += bomBgColorDivHTML;
+
+
+
+
+
+
 
   }
 
