@@ -1500,17 +1500,17 @@ class BeerTemplate {
             <label for="fontColorDirection">Font Color Direction</label>
             <select class="form-control" id="fontColorDirection" name="fontColorDirection">
       `;
-      colorDirectionOptions.forEach(option => {
-        if (option == screenSettings.fontColorDirection) {
-          fontColorsDivHTML += `
-          <option selected="" value="${option}">${option}</option>
-          `;
-        } else {
-          fontColorsDivHTML += `
-          <option value="${option}">${option}</option>
-          `;
-        }
-      });
+              colorDirectionOptions.forEach(option => {
+                if (option == screenSettings.fontColorDirection) {
+                  fontColorsDivHTML += `
+                    <option selected="" value="${option}">${option}</option>
+                  `;
+                } else {
+                  fontColorsDivHTML += `
+                    <option value="${option}">${option}</option>
+                  `;
+                }
+              });
       fontColorsDivHTML += `
             </select>
           </div>
@@ -1643,17 +1643,17 @@ class BeerTemplate {
             <label for="beerBomNameFont">Beer of the Month Name Font</label>
             <select class="form-control" id="beerBomNameFont" name="beerBomNameFont">
         `;
-        fontOptions.forEach((option, index) => {
-          if ( index == screenSettings.beerBomNameFont ){
-            bomNameSettingsDivHTML += `
-              <option selected="" value="${ index }">${ option }</option>
-            `;
-          } else {
-            bomNameSettingsDivHTML += `
-              <option value="${ index }">${ option }</option>
-            `;
-          }
-        });
+              fontOptions.forEach((option, index) => {
+                if ( index == screenSettings.beerBomNameFont ){
+                  bomNameSettingsDivHTML += `
+                    <option selected="" value="${ index }">${ option }</option>
+                  `;
+                } else {
+                  bomNameSettingsDivHTML += `
+                    <option value="${ index }">${ option }</option>
+                  `;
+                }
+              });
         bomNameSettingsDivHTML += `
             </select>
           </div>
@@ -1739,67 +1739,800 @@ class BeerTemplate {
     beerscreenSettingsDiv.innerHTML += bomNameSettingsDivHTML;
 
     let bomStyleSettingsDivHTML = `
-      bomStyleSettingsDivHTML
+        <div class="row border border-secondary rounded mb-2">
+            <div class="col-2">
+              <div class="form-group">
+                <label for="beerBomStyleFont">Beer of the Month Style Font</label>
+                <select class="form-control" id="beerBomStyleFont" name="beerBomStyleFont">
+        `;
+              fontOptions.forEach((option, index) => {
+                if ( index == screenSettings.beerBomStyleFont ){
+                  bomStyleSettingsDivHTML += `
+                    <option selected="" value="${ index }">${ option }</option>
+                  `;
+                } else {
+                  bomStyleSettingsDivHTML += `
+                    <option value="${ index }">${ option }</option>
+                  `;
+                }
+              });
+        bomStyleSettingsDivHTML += `
+                </select>
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="form-group">
+                <label for="beerBomStyleFontColor">Beer of Month Name Style font color</label>
+                <input id="beerBomStyleFontColor" class="form-control" name="beerBomStyleFontColor" type="color" value="#ffffff">
+                <label for="beerBomStyleFontColor">Beer of the Month Style Color</label>
+                <input class="form-control" disabled="" id="beerBomStyleFontColor" name="beerBomStyleFontColor" type="text" value="#ffffff">
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="form-group">
+                <label for="beerBomStyleFontSize">Beer of the Month Style Font Size</label>
+                <select class="form-control" id="beerBomStyleFontSize" name="beerBomStyleFontSize">
+        `;
+                  fontSizeOptions.forEach((option, index) => {
+                    if (option == screenSettings.beerBomStyleFontSize) {
+                      bomStyleSettingsDivHTML += `
+                        <option selected="" value="${ index }">${ option }</option>
+                      `;
+                    } else {
+                      bomStyleSettingsDivHTML += `
+                        <option value="${ index }">${ option }</option>
+                      `;
+                    }
+                  });
+        bomStyleSettingsDivHTML += `
+                </select>
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="form-group">
+                <label for="beerBomStyleFontBoldToggle">Beer of the Month Style Bold Font:</label>
+                <input class="form-control" id="beerBomStyleFontBoldToggle" name="beerBomStyleFontBoldToggle" type="checkbox" value="y">
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="form-group">
+                <label for="beerBomStyleFontItalicToggle">Beer of the Month Style Italic:</label>
+                <input class="form-control" id="beerBomStyleFontItalicToggle" name="beerBomStyleFontItalicToggle" type="checkbox" value="y">
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="form-group">
+                <label for="beerBomStyleFontUnderlineToggle">Beer of the Month Style Underline:</label>
+                <input class="form-control" id="beerBomStyleFontUnderlineToggle" name="beerBomStyleFontUnderlineToggle" type="checkbox" value="y">
+              </div>
+            </div>
+        </div>
     `;
     beerscreenSettingsDiv.innerHTML += bomStyleSettingsDivHTML;
 
     let bomAbvSettingsDivHTML = `
-      bomAbvSettingsDivHTML
+        <div class="row border border-secondary rounded mb-2">
+          <div class="col-2">
+            <div class="form-group">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBomAbvFontColor">Beer of Month Name ABV font color</label>
+              <input id="beerBomAbvFontColor" class="form-control" name="beerBomAbvFontColor" type="color" value="#ffffff">
+              <label for="beerBomAbvFontColor">Beer of the Month ABV Font Color</label>
+              <input class="form-control" disabled="" id="beerBomAbvFontColor" name="beerBomAbvFontColor" type="text" value="#ffffff">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBomAbvFontSize">Beer of the Month ABV Font size</label>
+              <select class="form-control" id="beerBomAbvFontSize" name="beerBomAbvFontSize">
+        `;
+                fontSizeOptions.forEach((option, index) => {
+                  if (option == screenSettings.beerBomAbvFontSize) {
+                    bomAbvSettingsDivHTML += `
+                      <option selected="" value="${ index }">${ option }</option>
+                    `;
+                  } else {
+                    bomAbvSettingsDivHTML += `
+                      <option value="${ index }">${ option }</option>
+                    `;
+                  }
+                });
+        bomAbvSettingsDivHTML += `
+              </select>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBomAbvFontBoldToggle">Beer of the Month ABV Bold Font:</label>
+              <input class="form-control" id="beerBomAbvFontBoldToggle" name="beerBomAbvFontBoldToggle" type="checkbox" value="y">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBomAbvFontItalicToggle">Beer of the Month ABV Italic:</label>
+              <input class="form-control" id="beerBomAbvFontItalicToggle" name="beerBomAbvFontItalicToggle" type="checkbox" value="y">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBomAbvFontUnderlineToggle">Beer of the Month ABV Underline:</label>
+              <input class="form-control" id="beerBomAbvFontUnderlineToggle" name="beerBomAbvFontUnderlineToggle" type="checkbox" value="y">
+            </div>
+          </div>
+        </div>
     `;
     beerscreenSettingsDiv.innerHTML += bomAbvSettingsDivHTML;
 
     let bomIbuSettingsDivHTML = `
-      bomIbuSettingsDivHTML
+        <div class="row border border-secondary rounded mb-2">
+          <div class="col-2">
+            <div class="form-group">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBomIbuFontColor">Beer of Month Name IBU font color</label>
+              <input id="beerBomIbuFontColor" class="form-control" name="beerBomIbuFontColor" type="color" value="#ffffff">
+              <label for="beerBomIbuFontColor">Beer of the Month IBU Font Color</label>
+              <input class="form-control" disabled="" id="beerBomIbuFontColor" name="beerBomIbuFontColor" type="text" value="#ffffff">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBomIbuFontSize">Beer of the Month IBU Font Size</label>
+              <select class="form-control" id="beerBomIbuFontSize" name="beerBomIbuFontSize">
+        `;
+                fontSizeOptions.forEach((option, index) => {
+                  if (option == screenSettings.beerBomIbuFontSize) {
+                    bomIbuSettingsDivHTML += `
+                      <option selected="" value="${ index }">${ option }</option>
+                    `;
+                  } else {
+                    bomIbuSettingsDivHTML += `
+                      <option value="${ index }">${ option }</option>
+                    `;
+                  }
+                });
+        bomIbuSettingsDivHTML += `
+              </select>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBomIbuFontBoldToggle">Beer of the Month IBU Bold Font:</label>
+              <input class="form-control" id="beerBomIbuFontBoldToggle" name="beerBomIbuFontBoldToggle" type="checkbox" value="y">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBomIbuFontItalicToggle">Beer of the Month IBU Italic:</label>
+              <input class="form-control" id="beerBomIbuFontItalicToggle" name="beerBomIbuFontItalicToggle" type="checkbox" value="y">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBomIbuFontUnderlineToggle">Beer of the Month IBU Underline:</label>
+              <input class="form-control" id="beerBomIbuFontUnderlineToggle" name="beerBomIbuFontUnderlineToggle" type="checkbox" value="y">
+            </div>
+          </div>
+        </div>
     `;
     beerscreenSettingsDiv.innerHTML += bomIbuSettingsDivHTML;
 
     let bomBrewerySettingsDivHTML = `
-      bomBrewerySettingsDivHTML
+        <div class="row border border-secondary rounded mb-2">
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBomBreweryFont">Beer of the Month Brewery Font</label>
+              <select class="form-control" id="beerBomBreweryFont" name="beerBomBreweryFont">
+        `;
+              fontOptions.forEach((option, index) => {
+                if ( index == screenSettings.beerBomBreweryFont ){
+                  bomBrewerySettingsDivHTML += `
+                    <option selected="" value="${ index }">${ option }</option>
+                  `;
+                } else {
+                  bomBrewerySettingsDivHTML += `
+                    <option value="${ index }">${ option }</option>
+                  `;
+                }
+              });
+        bomBrewerySettingsDivHTML += `
+              </select>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBomBreweryFontColor">Beer of the Month Brewery font color</label>
+              <input id="beerBomBreweryFontColor" class="form-control" name="beerBomBreweryFontColor" type="color" value="">
+              <label for="beerBomBreweryFontColor">Beer of the Month Brewery Color</label>
+              <input class="form-control" disabled="" id="beerBomBreweryFontColor" name="beerBomBreweryFontColor" type="text" value="#000000">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBomBreweryFontSize">Beer of the Month Brewery Font size</label>
+              <select class="form-control" id="beerBomBreweryFontSize" name="beerBomBreweryFontSize">
+        `;
+                fontSizeOptions.forEach((option, index) => {
+                  if (option == screenSettings.beerBomBreweryFontSize) {
+                    bomBrewerySettingsDivHTML += `
+                      <option selected="" value="${ index }">${ option }</option>
+                    `;
+                  } else {
+                    bomBrewerySettingsDivHTML += `
+                      <option value="${ index }">${ option }</option>
+                    `;
+                  }
+                });
+        bomBrewerySettingsDivHTML += `
+              </select>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBomBreweryFontBoldToggle">Beer of the Month Brewery Bold Font:</label>
+              <input class="form-control" id="beerBomBreweryFontBoldToggle" name="beerBomBreweryFontBoldToggle" type="checkbox" value="y">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBomBreweryFontItalicToggle">Beer of the Month Brewery Italic:</label>
+              <input class="form-control" id="beerBomBreweryFontItalicToggle" name="beerBomBreweryFontItalicToggle" type="checkbox" value="y">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBomBreweryFontUnderlineToggle">Beer of the Month Brewery Underline:</label>
+              <input class="form-control" id="beerBomBreweryFontUnderlineToggle" name="beerBomBreweryFontUnderlineToggle" type="checkbox" value="y">
+            </div>
+          </div>
+        </div>
     `;
     beerscreenSettingsDiv.innerHTML += bomBrewerySettingsDivHTML;
 
     let beerlistBgColorSettingsDivHTML = `
-      beerlistBgColorSettingsDivHTML
+        <div class="row border border-secondary rounded mb-2">
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBgColorOne">Background color #1</label>
+              <input id="beerBgColorOne" class="form-control" name="beerBgColorOne" type="color" value="#000000">
+              <label for="beerBgColorOne">Background Color Code #1:</label>
+              <input class="form-control" disabled="" id="beerBgColorOne" name="beerBgColorOne" type="text" value="#000000">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBgColorTwo">Background color #2</label>
+              <input id="beerBgColorTwo" class="form-control" name="beerBgColorTwo" type="color" value="#000000">
+              <label for="beerBgColorTwo">Background Color Code #2:</label>
+              <input class="form-control" disabled="" id="beerBgColorTwo" name="beerBgColorTwo" type="text" value="#000000">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBgColorThree">Background color #3</label>
+              <input id="beerBgColorThree" class="form-control" name="beerBgColorThree" type="color" value="#000000">
+              <label for="beerBgColorThree">Background Color Code #3:</label>
+              <input class="form-control" disabled="" id="beerBgColorThree" name="beerBgColorThree" type="text" value="#000000">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBgColorFour">Background color #4</label>
+              <input id="beerBgColorFour" class="form-control" name="beerBgColorFour" type="color" value="#000000">
+              <label for="beerBgColorFour">Background Color Code #4:</label>
+              <input class="form-control" disabled="" id="beerBgColorFour" name="beerBgColorFour" type="text" value="#000000">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBgColorFive">Background color #5</label>
+              <input id="beerBgColorFive" class="form-control" name="beerBgColorFive" type="color" value="#000000">
+              <label for="beerBgColorFive">Background Color Code #5:</label>
+              <input class="form-control" disabled="" id="beerBgColorFive" name="beerBgColorFive" type="text" value="#000000">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBgColorDirection">Background Font Color Direction</label>
+              <select class="form-control" id="beerBgColorDirection" name="beerBgColorDirection"><option selected="" value="to bottom">to bottom</option><option value="to top">to top</option><option value="to left">to left</option><option value="to right">to right</option><option value="to bottom left">to bottom left</option><option value="to bottom right">to bottom right</option><option value="to top left">to top left</option><option value="to top right">to top right</option></select>
+            </div>
+          </div>
+        </div>
     `;
     beerscreenSettingsDiv.innerHTML += beerlistBgColorSettingsDivHTML;
 
     let beerNameFontSettingsDivHTML = `
-      beerNameFontSettingsDivHTML
+        <div class="row border border-secondary rounded mb-2">
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerNameFont">Beer Name font</label>
+              <select class="form-control" id="beerNameFont" name="beerNameFont">
+        `;
+                fontOptions.forEach((option, index) => {
+                  if ( index == screenSettings.beerNameFont ){
+                    beerNameFontSettingsDivHTML += `
+                      <option selected="" value="${ index }">${ option }</option>
+                    `;
+                  } else {
+                    beerNameFontSettingsDivHTML += `
+                      <option value="${ index }">${ option }</option>
+                    `;
+                  }
+                });
+        beerNameFontSettingsDivHTML += `
+              </select>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerNameFontColor">Beer Name Font Color</label>
+              <input id="beerNameFontColor" class="form-control" name="beerNameFontColor" type="color" value="#ffffff">
+              <label for="beerNameFontColor">Beer Name font color</label>
+              <input class="form-control" disabled="" id="beerNameFontColor" name="beerNameFontColor" type="text" value="#ffffff">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerNameFontSize">Beer Name font size</label>
+              <select class="form-control" id="beerNameFontSize" name="beerNameFontSize">
+        `;
+                fontSizeOptions.forEach((option, index) => {
+                  if (option == screenSettings.beerNameFontSize) {
+                    beerNameFontSettingsDivHTML += `
+                      <option selected="" value="${ index }">${ option }</option>
+                    `;
+                  } else {
+                    beerNameFontSettingsDivHTML += `
+                      <option value="${ index }">${ option }</option>
+                    `;
+                  }
+                });
+        beerNameFontSettingsDivHTML += `
+              </select>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerNameFontBoldToggle">Beer Name Bold Font:</label>
+              <input class="form-control" id="beerNameFontBoldToggle" name="beerNameFontBoldToggle" type="checkbox" value="y">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerNameFontItalicToggle">Beer Name Italic:</label>
+              <input class="form-control" id="beerNameFontItalicToggle" name="beerNameFontItalicToggle" type="checkbox" value="y">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerNameFontUnderlineToggle">Beer Name Underline:</label>
+              <input class="form-control" id="beerNameFontUnderlineToggle" name="beerNameFontUnderlineToggle" type="checkbox" value="y">
+            </div>
+          </div>
+        </div>
     `;
     beerscreenSettingsDiv.innerHTML += beerNameFontSettingsDivHTML;
 
     let beerStyleFontSettingsDivHTML = `
-      beerStyleFontSettingsDivHTML
+        <div class="row border border-secondary rounded mb-2">
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerStyleFont">Beer Style font</label>
+              <select class="form-control" id="beerStyleFont" name="beerStyleFont">
+        `;
+              fontOptions.forEach((option, index) => {
+                if ( index == screenSettings.beerStyleFont ){
+                  beerStyleFontSettingsDivHTML += `
+                    <option selected="" value="${ index }">${ option }</option>
+                  `;
+                } else {
+                  beerStyleFontSettingsDivHTML += `
+                    <option value="${ index }">${ option }</option>
+                  `;
+                }
+              });
+        beerStyleFontSettingsDivHTML += `
+              </select>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerStyleFontColor">Beer Style Font Color</label>
+              <input id="beerStyleFontColor" class="form-control" name="beerStyleFontColor" type="color" value="#ffffff">
+              <label for="beerStyleFontColor">Beer Style font color</label>
+              <input class="form-control" disabled="" id="beerStyleFontColor" name="beerStyleFontColor" type="text" value="#ffffff">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerStyleFontSize">Beer Style font size</label>
+              <select class="form-control" id="beerStyleFontSize" name="beerStyleFontSize">
+        `;
+                fontSizeOptions.forEach((option, index) => {
+                  if (option == screenSettings.beerStyleFontSize) {
+                    beerStyleFontSettingsDivHTML += `
+                      <option selected="" value="${ index }">${ option }</option>
+                    `;
+                  } else {
+                    beerStyleFontSettingsDivHTML += `
+                      <option value="${ index }">${ option }</option>
+                    `;
+                  }
+                });
+        beerStyleFontSettingsDivHTML += `
+              </select>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerStyleFontBoldToggle">Beer Style Bold Font:</label>
+              <input class="form-control" id="beerStyleFontBoldToggle" name="beerStyleFontBoldToggle" type="checkbox" value="y">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerStyleFontItalicToggle">Beer Style Italic:</label>
+              <input class="form-control" id="beerStyleFontItalicToggle" name="beerStyleFontItalicToggle" type="checkbox" value="y">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerStyleFontUnderlineToggle">Beer Style Underline:</label>
+              <input class="form-control" id="beerStyleFontUnderlineToggle" name="beerStyleFontUnderlineToggle" type="checkbox" value="y">
+            </div>
+          </div>
+        </div>
     `;
     beerscreenSettingsDiv.innerHTML += beerStyleFontSettingsDivHTML;
 
     let beerAbvFontSettingsDivHTML = `
-      beerAbvFontSettingsDivHTML
+        <div class="row border border-secondary rounded mb-2">
+          <div class="col-2">
+            <div class="form-group">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerAbvFontColor">Beer ABV Font Color</label>
+              <input id="beerAbvFontColor" class="form-control" name="beerAbvFontColor" type="color" value="#ffffff">
+              <label for="beerAbvFontColor">Beer ABV font color</label>
+              <input class="form-control" disabled="" id="beerAbvFontColor" name="beerAbvFontColor" type="text" value="#ffffff">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerAbvFontSize">Beer ABV font size</label>
+              <select class="form-control" id="beerAbvFontSize" name="beerAbvFontSize">
+        `;
+                fontSizeOptions.forEach((option, index) => {
+                  if (option == screenSettings.beerAbvFontSize) {
+                    beerAbvFontSettingsDivHTML += `
+                      <option selected="" value="${ index }">${ option }</option>
+                    `;
+                  } else {
+                    beerAbvFontSettingsDivHTML += `
+                      <option value="${ index }">${ option }</option>
+                    `;
+                  }
+                });
+        beerAbvFontSettingsDivHTML += `
+              </select>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerAbvFontBoldToggle">Beer ABV Bold Font:</label>
+              <input checked="" class="form-control" id="beerAbvFontBoldToggle" name="beerAbvFontBoldToggle" type="checkbox" value="y">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerAbvFontItalicToggle">Beer ABV Italic:</label>
+              <input class="form-control" id="beerAbvFontItalicToggle" name="beerAbvFontItalicToggle" type="checkbox" value="y">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerAbvFontUnderlineToggle">Beer ABV Underline:</label>
+              <input class="form-control" id="beerAbvFontUnderlineToggle" name="beerAbvFontUnderlineToggle" type="checkbox" value="y">
+            </div>
+          </div>
+        </div>
     `;
     beerscreenSettingsDiv.innerHTML += beerAbvFontSettingsDivHTML;
 
     let beerIbuFontSettingsDivHTML = `
-      beerIbuFontSettingsDivHTML
+        <div class="row border border-secondary rounded mb-2">
+          <div class="col-2">
+            <div class="form-group">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerIbuFontColor">Beer IBU Font Color</label>
+              <input id="beerIbuFontColor" class="form-control" name="beerIbuFontColor" type="color" value="#ffffff">
+              <label for="beerIbuFontColor">Beer IBU font color</label>
+              <input class="form-control" disabled="" id="beerIbuFontColor" name="beerIbuFontColor" type="text" value="#ffffff">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerIbuFontSize">Beer IBU font size</label>
+              <select class="form-control" id="beerIbuFontSize" name="beerIbuFontSize">
+        `;
+                fontSizeOptions.forEach((option, index) => {
+                  if (option == screenSettings.beerIbuFontSize) {
+                    beerIbuFontSettingsDivHTML += `
+                      <option selected="" value="${ index }">${ option }</option>
+                    `;
+                  } else {
+                    beerIbuFontSettingsDivHTML += `
+                      <option value="${ index }">${ option }</option>
+                    `;
+                  }
+                });
+        beerIbuFontSettingsDivHTML += `
+              </select>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerIbuFontBoldToggle">Beer IBU Bold font:</label>
+              <input class="form-control" id="beerIbuFontBoldToggle" name="beerIbuFontBoldToggle" type="checkbox" value="y">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerIbuFontItalicToggle">Beer IBU Italic:</label>
+              <input class="form-control" id="beerIbuFontItalicToggle" name="beerIbuFontItalicToggle" type="checkbox" value="y">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerIbuFontUnderlineToggle">Beer IBU Underline:</label>
+              <input class="form-control" id="beerIbuFontUnderlineToggle" name="beerIbuFontUnderlineToggle" type="checkbox" value="y">
+            </div>
+          </div>
+        </div>
     `;
     beerscreenSettingsDiv.innerHTML += beerIbuFontSettingsDivHTML;
 
     let beerBreweryFontSettingsDivHTML = `
-      beerBreweryFontSettingsDivHTML
+        <div class="row border border-secondary rounded mb-2">
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBreweryFont">Beer Brewery font</label>
+              <select class="form-control" id="beerBreweryFont" name="beerBreweryFont">
+        `;
+                fontOptions.forEach((option, index) => {
+                  if ( index == screenSettings.beerBreweryFont ){
+                    beerBreweryFontSettingsDivHTML += `
+                      <option selected="" value="${ index }">${ option }</option>
+                    `;
+                  } else {
+                    beerBreweryFontSettingsDivHTML += `
+                      <option value="${ index }">${ option }</option>
+                    `;
+                  }
+                });
+        beerBreweryFontSettingsDivHTML += `
+              </select>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBreweryFontColor">Beer Brewery Font Color</label>
+              <input id="beerBreweryFontColor" class="form-control" name="beerBreweryFontColor" type="color" value="#ffffff">
+              <label for="beerBreweryFontColor">Beer Brewery font color</label>
+              <input class="form-control" disabled="" id="beerBreweryFontColor" name="beerBreweryFontColor" type="text" value="#ffffff">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBreweryFontSize">Beer Brewery font size</label>
+              <select class="form-control" id="beerBreweryFontSize" name="beerBreweryFontSize">
+        `;
+              fontSizeOptions.forEach((option, index) => {
+                if (option == screenSettings.beerBreweryFontSize) {
+                  beerBreweryFontSettingsDivHTML += `
+                    <option selected="" value="${ index }">${ option }</option>
+                  `;
+                } else {
+                  beerBreweryFontSettingsDivHTML += `
+                    <option value="${ index }">${ option }</option>
+                  `;
+                }
+              });
+        beerBreweryFontSettingsDivHTML += `
+              </select>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBreweryFontBoldToggle">Beer Brewery Bold Font:</label>
+              <input class="form-control" id="beerBreweryFontBoldToggle" name="beerBreweryFontBoldToggle" type="checkbox" value="y">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBreweryFontItalicToggle">Beer Brewery Italic:</label>
+              <input class="form-control" id="beerBreweryFontItalicToggle" name="beerBreweryFontItalicToggle" type="checkbox" value="y">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerBreweryFontUnderlineToggle">Beer Brewery Underline:</label>
+              <input class="form-control" id="beerBreweryFontUnderlineToggle" name="beerBreweryFontUnderlineToggle" type="checkbox" value="y">
+            </div>
+          </div>
+        </div>
     `;
     beerscreenSettingsDiv.innerHTML += beerBreweryFontSettingsDivHTML;
 
     let tickerBgColorSettingsDivHTML = `
-      tickerBgColorSettingsDivHTML
+        <div class="row border border-secondary rounded mb-2">
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerTickerBgColorOne">Beer Ticker Background color #1</label>
+              <input id="beerTickerBgColorOne" class="form-control" name="beerTickerBgColorOne" type="color" value="#ff7a7a">
+              <label for="beerTickerBgColorOne">Ticker Background Color Code One:</label>
+              <input class="form-control" disabled="" id="beerTickerBgColorOne" name="beerTickerBgColorOne" type="text" value="#ff7a7a">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerTickerBgColorTwo">Beer Ticker Background color #2</label>
+              <input id="beerTickerBgColorTwo" class="form-control" name="beerTickerBgColorTwo" type="color" value="#ffb5b5">
+              <label for="beerTickerBgColorTwo">Ticker Background Color Code Two:</label>
+              <input class="form-control" disabled="" id="beerTickerBgColorTwo" name="beerTickerBgColorTwo" type="text" value="#ffb5b5">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerTickerBgColorThree">Beer Ticker Background color #3</label>
+              <input id="beerTickerBgColorThree" class="form-control" name="beerTickerBgColorThree" type="color" value="#ff0000">
+              <label for="beerTickerBgColorThree">Ticker Background Color Code Three:</label>
+              <input class="form-control" disabled="" id="beerTickerBgColorThree" name="beerTickerBgColorThree" type="text" value="#ff0000">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerTickerBgColorFour">Beer Ticker Background color #4</label>
+              <input id="beerTickerBgColorFour" class="form-control" name="beerTickerBgColorFour" type="color" value="#ffbfbf">
+              <label for="beerTickerBgColorFour">Ticker Background Color Code Four:</label>
+              <input class="form-control" disabled="" id="beerTickerBgColorFour" name="beerTickerBgColorFour" type="text" value="#ffbfbf">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerTickerBgColorFive">Beer Ticker Background color #5</label>
+              <input id="beerTickerBgColorFive" class="form-control" name="beerTickerBgColorFive" type="color" value="#bd0000">
+              <label for="beerTickerBgColorFive">Ticker Background Color Code Five:</label>
+              <input class="form-control" disabled="" id="beerTickerBgColorFive" name="beerTickerBgColorFive" type="text" value="#bd0000">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerTickerBgColorDirection">Ticker Background Font Color Direction</label>
+              <select class="form-control" id="beerTickerBgColorDirection" name="beerTickerBgColorDirection"><option value="to bottom">to bottom</option><option value="to top">to top</option><option value="to left">to left</option><option value="to right">to right</option><option value="to bottom left">to bottom left</option><option selected="" value="to bottom right">to bottom right</option><option value="to top left">to top left</option><option value="to top right">to top right</option></select>
+            </div>
+          </div>
+        </div>
     `;
     beerscreenSettingsDiv.innerHTML += tickerBgColorSettingsDivHTML;
 
     let tickerSettingsDivHTML = `
-      tickerSettingsDivHTML
+        <div class="row border border-secondary rounded mb-2">
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerTickerBeernamesFont">Beer Ticker Names Font</label>
+              <select class="form-control" id="beerTickerBeernamesFont" name="beerTickerBeernamesFont">
+        `;
+                fontOptions.forEach((option, index) => {
+                  if ( index == screenSettings.beerTickerBeernamesFont ){
+                    tickerSettingsDivHTML += `
+                      <option selected="" value="${ index }">${ option }</option>
+                    `;
+                  } else {
+                    tickerSettingsDivHTML += `
+                      <option value="${ index }">${ option }</option>
+                    `;
+                  }
+                });
+        tickerSettingsDivHTML += `
+              </select>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerTickerFont">Beer Ticker Font</label>
+              <select class="form-control" id="beerTickerFont" name="beerTickerFont">
+        `;
+                fontOptions.forEach((option, index) => {
+                  if ( index == screenSettings.beerTickerFont ){
+                    tickerSettingsDivHTML += `
+                      <option selected="" value="${ index }">${ option }</option>
+                    `;
+                  } else {
+                    tickerSettingsDivHTML += `
+                      <option value="${ index }">${ option }</option>
+                    `;
+                  }
+                });
+        tickerSettingsDivHTML += `
+              </select>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerTickerFontColor">Beer Ticker Font Color</label>
+              <input id="beerTickerFontColor" class="form-control" name="beerTickerFontColor" type="color" value="#ffffff">
+              <label for="beerTickerFontColor">Beer Ticker Font color</label>
+              <input class="form-control" disabled="" id="beerTickerFontColor" name="beerTickerFontColor" type="text" value="#ffffff">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerTickerFontSize">Beer Ticker Font size</label>
+              <select class="form-control" id="beerTickerFontSize" name="beerTickerFontSize">
+        `;
+                fontSizeOptions.forEach((option, index) => {
+                  if (option == screenSettings.beerTickerFontSize) {
+                    tickerSettingsDivHTML += `
+                      <option selected="" value="${ index }">${ option }</option>
+                    `;
+                  } else {
+                    tickerSettingsDivHTML += `
+                      <option value="${ index }">${ option }</option>
+                    `;
+                  }
+                });
+        tickerSettingsDivHTML += `
+              </select>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerTickerFontBoldToggle">Beer Ticker Bold Font:</label>
+              <input checked="" class="form-control" id="beerTickerFontBoldToggle" name="beerTickerFontBoldToggle" type="checkbox" value="y">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerTickerFontItalicToggle">Beer Ticker Italic:</label>
+              <input checked="" class="form-control" id="beerTickerFontItalicToggle" name="beerTickerFontItalicToggle" type="checkbox" value="y">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <label for="beerTickerFontUnderlineToggle">Beer Ticker Underline:</label>
+              <input class="form-control" id="beerTickerFontUnderlineToggle" name="beerTickerFontUnderlineToggle" type="checkbox" value="y">
+            </div>
+          </div>
+        </div>
     `;
     beerscreenSettingsDiv.innerHTML += tickerSettingsDivHTML;
 
     let tickerSettingsShowDivHTML = `
-      tickerSettingsShowDivHTML
+        <div class="row border border-secondary rounded mb-2">
+          <div class="col-3">
+            <div class="form-group">
+              <label for="beerTickerToggle">Show Beer Ticker:</label>
+              <input checked="" class="form-control" id="beerTickerToggle" name="beerTickerToggle" type="checkbox" value="y">
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="form-group">
+              <label for="beerTickerScrollSpeed">Beer Ticker Scroll Speed</label>
+              <input class="form-control" id="beerTickerScrollSpeed" name="beerTickerScrollSpeed" required="" type="text" value="10">
+            </div>
+          </div>
+        </div>
     `;
     beerscreenSettingsDiv.innerHTML += tickerSettingsShowDivHTML;
 
