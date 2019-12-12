@@ -1617,18 +1617,18 @@ class BeerTemplate {
                 <label for="beerBomBgColorDirection">Beer of the Month Background Color Direction</label>
                 <select class="form-control" id="beerBomBgColorDirection" name="beerBomBgColorDirection">
         `;
-        colorDirectionOptions.forEach(option => {
-          if (option == screenSettings.beerBomBgColorDirection ){
-            bomBgColorDivHTML += `
-              <option selected="" value="${ option }">${ option }</option>
-            `;
-          } else {
-            bomBgColorDivHTML += `
-              <option value="${ option }">${ option }</option>
-            `;
-          }
-        });
-        bomBgColorDivHTML += `
+                  colorDirectionOptions.forEach(option => {
+                    if (option == screenSettings.beerBomBgColorDirection ){
+                      bomBgColorDivHTML += `
+                        <option selected="" value="${ option }">${ option }</option>
+                      `;
+                    } else {
+                      bomBgColorDivHTML += `
+                        <option value="${ option }">${ option }</option>
+                      `;
+                    }
+                  });
+                  bomBgColorDivHTML += `
                 </select>
               </div>
         </div>
@@ -1688,7 +1688,7 @@ class BeerTemplate {
         </div>
         <div class="col-2">
           <div class="form-group">
-            <label for="beerBomNameFontBoldToggle">Name Bold Font:</label>
+            <label for="beerBomNameFontBoldToggle">Beer Of the Month Name Bold Font:</label>
         `;
             if (screenSettings.beerBomNameFontBoldToggle) {
               bomNameSettingsDivHTML += `
@@ -1704,7 +1704,7 @@ class BeerTemplate {
         </div>
         <div class="col-2">
           <div class="form-group">
-            <label for="beerBomNameFontItalicToggle">Name Italic:</label>
+            <label for="beerBomNameFontItalicToggle">Beer Of the Month Name Italic:</label>
         `;
             if (screenSettings.beerBomNameFontItalicToggle) {
               bomNameSettingsDivHTML += `
@@ -1720,7 +1720,7 @@ class BeerTemplate {
         </div>
         <div class="col-2">
           <div class="form-group">
-            <label for="beerBomNameFontUnderlineToggle">Name Underline:</label>
+            <label for="beerBomNameFontUnderlineToggle">Beer Of the Month Name Underline:</label>
         `;
             if (screenSettings.beerBomNameFontUnderlineToggle) {
               bomNameSettingsDivHTML += `
@@ -1791,19 +1791,49 @@ class BeerTemplate {
             <div class="col-2">
               <div class="form-group">
                 <label for="beerBomStyleFontBoldToggle">Beer of the Month Style Bold Font:</label>
-                <input class="form-control" id="beerBomStyleFontBoldToggle" name="beerBomStyleFontBoldToggle" type="checkbox" value="y">
+        `;
+                  if (screenSettings.beerBomStyleFontBoldToggle) {
+                    bomStyleSettingsDivHTML += `
+                      <input class="form-control" id="beerBomStyleFontBoldToggle" checked="" name="beerBomStyleFontBoldToggle" type="checkbox" value="y">
+                    `;
+                  } else {
+                    bomStyleSettingsDivHTML += `
+                      <input class="form-control" id="beerBomStyleFontBoldToggle" name="beerBomStyleFontBoldToggle" type="checkbox" value="y">
+                    `;
+                  }
+                  bomStyleSettingsDivHTML += `
               </div>
             </div>
             <div class="col-2">
               <div class="form-group">
                 <label for="beerBomStyleFontItalicToggle">Beer of the Month Style Italic:</label>
-                <input class="form-control" id="beerBomStyleFontItalicToggle" name="beerBomStyleFontItalicToggle" type="checkbox" value="y">
+        `;
+                if (screenSettings.beerBomStyleFontItalicToggle) {
+                  bomStyleSettingsDivHTML += `
+                    <input class="form-control" id="beerBomStyleFontItalicToggle" checked="" name="beerBomStyleFontItalicToggle" type="checkbox" value="y">
+                  `;
+                } else {
+                  bomStyleSettingsDivHTML += `
+                    <input class="form-control" id="beerBomStyleFontItalicToggle" name="beerBomStyleFontItalicToggle" type="checkbox" value="y">
+                  `;
+                }
+        bomStyleSettingsDivHTML += `
               </div>
             </div>
             <div class="col-2">
               <div class="form-group">
                 <label for="beerBomStyleFontUnderlineToggle">Beer of the Month Style Underline:</label>
-                <input class="form-control" id="beerBomStyleFontUnderlineToggle" name="beerBomStyleFontUnderlineToggle" type="checkbox" value="y">
+        `;
+                if (screenSettings.beerBomStyleFontUnderlineToggle) {
+                  bomStyleSettingsDivHTML += `
+                    <input class="form-control" id="beerBomStyleFontUnderlineToggle" checked="" name="beerBomStyleFontUnderlineToggle" type="checkbox" value="y">
+                  `;
+                } else {
+                  bomStyleSettingsDivHTML += `
+                    <input class="form-control" id="beerBomStyleFontUnderlineToggle" name="beerBomStyleFontUnderlineToggle" type="checkbox" value="y">
+                  `;
+                }
+        bomStyleSettingsDivHTML =+ `
               </div>
             </div>
         </div>
@@ -1847,19 +1877,49 @@ class BeerTemplate {
           <div class="col-2">
             <div class="form-group">
               <label for="beerBomAbvFontBoldToggle">Beer of the Month ABV Bold Font:</label>
-              <input class="form-control" id="beerBomAbvFontBoldToggle" name="beerBomAbvFontBoldToggle" type="checkbox" value="y">
+        `;
+            if(screenSettings.beerBomAbvFontBoldToggle){
+              bomAbvSettingsDivHTML += `
+                <input class="form-control" id="beerBomAbvFontBoldToggle" checked="" name="beerBomAbvFontBoldToggle" type="checkbox" value="y">
+              `;
+            } else {
+              bomAbvSettingsDivHTML += `
+                <input class="form-control" id="beerBomAbvFontBoldToggle" name="beerBomAbvFontBoldToggle" type="checkbox" value="y">
+              `;
+            }
+        bomAbvSettingsDivHTML += `
             </div>
           </div>
           <div class="col-2">
             <div class="form-group">
               <label for="beerBomAbvFontItalicToggle">Beer of the Month ABV Italic:</label>
-              <input class="form-control" id="beerBomAbvFontItalicToggle" name="beerBomAbvFontItalicToggle" type="checkbox" value="y">
+        `;
+            if (screenSettings.beerBomAbvFontItalicToggle) {
+              bomAbvSettingsDivHTML += `
+                <input class="form-control" id="beerBomAbvFontItalicToggle" checked="" name="beerBomAbvFontItalicToggle" type="checkbox" value="y">
+              `;
+            } else {
+              bomAbvSettingsDivHTML += `
+                <input class="form-control" id="beerBomAbvFontItalicToggle" name="beerBomAbvFontItalicToggle" type="checkbox" value="y">
+              `;
+            }
+        bomAbvSettingsDivHTML += `
             </div>
           </div>
           <div class="col-2">
             <div class="form-group">
               <label for="beerBomAbvFontUnderlineToggle">Beer of the Month ABV Underline:</label>
-              <input class="form-control" id="beerBomAbvFontUnderlineToggle" name="beerBomAbvFontUnderlineToggle" type="checkbox" value="y">
+        `;
+            if (screenSettings.beerBomAbvFontUnderlineToggle) {
+              bomAbvSettingsDivHTML += `
+                <input class="form-control" id="beerBomAbvFontUnderlineToggle" checked="" name="beerBomAbvFontUnderlineToggle" type="checkbox" value="y">
+              `;
+            } else {
+              bomAbvSettingsDivHTML += `
+                <input class="form-control" id="beerBomAbvFontUnderlineToggle" name="beerBomAbvFontUnderlineToggle" type="checkbox" value="y">
+              `;
+            }
+        bomAbvSettingsDivHTML += `
             </div>
           </div>
         </div>
@@ -1903,19 +1963,49 @@ class BeerTemplate {
           <div class="col-2">
             <div class="form-group">
               <label for="beerBomIbuFontBoldToggle">Beer of the Month IBU Bold Font:</label>
-              <input class="form-control" id="beerBomIbuFontBoldToggle" name="beerBomIbuFontBoldToggle" type="checkbox" value="y">
+        `;
+            if (screenSettings.beerBomIbuFontBoldToggle) {
+              bomIbuSettingsDivHTML += `
+                <input class="form-control" id="beerBomIbuFontBoldToggle" checked="" name="beerBomIbuFontBoldToggle" type="checkbox" value="y">
+              `;
+            } else {
+              bomIbuSettingsDivHTML += `
+                <input class="form-control" id="beerBomIbuFontBoldToggle" name="beerBomIbuFontBoldToggle" type="checkbox" value="y">
+              `;
+            }
+        bomIbuSettingsDivHTML += `
             </div>
           </div>
           <div class="col-2">
             <div class="form-group">
               <label for="beerBomIbuFontItalicToggle">Beer of the Month IBU Italic:</label>
-              <input class="form-control" id="beerBomIbuFontItalicToggle" name="beerBomIbuFontItalicToggle" type="checkbox" value="y">
+        `;
+            if (screenSettings.beerBomIbuFontItalicToggle) {
+              bomIbuSettingsDivHTML += `
+                <input class="form-control" id="beerBomIbuFontItalicToggle" checked="" name="beerBomIbuFontItalicToggle" type="checkbox" value="y">
+              `;
+            } else {
+              bomIbuSettingsDivHTML += `
+                <input class="form-control" id="beerBomIbuFontItalicToggle" name="beerBomIbuFontItalicToggle" type="checkbox" value="y">
+              `;
+            }
+        bomIbuSettingsDivHTML += `
             </div>
           </div>
           <div class="col-2">
             <div class="form-group">
               <label for="beerBomIbuFontUnderlineToggle">Beer of the Month IBU Underline:</label>
-              <input class="form-control" id="beerBomIbuFontUnderlineToggle" name="beerBomIbuFontUnderlineToggle" type="checkbox" value="y">
+        `;
+            if (screenSettings.beerBomIbuFontUnderlineToggle) {
+              bomIbuSettingsDivHTML += `
+                <input class="form-control" id="beerBomIbuFontUnderlineToggle" checked="" name="beerBomIbuFontUnderlineToggle" type="checkbox" value="y">
+              `;
+            } else {
+              bomIbuSettingsDivHTML += `
+                <input class="form-control" id="beerBomIbuFontUnderlineToggle" name="beerBomIbuFontUnderlineToggle" type="checkbox" value="y">
+              `;
+            }
+        bomIbuSettingsDivHTML += `
             </div>
           </div>
         </div>
@@ -1975,19 +2065,49 @@ class BeerTemplate {
           <div class="col-2">
             <div class="form-group">
               <label for="beerBomBreweryFontBoldToggle">Beer of the Month Brewery Bold Font:</label>
-              <input class="form-control" id="beerBomBreweryFontBoldToggle" name="beerBomBreweryFontBoldToggle" type="checkbox" value="y">
+        `;
+              if (screenSettings.beerBomBreweryFontBoldToggle) {
+                bomBrewerySettingsDivHTML += `
+                  <input class="form-control" id="beerBomBreweryFontBoldToggle" checked="" name="beerBomBreweryFontBoldToggle" type="checkbox" value="y">
+                `;
+              } else {
+                bomBrewerySettingsDivHTML += `
+                  <input class="form-control" id="beerBomBreweryFontBoldToggle" name="beerBomBreweryFontBoldToggle" type="checkbox" value="y">
+                `;
+              }
+        bomBrewerySettingsDivHTML += `
             </div>
           </div>
           <div class="col-2">
             <div class="form-group">
               <label for="beerBomBreweryFontItalicToggle">Beer of the Month Brewery Italic:</label>
-              <input class="form-control" id="beerBomBreweryFontItalicToggle" name="beerBomBreweryFontItalicToggle" type="checkbox" value="y">
+        `;
+              if (screenSettings.beerBomBreweryFontItalicToggle) {
+                bomBrewerySettingsDivHTML += `
+                  <input class="form-control" id="beerBomBreweryFontItalicToggle" checked="" name="beerBomBreweryFontItalicToggle" type="checkbox" value="y">
+                `;
+              } else {
+                bomBrewerySettingsDivHTML += `
+                  <input class="form-control" id="beerBomBreweryFontItalicToggle" name="beerBomBreweryFontItalicToggle" type="checkbox" value="y">
+                `;
+              }
+        bomBrewerySettingsDivHTML += `
             </div>
           </div>
           <div class="col-2">
             <div class="form-group">
               <label for="beerBomBreweryFontUnderlineToggle">Beer of the Month Brewery Underline:</label>
-              <input class="form-control" id="beerBomBreweryFontUnderlineToggle" name="beerBomBreweryFontUnderlineToggle" type="checkbox" value="y">
+        `;
+              if (screenSettings.beerBomBreweryFontUnderlineToggle) {
+                bomBrewerySettingsDivHTML += `
+                  <input class="form-control" id="beerBomBreweryFontUnderlineToggle" checked="" name="beerBomBreweryFontUnderlineToggle" type="checkbox" value="y">
+                `;
+              } else {
+                bomBrewerySettingsDivHTML += `
+                  <input class="form-control" id="beerBomBreweryFontUnderlineToggle" name="beerBomBreweryFontUnderlineToggle" type="checkbox" value="y">
+                `;
+              }
+        bomBrewerySettingsDivHTML += `
             </div>
           </div>
         </div>
@@ -2039,7 +2159,21 @@ class BeerTemplate {
           <div class="col-2">
             <div class="form-group">
               <label for="beerBgColorDirection">Background Font Color Direction</label>
-              <select class="form-control" id="beerBgColorDirection" name="beerBgColorDirection"><option selected="" value="to bottom">to bottom</option><option value="to top">to top</option><option value="to left">to left</option><option value="to right">to right</option><option value="to bottom left">to bottom left</option><option value="to bottom right">to bottom right</option><option value="to top left">to top left</option><option value="to top right">to top right</option></select>
+              <select class="form-control" id="beerBgColorDirection" name="beerBgColorDirection">
+    `;
+                colorDirectionOptions.forEach(option => {
+                  if (option == screenSettings.beerBgColorDirection ){
+                    beerlistBgColorSettingsDivHTML += `
+                      <option selected="" value="${ option }">${ option }</option>
+                    `;
+                  } else {
+                    beerlistBgColorSettingsDivHTML += `
+                      <option value="${ option }">${ option }</option>
+                    `;
+                  }
+                });
+              beerlistBgColorSettingsDivHTML += `
+              </select>
             </div>
           </div>
         </div>
@@ -2099,19 +2233,49 @@ class BeerTemplate {
           <div class="col-2">
             <div class="form-group">
               <label for="beerNameFontBoldToggle">Beer Name Bold Font:</label>
-              <input class="form-control" id="beerNameFontBoldToggle" name="beerNameFontBoldToggle" type="checkbox" value="y">
+        `;
+              if (screenSettings.beerNameFontBoldToggle) {
+                beerNameFontSettingsDivHTML += `
+                  <input class="form-control" id="beerNameFontBoldToggle" checked="" name="beerNameFontBoldToggle" type="checkbox" value="y">
+                `;
+              } else {
+                beerNameFontSettingsDivHTML += `
+                  <input class="form-control" id="beerNameFontBoldToggle" name="beerNameFontBoldToggle" type="checkbox" value="y">
+                `;
+              }
+        beerNameFontSettingsDivHTML += `
             </div>
           </div>
           <div class="col-2">
             <div class="form-group">
               <label for="beerNameFontItalicToggle">Beer Name Italic:</label>
-              <input class="form-control" id="beerNameFontItalicToggle" name="beerNameFontItalicToggle" type="checkbox" value="y">
+        `;
+              if (screenSettings.beerNameFontItalicToggle) {
+                beerNameFontSettingsDivHTML += `
+                  <input class="form-control" id="beerNameFontItalicToggle" checked="" name="beerNameFontItalicToggle" type="checkbox" value="y">
+                `;
+              } else {
+                beerNameFontSettingsDivHTML += `
+                  <input class="form-control" id="beerNameFontItalicToggle" name="beerNameFontItalicToggle" type="checkbox" value="y">
+                `;
+              }
+        beerNameFontSettingsDivHTML += `
             </div>
           </div>
           <div class="col-2">
             <div class="form-group">
               <label for="beerNameFontUnderlineToggle">Beer Name Underline:</label>
-              <input class="form-control" id="beerNameFontUnderlineToggle" name="beerNameFontUnderlineToggle" type="checkbox" value="y">
+        `;
+              if (screenSettings.beerNameFontUnderlineToggle) {
+                beerNameFontSettingsDivHTML += `
+                  <input class="form-control" id="beerNameFontUnderlineToggle" checked="" name="beerNameFontUnderlineToggle" type="checkbox" value="y">
+                `;
+              } else {
+                beerNameFontSettingsDivHTML += `
+                  <input class="form-control" id="beerNameFontUnderlineToggle" name="beerNameFontUnderlineToggle" type="checkbox" value="y">
+                `;
+              }
+        beerNameFontSettingsDivHTML += `
             </div>
           </div>
         </div>
@@ -2171,19 +2335,49 @@ class BeerTemplate {
           <div class="col-2">
             <div class="form-group">
               <label for="beerStyleFontBoldToggle">Beer Style Bold Font:</label>
-              <input class="form-control" id="beerStyleFontBoldToggle" name="beerStyleFontBoldToggle" type="checkbox" value="y">
+        `;
+              if (screenSettings.beerStyleFontBoldToggle) {
+                beerStyleFontSettingsDivHTML += `
+                  <input class="form-control" id="beerStyleFontBoldToggle" checked="" name="beerStyleFontBoldToggle" type="checkbox" value="y">
+                `;
+              } else {
+                beerStyleFontSettingsDivHTML += `
+                  <input class="form-control" id="beerStyleFontBoldToggle" name="beerStyleFontBoldToggle" type="checkbox" value="y">
+                `;
+              }
+        beerStyleFontSettingsDivHTML += `
             </div>
           </div>
           <div class="col-2">
             <div class="form-group">
               <label for="beerStyleFontItalicToggle">Beer Style Italic:</label>
-              <input class="form-control" id="beerStyleFontItalicToggle" name="beerStyleFontItalicToggle" type="checkbox" value="y">
+        `;
+              if (screenSettings.beerStyleFontItalicToggle) {
+                beerStyleFontSettingsDivHTML += `
+                  <input class="form-control" id="beerStyleFontItalicToggle" checked="" name="beerStyleFontItalicToggle" type="checkbox" value="y">
+                `;
+              } else {
+                beerStyleFontSettingsDivHTML += `
+                  <input class="form-control" id="beerStyleFontItalicToggle" name="beerStyleFontItalicToggle" type="checkbox" value="y">
+                `;
+              }
+        beerStyleFontSettingsDivHTML += `
             </div>
           </div>
           <div class="col-2">
             <div class="form-group">
               <label for="beerStyleFontUnderlineToggle">Beer Style Underline:</label>
-              <input class="form-control" id="beerStyleFontUnderlineToggle" name="beerStyleFontUnderlineToggle" type="checkbox" value="y">
+        `;
+              if (screenSettings.beerStyleFontUnderlineToggle) {
+                beerStyleFontSettingsDivHTML += `
+                  <input class="form-control" id="beerStyleFontUnderlineToggle" checked="" name="beerStyleFontUnderlineToggle" type="checkbox" value="y">
+                `;
+              } else {
+                beerStyleFontSettingsDivHTML += `
+                  <input class="form-control" id="beerStyleFontUnderlineToggle" name="beerStyleFontUnderlineToggle" type="checkbox" value="y">
+                `;
+              }
+        beerStyleFontSettingsDivHTML += `
             </div>
           </div>
         </div>
@@ -2227,19 +2421,49 @@ class BeerTemplate {
           <div class="col-2">
             <div class="form-group">
               <label for="beerAbvFontBoldToggle">Beer ABV Bold Font:</label>
-              <input checked="" class="form-control" id="beerAbvFontBoldToggle" name="beerAbvFontBoldToggle" type="checkbox" value="y">
+        `;
+              if (screenSettings.beerAbvFontBoldToggle) {
+                beerAbvFontSettingsDivHTML += `
+                  <input class="form-control" id="beerAbvFontBoldToggle" checked="" name="beerAbvFontBoldToggle" type="checkbox" value="y">
+                `;
+              } else {
+                beerAbvFontSettingsDivHTML += `
+                  <input class="form-control" id="beerAbvFontBoldToggle" name="beerAbvFontBoldToggle" type="checkbox" value="y">
+                `;
+              }
+        beerAbvFontSettingsDivHTML += `
             </div>
           </div>
           <div class="col-2">
             <div class="form-group">
               <label for="beerAbvFontItalicToggle">Beer ABV Italic:</label>
-              <input class="form-control" id="beerAbvFontItalicToggle" name="beerAbvFontItalicToggle" type="checkbox" value="y">
+        `;
+              if (screenSettings.beerAbvFontItalicToggle) {
+                beerAbvFontSettingsDivHTML += `
+                  <input class="form-control" id="beerAbvFontItalicToggle" checked="" name="beerAbvFontItalicToggle" type="checkbox" value="y">
+                `;
+              } else {
+                beerAbvFontSettingsDivHTML += `
+                  <input class="form-control" id="beerAbvFontItalicToggle" name="beerAbvFontItalicToggle" type="checkbox" value="y">
+                `;
+              }
+        beerAbvFontSettingsDivHTML += `
             </div>
           </div>
           <div class="col-2">
             <div class="form-group">
               <label for="beerAbvFontUnderlineToggle">Beer ABV Underline:</label>
-              <input class="form-control" id="beerAbvFontUnderlineToggle" name="beerAbvFontUnderlineToggle" type="checkbox" value="y">
+        `;
+              if (screenSettings.beerAbvFontUnderlineToggle) {
+                beerAbvFontSettingsDivHTML += `
+                  <input class="form-control" id="beerAbvFontUnderlineToggle" checked="" name="beerAbvFontUnderlineToggle" type="checkbox" value="y">
+                `;
+              } else {
+                beerAbvFontSettingsDivHTML += `
+                  <input class="form-control" id="beerAbvFontUnderlineToggle" name="beerAbvFontUnderlineToggle" type="checkbox" value="y">
+                `;
+              }
+        beerAbvFontSettingsDivHTML += `
             </div>
           </div>
         </div>
@@ -2283,19 +2507,49 @@ class BeerTemplate {
           <div class="col-2">
             <div class="form-group">
               <label for="beerIbuFontBoldToggle">Beer IBU Bold font:</label>
-              <input class="form-control" id="beerIbuFontBoldToggle" name="beerIbuFontBoldToggle" type="checkbox" value="y">
+        `;
+              if (screenSettings.beerIbuFontBoldToggle) {
+                beerIbuFontSettingsDivHTML += `
+                  <input class="form-control" id="beerIbuFontBoldToggle" checked="" name="beerIbuFontBoldToggle" type="checkbox" value="y">
+                `;
+              } else {
+                beerIbuFontSettingsDivHTML += `
+                  <input class="form-control" id="beerIbuFontBoldToggle" name="beerIbuFontBoldToggle" type="checkbox" value="y">
+                `;
+              }
+        beerIbuFontSettingsDivHTML += `
             </div>
           </div>
           <div class="col-2">
             <div class="form-group">
               <label for="beerIbuFontItalicToggle">Beer IBU Italic:</label>
-              <input class="form-control" id="beerIbuFontItalicToggle" name="beerIbuFontItalicToggle" type="checkbox" value="y">
+        `;
+              if (screenSettings.beerIbuFontItalicToggle) {
+                beerIbuFontSettingsDivHTML += `
+                  <input class="form-control" id="beerIbuFontItalicToggle" checked="" name="beerIbuFontItalicToggle" type="checkbox" value="y">
+                `;
+              } else {
+                beerIbuFontSettingsDivHTML += `
+                  <input class="form-control" id="beerIbuFontItalicToggle" name="beerIbuFontItalicToggle" type="checkbox" value="y">
+                `;
+              }
+        beerIbuFontSettingsDivHTML += `
             </div>
           </div>
           <div class="col-2">
             <div class="form-group">
               <label for="beerIbuFontUnderlineToggle">Beer IBU Underline:</label>
-              <input class="form-control" id="beerIbuFontUnderlineToggle" name="beerIbuFontUnderlineToggle" type="checkbox" value="y">
+        `;
+              if (screenSettings.beerIbuFontUnderlineToggle) {
+                beerIbuFontSettingsDivHTML += `
+                  <input class="form-control" id="beerIbuFontUnderlineToggle" checked="" name="beerIbuFontUnderlineToggle" type="checkbox" value="y">
+                `;
+              } else {
+                beerIbuFontSettingsDivHTML += `
+                  <input class="form-control" id="beerIbuFontUnderlineToggle" name="beerIbuFontUnderlineToggle" type="checkbox" value="y">
+                `;
+              }
+        beerIbuFontSettingsDivHTML += `
             </div>
           </div>
         </div>
@@ -2355,19 +2609,49 @@ class BeerTemplate {
           <div class="col-2">
             <div class="form-group">
               <label for="beerBreweryFontBoldToggle">Beer Brewery Bold Font:</label>
-              <input class="form-control" id="beerBreweryFontBoldToggle" name="beerBreweryFontBoldToggle" type="checkbox" value="y">
+        `;
+              if (screenSettings.beerBreweryFontBoldToggle) {
+                beerBreweryFontSettingsDivHTML += `
+                  <input class="form-control" id="beerBreweryFontBoldToggle" checked="" name="beerBreweryFontBoldToggle" type="checkbox" value="y">
+                `;
+              } else {
+                beerBreweryFontSettingsDivHTML += `
+                  <input class="form-control" id="beerBreweryFontBoldToggle" name="beerBreweryFontBoldToggle" type="checkbox" value="y">
+                `;
+              }
+        beerBreweryFontSettingsDivHTML += `
             </div>
           </div>
           <div class="col-2">
             <div class="form-group">
               <label for="beerBreweryFontItalicToggle">Beer Brewery Italic:</label>
-              <input class="form-control" id="beerBreweryFontItalicToggle" name="beerBreweryFontItalicToggle" type="checkbox" value="y">
+        `;
+              if (screenSettings.beerBreweryFontItalicToggle) {
+                beerBreweryFontSettingsDivHTML += `
+                  <input class="form-control" id="beerBreweryFontItalicToggle" checked="" name="beerBreweryFontItalicToggle" type="checkbox" value="y">
+                `;
+              } else {
+                beerBreweryFontSettingsDivHTML += `
+                  <input class="form-control" id="beerBreweryFontItalicToggle" name="beerBreweryFontItalicToggle" type="checkbox" value="y">
+                `;
+              }
+        beerBreweryFontSettingsDivHTML += `
             </div>
           </div>
           <div class="col-2">
             <div class="form-group">
               <label for="beerBreweryFontUnderlineToggle">Beer Brewery Underline:</label>
-              <input class="form-control" id="beerBreweryFontUnderlineToggle" name="beerBreweryFontUnderlineToggle" type="checkbox" value="y">
+        `;
+              if (screenSettings.beerBreweryFontUnderlineToggle) {
+                beerBreweryFontSettingsDivHTML += `
+                  <input class="form-control" id="beerBreweryFontUnderlineToggle" checked="" name="beerBreweryFontUnderlineToggle" type="checkbox" value="y">
+                `;
+              } else {
+                beerBreweryFontSettingsDivHTML += `
+                  <input class="form-control" id="beerBreweryFontUnderlineToggle" name="beerBreweryFontUnderlineToggle" type="checkbox" value="y">
+                `;
+              }
+        beerBreweryFontSettingsDivHTML += `
             </div>
           </div>
         </div>
@@ -2419,7 +2703,21 @@ class BeerTemplate {
           <div class="col-2">
             <div class="form-group">
               <label for="beerTickerBgColorDirection">Ticker Background Font Color Direction</label>
-              <select class="form-control" id="beerTickerBgColorDirection" name="beerTickerBgColorDirection"><option value="to bottom">to bottom</option><option value="to top">to top</option><option value="to left">to left</option><option value="to right">to right</option><option value="to bottom left">to bottom left</option><option selected="" value="to bottom right">to bottom right</option><option value="to top left">to top left</option><option value="to top right">to top right</option></select>
+              <select class="form-control" id="beerTickerBgColorDirection" name="beerTickerBgColorDirection">
+    `;
+                colorDirectionOptions.forEach(option => {
+                  if (option == screenSettings.beerTickerBgColorDirection ){
+                    tickerBgColorSettingsDivHTML += `
+                      <option selected="" value="${ option }">${ option }</option>
+                    `;
+                  } else {
+                    tickerBgColorSettingsDivHTML += `
+                      <option value="${ option }">${ option }</option>
+                    `;
+                  }
+                });
+    tickerBgColorSettingsDivHTML += `
+              </select>
             </div>
           </div>
         </div>
