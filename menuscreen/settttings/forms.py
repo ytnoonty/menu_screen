@@ -25,9 +25,9 @@ class BeerscreenSettingsForm(FlaskForm):
     beerBomNameFont = SelectField(u'Beer of the Month Name Font', coerce=int, option_widget=None)
     beerBomNameFontColor = StringField('Beer of the Month Name Font Color')
     beerBomNameFontSize = SelectField(u'Beer of the Month Name Font Size', coerce=int, option_widget=None)
-    beerBomNameFontBoldToggle = BooleanField(u'Name Bold Font:', default=False)
-    beerBomNameFontItalicToggle = BooleanField(u'Name Italic:', default=False)
-    beerBomNameFontUnderlineToggle = BooleanField(u'Name Underline:', default=False)
+    beerBomNameFontBoldToggle = BooleanField(u'Beer of the Month Name Bold Font:', default=False)
+    beerBomNameFontItalicToggle = BooleanField(u'Beer of the Month Name Italic:', default=False)
+    beerBomNameFontUnderlineToggle = BooleanField(u'Beer of the Month Name Underline:', default=False)
 
     beerBomStyleFont = SelectField(u'Beer of the Month Style Font', coerce=int, option_widget=None)
     beerBomStyleFontColor = StringField('Beer of the Month Style Color')

@@ -92,14 +92,18 @@ def beerscreen_settings():
     print("``````````````````````````````````````````````````````````````````")
     print("``````````````````````````````````````````````````````````````````")
 
-    screenId = 1
-
+    print("``````````````````````````````````````````````````````````````````")
+    print("``````````````````````````````````````````````````````````````````")
+    print("``````````````````````````FROM HERE NOW```````````````````````````")
     form = BeerscreenSettingsForm(request.form)
     print(form)
+    print("``````````````````````````````````````````````````````````````````")
+    print("``````````````````````````````````````````````````````````````````")
 
+    screenId = 1
     screenData = {
         "userId": current_user.id,
-        "screenNumber": "1",
+        "screenNumber": screenId,
     }
 
     settings = _getBeerSettings(screenData)
@@ -233,7 +237,7 @@ def beerscreen_settings():
     beerscreenSettingsIds = []
     for id in beerscreenSettings:
         beerscreenSettingsIds.append(id[0])
-    print("beerscreenSettingsIds: {}".format(beerscreenSettingsIds))
+    # print("beerscreenSettingsIds: {}".format(beerscreenSettingsIds))
 
     numOfScreens = []
     for x in range(1, len(beerscreenSettingsIds) + 1, 1):
@@ -243,7 +247,7 @@ def beerscreen_settings():
         }
         numOfScreens.append(number)
     screenNumSettings = numOfScreens
-    print("screenNumSettings: {}".format(screenNumSettings))
+    # print("screenNumSettings: {}".format(screenNumSettings))
 
     directions = [
         {
@@ -281,11 +285,11 @@ def beerscreen_settings():
     ]
     fonts = [
         {
-            "id":'0',
+            "id":'1',
             "font" : "Times Roman"
         },
         {
-            "id":'1',
+            "id":'2',
             "font" : "Courier New"
         }
     ]
@@ -327,17 +331,6 @@ def beerscreen_settings():
     form.beerBreweryFontSize.choices = [ (size['id'], size['font_sizes']) for size in sizes ]
     form.beerTickerFontSize.choices = [ (size['id'], size['font_sizes']) for size in sizes ]
     form.beerscreenTemplate.choices = [ (template['id'], template['template_name']) for template in templates ]
-
-
-    if request.method == 'GET':
-        print('```````````````````````````````````````````````````')
-        print('```````````````````````````````````````````````````')
-        print('THIS COULD BE A PROBLEM')
-        print('```````````````````````````````````````````````````')
-        print('```````````````````````````````````````````````````')
-        form.beerTickerFontSize.data = settings['beerTickerFontSize']
-
-
 
     if request.method == 'POST' or form.validate_on_submit():
     # if request.method =='POST':
@@ -602,6 +595,18 @@ def beerscreen_settings():
 
         flash('Beerscreen Settings Updated', 'success')
         return redirect(url_for('settttings.beerscreen_settings'))
+
+    if request.method == 'GET':
+        print('```````````````````````````````````````````````````')
+        print('```````````````````````````````````````````````````')
+        print('settings.routes.py line 339 THIS COULD BE A PROBLEM')
+        print('```````````````````````````````````````````````````')
+        print('```````````````````````````````````````````````````')
+
+        print(form.beerBomNameFontSize.data)
+        form.beerTickerFontSize.data = settings['beerTickerFontSize']
+        return render_template('beerscreen_settings.html', title='Beerscreen settings', currentUserId=current_user.id, form=form, settings=settings)
+
     return render_template('beerscreen_settings.html', title='Beerscreen settings', currentUserId=current_user.id, form=form, settings=settings)
 
 
