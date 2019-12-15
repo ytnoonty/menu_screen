@@ -203,7 +203,7 @@ def _getBeerSettings(screenData):
         Template.template_name,
         Font_size_options.font_sizes,
     ).join(Template, Beerscreen_settings.beer_screen_template == Template.id
-    ).join(Font_size_options, Beerscreen_settings.beer_bom_name_font_size  == Font_size_options.id
+    # ).join(Font_size_options, Beerscreen_settings.beer_bom_name_font_size  == Font_size_options.id
     ).filter(Beerscreen_settings.beer_settings_screen_id == displayId
     ).filter(Beerscreen_settings.venue_db_id == userId
     ).first()
@@ -401,7 +401,7 @@ def _getBeerSettings(screenData):
         "beerTickerFontColor" : settings_db.beer_ticker_font_color,
         # "beerTickerFontSize" : beerTickerFontSize.font_sizes,
         # "beerTickerFontSize" : settings_db.beer_ticker_font_size,
-        "beerTickerFontSize" : 5,
+        "beerTickerFontSize" : settings_db.beer_ticker_font_size,
         "beerTickerFontBoldToggle" : settings_db.beer_ticker_font_bold_toggle,
         "beerTickerFontItalicToggle" : settings_db.beer_ticker_font_italic_toggle,
         "beerTickerFontUnderlineToggle" : settings_db.beer_ticker_font_underline_toggle,

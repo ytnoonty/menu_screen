@@ -1450,6 +1450,48 @@ class BeerTemplate {
     let colorDirectionOptions = ["to bottom", "to top", "to left", "to right", "to bottom left", "to bottom right", "to top left", "to top right"];
     let fontOptions = ["Courier New", "Times Roman"];
     let fontSizeOptions = ["1.0em", "1.5em", "2.0em", "2.5em", "3.0em", "3.5em"];
+
+    const fontOptionsEl = (options, settingsId, settings, divLabel) => {
+      let divHTML =`
+        <label for="${ settingsId }">${divLabel}</label>
+        <select class="form-control" id="${ settingsId }" name="${ settingsId }">
+      `;
+      options.forEach((option, index) => {
+        console.log(index, option, settings, settingsId);
+        if (index == settings) {
+          divHTML += `
+            <option selected="" value="${ index }">${ option }</option>
+          `;
+        } else {
+          divHTML += `
+            <option value="${ index }">${ option }</option>
+          `;
+        }
+      });
+      return divHTML;
+    };
+
+    const fontSizeOptionsEl = fontOptionsEl;
+
+    const colorDirectionEl = (options, settingsId, settings, divLabel) => {
+      let divHTML = `
+        <label for="${ settingsId }">${divLabel}</label>
+        <select class="form-control" id="${ settingsId }" name="${ settingsId }">
+      `;
+      options.forEach(option => {
+        if (option == settings) {
+          divHTML += `
+            <option selected="" value="${ option }">${ option }</option>
+          `;
+        } else {
+          divHTML += `
+            <option value="${ option }">${ option }</option>
+          `;
+        }
+      });
+      return divHTML;
+    };
+
     // console.log(beerscreenSettingsDiv);
     // beerscreenTemplate select
     // clear the beerscreenSettings UI
@@ -1497,20 +1539,23 @@ class BeerTemplate {
         </div>
         <div class="col-3">
           <div class="form-group">
-            <label for="fontColorDirection">Font Color Direction</label>
-            <select class="form-control" id="fontColorDirection" name="fontColorDirection">
       `;
-              colorDirectionOptions.forEach(option => {
-                if (option == screenSettings.fontColorDirection) {
-                  fontColorsDivHTML += `
-                    <option selected="" value="${option}">${option}</option>
-                  `;
-                } else {
-                  fontColorsDivHTML += `
-                    <option value="${option}">${option}</option>
-                  `;
-                }
-              });
+      fontColorsDivHTML += colorDirectionEl(colorDirectionOptions, "fontColorDirection", screenSettings.fontColorDirection, "Font Color Direction");
+              // fontColorsDivHTML += `
+              //       <label for="fontColorDirection">Font Color Direction</label>
+              //       <select class="form-control" id="fontColorDirection" name="fontColorDirection">
+              // `;
+              // colorDirectionOptions.forEach(option => {
+              //   if (option == screenSettings.fontColorDirection) {
+              //     fontColorsDivHTML += `
+              //       <option selected="" value="${option}">${option}</option>
+              //     `;
+              //   } else {
+              //     fontColorsDivHTML += `
+              //       <option value="${option}">${option}</option>
+              //     `;
+              //   }
+              // });
       fontColorsDivHTML += `
             </select>
           </div>
@@ -1548,20 +1593,8 @@ class BeerTemplate {
         </div>
         <div class="col-3">
           <div class="form-group">
-            <label for="shadowFontColorDirection">Shadow Font Color Direction</label>
-            <select class="form-control" id="shadowFontColorDirection" name="shadowFontColorDirection">
       `;
-              colorDirectionOptions.forEach(option => {
-                if (option == screenSettings.shadowFontColorDirection ) {
-                  shadowFontColorHTML += `
-                    <option selected="" value="${ option }">${ option }</option>
-                  `;
-                } else {
-                  shadowFontColorHTML += `
-                    <option value="${ option }">${ option }</option>
-                  `;
-                }
-              });
+      shadowFontColorHTML += colorDirectionEl(colorDirectionOptions, "shadowFontColorDirection", screenSettings.shadowFontColorDirection, "Shadow Font Color Direction")
               shadowFontColorHTML += `
             </select>
           </div>
@@ -1614,20 +1647,8 @@ class BeerTemplate {
         </div>
         <div class="col-2">
               <div class="form-group">
-                <label for="beerBomBgColorDirection">Beer of the Month Background Color Direction</label>
-                <select class="form-control" id="beerBomBgColorDirection" name="beerBomBgColorDirection">
         `;
-                  colorDirectionOptions.forEach(option => {
-                    if (option == screenSettings.beerBomBgColorDirection ){
-                      bomBgColorDivHTML += `
-                        <option selected="" value="${ option }">${ option }</option>
-                      `;
-                    } else {
-                      bomBgColorDivHTML += `
-                        <option value="${ option }">${ option }</option>
-                      `;
-                    }
-                  });
+        bomBgColorDivHTML += colorDirectionEl(colorDirectionOptions, "beerBomBgColorDirection", screenSettings.beerBomBgColorDirection, "Beer of the Month Background Color Direction");
                   bomBgColorDivHTML += `
                 </select>
               </div>
@@ -1640,20 +1661,8 @@ class BeerTemplate {
       <div class="row border border-secondary rounded mb-2">
         <div class="col-2">
           <div class="form-group">
-            <label for="beerBomNameFont">Beer of the Month Name Font</label>
-            <select class="form-control" id="beerBomNameFont" name="beerBomNameFont">
-        `;
-              fontOptions.forEach((option, index) => {
-                if ( index++ == screenSettings.beerBomNameFont ){
-                  bomNameSettingsDivHTML += `
-                    <option selected="" value="${ index++ }">${ option }</option>
-                  `;
-                } else {
-                  bomNameSettingsDivHTML += `
-                    <option value="${ index++ }">${ option }</option>
-                  `;
-                }
-              });
+    `;
+        bomNameSettingsDivHTML += fontOptionsEl(fontOptions, "beerBomNameFont",screenSettings.beerBomNameFont , "Beer of the Month Name Font");
         bomNameSettingsDivHTML += `
             </select>
           </div>
@@ -1668,22 +1677,9 @@ class BeerTemplate {
         </div>
         <div class="col-2">
           <div class="form-group">
-            <label for="beerBomNameFontSize">Beer of the Month Name Font Size</label>
-            <select class="form-control" id="beerBomNameFontSize" name="beerBomNameFontSize">
         `;
-              fontSizeOptions.forEach((option, index) => {
-                console.log(`${index++} -- ${option} -- ${screenSettings.beerBomNameFontSize}`);
-                if (index++ == screenSettings.beerBomNameFontSize) {
-                  bomNameSettingsDivHTML += `
-                    <option selected="" value="${ index++ }">${ option }</option>
-                  `;
-                } else {
-                  bomNameSettingsDivHTML += `
-                    <option value="${ index++ }">${ option }</option>
-                  `;
-                }
-              });
-        bomNameSettingsDivHTML += `
+          bomNameSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions, "beerBomNameFontSize", screenSettings.beerBomNameFontSize, "Beer of the Month Name Font");
+          bomNameSettingsDivHTML += `
             </select>
           </div>
         </div>
@@ -1743,20 +1739,8 @@ class BeerTemplate {
         <div class="row border border-secondary rounded mb-2">
           <div class="col-2">
             <div class="form-group">
-              <label for="beerBomStyleFont">Beer of the Month Style Font</label>
-              <select class="form-control" id="beerBomStyleFont" name="beerBomStyleFont">
         `;
-              fontOptions.forEach((option, index) => {
-                if (index++ == screenSettings.beerBomStyleFont) {
-                  bomStyleSettingsDivHTML += `
-                    <option selected="" value="${ index++ }">${ option }</option>
-                  `;
-                } else {
-                  bomStyleSettingsDivHTML += `
-                    <option value="${ index++ }">${ option }</option>
-                  `;
-                }
-              });
+        bomStyleSettingsDivHTML += fontOptionsEl(fontOptions, "beerBomStyleFont", screenSettings.beerBomStyleFont, "Beer of the Month Style Font");
         bomStyleSettingsDivHTML += `
               </select>
             </div>
@@ -1771,20 +1755,8 @@ class BeerTemplate {
           </div>
           <div class="col-2">
             <div class="form-group">
-              <label for="beerBomStyleFontSize">Beer of the Month Style Font Size</label>
-              <select class="form-control" id="beerBomStyleFontSize" name="beerBomStyleFontSize">
         `;
-              fontSizeOptions.forEach((option, index) => {
-                if (index++ == screenSettings.beerBomStyleFontSize) {
-                  bomStyleSettingsDivHTML += `
-                    <option selected="" value="${ index++ }">${ option }</option>
-                  `;
-                } else {
-                  bomStyleSettingsDivHTML += `
-                    <option value="${ index++ }">${ option }</option>
-                  `;
-                }
-              });
+        bomStyleSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions, "beerBomStyleFontSize", screenSettings.beerBomStyleFontSize, "Beer of the Month Style Font");
         bomStyleSettingsDivHTML += `
               </select>
             </div>
@@ -1857,20 +1829,8 @@ class BeerTemplate {
           </div>
           <div class="col-2">
             <div class="form-group">
-              <label for="beerBomAbvFontSize">Beer of the Month ABV Font size</label>
-              <select class="form-control" id="beerBomAbvFontSize" name="beerBomAbvFontSize">
         `;
-                fontSizeOptions.forEach((option, index) => {
-                  if (index++ == screenSettings.beerBomAbvFontSize) {
-                    bomAbvSettingsDivHTML += `
-                      <option selected="" value="${ index++ }">${ option }</option>
-                    `;
-                  } else {
-                    bomAbvSettingsDivHTML += `
-                      <option value="${ index++ }">${ option }</option>
-                    `;
-                  }
-                });
+        bomAbvSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions, "beerBomAbvFontSize", screenSettings.beerBomAbvFontSize, "Beer of the Month ABV Font Size");
         bomAbvSettingsDivHTML += `
               </select>
             </div>
@@ -1943,20 +1903,8 @@ class BeerTemplate {
           </div>
           <div class="col-2">
             <div class="form-group">
-              <label for="beerBomIbuFontSize">Beer of the Month IBU Font Size</label>
-              <select class="form-control" id="beerBomIbuFontSize" name="beerBomIbuFontSize">
         `;
-                fontSizeOptions.forEach((option, index) => {
-                  if (index++ == screenSettings.beerBomIbuFontSize) {
-                    bomIbuSettingsDivHTML += `
-                      <option selected="" value="${ index++ }">${ option }</option>
-                    `;
-                  } else {
-                    bomIbuSettingsDivHTML += `
-                      <option value="${ index++ }">${ option }</option>
-                    `;
-                  }
-                });
+        bomIbuSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerBomIbuFontSize", screenSettings.beerBomIbuFontSize, "Beer of the Month IBU Font Size");
         bomIbuSettingsDivHTML += `
               </select>
             </div>
@@ -2017,20 +1965,8 @@ class BeerTemplate {
         <div class="row border border-secondary rounded mb-2">
           <div class="col-2">
             <div class="form-group">
-              <label for="beerBomBreweryFont">Beer of the Month Brewery Font</label>
-              <select class="form-control" id="beerBomBreweryFont" name="beerBomBreweryFont">
         `;
-              fontOptions.forEach((option, index) => {
-                if ( index++ == screenSettings.beerBomBreweryFont ){
-                  bomBrewerySettingsDivHTML += `
-                    <option selected="" value="${ index++ }">${ option }</option>
-                  `;
-                } else {
-                  bomBrewerySettingsDivHTML += `
-                    <option value="${ index++ }">${ option }</option>
-                  `;
-                }
-              });
+        bomBrewerySettingsDivHTML += fontOptionsEl(fontOptions, "beerBomBreweryFont", screenSettings.beerBomBreweryFont, "Beer of the Month Brewery Font");
         bomBrewerySettingsDivHTML += `
               </select>
             </div>
@@ -2045,20 +1981,8 @@ class BeerTemplate {
           </div>
           <div class="col-2">
             <div class="form-group">
-              <label for="beerBomBreweryFontSize">Beer of the Month Brewery Font size</label>
-              <select class="form-control" id="beerBomBreweryFontSize" name="beerBomBreweryFontSize">
         `;
-                fontSizeOptions.forEach((option, index) => {
-                  if (index++ == screenSettings.beerBomBreweryFontSize) {
-                    bomBrewerySettingsDivHTML += `
-                      <option selected="" value="${ index++ }">${ option }</option>
-                    `;
-                  } else {
-                    bomBrewerySettingsDivHTML += `
-                      <option value="${ index++ }">${ option }</option>
-                    `;
-                  }
-                });
+        bomBrewerySettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerBomBreweryFontSize", screenSettings.beerBomBreweryFontSize, "Beer of the Month Brewery Font Size");
         bomBrewerySettingsDivHTML += `
               </select>
             </div>
@@ -2159,20 +2083,8 @@ class BeerTemplate {
           </div>
           <div class="col-2">
             <div class="form-group">
-              <label for="beerBgColorDirection">Background Font Color Direction</label>
-              <select class="form-control" id="beerBgColorDirection" name="beerBgColorDirection">
     `;
-                colorDirectionOptions.forEach(option => {
-                  if (option == screenSettings.beerBgColorDirection ){
-                    beerlistBgColorSettingsDivHTML += `
-                      <option selected="" value="${ option }">${ option }</option>
-                    `;
-                  } else {
-                    beerlistBgColorSettingsDivHTML += `
-                      <option value="${ option }">${ option }</option>
-                    `;
-                  }
-                });
+              beerlistBgColorSettingsDivHTML += colorDirectionEl(colorDirectionOptions, "beerBgColorDirection", screenSettings.beerBgColorDirection, "Background Font Color Direction");
               beerlistBgColorSettingsDivHTML += `
               </select>
             </div>
@@ -2185,20 +2097,8 @@ class BeerTemplate {
         <div class="row border border-secondary rounded mb-2">
           <div class="col-2">
             <div class="form-group">
-              <label for="beerNameFont">Beer Name font</label>
-              <select class="form-control" id="beerNameFont" name="beerNameFont">
         `;
-                fontOptions.forEach((option, index) => {
-                  if ( index++ == screenSettings.beerNameFont ){
-                    beerNameFontSettingsDivHTML += `
-                      <option selected="" value="${ index++ }">${ option }</option>
-                    `;
-                  } else {
-                    beerNameFontSettingsDivHTML += `
-                      <option value="${ index++ }">${ option }</option>
-                    `;
-                  }
-                });
+        beerNameFontSettingsDivHTML += fontOptionsEl(fontOptions, "beerNameFont", screenSettings.beerNameFont, "Beer Name Font");
         beerNameFontSettingsDivHTML += `
               </select>
             </div>
@@ -2213,20 +2113,8 @@ class BeerTemplate {
           </div>
           <div class="col-2">
             <div class="form-group">
-              <label for="beerNameFontSize">Beer Name font size</label>
-              <select class="form-control" id="beerNameFontSize" name="beerNameFontSize">
         `;
-                fontSizeOptions.forEach((option, index) => {
-                  if (index++ == screenSettings.beerNameFontSize) {
-                    beerNameFontSettingsDivHTML += `
-                      <option selected="" value="${ index++ }">${ option }</option>
-                    `;
-                  } else {
-                    beerNameFontSettingsDivHTML += `
-                      <option value="${ index++ }">${ option }</option>
-                    `;
-                  }
-                });
+        beerNameFontSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerNameFontSize", screenSettings.beerNameFontSize, "Beer Name Font Size");
         beerNameFontSettingsDivHTML += `
               </select>
             </div>
@@ -2287,20 +2175,8 @@ class BeerTemplate {
         <div class="row border border-secondary rounded mb-2">
           <div class="col-2">
             <div class="form-group">
-              <label for="beerStyleFont">Beer Style font</label>
-              <select class="form-control" id="beerStyleFont" name="beerStyleFont">
         `;
-              fontOptions.forEach((option, index) => {
-                if ( index++ == screenSettings.beerStyleFont ){
-                  beerStyleFontSettingsDivHTML += `
-                    <option selected="" value="${ index++ }">${ option }</option>
-                  `;
-                } else {
-                  beerStyleFontSettingsDivHTML += `
-                    <option value="${ index++ }">${ option }</option>
-                  `;
-                }
-              });
+        beerStyleFontSettingsDivHTML += fontOptionsEl(fontOptions, "beerStyleFont", screenSettings.beerStyleFont, "Beer Style Font");
         beerStyleFontSettingsDivHTML += `
               </select>
             </div>
@@ -2315,20 +2191,8 @@ class BeerTemplate {
           </div>
           <div class="col-2">
             <div class="form-group">
-              <label for="beerStyleFontSize">Beer Style font size</label>
-              <select class="form-control" id="beerStyleFontSize" name="beerStyleFontSize">
         `;
-                fontSizeOptions.forEach((option, index) => {
-                  if (index++ == screenSettings.beerStyleFontSize) {
-                    beerStyleFontSettingsDivHTML += `
-                      <option selected="" value="${ index++ }">${ option }</option>
-                    `;
-                  } else {
-                    beerStyleFontSettingsDivHTML += `
-                      <option value="${ index++ }">${ option }</option>
-                    `;
-                  }
-                });
+        beerStyleFontSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerStyleFontSize", screenSettings.beerStyleFontSize, "Beer Style Font Size");
         beerStyleFontSettingsDivHTML += `
               </select>
             </div>
@@ -2401,20 +2265,8 @@ class BeerTemplate {
           </div>
           <div class="col-2">
             <div class="form-group">
-              <label for="beerAbvFontSize">Beer ABV font size</label>
-              <select class="form-control" id="beerAbvFontSize" name="beerAbvFontSize">
         `;
-                fontSizeOptions.forEach((option, index) => {
-                  if (index++ == screenSettings.beerAbvFontSize) {
-                    beerAbvFontSettingsDivHTML += `
-                      <option selected="" value="${ index++ }">${ option }</option>
-                    `;
-                  } else {
-                    beerAbvFontSettingsDivHTML += `
-                      <option value="${ index++ }">${ option }</option>
-                    `;
-                  }
-                });
+        beerAbvFontSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerAbvFontSize", screenSettings.beerAbvFontSize, "Beer Abv Font Size");
         beerAbvFontSettingsDivHTML += `
               </select>
             </div>
@@ -2487,20 +2339,8 @@ class BeerTemplate {
           </div>
           <div class="col-2">
             <div class="form-group">
-              <label for="beerIbuFontSize">Beer IBU font size</label>
-              <select class="form-control" id="beerIbuFontSize" name="beerIbuFontSize">
         `;
-                fontSizeOptions.forEach((option, index) => {
-                  if (index++ == screenSettings.beerIbuFontSize) {
-                    beerIbuFontSettingsDivHTML += `
-                      <option selected="" value="${ index++ }">${ option }</option>
-                    `;
-                  } else {
-                    beerIbuFontSettingsDivHTML += `
-                      <option value="${ index++ }">${ option }</option>
-                    `;
-                  }
-                });
+        beerIbuFontSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerIbuFontSize", screenSettings.beerIbuFontSize, "Beer Ibu Font Size");
         beerIbuFontSettingsDivHTML += `
               </select>
             </div>
@@ -2561,20 +2401,8 @@ class BeerTemplate {
         <div class="row border border-secondary rounded mb-2">
           <div class="col-2">
             <div class="form-group">
-              <label for="beerBreweryFont">Beer Brewery font</label>
-              <select class="form-control" id="beerBreweryFont" name="beerBreweryFont">
         `;
-                fontOptions.forEach((option, index) => {
-                  if ( index++ == screenSettings.beerBreweryFont ){
-                    beerBreweryFontSettingsDivHTML += `
-                      <option selected="" value="${ index++ }">${ option }</option>
-                    `;
-                  } else {
-                    beerBreweryFontSettingsDivHTML += `
-                      <option value="${ index++ }">${ option }</option>
-                    `;
-                  }
-                });
+        beerBreweryFontSettingsDivHTML += fontOptionsEl(fontOptions, "beerBreweryFont", screenSettings.beerBreweryFont, "Beer Brewery Font");
         beerBreweryFontSettingsDivHTML += `
               </select>
             </div>
@@ -2589,20 +2417,8 @@ class BeerTemplate {
           </div>
           <div class="col-2">
             <div class="form-group">
-              <label for="beerBreweryFontSize">Beer Brewery font size</label>
-              <select class="form-control" id="beerBreweryFontSize" name="beerBreweryFontSize">
         `;
-              fontSizeOptions.forEach((option, index) => {
-                if (index++ == screenSettings.beerBreweryFontSize) {
-                  beerBreweryFontSettingsDivHTML += `
-                    <option selected="" value="${ index++ }">${ option }</option>
-                  `;
-                } else {
-                  beerBreweryFontSettingsDivHTML += `
-                    <option value="${ index++ }">${ option }</option>
-                  `;
-                }
-              });
+        beerBreweryFontSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerBreweryFontSize", screenSettings.beerBreweryFontSize, "Beer Brewery Font Size");
         beerBreweryFontSettingsDivHTML += `
               </select>
             </div>
@@ -2703,20 +2519,8 @@ class BeerTemplate {
           </div>
           <div class="col-2">
             <div class="form-group">
-              <label for="beerTickerBgColorDirection">Ticker Background Font Color Direction</label>
-              <select class="form-control" id="beerTickerBgColorDirection" name="beerTickerBgColorDirection">
     `;
-                colorDirectionOptions.forEach(option => {
-                  if (option == screenSettings.beerTickerBgColorDirection ){
-                    tickerBgColorSettingsDivHTML += `
-                      <option selected="" value="${ option }">${ option }</option>
-                    `;
-                  } else {
-                    tickerBgColorSettingsDivHTML += `
-                      <option value="${ option }">${ option }</option>
-                    `;
-                  }
-                });
+    tickerBgColorSettingsDivHTML += colorDirectionEl(colorDirectionOptions, "beerTickerBgColorDirection", screenSettings.beerTickerBgColorDirection, "Ticker Background Font Color Direction");
     tickerBgColorSettingsDivHTML += `
               </select>
             </div>
@@ -2729,40 +2533,16 @@ class BeerTemplate {
         <div class="row border border-secondary rounded mb-2">
           <div class="col-2">
             <div class="form-group">
-              <label for="beerTickerBeernamesFont">Beer Ticker Names Font</label>
-              <select class="form-control" id="beerTickerBeernamesFont" name="beerTickerBeernamesFont">
         `;
-                fontOptions.forEach((option, index) => {
-                  if ( index++ == screenSettings.beerTickerBeernamesFont ){
-                    tickerSettingsDivHTML += `
-                      <option selected="" value="${ index++ }">${ option }</option>
-                    `;
-                  } else {
-                    tickerSettingsDivHTML += `
-                      <option value="${ index++ }">${ option }</option>
-                    `;
-                  }
-                });
+        tickerSettingsDivHTML += fontOptionsEl(fontOptions, "beerTickerBeernamesFont", screenSettings.beerTickerBeernamesFont, "Beer Ticker Names Font");
         tickerSettingsDivHTML += `
               </select>
             </div>
           </div>
           <div class="col-2">
             <div class="form-group">
-              <label for="beerTickerFont">Beer Ticker Font</label>
-              <select class="form-control" id="beerTickerFont" name="beerTickerFont">
         `;
-                fontOptions.forEach((option, index) => {
-                  if ( index++ == screenSettings.beerTickerFont ){
-                    tickerSettingsDivHTML += `
-                      <option selected="" value="${ index++ }">${ option }</option>
-                    `;
-                  } else {
-                    tickerSettingsDivHTML += `
-                      <option value="${ index++ }">${ option }</option>
-                    `;
-                  }
-                });
+        tickerSettingsDivHTML += fontOptionsEl(fontOptions, "beerTickerFont", screenSettings.beerTickerFont, "Beer Ticker Font");
         tickerSettingsDivHTML += `
               </select>
             </div>
@@ -2777,20 +2557,8 @@ class BeerTemplate {
           </div>
           <div class="col-2">
             <div class="form-group">
-              <label for="beerTickerFontSize">Beer Ticker Font size</label>
-              <select class="form-control" id="beerTickerFontSize" name="beerTickerFontSize">
         `;
-                fontSizeOptions.forEach((option, index) => {
-                  if (index++ == screenSettings.beerTickerFontSize) {
-                    tickerSettingsDivHTML += `
-                      <option selected="" value="${ index++ }">${ option }</option>
-                    `;
-                  } else {
-                    tickerSettingsDivHTML += `
-                      <option value="${ index++ }">${ option }</option>
-                    `;
-                  }
-                });
+        tickerSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerTickerFontSize", screenSettings.beerTickerFontSize, "Beer Ticker Font Size");
         tickerSettingsDivHTML += `
               </select>
             </div>
