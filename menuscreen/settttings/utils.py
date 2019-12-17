@@ -342,7 +342,7 @@ def _getBeerSettings(screenData):
         "beerBomIbuFontUnderlineToggle" : settings_db.beer_bom_ibu_font_underline_toggle,
 
         "beerBomBreweryFont" : settings_db.beer_bom_brewery_font,
-        "beerBomBreweryFontColof" : settings_db.beer_bom_brewery_font_color,
+        "beerBomBreweryFontColor" : settings_db.beer_bom_brewery_font_color,
         "beerBomBreweryFontSize" : settings_db.beer_bom_brewery_font_size,
         "beerBomBreweryFontBoldToggle" : settings_db.beer_bom_brewery_font_bold_toggle,
         "beerBomBreweryFontItalicToggle" : settings_db.beer_bom_brewery_font_italic_toggle,

@@ -88,7 +88,7 @@ def add_font_size():
 def beerscreen_settings():
     print("``````````````````````````````````````````````````````````````````")
     print("``````````````````````````````````````````````````````````````````")
-    print("BEERSCREEN_SETTINGS")
+    print("`````````````````````BEERSCREEN_SETTINGS``````````````````````````")
     print("``````````````````````````````````````````````````````````````````")
     print("``````````````````````````````````````````````````````````````````")
 
@@ -96,11 +96,16 @@ def beerscreen_settings():
     print("``````````````````````````````````````````````````````````````````")
     print("``````````````````````````FROM HERE NOW```````````````````````````")
     form = BeerscreenSettingsForm(request.form)
-    print(form)
+    # print(form.__dict__)
+    # print(form['fontColorThree'])
+    # print(form['beerSettingsScreenId'])
+    # for attr, value in form.__dict__.iteritems():
+    #     print(attr, value)
+
     print("``````````````````````````````````````````````````````````````````")
     print("``````````````````````````````````````````````````````````````````")
 
-    screenId = 1
+    screenId = 2
     screenData = {
         "userId": current_user.id,
         "screenNumber": screenId,
@@ -109,7 +114,7 @@ def beerscreen_settings():
     settings = _getBeerSettings(screenData)
     print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-    print(settings)
+    # print(settings)
     print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
 
@@ -160,7 +165,7 @@ def beerscreen_settings():
         beerBomIbuFontUnderlineToggle = settings['beerBomIbuFontUnderlineToggle'],
 
         beerBomBreweryFont = settings['beerBomBreweryFont'],
-        beerBomBreweryFontColor = settings['beerBomBreweryFontColof'],
+        beerBomBreweryFontColor = settings['beerBomBreweryFontColor'],
         beerBomBreweryFontSize = settings['beerBomBreweryFontSize'],
         beerBomBreweryFontBoldToggle = settings['beerBomBreweryFontBoldToggle'],
         beerBomBreweryFontItalicToggle = settings['beerBomBreweryFontItalicToggle'],
@@ -602,7 +607,7 @@ def beerscreen_settings():
         print('settings.routes.py line 339 THIS COULD BE A PROBLEM')
         print('```````````````````````````````````````````````````')
         print('```````````````````````````````````````````````````')
-
+        print(form['beerSettingsScreenId'])
         print(form.beerBomNameFontSize.data)
         form.beerTickerFontSize.data = settings['beerTickerFontSize']
         return render_template('beerscreen_settings.html', title='Beerscreen settings', currentUserId=current_user.id, form=form, settings=settings)

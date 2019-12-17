@@ -1453,8 +1453,10 @@ class BeerTemplate {
 
     const colorOfEl = (settingsId, setting, labelTxt1, labelTxt2) => {
       let divHTML = ``;
+      let divFormGroupWrapper = [`<div class="form-group">`, `</div>`];
       let divLabel = ``;
       let divBody = ``;
+      divHTML += divFormGroupWrapper[0];
       divLabel = `
         <label for="${ settingsId }">${ labelTxt1 }</label>
         <input id="${ settingsId }" class="form-control" name="${ settingsId }" type="color" value="${ setting }">
@@ -1465,10 +1467,13 @@ class BeerTemplate {
         <input class="form-control" disabled="" id="${ settingsId }" name="${ settingsId }" type="text" value="${ setting }">
       `;
       divHTML += divBody;
+      divHTML += divFormGroupWrapper[1];
       return divHTML;
     };
 
     const toggleSettingDiv = (settingsId, settings, labelTxt) => {
+      let divHTML;
+      let divFormGroupWrapper = [`<div class="form-group">`, `</div>`];
       let divLabel = `<label for="${ settingsId }">${ labelTxt }</label>`;
       let divBody = ``;
       if ( settings ) {
@@ -1480,49 +1485,71 @@ class BeerTemplate {
           <input class="form-control" id="${ settingsId }" name="${ settingsId }" type="checkbox" value="y">
         `;
       }
-      let divHTML = divLabel;
+      divHTML = divFormGroupWrapper[0];
+      divHTML += divLabel;
       divHTML += divBody;
+      divHTML += divFormGroupWrapper[1];
       return divHTML;
     };
 
-    const fontOptionsEl = (options, settingsId, settings, divLabel) => {
-      let divHTML =`
-        <label for="${ settingsId }">${divLabel}</label>
+    const fontOptionsEl = (options, settingsId, settings, labelTxt) => {
+      let divHTML;
+      let divFormGroupWrapper = [`<div class="form-group">`, `</div>`];
+      let divLabel=`
+        <label for="${ settingsId }">${labelTxt}</label>
         <select class="form-control" id="${ settingsId }" name="${ settingsId }">
       `;
+      let divBody;
+      divHTML = divFormGroupWrapper[0];
+      divHTML += divLabel;
       options.forEach((option, index) => {
         console.log(index, option, settings, settingsId);
         if (index == settings) {
-          divHTML += `
+          divBody += `
             <option selected="" value="${ index }">${ option }</option>
           `;
         } else if (index > 0) {
-          divHTML += `
+          divBody += `
             <option value="${ index }">${ option }</option>
           `;
         } else {}
       });
+      divHTML += divBody;
+      divHTML += `
+        </select>
+      `;
+      divHTML += divFormGroupWrapper[1];
       return divHTML;
     };
 
     const fontSizeOptionsEl = fontOptionsEl;
 
-    const colorDirectionEl = (options, settingsId, settings, divLabel) => {
-      let divHTML = `
-        <label for="${ settingsId }">${divLabel}</label>
+    const colorDirectionEl = (options, settingsId, settings, labelTxt) => {
+      let divHTML;
+      let divFormGroupWrapper = [`<div class="form-group">`, `</div>`];
+      let divLabel = `
+        <label for="${ settingsId }">${labelTxt}</label>
         <select class="form-control" id="${ settingsId }" name="${ settingsId }">
       `;
+      let divBody;
+      divHTML = divFormGroupWrapper[0];
+      divHTML += divLabel;
       options.forEach(option => {
         if (option == settings) {
-          divHTML += `
+          divBody += `
             <option selected="" value="${ option }">${ option }</option>
           `;
         } else {
-          divHTML += `
+          divBody += `
             <option value="${ option }">${ option }</option>
           `;
         }
       });
+      divHTML += divBody;
+      divHTML += `
+        </select>
+      `;
+      divHTML += divFormGroupWrapper[1];
       return divHTML;
     };
 
@@ -1535,7 +1562,7 @@ class BeerTemplate {
       <div class="row border border-secondary rounded mb-2">
         <div class="col-6">
           <div class="form-group">
-            <label for="beerscreenTemplate">Screen Template</label>
+            <label for="beerscreenTemplate">Screen Template:</label>
             <select id="beerscreenTemplate" class="form-control" name="beerscreenTemplate">
               <option selected="" value="1">2 Columns, Name, ABV, IBU</option>
             </select>
@@ -1548,39 +1575,30 @@ class BeerTemplate {
     let fontColorsDivHTML = `
       <div class="row border border-secondary rounded mb-2">
         <div class="col-3">
-          <div class="form-group">
-      `;
-            fontColorsDivHTML += colorOfEl("fontColorOne", screenSettings.fontColorOne, "Font Color One:", "Font Color Code One:");
-            // fontColorsDivHTML += `
-            //       <label for="fontColorOne">Font Color One:</label>
-            //       <input id="fontColorOne" class="form-control" name="fontColorOne" type="color" value="${ screenSettings.fontColorOne }">
-            //       <label for="fontColorOne">Font Color Code One:</label>
-            //       <input class="form-control" disabled="" id="fontColorOne" name="fontColorOne" type="text" value="${ screenSettings.fontColorOne }">
-            // `;
-            fontColorsDivHTML += `
-          </div>
-        </div>
-        <div class="col-3">
-          <div class="form-group">
-          `;
-          fontColorsDivHTML += colorOfEl("fontColorTwo", screenSettings.fontColorTwo, "Font Color Two:", "Font Color Code Two:");
+        `;
+          fontColorsDivHTML += colorOfEl("fontColorOne", screenSettings.fontColorOne, "Font Color #1:", "Font Color Code #1:");
+          // fontColorsDivHTML += `
+          //       <label for="fontColorOne">Font Color One:</label>
+          //       <input id="fontColorOne" class="form-control" name="fontColorOne" type="color" value="${ screenSettings.fontColorOne }">
+          //       <label for="fontColorOne">Font Color Code One:</label>
+          //       <input class="form-control" disabled="" id="fontColorOne" name="fontColorOne" type="text" value="${ screenSettings.fontColorOne }">
+          // `;
           fontColorsDivHTML += `
-          </div>
         </div>
         <div class="col-3">
-          <div class="form-group">
-          `;
-          fontColorsDivHTML += colorOfEl("fontColorThree", screenSettings.fontColorThree, "Font Color Three:", "Font Color Code Three:");
+        `;
+          fontColorsDivHTML += colorOfEl("fontColorTwo", screenSettings.fontColorTwo, "Font Color #2:", "Font Color Code #2:");
           fontColorsDivHTML += `
-          </div>
         </div>
         <div class="col-3">
-          <div class="form-group">
-      `;
-      fontColorsDivHTML += colorDirectionEl(colorDirectionOptions, "fontColorDirection", screenSettings.fontColorDirection, "Font Color Direction");
-      fontColorsDivHTML += `
-            </select>
-          </div>
+        `;
+          fontColorsDivHTML += colorOfEl("fontColorThree", screenSettings.fontColorThree, "Font Color #3:", "Font Color Code #3:");
+          fontColorsDivHTML += `
+        </div>
+        <div class="col-3">
+        `;
+          fontColorsDivHTML += colorDirectionEl(colorDirectionOptions, "fontColorDirection", screenSettings.fontColorDirection, "Font Color Direction:");
+          fontColorsDivHTML += `
         </div>
       </div>
     `;
@@ -1590,35 +1608,24 @@ class BeerTemplate {
     let shadowFontColorHTML = `
       <div class="row border border-secondary rounded mb-2">
         <div class="col-3">
-          <div class="form-group">
-          `;
-          shadowFontColorHTML +=  colorOfEl("shadowFontColorOne", screenSettings.shadowFontColorOne, "Shadow Font Color One:", "Shadow Font Color Code One:");
+        `;
+          shadowFontColorHTML +=  colorOfEl("shadowFontColorOne", screenSettings.shadowFontColorOne, "Shadow Color #1:", "Shadow Color Code #1:");
           shadowFontColorHTML += `
-          </div>
         </div>
         <div class="col-3">
-          <div class="form-group">
-            <label for="shadowFontColorTwo">Shadow Font Color Two:</label>
-            <input id="shadowFontColorTwo" class="form-control" name="shadowFontColorTwo" type="color" value="${ screenSettings.shadowFontColorTwo }">
-            <label for="shadowFontColorTwo">Shadow Font Color Code Two</label>
-            <input class="form-control" disabled="" id="shadowFontColorTwo" name="shadowFontColorTwo" type="text" value="${ screenSettings.shadowFontColorTwo }">
-          </div>
+        `;
+          shadowFontColorHTML += colorOfEl("shadowFontColorTwo", screenSettings.shadowFontColorTwo, "Shadow Color #2:", "Shadow Color Code #2:");
+          shadowFontColorHTML += `
         </div>
         <div class="col-3">
-          <div class="form-group">
-            <label for="shadowFontColorThree">Shadow Font Color Three:</label>
-            <input id="shadowFontColorThree" class="form-control" name="shadowFontColorThree" type="color" value="${ screenSettings.shadowFontColorThree }">
-            <label for="shadowFontColorThree">Shadow Font Color Code Three</label>
-            <input class="form-control" disabled="" id="shadowFontColorThree" name="shadowFontColorThree" type="text" value="${ screenSettings.shadowFontColorThree }">
-          </div>
+        `;
+          shadowFontColorHTML += colorOfEl("shadowFontColorThree", screenSettings.shadowFontColorThree, "Shadow Color #3:", "Shadow Color Code #3:");
+          shadowFontColorHTML += `
         </div>
         <div class="col-3">
-          <div class="form-group">
-      `;
-      shadowFontColorHTML += colorDirectionEl(colorDirectionOptions, "shadowFontColorDirection", screenSettings.shadowFontColorDirection, "Shadow Font Color Direction")
-              shadowFontColorHTML += `
-            </select>
-          </div>
+        `;
+          shadowFontColorHTML += colorDirectionEl(colorDirectionOptions, "shadowFontColorDirection", screenSettings.shadowFontColorDirection, "Shadow Color Direction:")
+          shadowFontColorHTML += `
         </div>
       </div>
     `;
@@ -1627,52 +1634,34 @@ class BeerTemplate {
     let bomBgColorDivHTML = `
       <div class="row border border-secondary rounded mb-2">
         <div class="col-2">
-              <div class="form-group">
-                <label for="beerBomBgColorOne">Beer of the Month Background Color One:</label>
-                <input id="beerBomBgColorOne" class="form-control" name="beerBomBgColorOne" type="color" value="${ screenSettings.beerBomBgColorOne }">
-                <label for="beerBomBgColorOne">Beer of the Month Background Color Code One:</label>
-                <input class="form-control" disabled="" id="beerBomBgColorOne" name="beerBomBgColorOne" type="text" value="${ screenSettings.beerBomBgColorOne }">
-              </div>
-        </div>
-        <div class="col-2">
-              <div class="form-group">
-                <label for="beerBomBgColorTwo">Beer of the Month Background Color Two:</label>
-                <input id="beerBomBgColorTwo" class="form-control" name="beerBomBgColorTwo" type="color" value="${ screenSettings.beerBomBgColorTwo }">
-                <label for="beerBomBgColorTwo">Beer of the Month Background Color Code Two:</label>
-                <input class="form-control" disabled="" id="beerBomBgColorTwo" name="beerBomBgColorTwo" type="text" value="${ screenSettings.beerBomBgColorTwo }">
-              </div>
-        </div>
-        <div class="col-2">
-              <div class="form-group">
-                <label for="beerBomBgColorThree">Beer of the Month Background Color Three:</label>
-                <input id="beerBomBgColorThree" class="form-control" name="beerBomBgColorThree" type="color" value="${ screenSettings.beerBomBgColorThree }">
-                <label for="beerBomBgColorThree">Beer of the Month Background Color Code Three:</label>
-                <input class="form-control" disabled="" id="beerBomBgColorThree" name="beerBomBgColorThree" type="text" value="${ screenSettings.beerBomBgColorThree }">
-              </div>
-        </div>
-        <div class="col-2">
-              <div class="form-group">
-                <label for="beerBomBgColorFour">Beer of the Month Background Color Four:</label>
-                <input id="beerBomBgColorFour" class="form-control" name="beerBomBgColorFour" type="color" value="${ screenSettings.beerBomBgColorFour }">
-                <label for="beerBomBgColorFour">Beer of the Month Background Color Code Four:</label>
-                <input class="form-control" disabled="" id="beerBomBgColorFour" name="beerBomBgColorFour" type="text" value="${ screenSettings.beerBomBgColorFour }">
-              </div>
-        </div>
-        <div class="col-2">
-              <div class="form-group">
-                <label for="beerBomBgColorFive">Beer of the Month Background Color Five:</label>
-                <input id="beerBomBgColorFive" class="form-control" name="beerBomBgColorFive" type="color" value="${ screenSettings.beerBomBgColorFive }">
-                <label for="beerBomBgColorFive">Beer of the Month Background Color Code Five:</label>
-                <input class="form-control" disabled="" id="beerBomBgColorFive" name="beerBomBgColorFive" type="text" value="${ screenSettings.beerBomBgColorFive }">
-              </div>
-        </div>
-        <div class="col-2">
-              <div class="form-group">
         `;
-        bomBgColorDivHTML += colorDirectionEl(colorDirectionOptions, "beerBomBgColorDirection", screenSettings.beerBomBgColorDirection, "Beer of the Month Background Color Direction");
-                  bomBgColorDivHTML += `
-                </select>
-              </div>
+          bomBgColorDivHTML += colorOfEl("beerBomBgColorOne", screenSettings.beerBomBgColorOne, "Beer of the Month Background Color #1:", "Beer of the Month Background Color Code #1:");
+          bomBgColorDivHTML += `
+        </div>
+        <div class="col-2">
+        `;
+          bomBgColorDivHTML += colorOfEl("beerBomBgColorTwo", screenSettings.beerBomBgColorTwo, "Beer of the Month Background Color #2:", "Beer of the Month Background Color Code #2:");
+          bomBgColorDivHTML += `
+        </div>
+        <div class="col-2">
+        `;
+          bomBgColorDivHTML += colorOfEl("beerBomBgColorThree", screenSettings.beerBomBgColorThree, "Beer of the Month Background Color #3:", "Beer of the Month Background Color Code #3:");
+          bomBgColorDivHTML += `
+        </div>
+        <div class="col-2">
+        `;
+          bomBgColorDivHTML += colorOfEl("beerBomBgColorFour", screenSettings.beerBomBgColorFour, "Beer of the Month Background Color #4:", "Beer of the Month Background Color Code #4:");
+          bomBgColorDivHTML += `
+        </div>
+        <div class="col-2">
+        `;
+          bomBgColorDivHTML += colorOfEl("beerBomBgColorFive", screenSettings.beerBomBgColorFive, "Beer of the Month Background Color #5:", "Beer of the Month Background Color Code #5:");
+          bomBgColorDivHTML += `
+        </div>
+        <div class="col-2">
+        `;
+          bomBgColorDivHTML += colorDirectionEl(colorDirectionOptions, "beerBomBgColorDirection", screenSettings.beerBomBgColorDirection, "Beer of the Month Background Color Direction:");
+          bomBgColorDivHTML += `
         </div>
       </div>
     `;
@@ -1681,61 +1670,46 @@ class BeerTemplate {
     let bomNameSettingsDivHTML = `
       <div class="row border border-secondary rounded mb-2">
         <div class="col-2">
-          <div class="form-group">
-    `;
-        bomNameSettingsDivHTML += fontOptionsEl(fontOptions, "beerBomNameFont",screenSettings.beerBomNameFont , "Beer of the Month Name Font");
-        bomNameSettingsDivHTML += `
-            </select>
-          </div>
-        </div>
-        <div class="col-2">
-          <div class="form-group">
-            <label for="beerBomNameFontColor">Beer of Month Name font color</label>
-            <input id="beerBomNameFontColor" class="form-control" name="beerBomNameFontColor" type="color" value="${ screenSettings.beerBomNameFontColor }">
-            <label for="beerBomNameFontColor">Beer of the Month Name Font Color</label>
-            <input class="form-control" disabled="" id="beerBomNameFontColor" name="beerBomNameFontColor" type="text" value="${ screenSettings.beerBomNameFontColor }">
-          </div>
-        </div>
-        <div class="col-2">
-          <div class="form-group">
         `;
-          bomNameSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions, "beerBomNameFontSize", screenSettings.beerBomNameFontSize, "Beer of the Month Name Font Size");
+          bomNameSettingsDivHTML += fontOptionsEl(fontOptions, "beerBomNameFont",screenSettings.beerBomNameFont , "Beer of the Month Name Font:");
           bomNameSettingsDivHTML += `
-            </select>
-          </div>
         </div>
         <div class="col-2">
-          <div class="form-group">
         `;
-        bomNameSettingsDivHTML += toggleSettingDiv("beerBomNameFontBoldToggle", screenSettings.beerBomNameFontBoldToggle, "Beer of the Month Name Bold Font:");
-        // bomNameSettingsDivHTML += `
-        //     <label for="beerBomNameFontBoldToggle">Beer of the Month Name Bold Font:</label>
-        // `;
-        //     if (screenSettings.beerBomNameFontBoldToggle) {
-        //       bomNameSettingsDivHTML += `
-        //         <input class="form-control" id="beerBomNameFontBoldToggle" checked="" name="beerBomNameFontBoldToggle" type="checkbox" value="y">
-        //       `;
-        //     } else {
-        //       bomNameSettingsDivHTML += `
-        //         <input class="form-control" id="beerBomNameFontBoldToggle" name="beerBomNameFontBoldToggle" type="checkbox" value="y">
-        //       `;
-        //     }
-        bomNameSettingsDivHTML += `
-          </div>
+          bomNameSettingsDivHTML += colorOfEl("beerBomNameFontColor", screenSettings.beerBomNameFontColor, "Beer of the Month Name Font Color:", "Beer of the Month Name Font Color Code:");
+          bomNameSettingsDivHTML += `
         </div>
         <div class="col-2">
-          <div class="form-group">
         `;
-        bomNameSettingsDivHTML += toggleSettingDiv("beerBomNameFontItalicToggle", screenSettings.beerBomNameFontItalicToggle, "Beer of the Month Name Italic:");
-        bomNameSettingsDivHTML += `
-          </div>
+          bomNameSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions, "beerBomNameFontSize", screenSettings.beerBomNameFontSize, "Beer of the Month Name Font Size:");
+          bomNameSettingsDivHTML += `
         </div>
         <div class="col-2">
-          <div class="form-group">
         `;
-        bomNameSettingsDivHTML += toggleSettingDiv("beerBomNameFontUnderlineToggle", screenSettings.beerBomNameFontUnderlineToggle, "Beer of the Month Name Underline:");
-        bomNameSettingsDivHTML += `
-          </div>
+          bomNameSettingsDivHTML += toggleSettingDiv("beerBomNameFontBoldToggle", screenSettings.beerBomNameFontBoldToggle, "Beer of the Month Name Bold:");
+          // bomNameSettingsDivHTML += `
+          //     <label for="beerBomNameFontBoldToggle">Beer of the Month Name Bold Font:</label>
+          // `;
+          //     if (screenSettings.beerBomNameFontBoldToggle) {
+          //       bomNameSettingsDivHTML += `
+          //         <input class="form-control" id="beerBomNameFontBoldToggle" checked="" name="beerBomNameFontBoldToggle" type="checkbox" value="y">
+          //       `;
+          //     } else {
+          //       bomNameSettingsDivHTML += `
+          //         <input class="form-control" id="beerBomNameFontBoldToggle" name="beerBomNameFontBoldToggle" type="checkbox" value="y">
+          //       `;
+          //     }
+          bomNameSettingsDivHTML += `
+        </div>
+        <div class="col-2">
+        `;
+          bomNameSettingsDivHTML += toggleSettingDiv("beerBomNameFontItalicToggle", screenSettings.beerBomNameFontItalicToggle, "Beer of the Month Name Italic:");
+          bomNameSettingsDivHTML += `
+        </div>
+        <div class="col-2">
+        `;
+          bomNameSettingsDivHTML += toggleSettingDiv("beerBomNameFontUnderlineToggle", screenSettings.beerBomNameFontUnderlineToggle, "Beer of the Month Name Underline:");
+          bomNameSettingsDivHTML += `
         </div>
       </div>
     `;
@@ -1744,49 +1718,34 @@ class BeerTemplate {
     let bomStyleSettingsDivHTML = `
         <div class="row border border-secondary rounded mb-2">
           <div class="col-2">
-            <div class="form-group">
-        `;
-        bomStyleSettingsDivHTML += fontOptionsEl(fontOptions, "beerBomStyleFont", screenSettings.beerBomStyleFont, "Beer of the Month Style Font");
-        bomStyleSettingsDivHTML += `
-              </select>
-            </div>
+          `;
+            bomStyleSettingsDivHTML += fontOptionsEl(fontOptions, "beerBomStyleFont", screenSettings.beerBomStyleFont, "Beer of the Month Style Font:");
+            bomStyleSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-              <label for="beerBomStyleFontColor">Beer of Month Name Style font color</label>
-              <input id="beerBomStyleFontColor" class="form-control" name="beerBomStyleFontColor" type="color" value="${ screenSettings.beerBomStyleFontColor }">
-              <label for="beerBomStyleFontColor">Beer of the Month Style Color</label>
-              <input class="form-control" disabled="" id="beerBomStyleFontColor" name="beerBomStyleFontColor" type="text" value="${ screenSettings.beerBomStyleFontColor }">
-            </div>
+          `;
+            bomStyleSettingsDivHTML += colorOfEl("beerBomStyleFontColor", screenSettings.beerBomStyleFontColor, "Beer of the Month Style Font Color:", "Beer of the Month Style Font Color Code:");
+            bomStyleSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        bomStyleSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions, "beerBomStyleFontSize", screenSettings.beerBomStyleFontSize, "Beer of the Month Style Font");
-        bomStyleSettingsDivHTML += `
-              </select>
-            </div>
+          `;
+            bomStyleSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions, "beerBomStyleFontSize", screenSettings.beerBomStyleFontSize, "Beer of the Month Style Font Size:");
+            bomStyleSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        bomStyleSettingsDivHTML += toggleSettingDiv("beerBomStyleFontBoldToggle", screenSettings.beerBomStyleFontBoldToggle, "Beer of the Month Style Bold Font:");
-        bomStyleSettingsDivHTML += `
-            </div>
+          `;
+            bomStyleSettingsDivHTML += toggleSettingDiv("beerBomStyleFontBoldToggle", screenSettings.beerBomStyleFontBoldToggle, "Beer of the Month Style Bold:");
+            bomStyleSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        bomStyleSettingsDivHTML += toggleSettingDiv("beerBomStyleFontItalicToggle", screenSettings.beerBomStyleFontItalicToggle, "Beer of the Month Style Italic:");
-        bomStyleSettingsDivHTML += `
-            </div>
+          `;
+            bomStyleSettingsDivHTML += toggleSettingDiv("beerBomStyleFontItalicToggle", screenSettings.beerBomStyleFontItalicToggle, "Beer of the Month Style Italic:");
+            bomStyleSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        bomStyleSettingsDivHTML += toggleSettingDiv("beerBomStyleFontUnderlineToggle", screenSettings.beerBomStyleFontUnderlineToggle, "Beer of the Month Style Underline:");
-        bomStyleSettingsDivHTML += `
-            </div>
+          `;
+            bomStyleSettingsDivHTML += toggleSettingDiv("beerBomStyleFontUnderlineToggle", screenSettings.beerBomStyleFontUnderlineToggle, "Beer of the Month Style Underline:");
+            bomStyleSettingsDivHTML += `
           </div>
         </div>
     `;
@@ -1799,41 +1758,29 @@ class BeerTemplate {
             </div>
           </div>
           <div class="col-2">
-            <div class="form-group">
-              <label for="beerBomAbvFontColor">Beer of Month Name ABV font color</label>
-              <input id="beerBomAbvFontColor" class="form-control" name="beerBomAbvFontColor" type="color" value="${ screenSettings.beerBomAbvFontColor }">
-              <label for="beerBomAbvFontColor">Beer of the Month ABV Font Color</label>
-              <input class="form-control" disabled="" id="beerBomAbvFontColor" name="beerBomAbvFontColor" type="text" value="${ screenSettings.beerBomAbvFontColor }">
-            </div>
+          `;
+            bomAbvSettingsDivHTML += colorOfEl("beerBomAbvFontColor", screenSettings.beerBomAbvFontColor, "Beer of the Month Abv Font Color:", "Beer of the Month Abv Font Color Code:");
+            bomAbvSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        bomAbvSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions, "beerBomAbvFontSize", screenSettings.beerBomAbvFontSize, "Beer of the Month ABV Font Size");
-        bomAbvSettingsDivHTML += `
-              </select>
-            </div>
+          `;
+            bomAbvSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions, "beerBomAbvFontSize", screenSettings.beerBomAbvFontSize, "Beer of the Month Abv Font Size:");
+            bomAbvSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        bomAbvSettingsDivHTML += toggleSettingDiv("beerBomAbvFontBoldToggle", screenSettings.beerBomAbvFontBoldToggle, "Beer of the Month ABV Bold Font:");
-        bomAbvSettingsDivHTML += `
-            </div>
+          `;
+            bomAbvSettingsDivHTML += toggleSettingDiv("beerBomAbvFontBoldToggle", screenSettings.beerBomAbvFontBoldToggle, "Beer of the Month Abv Bold:");
+            bomAbvSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        bomAbvSettingsDivHTML += toggleSettingDiv("beerBomAbvFontItalicToggle", screenSettings.beerBomAbvFontItalicToggle, "Beer of the Month ABV Italic Font:");
-        bomAbvSettingsDivHTML += `
-            </div>
+          `;
+            bomAbvSettingsDivHTML += toggleSettingDiv("beerBomAbvFontItalicToggle", screenSettings.beerBomAbvFontItalicToggle, "Beer of the Month Abv Italic:");
+            bomAbvSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        bomAbvSettingsDivHTML += toggleSettingDiv("beerBomAbvFontUnderlineToggle", screenSettings.beerBomAbvFontUnderlineToggle, "Beer of the Month ABV Underline Font:");
-        bomAbvSettingsDivHTML += `
-            </div>
+          `;
+            bomAbvSettingsDivHTML += toggleSettingDiv("beerBomAbvFontUnderlineToggle", screenSettings.beerBomAbvFontUnderlineToggle, "Beer of the Month Abv Underline:");
+            bomAbvSettingsDivHTML += `
           </div>
         </div>
     `;
@@ -1846,41 +1793,29 @@ class BeerTemplate {
             </div>
           </div>
           <div class="col-2">
-            <div class="form-group">
-              <label for="beerBomIbuFontColor">Beer of Month Name IBU font color</label>
-              <input id="beerBomIbuFontColor" class="form-control" name="beerBomIbuFontColor" type="color" value="${ screenSettings.beerBomIbuFontColor }">
-              <label for="beerBomIbuFontColor">Beer of the Month IBU Font Color</label>
-              <input class="form-control" disabled="" id="beerBomIbuFontColor" name="beerBomIbuFontColor" type="text" value="${ screenSettings.beerBomIbuFontColor }">
-            </div>
+          `;
+            bomIbuSettingsDivHTML += colorOfEl("beerBomIbuFontColor", screenSettings.beerBomIbuFontColor, "Beer of the Month Ibu Font Color:", "Beer of the Month Ibu Font Color Code:");
+            bomIbuSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        bomIbuSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerBomIbuFontSize", screenSettings.beerBomIbuFontSize, "Beer of the Month IBU Font Size");
-        bomIbuSettingsDivHTML += `
-              </select>
-            </div>
+          `;
+            bomIbuSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerBomIbuFontSize", screenSettings.beerBomIbuFontSize, "Beer of the Month Ibu Font Size:");
+            bomIbuSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        bomIbuSettingsDivHTML += toggleSettingDiv("beerBomIbuFontBoldToggle", screenSettings.beerBomIbuFontBoldToggle, "Beer of the Month Ibu Bold Font:");
-        bomIbuSettingsDivHTML += `
-            </div>
+          `;
+            bomIbuSettingsDivHTML += toggleSettingDiv("beerBomIbuFontBoldToggle", screenSettings.beerBomIbuFontBoldToggle, "Beer of the Month Ibu Bold:");
+            bomIbuSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        bomIbuSettingsDivHTML += toggleSettingDiv("beerBomIbuFontItalicToggle", screenSettings.beerBomIbuFontItalicToggle, "Beer of the Month Ibu Italic Font:");
-        bomIbuSettingsDivHTML += `
-            </div>
+          `;
+            bomIbuSettingsDivHTML += toggleSettingDiv("beerBomIbuFontItalicToggle", screenSettings.beerBomIbuFontItalicToggle, "Beer of the Month Ibu Italic:");
+            bomIbuSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        bomIbuSettingsDivHTML += toggleSettingDiv("beerBomIbuFontUnderlineToggle", screenSettings.beerBomIbuFontUnderlineToggle, "Beer of the Month Ibu Underline Font:");
-        bomIbuSettingsDivHTML += `
-            </div>
+          `;
+            bomIbuSettingsDivHTML += toggleSettingDiv("beerBomIbuFontUnderlineToggle", screenSettings.beerBomIbuFontUnderlineToggle, "Beer of the Month Ibu Underline:");
+            bomIbuSettingsDivHTML += `
           </div>
         </div>
     `;
@@ -1889,49 +1824,34 @@ class BeerTemplate {
     let bomBrewerySettingsDivHTML = `
         <div class="row border border-secondary rounded mb-2">
           <div class="col-2">
-            <div class="form-group">
         `;
         bomBrewerySettingsDivHTML += fontOptionsEl(fontOptions, "beerBomBreweryFont", screenSettings.beerBomBreweryFont, "Beer of the Month Brewery Font");
         bomBrewerySettingsDivHTML += `
-              </select>
-            </div>
           </div>
           <div class="col-2">
-            <div class="form-group">
-              <label for="beerBomBreweryFontColor">Beer of the Month Brewery font color</label>
-              <input id="beerBomBreweryFontColor" class="form-control" name="beerBomBreweryFontColor" type="color" value="">
-              <label for="beerBomBreweryFontColor">Beer of the Month Brewery Color</label>
-              <input class="form-control" disabled="" id="beerBomBreweryFontColor" name="beerBomBreweryFontColor" type="text" value="${ screenSettings.beerBomBreweryFontColor }">
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="form-group">
-        `;
-        bomBrewerySettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerBomBreweryFontSize", screenSettings.beerBomBreweryFontSize, "Beer of the Month Brewery Font Size");
+            `;
+        bomBrewerySettingsDivHTML +=  colorOfEl("beerBomBreweryFontColor", screenSettings.beerBomBreweryFontColor, "Beer of the Month Brewery Font Color:", "Beer of the Month Brewery Font Color Code:");
         bomBrewerySettingsDivHTML += `
-              </select>
-            </div>
           </div>
           <div class="col-2">
-            <div class="form-group">
         `;
-        bomBrewerySettingsDivHTML += toggleSettingDiv("beerBomBreweryFontBoldToggle", screenSettings.beerBomBreweryFontBoldToggle, "Beer of the Month Brewery Bold Font:");
+        bomBrewerySettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerBomBreweryFontSize", screenSettings.beerBomBreweryFontSize, "Beer of the Month Brewery Font Size:");
         bomBrewerySettingsDivHTML += `
-            </div>
           </div>
           <div class="col-2">
-            <div class="form-group">
         `;
-        bomBrewerySettingsDivHTML += toggleSettingDiv("beerBomBreweryFontItalicToggle", screenSettings.beerBomBreweryFontItalicToggle, "Beer of the Month Brewery Italic Font:");
+        bomBrewerySettingsDivHTML += toggleSettingDiv("beerBomBreweryFontBoldToggle", screenSettings.beerBomBreweryFontBoldToggle, "Beer of the Month Brewery Bold:");
         bomBrewerySettingsDivHTML += `
-            </div>
           </div>
           <div class="col-2">
-            <div class="form-group">
         `;
-        bomBrewerySettingsDivHTML += toggleSettingDiv("beerBomBreweryFontUnderlineToggle", screenSettings.beerBomBreweryFontUnderlineToggle, "Beer of the Month Brewery Underline Font:");
+        bomBrewerySettingsDivHTML += toggleSettingDiv("beerBomBreweryFontItalicToggle", screenSettings.beerBomBreweryFontItalicToggle, "Beer of the Month Brewery Italic:");
         bomBrewerySettingsDivHTML += `
-            </div>
+          </div>
+          <div class="col-2">
+        `;
+        bomBrewerySettingsDivHTML += toggleSettingDiv("beerBomBreweryFontUnderlineToggle", screenSettings.beerBomBreweryFontUnderlineToggle, "Beer of the Month Brewery Underline:");
+        bomBrewerySettingsDivHTML += `
           </div>
         </div>
     `;
@@ -1940,52 +1860,34 @@ class BeerTemplate {
     let beerlistBgColorSettingsDivHTML = `
         <div class="row border border-secondary rounded mb-2">
           <div class="col-2">
-            <div class="form-group">
-              <label for="beerBgColorOne">Background color #1</label>
-              <input id="beerBgColorOne" class="form-control" name="beerBgColorOne" type="color" value="${ screenSettings.beerBgColorOne }">
-              <label for="beerBgColorOne">Background Color Code #1:</label>
-              <input class="form-control" disabled="" id="beerBgColorOne" name="beerBgColorOne" type="text" value="${ screenSettings.beerBgColorOne }">
-            </div>
+          `;
+            beerlistBgColorSettingsDivHTML += colorOfEl("beerBgColorOne", screenSettings.beerBgColorOne, "Background Color #1:", "Background Color #1 Code:");
+            beerlistBgColorSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-              <label for="beerBgColorTwo">Background color #2</label>
-              <input id="beerBgColorTwo" class="form-control" name="beerBgColorTwo" type="color" value="${ screenSettings.beerBgColorTwo }">
-              <label for="beerBgColorTwo">Background Color Code #2:</label>
-              <input class="form-control" disabled="" id="beerBgColorTwo" name="beerBgColorTwo" type="text" value="${ screenSettings.beerBgColorTwo }">
-            </div>
+          `;
+            beerlistBgColorSettingsDivHTML += colorOfEl("beerBgColorTwo", screenSettings.beerBgColorTwo, "Background Color #2:", "Background Color #2 Code:");
+            beerlistBgColorSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-              <label for="beerBgColorThree">Background color #3</label>
-              <input id="beerBgColorThree" class="form-control" name="beerBgColorThree" type="color" value="${ screenSettings.beerBgColorThree }">
-              <label for="beerBgColorThree">Background Color Code #3:</label>
-              <input class="form-control" disabled="" id="beerBgColorThree" name="beerBgColorThree" type="text" value="${ screenSettings.beerBgColorThree }">
-            </div>
+          `;
+            beerlistBgColorSettingsDivHTML += colorOfEl("beerBgColorThree", screenSettings.beerBgColorThree, "Background Color #3:", "Background Color #3 Code:");
+            beerlistBgColorSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-              <label for="beerBgColorFour">Background color #4</label>
-              <input id="beerBgColorFour" class="form-control" name="beerBgColorFour" type="color" value="${ screenSettings.beerBgColorFour }">
-              <label for="beerBgColorFour">Background Color Code #4:</label>
-              <input class="form-control" disabled="" id="beerBgColorFour" name="beerBgColorFour" type="text" value="${ screenSettings.beerBgColorFour }">
-            </div>
+          `;
+            beerlistBgColorSettingsDivHTML += colorOfEl("beerBgColorFour", screenSettings.beerBgColorFour, "Background Color #4:", "Background Color #4 Code:");
+            beerlistBgColorSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-              <label for="beerBgColorFive">Background color #5</label>
-              <input id="beerBgColorFive" class="form-control" name="beerBgColorFive" type="color" value="${ screenSettings.beerBgColorFive }">
-              <label for="beerBgColorFive">Background Color Code #5:</label>
-              <input class="form-control" disabled="" id="beerBgColorFive" name="beerBgColorFive" type="text" value="${ screenSettings.beerBgColorFive }">
-            </div>
+          `;
+            beerlistBgColorSettingsDivHTML += colorOfEl("beerBgColorFive", screenSettings.beerBgColorFive, "Background Color #5:", "Background Color #5 Code:");
+            beerlistBgColorSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-    `;
-              beerlistBgColorSettingsDivHTML += colorDirectionEl(colorDirectionOptions, "beerBgColorDirection", screenSettings.beerBgColorDirection, "Background Font Color Direction");
-              beerlistBgColorSettingsDivHTML += `
-              </select>
-            </div>
+          `;
+            beerlistBgColorSettingsDivHTML += colorDirectionEl(colorDirectionOptions, "beerBgColorDirection", screenSettings.beerBgColorDirection, "Background Font Color Direction");
+            beerlistBgColorSettingsDivHTML += `
           </div>
         </div>
     `;
@@ -1994,49 +1896,34 @@ class BeerTemplate {
     let beerNameFontSettingsDivHTML = `
         <div class="row border border-secondary rounded mb-2">
           <div class="col-2">
-            <div class="form-group">
-        `;
-        beerNameFontSettingsDivHTML += fontOptionsEl(fontOptions, "beerNameFont", screenSettings.beerNameFont, "Beer Name Font");
-        beerNameFontSettingsDivHTML += `
-              </select>
-            </div>
+          `;
+            beerNameFontSettingsDivHTML += fontOptionsEl(fontOptions, "beerNameFont", screenSettings.beerNameFont, "Beer Name Font");
+            beerNameFontSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-              <label for="beerNameFontColor">Beer Name Font Color</label>
-              <input id="beerNameFontColor" class="form-control" name="beerNameFontColor" type="color" value="${ screenSettings.beerNameFontColor }">
-              <label for="beerNameFontColor">Beer Name font color</label>
-              <input class="form-control" disabled="" id="beerNameFontColor" name="beerNameFontColor" type="text" value="${ screenSettings.beerNameFontColor }">
-            </div>
+          `;
+            beerNameFontSettingsDivHTML += colorOfEl("beerNameFontColor", screenSettings.beerNameFontColor, "Beer Name Font Color:", "Beer Name Font Color code:");
+            beerNameFontSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        beerNameFontSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerNameFontSize", screenSettings.beerNameFontSize, "Beer Name Font Size");
-        beerNameFontSettingsDivHTML += `
-              </select>
-            </div>
+          `;
+            beerNameFontSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerNameFontSize", screenSettings.beerNameFontSize, "Beer Name Font Size:");
+            beerNameFontSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        beerNameFontSettingsDivHTML += toggleSettingDiv("beerNameFontBoldToggle", screenSettings.beerNameFontBoldToggle, "Beer Name Bold:");
-        beerNameFontSettingsDivHTML += `
-            </div>
+          `;
+            beerNameFontSettingsDivHTML += toggleSettingDiv("beerNameFontBoldToggle", screenSettings.beerNameFontBoldToggle, "Beer Name Bold:");
+            beerNameFontSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        beerNameFontSettingsDivHTML += toggleSettingDiv("beerNameFontItalicToggle", screenSettings.beerNameFontItalicToggle, "Beer Name Italic:");
-        beerNameFontSettingsDivHTML += `
-            </div>
+          `;
+            beerNameFontSettingsDivHTML += toggleSettingDiv("beerNameFontItalicToggle", screenSettings.beerNameFontItalicToggle, "Beer Name Italic:");
+            beerNameFontSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        beerNameFontSettingsDivHTML += toggleSettingDiv("beerNameFontUnderlineToggle", screenSettings.beerNameFontUnderlineToggle, "Beer Name Underline:");
-        beerNameFontSettingsDivHTML += `
-            </div>
+          `;
+            beerNameFontSettingsDivHTML += toggleSettingDiv("beerNameFontUnderlineToggle", screenSettings.beerNameFontUnderlineToggle, "Beer Name Underline:");
+            beerNameFontSettingsDivHTML += `
           </div>
         </div>
     `;
@@ -2045,49 +1932,34 @@ class BeerTemplate {
     let beerStyleFontSettingsDivHTML = `
         <div class="row border border-secondary rounded mb-2">
           <div class="col-2">
-            <div class="form-group">
-        `;
-        beerStyleFontSettingsDivHTML += fontOptionsEl(fontOptions, "beerStyleFont", screenSettings.beerStyleFont, "Beer Style Font");
-        beerStyleFontSettingsDivHTML += `
-              </select>
-            </div>
+          `;
+            beerStyleFontSettingsDivHTML += fontOptionsEl(fontOptions, "beerStyleFont", screenSettings.beerStyleFont, "Beer Style Font");
+            beerStyleFontSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-              <label for="beerStyleFontColor">Beer Style Font Color</label>
-              <input id="beerStyleFontColor" class="form-control" name="beerStyleFontColor" type="color" value="${ screenSettings.beerStyleFontColor }">
-              <label for="beerStyleFontColor">Beer Style font color</label>
-              <input class="form-control" disabled="" id="beerStyleFontColor" name="beerStyleFontColor" type="text" value="${ screenSettings.beerStyleFontColor }">
-            </div>
+          `;
+            beerStyleFontSettingsDivHTML += colorOfEl("beerStyleFontColor", screenSettings.beerStyleFontColor, "Beer Style Font Color:", "Beer Style Font Color code:");
+            beerStyleFontSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        beerStyleFontSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerStyleFontSize", screenSettings.beerStyleFontSize, "Beer Style Font Size");
-        beerStyleFontSettingsDivHTML += `
-              </select>
-            </div>
+          `;
+            beerStyleFontSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerStyleFontSize", screenSettings.beerStyleFontSize, "Beer Style Font Size:");
+            beerStyleFontSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        beerStyleFontSettingsDivHTML += toggleSettingDiv("beerStyleFontBoldToggle", screenSettings.beerStyleFontBoldToggle, "Beer Style Bold:");
-        beerStyleFontSettingsDivHTML += `
-            </div>
+          `;
+            beerStyleFontSettingsDivHTML += toggleSettingDiv("beerStyleFontBoldToggle", screenSettings.beerStyleFontBoldToggle, "Beer Style Bold:");
+            beerStyleFontSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        beerStyleFontSettingsDivHTML += toggleSettingDiv("beerStyleFontItalicToggle", screenSettings.beerStyleFontItalicToggle, "Beer Style Italic:");
-        beerStyleFontSettingsDivHTML += `
-            </div>
+          `;
+            beerStyleFontSettingsDivHTML += toggleSettingDiv("beerStyleFontItalicToggle", screenSettings.beerStyleFontItalicToggle, "Beer Style Italic:");
+            beerStyleFontSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        beerStyleFontSettingsDivHTML += toggleSettingDiv("beerStyleFontUnderlineToggle", screenSettings.beerStyleFontUnderlineToggle, "Beer Style Underline:");
-        beerStyleFontSettingsDivHTML += `
-            </div>
+          `;
+            beerStyleFontSettingsDivHTML += toggleSettingDiv("beerStyleFontUnderlineToggle", screenSettings.beerStyleFontUnderlineToggle, "Beer Style Underline:");
+            beerStyleFontSettingsDivHTML += `
           </div>
         </div>
     `;
@@ -2100,41 +1972,29 @@ class BeerTemplate {
             </div>
           </div>
           <div class="col-2">
-            <div class="form-group">
-              <label for="beerAbvFontColor">Beer ABV Font Color</label>
-              <input id="beerAbvFontColor" class="form-control" name="beerAbvFontColor" type="color" value="${ screenSettings.beerAbvFontColor }">
-              <label for="beerAbvFontColor">Beer ABV font color</label>
-              <input class="form-control" disabled="" id="beerAbvFontColor" name="beerAbvFontColor" type="text" value="${ screenSettings.beerAbvFontColor }">
-            </div>
+          `;
+            beerAbvFontSettingsDivHTML += colorOfEl("beerAbvFontColor", screenSettings.beerAbvFontColor, "Beer Abv Font Color:", "Beer Abv Font Color code:");
+            beerAbvFontSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        beerAbvFontSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerAbvFontSize", screenSettings.beerAbvFontSize, "Beer Abv Font Size");
-        beerAbvFontSettingsDivHTML += `
-              </select>
-            </div>
+          `;
+            beerAbvFontSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerAbvFontSize", screenSettings.beerAbvFontSize, "Beer Abv Font Size:");
+            beerAbvFontSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        beerAbvFontSettingsDivHTML += toggleSettingDiv("beerAbvFontBoldToggle", screenSettings.beerAbvFontBoldToggle, "Beer Abv Bold:");
-        beerAbvFontSettingsDivHTML += `
-            </div>
+          `;
+            beerAbvFontSettingsDivHTML += toggleSettingDiv("beerAbvFontBoldToggle", screenSettings.beerAbvFontBoldToggle, "Beer Abv Bold:");
+            beerAbvFontSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        beerAbvFontSettingsDivHTML += toggleSettingDiv("beerAbvFontItalicToggle", screenSettings.beerAbvFontItalicToggle, "Beer Abv Italic:");
-        beerAbvFontSettingsDivHTML += `
-            </div>
+          `;
+            beerAbvFontSettingsDivHTML += toggleSettingDiv("beerAbvFontItalicToggle", screenSettings.beerAbvFontItalicToggle, "Beer Abv Italic:");
+            beerAbvFontSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        beerAbvFontSettingsDivHTML += toggleSettingDiv("beerAbvFontUnderlineToggle", screenSettings.beerAbvFontUnderlineToggle, "Beer Abv Underline:");
-        beerAbvFontSettingsDivHTML += `
-            </div>
+          `;
+            beerAbvFontSettingsDivHTML += toggleSettingDiv("beerAbvFontUnderlineToggle", screenSettings.beerAbvFontUnderlineToggle, "Beer Abv Underline:");
+            beerAbvFontSettingsDivHTML += `
           </div>
         </div>
     `;
@@ -2147,41 +2007,29 @@ class BeerTemplate {
             </div>
           </div>
           <div class="col-2">
-            <div class="form-group">
-              <label for="beerIbuFontColor">Beer IBU Font Color</label>
-              <input id="beerIbuFontColor" class="form-control" name="beerIbuFontColor" type="color" value="${ screenSettings.beerIbuFontColor }">
-              <label for="beerIbuFontColor">Beer IBU font color</label>
-              <input class="form-control" disabled="" id="beerIbuFontColor" name="beerIbuFontColor" type="text" value="${ screenSettings.beerIbuFontColor }">
-            </div>
+            `;
+            beerIbuFontSettingsDivHTML += colorOfEl("beerIbuFontColor", screenSettings.beerIbuFontColor, "Beer Ibu Font Color:", "Beer Ibu Font Color code:");
+            beerIbuFontSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        beerIbuFontSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerIbuFontSize", screenSettings.beerIbuFontSize, "Beer Ibu Font Size");
-        beerIbuFontSettingsDivHTML += `
-              </select>
-            </div>
+          `;
+            beerIbuFontSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerIbuFontSize", screenSettings.beerIbuFontSize, "Beer Ibu Font Size:");
+            beerIbuFontSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        beerIbuFontSettingsDivHTML += toggleSettingDiv("beerIbuFontBoldToggle", screenSettings.beerIbuFontBoldToggle, "Beer Ibu Bold:");
-        beerIbuFontSettingsDivHTML += `
-            </div>
+          `;
+            beerIbuFontSettingsDivHTML += toggleSettingDiv("beerIbuFontBoldToggle", screenSettings.beerIbuFontBoldToggle, "Beer Ibu Bold:");
+            beerIbuFontSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        beerIbuFontSettingsDivHTML += toggleSettingDiv("beerIbuFontItalicToggle", screenSettings.beerIbuFontItalicToggle, "Beer Ibu Italic:");
-        beerIbuFontSettingsDivHTML += `
-            </div>
+          `;
+            beerIbuFontSettingsDivHTML += toggleSettingDiv("beerIbuFontItalicToggle", screenSettings.beerIbuFontItalicToggle, "Beer Ibu Italic:");
+            beerIbuFontSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        beerIbuFontSettingsDivHTML += toggleSettingDiv("beerIbuFontUnderlineToggle", screenSettings.beerIbuFontUnderlineToggle, "Beer Ibu Underline:");
-        beerIbuFontSettingsDivHTML += `
-            </div>
+          `;
+            beerIbuFontSettingsDivHTML += toggleSettingDiv("beerIbuFontUnderlineToggle", screenSettings.beerIbuFontUnderlineToggle, "Beer Ibu Underline:");
+            beerIbuFontSettingsDivHTML += `
           </div>
         </div>
     `;
@@ -2190,49 +2038,34 @@ class BeerTemplate {
     let beerBreweryFontSettingsDivHTML = `
         <div class="row border border-secondary rounded mb-2">
           <div class="col-2">
-            <div class="form-group">
-        `;
-        beerBreweryFontSettingsDivHTML += fontOptionsEl(fontOptions, "beerBreweryFont", screenSettings.beerBreweryFont, "Beer Brewery Font");
-        beerBreweryFontSettingsDivHTML += `
-              </select>
-            </div>
+          `;
+            beerBreweryFontSettingsDivHTML += fontOptionsEl(fontOptions, "beerBreweryFont", screenSettings.beerBreweryFont, "Beer Brewery Font:");
+            beerBreweryFontSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-              <label for="beerBreweryFontColor">Beer Brewery Font Color</label>
-              <input id="beerBreweryFontColor" class="form-control" name="beerBreweryFontColor" type="color" value="${ screenSettings.beerBreweryFontColor }">
-              <label for="beerBreweryFontColor">Beer Brewery font color</label>
-              <input class="form-control" disabled="" id="beerBreweryFontColor" name="beerBreweryFontColor" type="text" value="${ screenSettings.beerBreweryFontColor }">
-            </div>
+          `;
+            beerBreweryFontSettingsDivHTML += colorOfEl("beerBreweryFontColor", screenSettings.beerBreweryFontColor, "Beer Brewery Font Color:", "Beer Brewery Font Color code:");
+            beerBreweryFontSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        beerBreweryFontSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerBreweryFontSize", screenSettings.beerBreweryFontSize, "Beer Brewery Font Size");
-        beerBreweryFontSettingsDivHTML += `
-              </select>
-            </div>
+          `;
+            beerBreweryFontSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerBreweryFontSize", screenSettings.beerBreweryFontSize, "Beer Brewery Font Size:");
+            beerBreweryFontSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        beerBreweryFontSettingsDivHTML += toggleSettingDiv("beerBreweryFontBoldToggle", screenSettings.beerBreweryFontBoldToggle, "Beer Brewery Bold:");
-        beerBreweryFontSettingsDivHTML += `
-            </div>
+          `;
+            beerBreweryFontSettingsDivHTML += toggleSettingDiv("beerBreweryFontBoldToggle", screenSettings.beerBreweryFontBoldToggle, "Beer Brewery Bold:");
+            beerBreweryFontSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        beerBreweryFontSettingsDivHTML += toggleSettingDiv("beerBreweryFontItalicToggle", screenSettings.beerBreweryFontItalicToggle, "Beer Brewery Italic:");
-        beerBreweryFontSettingsDivHTML += `
-            </div>
+          `;
+            beerBreweryFontSettingsDivHTML += toggleSettingDiv("beerBreweryFontItalicToggle", screenSettings.beerBreweryFontItalicToggle, "Beer Brewery Italic:");
+            beerBreweryFontSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        beerBreweryFontSettingsDivHTML += toggleSettingDiv("beerBreweryFontUnderlineToggle", screenSettings.beerBreweryFontUnderlineToggle, "Beer Brewery Underline:");
-        beerBreweryFontSettingsDivHTML += `
-            </div>
+          `;
+            beerBreweryFontSettingsDivHTML += toggleSettingDiv("beerBreweryFontUnderlineToggle", screenSettings.beerBreweryFontUnderlineToggle, "Beer Brewery Underline:");
+            beerBreweryFontSettingsDivHTML += `
           </div>
         </div>
     `;
@@ -2241,52 +2074,34 @@ class BeerTemplate {
     let tickerBgColorSettingsDivHTML = `
         <div class="row border border-secondary rounded mb-2">
           <div class="col-2">
-            <div class="form-group">
-              <label for="beerTickerBgColorOne">Beer Ticker Background color #1</label>
-              <input id="beerTickerBgColorOne" class="form-control" name="beerTickerBgColorOne" type="color" value="${ screenSettings.beerTickerBgColorOne }">
-              <label for="beerTickerBgColorOne">Ticker Background Color Code One:</label>
-              <input class="form-control" disabled="" id="beerTickerBgColorOne" name="beerTickerBgColorOne" type="text" value="${ screenSettings.beerTickerBgColorOne }">
-            </div>
+          `;
+            tickerBgColorSettingsDivHTML += colorOfEl("beerTickerBgColorOne", screenSettings.beerTickerBgColorOne, "Beer Ticker Background Color #1:", "Beer Ticker Background Color Code #1:");
+            tickerBgColorSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-              <label for="beerTickerBgColorTwo">Beer Ticker Background color #2</label>
-              <input id="beerTickerBgColorTwo" class="form-control" name="beerTickerBgColorTwo" type="color" value="${ screenSettings.beerTickerBgColorTwo }">
-              <label for="beerTickerBgColorTwo">Ticker Background Color Code Two:</label>
-              <input class="form-control" disabled="" id="beerTickerBgColorTwo" name="beerTickerBgColorTwo" type="text" value="${ screenSettings.beerTickerBgColorTwo }">
-            </div>
+          `;
+            tickerBgColorSettingsDivHTML += colorOfEl("beerTickerBgColorTwo", screenSettings.beerTickerBgColorTwo, "Beer Ticker Background Color #2:", "Beer Ticker Background Color Code #2:");
+            tickerBgColorSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-              <label for="beerTickerBgColorThree">Beer Ticker Background color #3</label>
-              <input id="beerTickerBgColorThree" class="form-control" name="beerTickerBgColorThree" type="color" value="${ screenSettings.beerTickerBgColorThree }">
-              <label for="beerTickerBgColorThree">Ticker Background Color Code Three:</label>
-              <input class="form-control" disabled="" id="beerTickerBgColorThree" name="beerTickerBgColorThree" type="text" value="${ screenSettings.beerTickerBgColorThree }">
-            </div>
+          `;
+            tickerBgColorSettingsDivHTML += colorOfEl("beerTickerBgColorThree", screenSettings.beerTickerBgColorThree, "Beer Ticker Background Color #3:", "Beer Ticker Background Color Code #3:");
+            tickerBgColorSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-              <label for="beerTickerBgColorFour">Beer Ticker Background color #4</label>
-              <input id="beerTickerBgColorFour" class="form-control" name="beerTickerBgColorFour" type="color" value="${ screenSettings.beerTickerBgColorFour }">
-              <label for="beerTickerBgColorFour">Ticker Background Color Code Four:</label>
-              <input class="form-control" disabled="" id="beerTickerBgColorFour" name="beerTickerBgColorFour" type="text" value="${ screenSettings.beerTickerBgColorFour }">
-            </div>
+          `;
+            tickerBgColorSettingsDivHTML += colorOfEl("beerTickerBgColorFour", screenSettings.beerTickerBgColorFour, "Beer Ticker Background Color #4:", "Beer Ticker Background Color Code #4:");
+            tickerBgColorSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-              <label for="beerTickerBgColorFive">Beer Ticker Background color #5</label>
-              <input id="beerTickerBgColorFive" class="form-control" name="beerTickerBgColorFive" type="color" value="${ screenSettings.beerTickerBgColorFive }">
-              <label for="beerTickerBgColorFive">Ticker Background Color Code Five:</label>
-              <input class="form-control" disabled="" id="beerTickerBgColorFive" name="beerTickerBgColorFive" type="text" value="${ screenSettings.beerTickerBgColorFive }">
-            </div>
+          `;
+            tickerBgColorSettingsDivHTML += colorOfEl("beerTickerBgColorFive", screenSettings.beerTickerBgColorFive, "Beer Ticker Background Color #5:", "Beer Ticker Background Color Code #5:");
+            tickerBgColorSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-    `;
-    tickerBgColorSettingsDivHTML += colorDirectionEl(colorDirectionOptions, "beerTickerBgColorDirection", screenSettings.beerTickerBgColorDirection, "Ticker Background Font Color Direction");
-    tickerBgColorSettingsDivHTML += `
-              </select>
-            </div>
+          `;
+            tickerBgColorSettingsDivHTML += colorDirectionEl(colorDirectionOptions, "beerTickerBgColorDirection", screenSettings.beerTickerBgColorDirection, "Beer Ticker Background Font Color Direction:");
+            tickerBgColorSettingsDivHTML += `
           </div>
         </div>
     `;
@@ -2295,57 +2110,39 @@ class BeerTemplate {
     let tickerSettingsDivHTML = `
         <div class="row border border-secondary rounded mb-2">
           <div class="col-2">
-            <div class="form-group">
-        `;
-        tickerSettingsDivHTML += fontOptionsEl(fontOptions, "beerTickerBeernamesFont", screenSettings.beerTickerBeernamesFont, "Beer Ticker Names Font");
-        tickerSettingsDivHTML += `
-              </select>
-            </div>
+          `;
+            tickerSettingsDivHTML += fontOptionsEl(fontOptions, "beerTickerBeernamesFont", screenSettings.beerTickerBeernamesFont, "Beer Ticker Names Font:");
+            tickerSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        tickerSettingsDivHTML += fontOptionsEl(fontOptions, "beerTickerFont", screenSettings.beerTickerFont, "Beer Ticker Font");
-        tickerSettingsDivHTML += `
-              </select>
-            </div>
+          `;
+            tickerSettingsDivHTML += fontOptionsEl(fontOptions, "beerTickerFont", screenSettings.beerTickerFont, "Beer Ticker Font:");
+            tickerSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-              <label for="beerTickerFontColor">Beer Ticker Font Color</label>
-              <input id="beerTickerFontColor" class="form-control" name="beerTickerFontColor" type="color" value="${ screenSettings.beerTickerFontColor }">
-              <label for="beerTickerFontColor">Beer Ticker Font color</label>
-              <input class="form-control" disabled="" id="beerTickerFontColor" name="beerTickerFontColor" type="text" value="${ screenSettings.beerTickerFontColor }">
-            </div>
+          `;
+            tickerSettingsDivHTML += colorOfEl("beerTickerFontColor", screenSettings.beerTickerFontColor, "Beer Ticker Font Color:", "Beer Ticker FoCt Color Code:");
+            tickerSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        tickerSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerTickerFontSize", screenSettings.beerTickerFontSize, "Beer Ticker Font Size");
-        tickerSettingsDivHTML += `
-              </select>
-            </div>
+          `;
+            tickerSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerTickerFontSize", screenSettings.beerTickerFontSize, "Beer Ticker Font Size:");
+            tickerSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        tickerSettingsDivHTML += toggleSettingDiv("beerTickerFontBoldToggle", screenSettings.beerTickerFontBoldToggle, "Beer Ticker Bold:");
-        tickerSettingsDivHTML += `
-            </div>
+          `;
+            tickerSettingsDivHTML += toggleSettingDiv("beerTickerFontBoldToggle", screenSettings.beerTickerFontBoldToggle, "Beer Ticker Bold:");
+            tickerSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        tickerSettingsDivHTML += toggleSettingDiv("beerTickerFontItalicToggle", screenSettings.beerTickerFontItalicToggle, "Beer Ticker Italic:");
-        tickerSettingsDivHTML += `
-            </div>
+          `;
+            tickerSettingsDivHTML += toggleSettingDiv("beerTickerFontItalicToggle", screenSettings.beerTickerFontItalicToggle, "Beer Ticker Italic:");
+            tickerSettingsDivHTML += `
           </div>
           <div class="col-2">
-            <div class="form-group">
-        `;
-        tickerSettingsDivHTML += toggleSettingDiv("beerTickerFontUnderlineToggle", screenSettings.beerTickerFontUnderlineToggle, "Beer Ticker Underline:");
-        tickerSettingsDivHTML += `
-            </div>
+          `;
+            tickerSettingsDivHTML += toggleSettingDiv("beerTickerFontUnderlineToggle", screenSettings.beerTickerFontUnderlineToggle, "Beer Ticker Underline:");
+            tickerSettingsDivHTML += `
           </div>
         </div>
     `;
@@ -2354,17 +2151,13 @@ class BeerTemplate {
     let tickerSettingsShowDivHTML = `
         <div class="row border border-secondary rounded mb-2">
           <div class="col-3">
-            <div class="form-group">
-        `;
-        tickerSettingsShowDivHTML += toggleSettingDiv("beerTickerToggle", screenSettings.beerTickerToggle, "Show Beer Ticker:");
-        tickerSettingsShowDivHTML += `
-            </div>
+          `;
+            tickerSettingsShowDivHTML += toggleSettingDiv("beerTickerToggle", screenSettings.beerTickerToggle, "Show Beer Ticker:");
+            tickerSettingsShowDivHTML += `
           </div>
           <div class="col-3">
-            <div class="form-group">
-              <label for="beerTickerScrollSpeed">Beer Ticker Scroll Speed</label>
-              <input class="form-control" id="beerTickerScrollSpeed" name="beerTickerScrollSpeed" required="" type="text" value="${ screenSettings.beerTickerScrollSpeed }">
-            </div>
+            <label for="beerTickerScrollSpeed">Beer Ticker Scroll Speed:</label>
+            <input class="form-control" id="beerTickerScrollSpeed" name="beerTickerScrollSpeed" required="" type="text" value="${ screenSettings.beerTickerScrollSpeed }">
           </div>
         </div>
     `;
