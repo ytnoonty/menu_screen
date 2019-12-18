@@ -1449,7 +1449,7 @@ class BeerTemplate {
     let beerscreenSettingsDiv = document.querySelector('#beerscreen_settings');
     let colorDirectionOptions = ["to bottom", "to top", "to left", "to right", "to bottom left", "to bottom right", "to top left", "to top right"];
     let fontOptions = ["","Courier New", "Times Roman"];
-    let fontSizeOptions = ["", "1.0em", "1.5em", "2.0em", "2.5em", "3.0em", "3.5em", "4.0em", "4.5em", "5.0em" "5.5em", "6.0em"];
+    let fontSizeOptions = ["", "1.0em", "1.5em", "2.0em", "2.5em", "3.0em", "3.5em", "4.0em", "4.5em", "5.0em", "5.5em", "6.0em"];
 
     const colorOfEl = (settingsId, setting, labelTxt1, labelTxt2) => {
       let divHTML = ``;
