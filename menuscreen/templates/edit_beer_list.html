@@ -31,7 +31,7 @@
               </select>
 
 
-              
+
             </div>
           </div>
           <div class="col-6">
@@ -51,10 +51,15 @@
                   <label for="beer_{{beers.id_dropdown}}">Beer {{beers.id_dropdown}}</label>
                   <select id="beer_{{beers.id_dropdown}}" class="form-control edit-beer edit-beer-{{beers.id_dropdown}}" name="beer_{{beers.id_dropdown}}">
                     {% for beer in beersDropdown %}
-                      {% if beer.id == beers.defaultDropdown.id_history %}
-                        <option value="{{beer.id}}" selected>{{beer.name}}</option>
-                      {% else %}
-                        <option value="{{beer.id}}">{{beer.name}}</option>
+                      <!-- Added the if conditional to take out the default 'TestName' -->
+                      {% if beer.name != "TestName" %}
+                        {% if beer.id == beers.defaultDropdown.id_history %}
+                          <option value="{{beer.id}}" selected>{{beer.name}}</option>
+                        {% else %}
+                          <option value="{{beer.id}}">{{beer.name}}</option>
+                        {% endif %}
+                      <!-- if just initialized or all user added beers have been deleted -->
+                      {% elif beer.name == "TestName" %}
                       {% endif %}
                     {% endfor %}
                   </select>
