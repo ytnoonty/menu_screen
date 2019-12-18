@@ -105,7 +105,7 @@ def beerscreen_settings():
     print("``````````````````````````````````````````````````````````````````")
     print("``````````````````````````````````````````````````````````````````")
 
-    screenId = 2
+    screenId = 1
     screenData = {
         "userId": current_user.id,
         "screenNumber": screenId,
