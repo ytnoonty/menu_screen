@@ -70,6 +70,7 @@ def _getCurrentBeerlist(screenData):
         List_history.website,
         List_history.description,
         List_current.id,
+        List_current.id_history,
         List_current.id_on_next,
         List_current.id_dropdown,
         List_current.beer_of_month,
@@ -91,6 +92,7 @@ def _getCurrentBeerlist(screenData):
         beer['location'] = b.location
         beer['website'] = b.website
         beer['description'] = b.description
+        beer['id_history'] = b.id_history
         beer['id_on_next'] = b.id_on_next
         beer['id_dropdown'] = b.id_dropdown
         beer['beer_of_month'] = b.beer_of_month
@@ -137,6 +139,7 @@ def _getOnTapNextBeerlist(screenData):
         List_history.website,
         List_history.description,
         List_current.id,
+        List_current.id_history,
         List_current.id_on_next,
         List_current.id_dropdown,
         ).outerjoin(List_current, List_history.id == List_current.id_on_next
@@ -155,6 +158,7 @@ def _getOnTapNextBeerlist(screenData):
         beer['location'] = b.location
         beer['website'] = b.website
         beer['description'] = b.description
+        beer['id_history'] = b.id_history
         beer['id_on_next'] = b.id_on_next
         beer['id_dropdown'] = b.id_dropdown
         beerlist.append(beer)

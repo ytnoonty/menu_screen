@@ -502,6 +502,13 @@ class BeerTemplate {
             let tickerTextEl = document.querySelector('#ticker-text');
             screenDisplay.innerHTML = '';
             currentBeers.forEach(beer => {
+              console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+              console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+              console.log(beer);
+              console.log(beer.id_history);
+              console.log(beer.id_dropdown);
+              console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+              console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
                       //
                       // div with .beers
                       var beerContainerDivNode = document.createElement("div");
@@ -536,7 +543,7 @@ class BeerTemplate {
                       selectNode.name = `beer_${beer.id_dropdown}`;
 
                       for (let i = 0; i < beerlistData.length; i++) {
-                          // console.log(beerlistData[i]);
+                          console.log(i, beerlistData[i]);
                           option.value = beerlistData[i].id;
                           option.text = beerlistData[i].name;
                           selectNode.options[i] = new Option(beerlistData[i].name, i);
