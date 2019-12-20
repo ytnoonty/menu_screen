@@ -450,18 +450,18 @@ class BeerTemplate {
 
   repaintBeerListEditorTemplate(data) {
                             // edit_beer_list add beer to the beerlist
-                              console.log("/////////////////////////////////////////////////////////////////");
-                              console.log("/////////////////////////////////////////////////////////////////");
-                              console.log("/////////////////////////////////////////////////////////////////");
+                              // console.log("/////////////////////////////////////////////////////////////////");
+                              // console.log("/////////////////////////////////////////////////////////////////");
+                              // console.log("/////////////////////////////////////////////////////////////////");
                               console.log('CHANGED TO A DIFFERENT SCREEN FROM EDIT BEERLIST SCREEN');
-                              console.log(data);
-                              console.log("/////////////////////////////////////////////////////////////////");
-                              console.log("/////////////////////////////////////////////////////////////////");
-                              console.log("/////////////////////////////////////////////////////////////////");
+                              // console.log(data);
+                              // console.log("/////////////////////////////////////////////////////////////////");
+                              // console.log("/////////////////////////////////////////////////////////////////");
+                              // console.log("/////////////////////////////////////////////////////////////////");
                               // let { beerlist, venue_db_id } = data;
                               let { currentBeers, nextBeers, beerslistTotal, tickerInfo, userSettings } = data;
-                              console.log(currentBeers);
-                              console.log(tickerInfo);
+                              // console.log(currentBeers);
+                              // console.log(tickerInfo);
                               // console.log(nextBeers);
                               // console.log(beerslistTotal);
                               // console.log(userSettings);
@@ -489,26 +489,26 @@ class BeerTemplate {
 
           let screenDisplay;
           let displayElement = document.querySelector('#' + screenElementUserId);
-          console.log(displayElement);
+          // console.log(displayElement);
           if (displayElement != null) {
             console.log("IN THE DISPLAY ELEMENT");
-            console.log(displayElement);
+            // console.log(displayElement);
             displayElement = document.querySelector('#' + screenElementUserId + ' #beerlist');
-            console.log(displayElement);
+            // console.log(displayElement);
             screenDisplay = displayElement;
-            console.log(screenDisplay);
+            // console.log(screenDisplay);
           }
 
             let tickerTextEl = document.querySelector('#ticker-text');
             screenDisplay.innerHTML = '';
             currentBeers.forEach(beer => {
-              console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-              console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-              console.log(beer);
-              console.log(beer.id_history);
-              console.log(beer.id_dropdown);
-              console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-              console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+              // console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+              // console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+              // console.log(beer);
+              // console.log(beer.id_history);
+              // console.log(beer.id_dropdown);
+              // console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+              // console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
                       //
                       // div with .beers
                       var beerContainerDivNode = document.createElement("div");
@@ -543,12 +543,15 @@ class BeerTemplate {
                       selectNode.name = `beer_${beer.id_dropdown}`;
 
                       for (let i = 0; i < beerlistData.length; i++) {
-                          console.log(i, beerlistData[i]);
+                          // console.log(i, beer.id_history, beerlistData[i].id[0], beerlistData[i]);
                           option.value = beerlistData[i].id;
                           option.text = beerlistData[i].name;
                           selectNode.options[i] = new Option(beerlistData[i].name, i);
                           selectNode.options[i].value = beerlistData[i].id;
                           // console.log(selectNode.innerHTML);
+                          if (beer.id_history == beerlistData[i].id[0]) {
+                            selectNode.options[i].selected = true;
+                          }
                       }
 
                       // edit_beer_list add beer of the month checkbox
