@@ -995,15 +995,15 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
 
   async function updateScreens(data) {
     console.log("line 963 - udpateScreens");
-    // console.log(data);
+    console.log(data);
     if (data !== undefined) {
-      // console.log(data.updated);
+      console.log(data.updated);
       if (data.updated) {
-        // console.log(data);
+        console.log(data);
         let userNameScreenId = await getUserInfo(data);
-        // console.log(userNameScreenId);
+        console.log(userNameScreenId);
         let displayData = await getScreenInfo(userNameScreenId);
-        // console.log(displayData);
+        console.log(displayData);
         setScreenInfo(displayData);
       }
     }
@@ -1853,12 +1853,13 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
         let userId = userData.id[0];
         return userId;
       }
-      let userId = getUserId(urlData);
-      console.log(userId);
+
       if (urlData.userName != undefined) {
+        let userId = getUserId(urlData);
+        console.log(userId);
         initScreens({"updated":"true", "userName":urlData.userName, "userId":userId, "screenNumber": urlData.screenNumber, });
       } else {
-        initScreens({"updated":""})
+        // initScreens({"updated":""})
       }
 
 

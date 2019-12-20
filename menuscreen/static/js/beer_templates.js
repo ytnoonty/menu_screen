@@ -1306,21 +1306,22 @@ class BeerTemplate {
   }
 
   bottleBeersTabletScreenTemplate(displayData){
-    // console.log(displayData);
+    console.log(displayData);
     const { bottleBeerlist, userSettings } = displayData;
     let beersData = bottleBeerlist.beerlist;
-    // console.log(beersData);
+    console.log(beersData);
 
     let userId = userSettings.venue_db_id;
+    // console.log(Object.getOwnPropertyNames(userId).length);
 
     if (Object.getOwnPropertyNames(userId).length >= 1) {
 
-        // console.log(userId);
+        console.log(userId);
         let screenElementUserId = 'user-id-' + userId;
-        // console.log(screenElementUserId);
+        console.log(screenElementUserId);
         let displayListElement = document.querySelector('#' + screenElementUserId + ' .beer-list-loop-bb');
         if (displayListElement != null) {
-          // console.log(displayListElement);
+          console.log(displayListElement);
 
           let bottleBeerlistHTML = "";
           bottleBeerlistHTML += `<ul id="bottle-beers-list" class="beer-list-loop-bb list-group-flush">`;
