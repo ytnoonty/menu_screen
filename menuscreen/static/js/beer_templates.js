@@ -1314,27 +1314,26 @@ class BeerTemplate {
     let userId = userSettings.venue_db_id;
     // console.log(Object.getOwnPropertyNames(userId).length);
 
-    if (Object.getOwnPropertyNames(userId).length >= 1) {
+    // if (Object.getOwnPropertyNames(userId).length >= 1) {
+                console.log(userId);
+                let screenElementUserId = 'user-id-' + userId;
+                console.log(screenElementUserId);
+                let displayListElement = document.querySelector('#' + screenElementUserId + ' .beer-list-loop-bb');
+                if (displayListElement != null) {
+                  console.log(displayListElement);
 
-        console.log(userId);
-        let screenElementUserId = 'user-id-' + userId;
-        console.log(screenElementUserId);
-        let displayListElement = document.querySelector('#' + screenElementUserId + ' .beer-list-loop-bb');
-        if (displayListElement != null) {
-          console.log(displayListElement);
-
-          let bottleBeerlistHTML = "";
-          bottleBeerlistHTML += `<ul id="bottle-beers-list" class="beer-list-loop-bb list-group-flush">`;
-          beersData.forEach(beer=> {
-            // if (beer.draft_bottle_selection == "Bottle" || beer.draft_bottle_selection == "Can" || beer.draft_bottle_selection == "Draft & Bottle" || beer.draft_bottle_selection == "Draft & Can" || beer.draft_bottle_selection == "Bottle & Can" || beer.draft_bottle_selection == "Draft, Bottle & Can") {
-            if (beer.draft_bottle_selection != "Draft") {
-              bottleBeerlistHTML += `<li class="list-group-item-bb list-group-item"><span class="larger-text txt-clr-grn">${beer.name} </span> ${beer.draft_bottle_selection} - <span class="bold-font italic-font">${beer.style}</span> - ${beer.abv}% ABV - ${beer.ibu} IBU - ${beer.location} - <span class="italic-font">${beer.brewery}</span></li>`;
-            }
-          });
-          bottleBeerlistHTML += `</ul>`;
-          displayListElement.innerHTML = bottleBeerlistHTML;
-        }
-    }
+                  let bottleBeerlistHTML = "";
+                  bottleBeerlistHTML += `<ul id="bottle-beers-list" class="beer-list-loop-bb list-group-flush">`;
+                  beersData.forEach(beer=> {
+                    // if (beer.draft_bottle_selection == "Bottle" || beer.draft_bottle_selection == "Can" || beer.draft_bottle_selection == "Draft & Bottle" || beer.draft_bottle_selection == "Draft & Can" || beer.draft_bottle_selection == "Bottle & Can" || beer.draft_bottle_selection == "Draft, Bottle & Can") {
+                    if (beer.draft_bottle_selection != "Draft") {
+                      bottleBeerlistHTML += `<li class="list-group-item-bb list-group-item"><span class="larger-text txt-clr-grn">${beer.name} </span> ${beer.draft_bottle_selection} - <span class="bold-font italic-font">${beer.style}</span> - ${beer.abv}% ABV - ${beer.ibu} IBU - ${beer.location} - <span class="italic-font">${beer.brewery}</span></li>`;
+                    }
+                  });
+                  bottleBeerlistHTML += `</ul>`;
+                  displayListElement.innerHTML = bottleBeerlistHTML;
+                }
+    // }
   }
 
   paintUntappdSearchResultsList(displayData) {
