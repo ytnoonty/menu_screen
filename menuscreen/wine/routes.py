@@ -28,7 +28,7 @@ def _getwines():
             "glass":data.glass,
             "bottle":data.bottle,
             "description":data.description,
-            "foodPairings":data.foodPairings,
+            "food_pairings":data.food_pairings,
             "website":data.website,
         }
         wines.append(wine)
@@ -40,7 +40,7 @@ def _getwines():
 @login_required
 def _getCurrentWinelist():
     # user = User.query.filter_by(id=current_user.id).first()
-    # result = cur.execute("SELECT wl.name, wl.location, wl.description, wl.glass, wl.bottle, wl.varietal, wl.foodPairings FROM winelist_current AS wc, wines AS wl WHERE wl.id=wc.id_wine AND wl.venue_db_id=wc.venue_db_id AND wc.venue_db_id=%s", [venuedbid])
+    # result = cur.execute("SELECT wl.name, wl.location, wl.description, wl.glass, wl.bottle, wl.varietal, wl.food_pairings FROM winelist_current AS wc, wines AS wl WHERE wl.id=wc.id_wine AND wl.venue_db_id=wc.venue_db_id AND wc.venue_db_id=%s", [venuedbid])
 
     user = User.query.filter_by(id=current_user.id).first()
     data = user.winelist_current
@@ -51,7 +51,7 @@ def _getCurrentWinelist():
         Wines.glass,
         Wines.bottle,
         Wines.varietal,
-        Wines.foodPairings,
+        Wines.food_pairings,
         Wines.website,
         Winelist_current.id_dropdown
         ).outerjoin(Winelist_current, Wines.id == Winelist_current.id_wine
@@ -115,7 +115,7 @@ def add_wine():
             glass=form.glass.data,
             bottle=form.bottle.data,
             description=form.description.data,
-            foodPairings=form.foodPairings.data,
+            food_pairings=form.food_pairings.data,
             website=form.website.data,
             venue_db_id=current_user.id)
         db.session.add(wine)
@@ -175,7 +175,7 @@ def edit_wine(wine_id):
         wine.glass = form.glass.data
         wine.bottle = form.bottle.data
         wine.description = form.description.data
-        wine.foodPairings = form.foodPairings.data
+        wine.food_pairings = form.food_pairings.data
         wine.website = form.website.data
         db.session.add(wine)
         db.session.commit()
@@ -213,7 +213,7 @@ def edit_wine(wine_id):
         form.glass.data = wine.glass
         form.bottle.data = wine.bottle
         form.description.data = wine.description
-        form.foodPairings.data = wine.foodPairings
+        form.food_pairings.data = wine.food_pairings
         form.website.data = wine.website
 
     return render_template('edit_wine.html', title='Edit Wine', legend='Edit Wine', form=form)
@@ -251,7 +251,7 @@ def winelist_editor():
             "glass":data.glass,
             "bottle":data.bottle,
             "description":data.description,
-            "foodPairings":data.foodPairings,
+            "food_pairings":data.food_pairings,
             "website":data.website,
         }
         wines.append(wine)
@@ -392,7 +392,7 @@ def testing_winelist_editor():
             "glass":data.glass,
             "bottle":data.bottle,
             "description":data.description,
-            "foodPairings":data.foodPairings,
+            "food_pairings":data.food_pairings,
             "website":data.website,
         }
         wines.append(wine)
@@ -599,14 +599,14 @@ def winelist_menu_nologin(venuename, screen_id):
 
     # get all the wines in the database
     totalWinelist = _getWines(current_user_id)
-    print(totalWinelist)
-    print("")
+    # print(totalWinelist)
+    # print("")
 
     # turn total winelist into usable array
     totalWinelistArr = []
     for wine in totalWinelist:
-        print("wineType: {}".format(wine.type))
-        totalWinelistArr.append(wine.type)
+        print("wineType: {}".format(wine['type']))
+        totalWinelistArr.append(wine['type'])
     print("")
 
     print(wineTypelistArr)
@@ -717,8 +717,8 @@ def winelist_description_nologin(venuename, screen_id):
 
     totalWinelistArr = []
     for wine in totalWinelist:
-        print("wineType: {}".format(wine.type))
-        totalWinelistArr.append(wine.type)
+        print("wineType: {}".format(wine['type']))
+        totalWinelistArr.append(wine['type'])
     print("")
 
     print(wineTypelistArr)

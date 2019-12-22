@@ -450,24 +450,30 @@ const WineCtrl = (function(){
     console.log('IN THE WINE CONTROLLER');
   }
 
-  const fetchCurrentWinelist = function(template) {
-    const fetchScreenUpdate = function(template) {
-      fetch('/_winemenu_list_display')
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log(data);
-        template(data);
-      })
-    }
-    fetchScreenUpdate(template);
+  // const fetchCurrentWinelist = function() {
+  //   const fetchScreenUpdate = function() {
+  //     fetch('/_winemenu_list_display')
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       // console.log(data);
+  //       return data;
+  //     });
+  //   }
+  //   fetchScreenUpdate();
+  // }
+  const fetchCurrentWinelist = async function() {
+    const fetchResponse = await fetch('/_winemenu_list_display');
+    const data = await fetchResponse.json();
+    console.log(data);
+    return data;
   }
 
   return {
     callLogData: function() {
       logData();
     },
-    callFetchCurrentWinelist: function(template) {
-      fetchCurrentWinelist(template);
+    callFetchCurrentWinelist: function() {
+      return fetchCurrentWinelist();
     },
   }
 })();
@@ -1002,9 +1008,11 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
         console.log(data);
         let userNameScreenId = await getUserInfo(data);
         console.log(userNameScreenId);
-        let displayData = await getScreenInfo(userNameScreenId);
-        console.log(displayData);
-        setScreenInfo(displayData);
+        if (userNameScreenId.screenNumber != undefined) {
+          let displayData = await getScreenInfo(userNameScreenId);
+          console.log(displayData);
+          setScreenInfo(displayData);
+        }
       }
     }
   } // end udpateScreens();
@@ -1039,24 +1047,28 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     await updateScreens(data);
   }
 
-  const initWineScreens = (data) => {
+  const initWineScreens = async (data) => {
     if (data !== undefined) {
-        // console.log(data.updated);
+        console.log(data.updated);
         if (data.updated == true) {
-            WineCtrl.callFetchCurrentWinelist(UICtrl.callUpdateWineTabletScreen);
-            WineCtrl.callFetchCurrentWinelist(UICtrl.callUpdateWineDescriptionsTabletScreen);
+          wineData = await WineCtrl.callFetchCurrentWinelist();
+          console.log(wineData);
+          UICtrl.callUpdateWineTabletScreen(wineData);
+          UICtrl.callUpdateWineDescriptionsTabletScreen(wineData);
         }
     }
   }
-  const editWineScreens = (data) => {
+  const editWineScreens = async (data) => {
     if (data !== undefined) {
         // console.log(data.updated);
         if (data.updated == true) {
           console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
           console.log("WINE DATA CAN AND WILL BE UPDATED NOW!")
           console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-          WineCtrl.callFetchCurrentWinelist(UICtrl.callUpdateWineTabletScreen);
-          WineCtrl.callFetchCurrentWinelist(UICtrl.callUpdateWineDescriptionsTabletScreen);
+          wineData = await WineCtrl.callFetchCurrentWinelist();
+          console.log(wineData);
+          UICtrl.callUpdateWineTabletScreen(wineData);
+          UICtrl.callUpdateWineDescriptionsTabletScreen(wineData);
         }
     }
   }
@@ -1371,7 +1383,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
         addWineForm.submit();
         // console.log("ADDWINEPUSHER()");
         addWinePusher();
-        console.log("LINE 598");
+        console.log("LINE 1374");
       })(addWinePusher);
       e.preventDefault();
     }

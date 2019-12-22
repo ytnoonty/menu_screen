@@ -39,8 +39,8 @@ def _winemenu_list():
     # turn total winelist into usable array
     totalWinelistArr = []
     for wine in totalWinelist:
-        # print("wineType: {}".format(wine.type))
-        totalWinelistArr.append(wine.type)
+        # print("wineType: {}".format(wine['type']))
+        totalWinelistArr.append(wine['type'])
     # print("")
 
     # print(wineTypelistArr)

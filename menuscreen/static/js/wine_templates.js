@@ -6,26 +6,26 @@ class WineTemplate {
   }
 
   wineTabletTemplate(displayData) {
-      // console.log(displayData);
+      console.log(displayData);
       const { wineTypelist, winelist, userData } = displayData;
-      // console.log(wineTypelist, winelist, userData);
+      console.log(wineTypelist, winelist, userData);
 
       let userSettingsData = userData;
       let screenDisplay;
       let screenElementUserId = 'user-id-' + userSettingsData.venue_db_id;
-      // console.log(screenElementUserId);
+      console.log(screenElementUserId);
       let displayElement = document.querySelector('#' + screenElementUserId);
 
       if (displayElement != null) {
         displayElement = document.querySelector('#' + screenElementUserId + ' #winelist-tablet-menu');
-        // console.log('************wineTabletTemplate*************');
-        // console.log(displayElement);
-        // console.log('************wineTabletTemplate*************');
+        console.log('************wineTabletTemplate*************');
+        console.log(displayElement);
+        console.log('************wineTabletTemplate*************');
       }
 
       let wineMenuHTML = '';
       wineTypelist.forEach(wineType => {
-        // console.log(wineType);
+        console.log(wineType);
         wineMenuHTML += `
           <div class="row mt-0">
             <div class="row justify-content-center col-12 mx-auto">

@@ -58,11 +58,11 @@ def initWinelist(id):
         name='Wine Name',
         location='Wine Location',
         description = 'Wine Description',
-        glass='Glass $$',
-        bottle = 'Bottle $$',
+        glass='10',
+        bottle = '100',
         varietal='Wine Varietal',
         type='1',
-        foodPairings='Wine Food Pairings',
+        food_pairings='Wine Food Pairings',
         wine_screen_id='1',
         website='Wine Website'
     )
@@ -207,6 +207,8 @@ def initBeerscreenSettings(data):
 
         beer_ticker_toggle=0,
         beer_ticker_scroll_speed=10,
+
+        beer_screen_landscape_portrait_toggle=0,
         beer_settings_screen_id =screenId,
         beer_screen_template ='1',
         venue_db_id=id,

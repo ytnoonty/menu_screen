@@ -23,7 +23,7 @@ def _getWinelistDisplay(id):
         Wines.glass,
         Wines.bottle,
         Wines.varietal,
-        Wines.foodPairings,
+        Wines.food_pairings,
         Wines.website,
         Winelist_current.id_dropdown
         ).outerjoin(Winelist_current, Wines.id == Winelist_current.id_wine
@@ -41,7 +41,7 @@ def _getWines(id):
         Wines.glass,
         Wines.bottle,
         Wines.varietal,
-        Wines.foodPairings,
+        Wines.food_pairings,
         Wines.website,
         Wine_type.type
         ).outerjoin(Wine_type, Wines.type == Wine_type.id
@@ -49,7 +49,25 @@ def _getWines(id):
         # ).filter(Wines.venue_db_id == current_user.id
         ).order_by(Wines.name.asc()
         ).all()
-    return wines
+    # print(wines)
+    winelist = []
+    for w in wines:
+        # print(w)
+        # print("")
+        # print(type(w.id))
+        wine = {}
+        wine['id'] = w.id
+        wine['name'] = w.name
+        wine['location'] = w.location
+        wine['description'] = w.description
+        wine['glass'] = w.glass
+        wine['bottle'] = w.bottle
+        wine['varietal'] = w.varietal
+        wine['food_pairings'] = w.food_pairings
+        wine['website'] = w.website
+        wine['type'] = w.type
+        winelist.append(wine)
+    return winelist
 
 def _getWinetypes(id):
     # user = User.query.filter_by(id=current_user.id).first()

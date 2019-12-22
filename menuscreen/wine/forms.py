@@ -33,7 +33,7 @@ class WineForm(FlaskForm):
         validators.optional()
     ], coerce=int, option_widget=None)
 
-    foodPairings = TextAreaField('Food Pairings', [
+    food_pairings = TextAreaField('Food Pairings', [
         validators.optional()
     ])
     website = StringField('Website', [
