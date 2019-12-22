@@ -120,7 +120,7 @@ class WineTemplate {
                                 <span class="font-med">Description: </span><span> ${wine.description} </span>
                               </div>
                               <div>
-                                <span class="font-med">Pairs with: </span><span> ${wine.foodPairings} </span>
+                                <span class="font-med">Pairs with: </span><span> ${wine.food_pairings} </span>
                               </div>
                             </div>
                           </div>
