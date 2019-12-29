@@ -1049,10 +1049,10 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
 
   const initWineScreens = async (data) => {
     if (data !== undefined) {
-        console.log(data.updated);
+        // console.log(data.updated);
         if (data.updated == true) {
           wineData = await WineCtrl.callFetchCurrentWinelist();
-          console.log(wineData);
+          // console.log(wineData);
           UICtrl.callUpdateWineTabletScreen(wineData);
           UICtrl.callUpdateWineDescriptionsTabletScreen(wineData);
         }
@@ -1062,11 +1062,11 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     if (data !== undefined) {
         // console.log(data.updated);
         if (data.updated == true) {
-          console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-          console.log("WINE DATA CAN AND WILL BE UPDATED NOW!")
-          console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+          // console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+          // console.log("WINE DATA CAN AND WILL BE UPDATED NOW!")
+          // console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
           wineData = await WineCtrl.callFetchCurrentWinelist();
-          console.log(wineData);
+          // console.log(wineData);
           UICtrl.callUpdateWineTabletScreen(wineData);
           UICtrl.callUpdateWineDescriptionsTabletScreen(wineData);
         }

@@ -28,7 +28,7 @@ class BeerTemplate {
       beerNames.forEach(name => {
         name.style.color = `${settings.beerNameFontColor}`;
         name.style.fontFamily = `${settings.beerNameFont}`;
-        name.style.fontSize = `${settings.beerNameFontSize}`;
+        name.style.fontSize = `${settings.beerNameFontSizeDisplay}`;
         if (settings.beerNameFontBoldToggle == true) {
           console.log(settings.beerNameFontBoldToggle);
           name.style.fontStyle = "bold";
@@ -52,17 +52,17 @@ class BeerTemplate {
 
       beerStyles.forEach(style => {
         style.style.color = `${settings.beerStyleFontColor}`;
-        style.style.fontSize = `${settings.beerStyleFontSize}`;
+        style.style.fontSize = `${settings.beerStyleFontSizeDisplay}`;
       });
 
       beerAbvs.forEach(abv => {
         abv.style.color = `${settings.beerAbvFontColor}`;
-        abv.style.fontSize = `${settings.beerAbvFontSize}`;
+        abv.style.fontSize = `${settings.beerAbvFontSizeDisplay}`;
       });
 
       beerBrewerys.forEach(brewery => {
         brewery.style.color = `${settings.beerBreweryFontColor}`;
-        brewery.style.fontSize = `${settings.beerBreweryFontSize}`;
+        brewery.style.fontSize = `${settings.beerBreweryFontSizeDisplay}`;
       });
 
       backgrounds.forEach(background => {
@@ -75,11 +75,11 @@ class BeerTemplate {
 
       tickerText.forEach(text => {
         text.style.color = `${settings.beerTickerFontColor}`;
-        text.style.fontSize = `${settings.beerTickerFontSize}`;
+        text.style.fontSize = `${settings.beerTickerFontSizeDisplay}`;
       });
       tickerNews.forEach(news => {
         news.style.color = `${settings.beerTickerFontColor}`;
-        news.style.fontSize = `${settings.beerTickerFontSize}`;
+        news.style.fontSize = `${settings.beerTickerFontSizeDisplay}`;
       });
 
       tickerWrapper.style.backgroundImage = `linear-gradient(${settings.beerTickerBgColorDirection}, ${settings.beerTickerBgColorOne}, ${settings.beerTickerBgColorTwo},${settings.beerTickerBgColorThree}, ${settings.beerTickerBgColorFour}, ${settings.beerTickerBgColorFive})`;
@@ -90,6 +90,13 @@ class BeerTemplate {
         ticker.callMoveTicker(settings);
 
       })(Ticker, settings, tickerWrapper);
+
+      // ability to change screen orientation
+      // example code to update screen orientaion, update "element" with correct screen element
+      // Using CSS
+      // transform: rotate(90deg);
+      // Using js
+      // element.style.transform = 'rotate(90deg)';
 
 
     } //END updateScreenTemplates
@@ -1513,7 +1520,7 @@ class BeerTemplate {
       divHTML = divFormGroupWrapper[0];
       divHTML += divLabel;
       options.forEach((option, index) => {
-        console.log(index, option, settings, settingsId);
+        // console.log(index, option, settings, settingsId);
         if (index == settings) {
           divBody += `
             <option selected="" value="${ index }">${ option }</option>
