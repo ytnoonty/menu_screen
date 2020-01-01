@@ -654,6 +654,8 @@ const UICtrl = (function(){
     screenDisplay: '#screen-display',
     beersDisplayNavPrev: '#beers-display-nav-prev',
     beersDisplayNavNext: '#beers-display-nav-next',
+    // click back to websiteURL
+    websiteBackBtn: '#website-back-btn',
   }
 
   // flash message dissapear after 2.5 seconds
@@ -1367,6 +1369,9 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     if (document.querySelector(UISelectors.beersDisplayNavNext) != null) {
       document.querySelector(UISelectors.beersDisplayNavNext).addEventListener('click', changeToNextBeersDisplayScreen);
     }
+    if (document.querySelector(UISelectors.websiteBackBtn) != null) {
+      document.querySelector(UISelectors.websiteBackBtn).addEventListener('click', historyScreenBackBtn);
+    }
   }
 
     // Edit beer list submit
@@ -1856,6 +1861,16 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       console.log(newPage);
       // redirect to new page
       window.location.replace(newPage);
+    }
+
+    const historyScreenBackBtn = (e) => {
+      // like hitting the back button on the menubar
+      // used when navigating from the users website
+      // this makes it easier to navigate back to the website that the user
+      // click from
+      console.log(e);
+      history.back();
+      e.preventDefault();
     }
 
   // Public methods
