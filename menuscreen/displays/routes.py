@@ -15,14 +15,45 @@ displays = Blueprint('displays', __name__)
 
 # Update wine menu display
 @displays.route('/_winemenu_list_display', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def _winemenu_list():
+    data = request.get_json()
+    print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+    print("^^^^^^^line 20 /_winemenu_list_display^^^^^^^")
+    print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+    print("data: {}".format(data))
+    print("**************************************")
+    print("**************************************")
+    if (current_user.is_authenticated):
+        print("LOGGED IN")
+        print(current_user.id)
+        data['userId'] = current_user.id
+        print(data)
+        # query to get types of wine
+        wineTypes = _getWinetypes(current_user.id)
+        # convert wineTypes to usable list
+        wineTypelist = _convertToWinelist(wineTypes)
+        # print(wineTypelist)
+    elif (data):
+        print("NOT LOGGED IN AND URL INFO")
+        print(data['userName'])
+        current_user_id = getVenueId(data['userName'])
+        print("current_user_id: {}".format(current_user_id))
 
-    # query to get types of wine
-    wineTypes = _getWinetypes(current_user.id)
-    # convert wineTypes to usable list
-    wineTypelist = _convertToWinelist(wineTypes)
-    # print(wineTypelist)
+        data['userId'] = current_user_id
+        print("data: {}".format(data))
+
+        # query to get types of wine
+        wineTypes = _getWinetypes(current_user_id)
+        print(wineTypes)
+        # convert wineTypes to usable list
+        wineTypelist = _convertToWinelist(wineTypes)
+        print(wineTypelist)
+    else:
+        print("NOT LOGGED IN AND NO URL INFO")
+        winelist = {}
+    print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+    print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
 
     # turn wineType list into array
     wineTypelistArr = []
@@ -32,7 +63,7 @@ def _winemenu_list():
     # print("")
 
     # get all the wines in the database
-    totalWinelist = _getWines(current_user.id)
+    totalWinelist = _getWines(data['userId'])
     # print(totalWinelist)
     # print("")
 
@@ -72,7 +103,7 @@ def _winemenu_list():
         "wineTypelist": typeList,
         "winelist": winelist,
         "userData": {
-            "venue_db_id": current_user.id
+            "venue_db_id": data['userId']
         }
     }
     return jsonify(data)

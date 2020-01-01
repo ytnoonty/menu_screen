@@ -461,8 +461,20 @@ const WineCtrl = (function(){
   //   }
   //   fetchScreenUpdate();
   // }
-  const fetchCurrentWinelist = async function() {
-    const fetchResponse = await fetch('/_winemenu_list_display');
+  const fetchCurrentWinelist = async function(userData) {
+    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+    console.log("^^^^^^^^line 465 fetchCurrentWinelist^^^^^^^^");
+    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+    console.log(userData);
+    const fetchResponse = await fetch('/_winemenu_list_display', {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify(userData),
+      cache: "no-cache",
+      headers: new Headers({
+        "content-type": "application/json"
+      })
+    });
     const data = await fetchResponse.json();
     console.log(data);
     return data;
@@ -472,8 +484,8 @@ const WineCtrl = (function(){
     callLogData: function() {
       logData();
     },
-    callFetchCurrentWinelist: function() {
-      return fetchCurrentWinelist();
+    callFetchCurrentWinelist: function(data) {
+      return fetchCurrentWinelist(data);
     },
   }
 })();
@@ -1048,14 +1060,21 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
   }
 
   const initWineScreens = async (data) => {
+    console.log("line 1062 - initWineScreens");
+    console.log(data);
     if (data !== undefined) {
-        // console.log(data.updated);
-        if (data.updated == true) {
-          wineData = await WineCtrl.callFetchCurrentWinelist();
-          // console.log(wineData);
+      console.log(data.updated);
+      if (data.updated == true) {
+        console.log(data);
+        let userNameScreenId = await getUserInfo(data);
+        console.log(userNameScreenId);
+        if (userNameScreenId.screenNumber != undefined) {
+          wineData = await WineCtrl.callFetchCurrentWinelist(userNameScreenId);
+          console.log(wineData);
           UICtrl.callUpdateWineTabletScreen(wineData);
           UICtrl.callUpdateWineDescriptionsTabletScreen(wineData);
         }
+      }
     }
   }
   const editWineScreens = async (data) => {
