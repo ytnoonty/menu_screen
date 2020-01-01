@@ -538,21 +538,21 @@ def edit_beer_list():
         beersDropdown.append(beer)
 
     beers = db.session.query(
-        List_history.id,
-        List_history.name,
-        List_history.style,
-        List_history.abv,
-        List_history.ibu,
-        List_history.brewery,
-        List_history.location,
-        List_history.website,
-        List_history.description,
-        List_history.draft_bottle_selection,
-        List_history.venue_db_id,
-        List_current.id,
-        List_current.id_dropdown,
-        List_current.beer_of_month,
-        List_current.coming_soon,
+            List_history.id,
+            List_history.name,
+            List_history.style,
+            List_history.abv,
+            List_history.ibu,
+            List_history.brewery,
+            List_history.location,
+            List_history.website,
+            List_history.description,
+            List_history.draft_bottle_selection,
+            List_history.venue_db_id,
+            List_current.id,
+            List_current.id_dropdown,
+            List_current.beer_of_month,
+            List_current.coming_soon,
         ).outerjoin(List_current, List_history.id == List_current.id_history
         ).filter(List_current.venue_db_id == current_user.id
         ).filter(List_current.beer_screen_id == screenId
@@ -573,19 +573,21 @@ def edit_beer_list():
         beer['draft_bottle_selection'] = b.draft_bottle_selection
         beer['venue_db_id'] = b.venue_db_id
         beer['id_dropdown'] = b.id_dropdown
+        beer['beer_of_month'] = b.beer_of_month
+        beer['coming_soon'] = b.coming_soon
         beer['defaultDropdown'] = getDefaultSelect(b.id_dropdown)
         beerlist.append(beer)
 
     tickerInfo = db.session.query(
-        Ticker.id,
-        Ticker.ticker_text,
-        Ticker.ticker_screen_id,
-        Ticker.venue_db_id,
-        Ticker_type_id.ticker_type
-    ).join(Ticker_type_id, Ticker_type_id.ticker_type_id_fk == Ticker.ticker_type
-    ).filter(Ticker.venue_db_id == current_user.id
-    ).filter(Ticker.ticker_screen_id == screenId
-    ).first()
+            Ticker.id,
+            Ticker.ticker_text,
+            Ticker.ticker_screen_id,
+            Ticker.venue_db_id,
+            Ticker_type_id.ticker_type
+        ).join(Ticker_type_id, Ticker_type_id.ticker_type_id_fk == Ticker.ticker_type
+        ).filter(Ticker.venue_db_id == current_user.id
+        ).filter(Ticker.ticker_screen_id == screenId
+        ).first()
     if (tickerInfo):
         tickerText = tickerInfo.ticker_text
     else:

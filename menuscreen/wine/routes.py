@@ -145,10 +145,10 @@ def wine_dashboard():
     for wine in wines:
         wine.dash_menu_id = list(wine.name)[0].lower()
     if wines:
-        return render_template('wine_dashboard.html', title='Wine Dashboard', wines=wines)
+        return render_template('wine_dashboard.html', title='Wine Dashboard', wines=wines, currentUserId=current_user.id)
     else:
         msg = 'Sorry, sad day. No wine found in your winelist!'
-    return render_template('wine_dashboard.html', title='Wine Dashboard', legend='Wine Dashboard', msg=msg)
+    return render_template('wine_dashboard.html', title='Wine Dashboard', legend='Wine Dashboard', msg=msg, currentUserId=current_user.id)
 
 # Edit wine
 @wine.route('/edit_wine/<string:wine_id>', methods=['GET', 'POST'])
@@ -545,8 +545,8 @@ def winelist_menu():
     # turn total winelist into usable array
     totalWinelistArr = []
     for wine in totalWinelist:
-        print("wineType: {}".format(wine.type))
-        totalWinelistArr.append(wine.type)
+        print("wineType: {}".format(wine['type']))
+        totalWinelistArr.append(wine['type'])
     print("")
 
     print(wineTypelistArr)
@@ -663,8 +663,8 @@ def winelist_description():
 
     totalWinelistArr = []
     for wine in totalWinelist:
-        print("wineType: {}".format(wine.type))
-        totalWinelistArr.append(wine.type)
+        print("wineType: {}".format(wine['type']))
+        totalWinelistArr.append(wine['type'])
     print("")
 
     print(wineTypelistArr)

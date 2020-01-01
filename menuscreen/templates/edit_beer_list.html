@@ -62,7 +62,7 @@
                 <div class="ops-container d-flex flex-row">
                   <div class="form-group">
                     <label for="bom-beer_{{beers.id_dropdown}}"></label>
-                    {% if beers.defaultDropdown.beer_of_month == True %}
+                    {% if beers.beer_of_month == True %}
                       <input id="bom-beer_{{beers.id_dropdown}}" type="checkbox" name="beer-of-month_{{beers.id_dropdown}}" value="{{beers.defaultDropdown.beer_of_month}}" checked>
                     {% else %}
                       <input id="bom-beer_{{beers.id_dropdown}}" type="checkbox" name="beer-of-month_{{beers.id_dropdown}}" value="{{beers.defaultDropdown.beer_of_month}}">
@@ -71,7 +71,7 @@
                   </div>
                   <div class="form-group pl-5">
                     <label for="coming-soon-beer_{{beers.id_dropdown}}"></label>
-                    {% if beers.defaultDropdown.coming_soon == True %}
+                    {% if beers.coming_soon == True %}
                       <input id="coming-soon-beer_{{beers.id_dropdown}}" type="checkbox" name="coming-soon_{{beers.id_dropdown}}" value="{{beers.defaultDropdown.coming_soon}}" checked>
                     {% else %}
                       <input id="coming-soon-beer_{{beers.id_dropdown}}" type="checkbox" name="coming-soon_{{beers.id_dropdown}}" value="{{beers.defaultDropdown.coming_soon}}">
