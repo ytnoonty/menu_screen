@@ -1078,17 +1078,24 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     }
   }
   const editWineScreens = async (data) => {
+    console.log("line 1081 - editWineScreens");
+    console.log(data);
     if (data !== undefined) {
-        // console.log(data.updated);
-        if (data.updated == true) {
-          // console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-          // console.log("WINE DATA CAN AND WILL BE UPDATED NOW!")
-          // console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-          wineData = await WineCtrl.callFetchCurrentWinelist();
-          // console.log(wineData);
+      console.log(data.updated);
+      if (data.updated == true) {
+        console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+        console.log("WINE DATA UPDATED NOW!")
+        console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+        console.log(data);
+        let userNameScreenId = await getUserInfo(data);
+        console.log(userNameScreenId);
+        if (userNameScreenId.screenNumber != undefined) {
+          wineData = await WineCtrl.callFetchCurrentWinelist(userNameScreenId);
+          console.log(wineData);
           UICtrl.callUpdateWineTabletScreen(wineData);
           UICtrl.callUpdateWineDescriptionsTabletScreen(wineData);
         }
+      }
     }
   }
 
