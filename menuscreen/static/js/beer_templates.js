@@ -8,6 +8,7 @@ class BeerTemplate {
       let beerNames = document.querySelectorAll('.beer-name');
       let beerStyles = document.querySelectorAll('.beer-style');
       let beerAbvs = document.querySelectorAll('.beer-abv');
+      let beerIbus = document.querySelectorAll('.beer-ibu');
       let beerBrewerys = document.querySelectorAll('.beer-brewery');
       let backgrounds = document.querySelectorAll('.background');
       let bomBackgrounds = document.querySelectorAll('.bom-background');
@@ -58,6 +59,11 @@ class BeerTemplate {
       beerAbvs.forEach(abv => {
         abv.style.color = `${settings.beerAbvFontColor}`;
         abv.style.fontSize = `${settings.beerAbvFontSizeDisplay}`;
+      });
+
+      beerIbus.forEach(ibu => {
+        ibu.style.color = `${settings.beerIbuFontColor}`;
+        ibu.style.fontSize = `${settings.beerIbuFontSizeDisplay}`;
       });
 
       beerBrewerys.forEach(brewery => {
@@ -946,23 +952,49 @@ class BeerTemplate {
 
 
   // displays 2 columns of cards, each card with name on top line and style and ABV and IBU on bottom line of card
-  twoColNSAITemplate(displayData){
-    const { beers, events, screenSettings, userSettings } = displayData;
-    let beersData = beers;
+  twoColNSAITemplate(displayData) {
+    // console.log("**************************************************************************");
+    // console.log("IN THE twoColNSAITemplate);
+    // console.log("**************************************************************************");
+    // console.log(displayData);
+    const { currentBeers, events, tickerInfo, screenSettings, userSettings } = displayData;
+    let beersData = currentBeers;
     let eventsData = events;
+    let tickerInfoData = tickerInfo;
+    let screenSettingsData = screenSettings;
     let userSettingsData = userSettings;
     // console.log(beersData);
     // console.log(eventsData);
+    // console.log(tickerInfoData);
+    // console.log(screenSettingsData);
     // console.log(userSettingsData);
 
-    let data0116 = beersData.slice(0,16);
-    let data1722 = beersData.slice(16,22);
-    let data0108 = beersData.slice(0,8);
-    let data0816 = beersData.slice(8,16);
+    let beerlist = [];
+    let beerlistBom = [];
+    let beerlistCs = [];
 
-    // let screenDisplay = document.getElementById('screen-display');
+    beersData.forEach(function(beer){
+      if (!beer.beer_of_month && !beer.coming_soon ) {
+        beerlist.push(beer);
+      } else if (beer.beer_of_month && beer.coming_soon) {
+        beerlistBom.push(beer);
+        beerlistCs.push(beer);
+      } else if (beer.beer_of_month){
+        beerlist.push(beer);
+        beerlistBom.push(beer);
+      } else if (beer.coming_soon) {
+        beerlistCs.push(beer);
+      }
+    });
+
+
+    let halflistNum;
+    halflistNum = Math.floor(beerlist.length / 2);
+
+    let beerlistFirstHalf = beerlist.slice(0,halflistNum);
+    let beerlistSecondHalf = beerlist.slice(halflistNum, beerlist.length);
+
     let screenDisplay;
-
     // console.log(userSettingsData.venue_db_id);
     let screenElementUserId = 'user-id-' + userSettingsData.venue_db_id;
     // console.log(screenElementUserId);
@@ -977,23 +1009,65 @@ class BeerTemplate {
     }
 
     let screenDisplayHTML = '';
-    let screenDisplayTicker = document.querySelector('.ticker');
+    let screenDisplayTicker = document.querySelector('.ticker-wrapper');
     let screenDisplayTickerHTML = '';
     screenDisplayHTML = `
-    <div class="row mt-3">
-      <div class="col-lg">
-        <div class="list-group">
-          <ul class="list-group-flush list-group-bts">`;
-            data0108.forEach(function(beer){
+    <div class="row mt-1">
+      <div class="col-6 beerlist-col">
+          <ul id="" class="list-group mx-2">`;
+
+
+            beerlistFirstHalf.forEach(function(beer){
+
+              if (!beer.beer_of_month) {
+                screenDisplayHTML += `
+                <li class="list-group-item card-beerscreen-display background">
+                `;
+              } else {
+                screenDisplayHTML += `
+                <li class="list-group-item card-beerscreen-display bom-background">
+                `;
+              }
               screenDisplayHTML += `
-              <li class="cardvs background">
-                <table>
-                  <tr>
-                    <h1 class="italic-font bold-font txt-clr-ylw left-spacer no-btm-margin"><span class="beer-name">${beer.name}</span></h1>
+                <table class="beerscreen-display-table">
+                  <tr class="">
+                    <td class="font-weight-bold font-italic txt-clr-ylw pl-2 pt-1" colspan="3"><span class="beer-name">${beer.name}</span></td>
                   </tr>
-                  <tr class="left-spacer beer-screen-tr font-sml">
-                    <td class="bold-font w-third"><span class="beer-style">${beer.style}</span></td>
-                    <td class="w-fifth"><span class="font-xxsml"></span><span class="beer-abv">${beer.abv}</span><span class="font-xsml">%</span></td>
+                  <tr class="">
+                    <td class="beerscreen-table-td-30 font-weight-bold pl-2"><span class="beer-style">${beer.style}</span></td>
+                    <td class="beerscreen-table-td-50 font-weight-bold"><span class="font-xxsml"></span><span class="beer-abv">${beer.abv}</span><span class="">%</span> - <span class="beer-ibu">${beer.ibu}</span> <span>IBU</span></td>
+
+                  </tr>
+                </table>
+              </li>`
+            });
+
+
+    screenDisplayHTML += `
+            </ul>
+          </div>
+        <div class="col-6 beerlist-col">
+          <ul id="" class="list-group mr-2">`;
+            beerlistSecondHalf.forEach(function(beer){
+
+              if (!beer.beer_of_month) {
+                screenDisplayHTML += `
+                <li class="list-group-item card-beerscreen-display background">
+                `;
+              } else {
+                screenDisplayHTML += `
+                <li class="list-group-item card-beerscreen-display bom-background">
+                `;
+              }
+              screenDisplayHTML += `
+                <table class="beerscreen-display-table">
+                  <tr class="">
+                    <td class="font-weight-bold font-italic txt-clr-ylw pl-2 pt-1" colspan="3"><span class="beer-name">${beer.name}</span></td>
+                  </tr>
+                  <tr class="">
+                    <td class="beerscreen-table-td-30 font-weight-bold pl-2"><span class="beer-style">${beer.style}</span></td>
+                    <td class="beerscreen-table-td-50 font-weight-bold"><span class="font-xxsml"></span><span class="beer-abv">${beer.abv}</span><span class="">%</span> - <span class="beer-ibu">${beer.ibu}</span> <span>IBU</span></td>
+
                   </tr>
                 </table>
               </li>`
@@ -1001,51 +1075,49 @@ class BeerTemplate {
     screenDisplayHTML += `
           </ul>
         </div>
+      </div>`;
+
+      screenDisplayTickerHTML = ``;
+      screenDisplayTickerHTML = `
+      <div class="ticker d-flex align-items-center move-left">
+        <ul class="list-group ticker-items list-group-inline ml-3">
+      `;
+      if (beerlistBom.length > 0){
+        screenDisplayTickerHTML += `
+          <li class="list-group-inline align-middle font-weight-bold ticker-item txt-clr-grn-shdw spacing-sml"><span class="ticker-text">Beer 'O the Month:</span></li>
+        `;
+      }
+      beerlistBom.forEach(function(beer){
+        screenDisplayTickerHTML += `
+          <li class="list-group-inline align-middle font-weight-bold font-italic ticker-item left-spacer txt-clr-ylw card-img"><span class="beer-name">${ beer.name }</span></li>
+        `});
+      if (beerlistCs.length > 0) {
+        screenDisplayTickerHTML += `
+          <li class="list-group-inline align-middle font-weight-bold ticker-item left-spacer txt-clr-grn-shdw spacing-sml"><span class="ticker-text">Tapping Soon:</span></li>
+        `;
+      }
+      beerlistCs.forEach(function(beer){
+        screenDisplayTickerHTML += `
+          <li class="list-group-inline align-middle font-weight-bold font-italic ticker-item txt-clr-ylw card-img"><span class="beer-name">${ beer.name }</span></li>
+      `});
+      if (tickerInfoData.ticker_text !== "") {
+        screenDisplayTickerHTML += `
+          <li class="list-group-inline align-middle font-weight-bold ticker-item txt-clr-grn-shdw left-spacer spacing-sml"><span class="ticker-text">Shamrock News:</span></li>
+          <li class="list-group-inline align-middle font-weight-bold font-italic ticker-item txt-clr-ylw left-spacer card-img"><span class="ticker-news">${ tickerInfoData.ticker_text }</span></li>
+        `;
+      }
+        screenDisplayTickerHTML += `
+        </ul>
       </div>
-      <div class="col-lg">
-        <div class="list-group">
-          <ul class="list-group-flush list-group-bts">`;
-            data0816.forEach(function(beer){
-              screenDisplayHTML += `
-              <li class="cardvs background">
-                <table>
-                  <tr>
-                    <h1 class="italic-font bold-font txt-clr-ylw left-spacer no-btm-margin"><span class="beer-name">${beer.name}</span></h1>
-                  </tr>
-                  <tr class="left-spacer beer-screen-tr font-sml">
-                    <td class="bold-font w-third"><span class="beer-style">${beer.style}</span></td>
-                    <td class="w-fifth"><span class="font-xxsml"></span><span class="beer-abv">${beer.abv}</span><span class="font-xsml">%</span></td>
-                  </tr>
-                </table>
-              </li>`
-            });
-    screenDisplayHTML += `
-          </ul>
-        </div>
-      </div>
-    </div>`;
-    // console.log('***************************************************************************************');
-    // console.log(data1722);
-    // console.log('***************************************************************************************');
-    screenDisplayTickerHTML = `
-      <ul class="list-bts-coming-soon bold-font">
-        <li class="info beer-month txt-clr-grn-shdw spacing-sml">Beer 'O the Month:</li>
-        <li class="info info1 card-img txt-clr-ylw beerOfMonth beer-name">${data1722[0].name}</li>
-        <li class="info tap-soon txt-clr-grn-shdw spacing-sml">Tapping Soon:</li>
-        <li class="info info2 card-img-before txt-clr-ylw beer-name">${data1722[1].name}</li>
-        <li class="info info3 card-img-before txt-clr-ylw beer-name">${data1722[2].name}</li>
-        <li class="info info4 card-img-before txt-clr-ylw beer-name">${data1722[3].name}</li>
-        <li class="info info5 card-img txt-clr-ylw beer-name">${data1722[4].name}$</li>
-        <li class="info shams-news txt-clr-grn-shdw spacing-sml">Shamrock News:</li>
-        <li class="info info6 card-img-after txt-clr-ylw beer-name">${data1722[5].description}</li>
-      </ul>
-    `;
-    if (screenDisplay !== null) {
+        `;
+
+    if (screenDisplay !== null && screenDisplay !== undefined) {
       screenDisplay.innerHTML = screenDisplayHTML;
       screenDisplayTicker.innerHTML = screenDisplayTickerHTML;
-      this.updateScreenTemplates(screenSettings);
+      this.updateScreenTemplates(screenSettingsData);
     }
   }
+
   // displays 2 columns of cards, each card with name on top line and style and ABV on bottom line of card
   twoColNSTemplate(displayData){
     const { beers, events, screenSettings, userSettings } = displayData;
