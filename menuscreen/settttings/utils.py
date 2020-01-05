@@ -423,7 +423,7 @@ def _getBeerSettings(screenData):
 
         "beerSettingsScreenId" : settings_db.beer_settings_screen_id,
         "beerscreenTemplate" : settings_db.beer_screen_template,
-        "beerscreenOrientation" : settings_db.beer_screen_landscape_portrait_toggle,
+        "beerscreenLandscapePortraitToggle" : settings_db.beer_screen_landscape_portrait_toggle,
         "venueDbId" : settings_db.venue_db_id,
         "templateName" : settings_db.template_name,
     }

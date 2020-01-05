@@ -831,7 +831,6 @@ class BeerTemplate {
       displayElement = document.querySelector('#' + screenElementUserId + ' #screen-display');
       // console.log(displayElement);
       screenDisplay = displayElement;
-      // console.log(screenDisplay);
     }
 
     let screenDisplayHTML = '';
@@ -940,6 +939,8 @@ class BeerTemplate {
     if (screenDisplay !== null && screenDisplay !== undefined) {
       screenDisplay.innerHTML = screenDisplayHTML;
       screenDisplayTicker.innerHTML = screenDisplayTickerHTML;
+      // console.log(screenDisplay.parentElement.parentElement.parentElement);
+      // screenDisplay.parentElement.parentElement.parentElement.style.transform = 'rotate(270deg)';
       this.updateScreenTemplates(screenSettingsData);
     }
   }
@@ -1656,6 +1657,11 @@ class BeerTemplate {
               <option selected="" value="1">2 Columns, Name, ABV, IBU</option>
             </select>
           </div>
+        </div>
+        <div class="col-2">
+        `;
+          beerscreenIdSelectHTML += toggleSettingDiv("beerscreenLandscapePortraitToggle", screenSettings.beerscreenLandscapePortraitToggle, "Portrait:");
+          beerscreenIdSelectHTML += `
         </div>
       </div>
     `;

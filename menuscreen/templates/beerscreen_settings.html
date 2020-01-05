@@ -38,6 +38,15 @@
                               {{ render_field(form.beerscreenTemplate, class_="form-control") }}
                             </div>
                           </div>
+                          <div class="col-2">
+                            <div class="form-group">
+                              {% if settings.beerscreenLandscapePortraitToggle != True %}
+                                {{ render_field(form.beerscreenLandscapePortraitToggle, class_="form-control", checked=False) }}
+                              {% else %}
+                                {{ render_field(form.beerscreenLandscapePortraitToggle, class_="form-control", checked=True) }}
+                              {% endif %}
+                            </div>
+                          </div>
                       </div>
 
                       <div class="row border border-secondary rounded mb-2">

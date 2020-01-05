@@ -1709,6 +1709,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       let userNameScreenId = await getUserInfo(res);
       let displayRes = await getScreenInfo(userNameScreenId);
       UICtrl.callRepaintBeerlistEditor(displayRes);
+      UICtrl.callRepaintBeerscreenSettings(displayRes);
       e.preventDefault();
     }
 
@@ -1724,6 +1725,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
         let userNameScreenId = await getUserInfo(res);
         let displayRes = await getScreenInfo(userNameScreenId);
         UICtrl.callRepaintBeerlistEditor(displayRes);
+        UICtrl.callRepaintBeerscreenSettings(displayRes);
       }
       e.preventDefault();
     }

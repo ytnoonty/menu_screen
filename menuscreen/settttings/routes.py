@@ -114,7 +114,7 @@ def beerscreen_settings():
     settings = _getBeerSettings(screenData)
     print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-    # print(settings)
+    print(settings)
     print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
 
@@ -130,6 +130,7 @@ def beerscreen_settings():
         shadowFontColorDirection = settings['shadowFontColorDirection'],
 
         screenTemplate = settings['screenTemplate'],
+        beerscreenLandscapePortraitToggle = settings['beerscreenLandscapePortraitToggle'],
 
         beerBomBgColorOne = settings['beerBomBgColorOne'],
         beerBomBgColorTwo = settings['beerBomBgColorTwo'],
@@ -454,6 +455,7 @@ def beerscreen_settings():
 
         userSettings['beerSettingsScreenId'] = form.beerSettingsScreenId.data
         userSettings['beerscreenTemplate'] = form.beerscreenTemplate.data
+        userSettings['beerscreenLandscapePortraitToggle'] = form.beerscreenLandscapePortraitToggle.data
         userSettings['venue_db_id'] = current_user.id
 
         settingsCandidate = Beerscreen_settings.query.filter_by(beer_settings_screen_id=userSettings['beerSettingsScreenId'], venue_db_id=userSettings['venue_db_id']).first()
@@ -568,6 +570,8 @@ def beerscreen_settings():
 
         settingsCandidate.beer_settings_screen_id = userSettings['beerSettingsScreenId']
         settingsCandidate.beer_screen_template = userSettings['beerscreenTemplate']
+        settingsCandidate.beer_screen_landscape_portrait_toggle = userSettings['beerscreenLandscapePortraitToggle']
+
         db.session.commit()
 
         # templateName = _getTemplateName(userSettings['screen_template'])

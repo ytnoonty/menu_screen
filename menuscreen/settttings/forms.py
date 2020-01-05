@@ -6,6 +6,8 @@ class BeerscreenSettingsForm(FlaskForm):
     beerSettingsScreenId = SelectField(u'Screen Id:', coerce=int, option_widget=None)
     beerscreenTemplate = SelectField(u'Screen Template:', [validators.optional()], coerce=int, option_widget=None)
 
+    beerscreenLandscapePortraitToggle = BooleanField(u'Portrait:', default=False)
+
     fontColorOne = StringField('Font Color Code #1:')
     fontColorTwo = StringField('Font Color Code #2:')
     fontColorThree = StringField('Font Color Code #3:')
