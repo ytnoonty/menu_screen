@@ -939,8 +939,30 @@ class BeerTemplate {
     if (screenDisplay !== null && screenDisplay !== undefined) {
       screenDisplay.innerHTML = screenDisplayHTML;
       screenDisplayTicker.innerHTML = screenDisplayTickerHTML;
-      // console.log(screenDisplay.parentElement.parentElement.parentElement);
-      // screenDisplay.parentElement.parentElement.parentElement.style.transform = 'rotate(270deg)';
+      console.log(`screenSettingsData.beerscreenLandscapePortraitToggle: ${screenSettingsData.beerscreenLandscapePortraitToggle}`);
+      if ( screenSettingsData.beerscreenLandscapePortraitToggle == true ) {
+        console.log(screenDisplay.parentElement.parentElement.parentElement);
+
+        console.log(window.innerWidth);
+        let w = window.innerWidth;
+        console.log(screenDisplay.parentElement.parentElement.parentElement.clientWidth);
+
+        console.log(window.innerHeight);
+        let h = window.innerHeight;
+        console.log(screenDisplay.parentElement.parentElement.parentElement.clientHeight);
+
+        screenDisplay.parentElement.parentElement.parentElement.style.width = `${ h + 940 }px`;
+        screenDisplay.parentElement.parentElement.parentElement.style.height = `${ w }px`;
+        screenDisplay.parentElement.parentElement.parentElement.style.transform = 'rotate(270deg)';
+      } else {
+        console.log(screenDisplay.parentElement.parentElement.parentElement);
+        console.log(window.innerWidth);
+        console.log(window.innerHeight);
+
+        // screenDisplay.parentElement.parentElement.parentElement.style.transform = 'rotate(0deg)';
+        screenDisplay.parentElement.parentElement.parentElement.style.width = window.innerWidth;
+        screenDisplay.parentElement.parentElement.parentElement.style.height = window.innerHeight;
+      }
       this.updateScreenTemplates(screenSettingsData);
     }
   }
