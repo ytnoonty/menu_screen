@@ -49,158 +49,106 @@
                           </div>
                       </div>
 
-                      <div class="accordion" id="accordionExample">
-                        <div class="card">
-                          <div class="card-header" id="headingOne">
-                            <h2 class="mb-0">
-                              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                Collapsible Group Item #1
-                                <div class="d-flex justify-content-between col-12">
-                                  <div>
-                                    <h3>Font Color</h3>
-                                  </div>
-                                  <div>
-                                    <h3>+</h3>
-                                  </div>
-                                </div>
-                              </button>
-                            </h2>
-                          </div>
+                      <div class="row border border-secondary rounded mb-2">
+                        <div class="col-3">
+                              <div class="form-group">
+                                <label for="fontColorOne">Font Color #1:</label>
+                                <input id="fontColorOne" class="form-control" name="fontColorOne" type="color" value="{{ settings.fontColorOne }}">
+                                {{ render_field(form.fontColorOne, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-3">
+                              <div class="form-group">
+                                <label for="fontColorTwo">Font Color #2:</label>
+                                <input id="fontColorTwo" class="form-control" name="fontColorTwo" type="color" value="{{ settings.fontColorTwo }}">
+                                {{ render_field(form.fontColorTwo, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-3">
+                              <div class="form-group">
+                                <label for="fontColorThree">Font Color #3:</label>
+                                <input id="fontColorThree" class="form-control" name="fontColorThree" type="color" value="{{ settings.fontColorThree }}">
+                                {{ render_field(form.fontColorThree, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-3">
+                              <div class="form-group">
+                                {{ render_field(form.fontColorDirection, class_="form-control") }}
+                              </div>
+                        </div>
+                      </div>
 
-                          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                            <div class="card-body">
-                                        <div class="col-12">
-                                              <div class="form-group">
-                                                <label for="fontColorOne">Font Color #1:</label>
-                                                <input id="fontColorOne" class="form-control" name="fontColorOne" type="color" value="{{ settings.fontColorOne }}">
-                                                {{ render_field(form.fontColorOne, class_="form-control", disabled=true) }}
-                                              </div>
-
-                                              <div class="form-group">
-                                                <label for="fontColorTwo">Font Color #2:</label>
-                                                <input id="fontColorTwo" class="form-control" name="fontColorTwo" type="color" value="{{ settings.fontColorTwo }}">
-                                                {{ render_field(form.fontColorTwo, class_="form-control", disabled=true) }}
-                                              </div>
-
-                                              <div class="form-group">
-                                                <label for="fontColorThree">Font Color #3:</label>
-                                                <input id="fontColorThree" class="form-control" name="fontColorThree" type="color" value="{{ settings.fontColorThree }}">
-                                                {{ render_field(form.fontColorThree, class_="form-control", disabled=true) }}
-                                              </div>
-
-                                              <div class="form-group">
-                                                {{ render_field(form.fontColorDirection, class_="form-control") }}
-                                              </div>
-                                        </div>
-                            </div>
-                          </div>
+                      <div class="row border border-secondary rounded mb-2">
+                        <div class="col-3">
+                              <div class="form-group">
+                                <label for="shadowFontColorOne">Shadow Color #1:</label>
+                                <input id="shadowFontColorOne" class="form-control" name="shadowFontColorOne" type="color" value="{{ settings.shadowFontColorOne }}">
+                                {{ render_field(form.shadowFontColorOne, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-3">
+                              <div class="form-group">
+                                <label for="shadowFontColorTwo">Shadow Color #2:</label>
+                                <input id="shadowFontColorTwo" class="form-control" name="shadowFontColorTwo" type="color" value="{{ settings.shadowFontColorTwo }}">
+                                {{ render_field(form.shadowFontColorTwo, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-3">
+                              <div class="form-group">
+                                <label for="shadowFontColorThree">Shadow Color #3:</label>
+                                <input id="shadowFontColorThree" class="form-control" name="shadowFontColorThree" type="color" value="{{ settings.shadowFontColorThree }}">
+                                {{ render_field(form.shadowFontColorThree, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-3">
+                              <div class="form-group">
+                                {{ render_field(form.shadowFontColorDirection, class_="form-control") }}
+                              </div>
                         </div>
 
-                        <div class="card">
-                          <div class="card-header" id="headingTwo">
-                            <h2 class="mb-0">
-                              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Collapsible Group Item #2
-                                <div class="d-flex justify-content-between col-12">
-                                  <div>
-                                    <h3>Shadow Color</h3>
-                                  </div>
-                                  <div>
-                                    <h3>+</h3>
-                                  </div>
-                                </div>
-                              </button>
-                            </h2>
-                          </div>
-                          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                            <div class="card-body">
-                                        <div class="row border border-secondary rounded mb-2">
-                                          <div class="col-12">
-                                                <div class="form-group">
-                                                  <label for="shadowFontColorOne">Shadow Color #1:</label>
-                                                  <input id="shadowFontColorOne" class="form-control" name="shadowFontColorOne" type="color" value="{{ settings.shadowFontColorOne }}">
-                                                  {{ render_field(form.shadowFontColorOne, class_="form-control", disabled=true) }}
-                                                </div>
-                                                <div class="form-group">
-                                                  <label for="shadowFontColorTwo">Shadow Color #2:</label>
-                                                  <input id="shadowFontColorTwo" class="form-control" name="shadowFontColorTwo" type="color" value="{{ settings.shadowFontColorTwo }}">
-                                                  {{ render_field(form.shadowFontColorTwo, class_="form-control", disabled=true) }}
-                                                </div>
-                                                <div class="form-group">
-                                                  <label for="shadowFontColorThree">Shadow Color #3:</label>
-                                                  <input id="shadowFontColorThree" class="form-control" name="shadowFontColorThree" type="color" value="{{ settings.shadowFontColorThree }}">
-                                                  {{ render_field(form.shadowFontColorThree, class_="form-control", disabled=true) }}
-                                                </div>
-                                                <div class="form-group">
-                                                  {{ render_field(form.shadowFontColorDirection, class_="form-control") }}
-                                                </div>
-                                          </div>
-                                        </div>
-                            </div>
-                          </div>
+                      </div>
+                      <div class="row border border-secondary rounded mb-2">
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerBomBgColorOne">Beer of the Month Background Color #1:</label>
+                                <input id="beerBomBgColorOne" class="form-control" name="beerBomBgColorOne" type="color" value="{{ settings.beerBomBgColorOne }}">
+                                {{ render_field(form.beerBomBgColorOne, class_="form-control", disabled=true) }}
+                              </div>
                         </div>
-
-                        <div class="card">
-                          <div class="card-header" id="headingThree">
-                            <h2 class="mb-0">
-                              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                Collapsible Group Item #3
-                                <div class="d-flex justify-content-between col-12">
-                                  <div>
-                                    <h3>Beer of the Month<br>Background Color</h3>
-                                  </div>
-                                  <div>
-                                    <h3>+</h3>
-                                  </div>
-                                </div>
-                              </button>
-                            </h2>
-                          </div>
-                          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                            <div class="card-body">
-                                        <div class="row border border-secondary rounded mb-2">
-                                          <div class="col-12">
-                                                <div class="form-group">
-                                                  <label for="beerBomBgColorOne">Beer of the Month Background Color #1:</label>
-                                                  <input id="beerBomBgColorOne" class="form-control" name="beerBomBgColorOne" type="color" value="{{ settings.beerBomBgColorOne }}">
-                                                  {{ render_field(form.beerBomBgColorOne, class_="form-control", disabled=true) }}
-                                                </div>
-                                                <div class="form-group">
-                                                  <label for="beerBomBgColorTwo">Beer of the Month Background Color #2:</label>
-                                                  <input id="beerBomBgColorTwo" class="form-control" name="beerBomBgColorTwo" type="color" value="{{ settings.beerBomBgColorTwo }}">
-                                                  {{ render_field(form.beerBomBgColorTwo, class_="form-control", disabled=true) }}
-                                                </div>
-                                                <div class="form-group">
-                                                  <label for="beerBomBgColorThree">Beer of the Month Background Color #3:</label>
-                                                  <input id="beerBomBgColorThree" class="form-control" name="beerBomBgColorThree" type="color" value="{{ settings.beerBomBgColorThree }}">
-                                                  {{ render_field(form.beerBomBgColorThree, class_="form-control", disabled=true) }}
-                                                </div>
-                                                <div class="form-group">
-                                                  <label for="beerBomBgColorFour">Beer of the Month Background Color #4:</label>
-                                                  <input id="beerBomBgColorFour" class="form-control" name="beerBomBgColorFour" type="color" value="{{ settings.beerBomBgColorFour }}">
-                                                  {{ render_field(form.beerBomBgColorFour, class_="form-control", disabled=true) }}
-                                                </div>
-                                                <div class="form-group">
-                                                  <label for="beerBomBgColorFive">Beer of the Month Background Color #5:</label>
-                                                  <input id="beerBomBgColorFive" class="form-control" name="beerBomBgColorFive" type="color" value="{{ settings.beerBomBgColorFive }}">
-                                                  {{ render_field(form.beerBomBgColorFive, class_="form-control", disabled=true) }}
-                                                </div>
-                                                <div class="form-group">
-                                                  {{ render_field(form.beerBomBgColorDirection, class_="form-control") }}
-                                                </div>
-                                          </div>
-                                        </div>
-                            </div>
-                          </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerBomBgColorTwo">Beer of the Month Background Color #2:</label>
+                                <input id="beerBomBgColorTwo" class="form-control" name="beerBomBgColorTwo" type="color" value="{{ settings.beerBomBgColorTwo }}">
+                                {{ render_field(form.beerBomBgColorTwo, class_="form-control", disabled=true) }}
+                              </div>
                         </div>
-                      </div><!-- END ACCORDION -->
-
-
-
-
-
-
-
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerBomBgColorThree">Beer of the Month Background Color #3:</label>
+                                <input id="beerBomBgColorThree" class="form-control" name="beerBomBgColorThree" type="color" value="{{ settings.beerBomBgColorThree }}">
+                                {{ render_field(form.beerBomBgColorThree, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerBomBgColorFour">Beer of the Month Background Color #4:</label>
+                                <input id="beerBomBgColorFour" class="form-control" name="beerBomBgColorFour" type="color" value="{{ settings.beerBomBgColorFour }}">
+                                {{ render_field(form.beerBomBgColorFour, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                <label for="beerBomBgColorFive">Beer of the Month Background Color #5:</label>
+                                <input id="beerBomBgColorFive" class="form-control" name="beerBomBgColorFive" type="color" value="{{ settings.beerBomBgColorFive }}">
+                                {{ render_field(form.beerBomBgColorFive, class_="form-control", disabled=true) }}
+                              </div>
+                        </div>
+                        <div class="col-2">
+                              <div class="form-group">
+                                {{ render_field(form.beerBomBgColorDirection, class_="form-control") }}
+                              </div>
+                        </div>
+                      </div>
 
                       <div class="row border border-secondary rounded mb-2">
                         <div class="col-2">

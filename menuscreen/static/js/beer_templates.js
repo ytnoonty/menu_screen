@@ -103,9 +103,53 @@ class BeerTemplate {
       // transform: rotate(90deg);
       // Using js
       // element.style.transform = 'rotate(90deg)';
+      const rotater = Rotater();
+      rotater.callRotateScreen(settings);
 
 
     } //END updateScreenTemplates
+
+    const Rotater = () => {
+      function logRotater(settingsData) {
+        console.log(settingsData.beerscreenLandscapePortraitToggle);
+      }
+
+      function rotateScreen(settingsData) {
+        console.log(settingsData.beerscreenLandscapePortraitToggle);
+        console.log(`settingsData.beerscreenLandscapePortraitToggle: ${settingsData.beerscreenLandscapePortraitToggle}`);
+
+        if ( settingsData.beerscreenLandscapePortraitToggle == true ) {
+          console.log(settingsData.screenDisplay.parentElement.parentElement.parentElement);
+          let w = window.innerWidth;
+          console.log(w);
+          console.log(settingsData.screenDisplay.parentElement.parentElement.parentElement.clientWidth);
+          let h = window.innerHeight;
+          console.log(h);
+          console.log(settingsData.screenDisplay.parentElement.parentElement.parentElement.clientHeight);
+          // settingsData.screenDisplay.parentElement.parentElement.parentElement.style.transform = 'rotate(270deg)';
+          // settingsData.screenDisplay.parentElement.parentElement.parentElement.style.width = `${ h }px`;
+          // settingsData.screenDisplay.parentElement.parentElement.parentElement.style.height = `${ w }px`;
+        } else {
+          console.log(settingsData.screenDisplay.parentElement.parentElement.parentElement);
+          let w = window.innerWidth;
+          console.log(w);
+          let h = window.innerHeight;
+          console.log(h);
+        //   settingsData.screenDisplay.parentElement.parentElement.parentElement.style.width = window.innerHeight;
+        //   settingsData.screenDisplay.parentElement.parentElement.parentElement.style.height = window.innerWidth;
+        //   settingsData.screenDisplay.parentElement.parentElement.parentElement.style.transform = 'rotate(0deg)';
+        }
+      }
+
+      return {
+        callLogRotater : (settingsData) => {
+          logRotater(settingsData);
+        },
+        callRotateScreen : (settingsData) => {
+          rotateScreen(settingsData);
+        },
+      }
+    }
 
 
     const Ticker = () => {
@@ -939,39 +983,10 @@ class BeerTemplate {
     if (screenDisplay !== null && screenDisplay !== undefined) {
       screenDisplay.innerHTML = screenDisplayHTML;
       screenDisplayTicker.innerHTML = screenDisplayTickerHTML;
-      console.log(`screenSettingsData.beerscreenLandscapePortraitToggle: ${screenSettingsData.beerscreenLandscapePortraitToggle}`);
-      if ( screenSettingsData.beerscreenLandscapePortraitToggle == true ) {
-        console.log(screenDisplay.parentElement.parentElement.parentElement);
-
-        console.log(window.innerWidth);
-        let w = window.innerWidth;
-        console.log(screenDisplay.parentElement.parentElement.parentElement.clientWidth);
-
-        console.log(window.innerHeight);
-        let h = window.innerHeight;
-        console.log(screenDisplay.parentElement.parentElement.parentElement.clientHeight);
-
-        screenDisplay.parentElement.parentElement.parentElement.style.width = `${ h + 940 }px`;
-        screenDisplay.parentElement.parentElement.parentElement.style.height = `${ w }px`;
-        screenDisplay.parentElement.parentElement.parentElement.style.transform = 'rotate(270deg)';
-      } else {
-        console.log(screenDisplay.parentElement.parentElement.parentElement);
-        console.log(window.innerWidth);
-        console.log(window.innerHeight);
-
-        // screenDisplay.parentElement.parentElement.parentElement.style.transform = 'rotate(0deg)';
-        screenDisplay.parentElement.parentElement.parentElement.style.width = window.innerWidth;
-        screenDisplay.parentElement.parentElement.parentElement.style.height = window.innerHeight;
-      }
+      screenSettingsData.screenDisplay = screenDisplay;
       this.updateScreenTemplates(screenSettingsData);
     }
   }
-
-
-
-
-
-
 
 
   // displays 2 columns of cards, each card with name on top line and style and ABV and IBU on bottom line of card
