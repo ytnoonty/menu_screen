@@ -1695,7 +1695,7 @@ class BeerTemplate {
             </select>
           </div>
         </div>
-        <div class="col-2">
+        <div class="col-12">
         `;
           beerscreenIdSelectHTML += toggleSettingDiv("beerscreenLandscapePortraitToggle", screenSettings.beerscreenLandscapePortraitToggle, "Portrait:");
           beerscreenIdSelectHTML += `
@@ -2674,443 +2674,699 @@ class BeerTemplate {
     `;
     beerscreenSettingsDiv.innerHTML += bomStyleSettingsDivHTML;
 
+    let bomAbvSettingsDivHTML = `
+      <div class="card">
+        <div class="card-header" id="headingSix">
+          <h2 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+              <!-- Collapsible Group Item #6 -->
+              <div class="d-flex justify-content-between col-12">
+                <div>
+                  <h3>Beer of the Month<br>Beer ABV</h3>
+                </div>
+                <div>
+                  <h3>+</h3>
+                </div>
+              </div>
+            </button>
+          </h2>
+        </div>
+    `;
 
-
-
-
-
-
-    beerscreenSettingsDiv.innerHTML += `
+    bomAbvSettingsDivHTML += `
+        <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+          <div class="card-body">
+                        <div class="row border border-secondary rounded mb-2">
+                          <div class="col-12">
+                            <div class="form-group">
+                            </div>
+                          </div>
+                          <div class="col-12">
+                          `;
+                            bomAbvSettingsDivHTML += colorOfEl("beerBomAbvFontColor", screenSettings.beerBomAbvFontColor, "Beer of the Month Abv Font Color:", "Beer of the Month Abv Font Color Code:");
+                            bomAbvSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            bomAbvSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions, "beerBomAbvFontSize", screenSettings.beerBomAbvFontSize, "Beer of the Month Abv Font Size:");
+                            bomAbvSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            bomAbvSettingsDivHTML += toggleSettingDiv("beerBomAbvFontBoldToggle", screenSettings.beerBomAbvFontBoldToggle, "Beer of the Month Abv Bold:");
+                            bomAbvSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            bomAbvSettingsDivHTML += toggleSettingDiv("beerBomAbvFontItalicToggle", screenSettings.beerBomAbvFontItalicToggle, "Beer of the Month Abv Italic:");
+                            bomAbvSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            bomAbvSettingsDivHTML += toggleSettingDiv("beerBomAbvFontUnderlineToggle", screenSettings.beerBomAbvFontUnderlineToggle, "Beer of the Month Abv Underline:");
+                            bomAbvSettingsDivHTML += `
+                          </div>
+                        </div>
+          </div>
+        </div>
       </div>
     `;
 
+    beerscreenSettingsDiv.innerHTML += bomAbvSettingsDivHTML;
 
+    let bomIbuSettingsDivHTML = `
+      <div class="card">
+        <div class="card-header" id="headingSeven">
+          <h2 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+              <!-- Collapsible Group Item #7 -->
+              <div class="d-flex justify-content-between col-12">
+                <div>
+                  <h3>Beer of the Month<br>Beer IBU</h3>
+                </div>
+                <div>
+                  <h3>+</h3>
+                </div>
+              </div>
+            </button>
+          </h2>
+        </div>
+    `;
+    bomIbuSettingsDivHTML += `
+        <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
+          <div class="card-body">
+                    <div class="row border border-secondary rounded mb-2">
+                      <div class="col-12">
+                        <div class="form-group">
+                        </div>
+                      </div>
+                      <div class="col-12">
+                      `;
+                        bomIbuSettingsDivHTML += colorOfEl("beerBomIbuFontColor", screenSettings.beerBomIbuFontColor, "Beer of the Month Ibu Font Color:", "Beer of the Month Ibu Font Color Code:");
+                        bomIbuSettingsDivHTML += `
+                      </div>
+                      <div class="col-12">
+                      `;
+                        bomIbuSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerBomIbuFontSize", screenSettings.beerBomIbuFontSize, "Beer of the Month Ibu Font Size:");
+                        bomIbuSettingsDivHTML += `
+                      </div>
+                      <div class="col-12">
+                      `;
+                        bomIbuSettingsDivHTML += toggleSettingDiv("beerBomIbuFontBoldToggle", screenSettings.beerBomIbuFontBoldToggle, "Beer of the Month Ibu Bold:");
+                        bomIbuSettingsDivHTML += `
+                      </div>
+                      <div class="col-12">
+                      `;
+                        bomIbuSettingsDivHTML += toggleSettingDiv("beerBomIbuFontItalicToggle", screenSettings.beerBomIbuFontItalicToggle, "Beer of the Month Ibu Italic:");
+                        bomIbuSettingsDivHTML += `
+                      </div>
+                      <div class="col-12">
+                      `;
+                        bomIbuSettingsDivHTML += toggleSettingDiv("beerBomIbuFontUnderlineToggle", screenSettings.beerBomIbuFontUnderlineToggle, "Beer of the Month Ibu Underline:");
+                        bomIbuSettingsDivHTML += `
+                      </div>
+                    </div>
+          </div>
+        </div>
+      </div>
+    `;
+    beerscreenSettingsDiv.innerHTML += bomIbuSettingsDivHTML;
 
+    let bomBrewerySettingsDivHTML = `
+      <div class="card">
+        <div class="card-header" id="headingEight">
+          <h2 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+              <!-- Collapsible Group Item #8 -->
+              <div class="d-flex justify-content-between col-12">
+                <div>
+                  <h3>Beer of the Month<br>Beer Brewery</h3>
+                </div>
+                <div>
+                  <h3>+</h3>
+                </div>
+              </div>
+            </button>
+          </h2>
+        </div>
+    `;
+    bomBrewerySettingsDivHTML += `
+        <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordionExample">
+          <div class="card-body">
+                        <div class="row border border-secondary rounded mb-2">
+                          <div class="col-12">
+                        `;
+                        bomBrewerySettingsDivHTML += fontOptionsEl(fontOptions, "beerBomBreweryFont", screenSettings.beerBomBreweryFont, "Beer of the Month Brewery Font");
+                        bomBrewerySettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                            `;
+                        bomBrewerySettingsDivHTML +=  colorOfEl("beerBomBreweryFontColor", screenSettings.beerBomBreweryFontColor, "Beer of the Month Brewery Font Color:", "Beer of the Month Brewery Font Color Code:");
+                        bomBrewerySettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                        `;
+                        bomBrewerySettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerBomBreweryFontSize", screenSettings.beerBomBreweryFontSize, "Beer of the Month Brewery Font Size:");
+                        bomBrewerySettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                        `;
+                        bomBrewerySettingsDivHTML += toggleSettingDiv("beerBomBreweryFontBoldToggle", screenSettings.beerBomBreweryFontBoldToggle, "Beer of the Month Brewery Bold:");
+                        bomBrewerySettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                        `;
+                        bomBrewerySettingsDivHTML += toggleSettingDiv("beerBomBreweryFontItalicToggle", screenSettings.beerBomBreweryFontItalicToggle, "Beer of the Month Brewery Italic:");
+                        bomBrewerySettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                        `;
+                        bomBrewerySettingsDivHTML += toggleSettingDiv("beerBomBreweryFontUnderlineToggle", screenSettings.beerBomBreweryFontUnderlineToggle, "Beer of the Month Brewery Underline:");
+                        bomBrewerySettingsDivHTML += `
+                          </div>
+                        </div>
+          </div>
+        </div>
+      </div>
+    `;
+    beerscreenSettingsDiv.innerHTML += bomBrewerySettingsDivHTML;
 
+    let beerlistBgColorSettingsDivHTML = `
+      <div class="card">
+        <div class="card-header" id="headingNine">
+          <h2 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+              <!-- Collapsible Group Item #9 -->
+              <div class="d-flex justify-content-between col-12">
+                <div>
+                  <h3>Beer Background Color</h3>
+                </div>
+                <div>
+                  <h3>+</h3>
+                </div>
+              </div>
+            </button>
+          </h2>
+        </div>
+    `;
+    beerlistBgColorSettingsDivHTML += `
+        <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#accordionExample">
+          <div class="card-body">
+                        <div class="row border border-secondary rounded mb-2">
+                          <div class="col-12">
+                          `;
+                            beerlistBgColorSettingsDivHTML += colorOfEl("beerBgColorOne", screenSettings.beerBgColorOne, "Background Color #1:", "Background Color #1 Code:");
+                            beerlistBgColorSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerlistBgColorSettingsDivHTML += colorOfEl("beerBgColorTwo", screenSettings.beerBgColorTwo, "Background Color #2:", "Background Color #2 Code:");
+                            beerlistBgColorSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerlistBgColorSettingsDivHTML += colorOfEl("beerBgColorThree", screenSettings.beerBgColorThree, "Background Color #3:", "Background Color #3 Code:");
+                            beerlistBgColorSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerlistBgColorSettingsDivHTML += colorOfEl("beerBgColorFour", screenSettings.beerBgColorFour, "Background Color #4:", "Background Color #4 Code:");
+                            beerlistBgColorSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerlistBgColorSettingsDivHTML += colorOfEl("beerBgColorFive", screenSettings.beerBgColorFive, "Background Color #5:", "Background Color #5 Code:");
+                            beerlistBgColorSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerlistBgColorSettingsDivHTML += colorDirectionEl(colorDirectionOptions, "beerBgColorDirection", screenSettings.beerBgColorDirection, "Background Font Color Direction");
+                            beerlistBgColorSettingsDivHTML += `
+                          </div>
+                        </div>
+          </div>
+        </div>
+      </div>
+    `;
+    beerscreenSettingsDiv.innerHTML += beerlistBgColorSettingsDivHTML;
 
+    let beerNameFontSettingsDivHTML = `
+      <div class="card">
+        <div class="card-header" id="headingTen">
+          <h2 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+              <!-- Collapsible Group Item #10 -->
+              <div class="d-flex justify-content-between col-12">
+                <div>
+                  <h3>Beer Name</h3>
+                </div>
+                <div>
+                  <h3>+</h3>
+                </div>
+              </div>
+            </button>
+          </h2>
+        </div>
+    `;
+    beerNameFontSettingsDivHTML += `
+        <div id="collapseTen" class="collapse" aria-labelledby="headingTen" data-parent="#accordionExample">
+          <div class="card-body">
+                        <div class="row border border-secondary rounded mb-2">
+                          <div class="col-12">
+                          `;
+                            beerNameFontSettingsDivHTML += fontOptionsEl(fontOptions, "beerNameFont", screenSettings.beerNameFont, "Beer Name Font");
+                            beerNameFontSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerNameFontSettingsDivHTML += colorOfEl("beerNameFontColor", screenSettings.beerNameFontColor, "Beer Name Font Color:", "Beer Name Font Color code:");
+                            beerNameFontSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerNameFontSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerNameFontSize", screenSettings.beerNameFontSize, "Beer Name Font Size:");
+                            beerNameFontSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerNameFontSettingsDivHTML += toggleSettingDiv("beerNameFontBoldToggle", screenSettings.beerNameFontBoldToggle, "Beer Name Bold:");
+                            beerNameFontSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerNameFontSettingsDivHTML += toggleSettingDiv("beerNameFontItalicToggle", screenSettings.beerNameFontItalicToggle, "Beer Name Italic:");
+                            beerNameFontSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerNameFontSettingsDivHTML += toggleSettingDiv("beerNameFontUnderlineToggle", screenSettings.beerNameFontUnderlineToggle, "Beer Name Underline:");
+                            beerNameFontSettingsDivHTML += `
+                          </div>
+                        </div>
+          </div>
+        </div>
+      </div>
+    `;
+    beerscreenSettingsDiv.innerHTML += beerNameFontSettingsDivHTML;
 
+    let beerStyleFontSettingsDivHTML = `
+      <div class="card">
+        <div class="card-header" id="headingEleven">
+          <h2 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+              <!-- Collapsible Group Item #11 -->
+              <div class="d-flex justify-content-between col-12">
+                <div>
+                  <h3>Beer Style</h3>
+                </div>
+                <div>
+                  <h3>+</h3>
+                </div>
+              </div>
+            </button>
+          </h2>
+        </div>
+    `;
+    beerStyleFontSettingsDivHTML += `
+        <div id="collapseEleven" class="collapse" aria-labelledby="headingEleven" data-parent="#accordionExample">
+          <div class="card-body">
+                        <div class="row border border-secondary rounded mb-2">
+                          <div class="col-12">
+                          `;
+                            beerStyleFontSettingsDivHTML += fontOptionsEl(fontOptions, "beerStyleFont", screenSettings.beerStyleFont, "Beer Style Font");
+                            beerStyleFontSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerStyleFontSettingsDivHTML += colorOfEl("beerStyleFontColor", screenSettings.beerStyleFontColor, "Beer Style Font Color:", "Beer Style Font Color code:");
+                            beerStyleFontSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerStyleFontSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerStyleFontSize", screenSettings.beerStyleFontSize, "Beer Style Font Size:");
+                            beerStyleFontSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerStyleFontSettingsDivHTML += toggleSettingDiv("beerStyleFontBoldToggle", screenSettings.beerStyleFontBoldToggle, "Beer Style Bold:");
+                            beerStyleFontSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerStyleFontSettingsDivHTML += toggleSettingDiv("beerStyleFontItalicToggle", screenSettings.beerStyleFontItalicToggle, "Beer Style Italic:");
+                            beerStyleFontSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerStyleFontSettingsDivHTML += toggleSettingDiv("beerStyleFontUnderlineToggle", screenSettings.beerStyleFontUnderlineToggle, "Beer Style Underline:");
+                            beerStyleFontSettingsDivHTML += `
+                          </div>
+                        </div>
+          </div>
+        </div>
+      </div>
+    `;
+    beerscreenSettingsDiv.innerHTML += beerStyleFontSettingsDivHTML;
 
+    let beerAbvFontSettingsDivHTML = `
+      <div class="card">
+        <div class="card-header" id="headingTwelve">
+          <h2 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
+              <!-- Collapsible Group Item #12 -->
+              <div class="d-flex justify-content-between col-12">
+                <div>
+                  <h3>Beer ABV</h3>
+                </div>
+                <div>
+                  <h3>+</h3>
+                </div>
+              </div>
+            </button>
+          </h2>
+        </div>
+    `;
+    beerAbvFontSettingsDivHTML += `
+        <div id="collapseTwelve" class="collapse" aria-labelledby="headingTwelve" data-parent="#accordionExample">
+          <div class="card-body">
+                        <div class="row border border-secondary rounded mb-2">
+                          <div class="col-12">
+                            <div class="form-group">
+                            </div>
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerAbvFontSettingsDivHTML += colorOfEl("beerAbvFontColor", screenSettings.beerAbvFontColor, "Beer Abv Font Color:", "Beer Abv Font Color code:");
+                            beerAbvFontSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerAbvFontSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerAbvFontSize", screenSettings.beerAbvFontSize, "Beer Abv Font Size:");
+                            beerAbvFontSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerAbvFontSettingsDivHTML += toggleSettingDiv("beerAbvFontBoldToggle", screenSettings.beerAbvFontBoldToggle, "Beer Abv Bold:");
+                            beerAbvFontSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerAbvFontSettingsDivHTML += toggleSettingDiv("beerAbvFontItalicToggle", screenSettings.beerAbvFontItalicToggle, "Beer Abv Italic:");
+                            beerAbvFontSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerAbvFontSettingsDivHTML += toggleSettingDiv("beerAbvFontUnderlineToggle", screenSettings.beerAbvFontUnderlineToggle, "Beer Abv Underline:");
+                            beerAbvFontSettingsDivHTML += `
+                          </div>
+                        </div>
+          </div>
+        </div>
+      </div>
+    `;
+    beerscreenSettingsDiv.innerHTML += beerAbvFontSettingsDivHTML;
 
-                                    // let bomAbvSettingsDivHTML = `
-                                    //     <div class="row border border-secondary rounded mb-2">
-                                    //       <div class="col-2">
-                                    //         <div class="form-group">
-                                    //         </div>
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         bomAbvSettingsDivHTML += colorOfEl("beerBomAbvFontColor", screenSettings.beerBomAbvFontColor, "Beer of the Month Abv Font Color:", "Beer of the Month Abv Font Color Code:");
-                                    //         bomAbvSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         bomAbvSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions, "beerBomAbvFontSize", screenSettings.beerBomAbvFontSize, "Beer of the Month Abv Font Size:");
-                                    //         bomAbvSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         bomAbvSettingsDivHTML += toggleSettingDiv("beerBomAbvFontBoldToggle", screenSettings.beerBomAbvFontBoldToggle, "Beer of the Month Abv Bold:");
-                                    //         bomAbvSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         bomAbvSettingsDivHTML += toggleSettingDiv("beerBomAbvFontItalicToggle", screenSettings.beerBomAbvFontItalicToggle, "Beer of the Month Abv Italic:");
-                                    //         bomAbvSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         bomAbvSettingsDivHTML += toggleSettingDiv("beerBomAbvFontUnderlineToggle", screenSettings.beerBomAbvFontUnderlineToggle, "Beer of the Month Abv Underline:");
-                                    //         bomAbvSettingsDivHTML += `
-                                    //       </div>
-                                    //     </div>
-                                    // `;
-                                    // beerscreenSettingsDiv.innerHTML += bomAbvSettingsDivHTML;
+    let beerIbuFontSettingsDivHTML = `
+      <div class="card">
+        <div class="card-header" id="headingThirteen">
+          <h2 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThirteen" aria-expanded="false" aria-controls="collapseThirteen">
+              <!-- Collapsible Group Item #13 -->
+              <div class="d-flex justify-content-between col-12">
+                <div>
+                  <h3>Beer IBU</h3>
+                </div>
+                <div>
+                  <h3>+</h3>
+                </div>
+              </div>
+            </button>
+          </h2>
+        </div>
+    `;
+    beerIbuFontSettingsDivHTML += `
+        <div id="collapseThirteen" class="collapse" aria-labelledby="headingThirteen" data-parent="#accordionExample">
+          <div class="card-body">
+                        <div class="row border border-secondary rounded mb-2">
+                          <div class="col-12">
+                            <div class="form-group">
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            `;
+                            beerIbuFontSettingsDivHTML += colorOfEl("beerIbuFontColor", screenSettings.beerIbuFontColor, "Beer Ibu Font Color:", "Beer Ibu Font Color code:");
+                            beerIbuFontSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerIbuFontSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerIbuFontSize", screenSettings.beerIbuFontSize, "Beer Ibu Font Size:");
+                            beerIbuFontSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerIbuFontSettingsDivHTML += toggleSettingDiv("beerIbuFontBoldToggle", screenSettings.beerIbuFontBoldToggle, "Beer Ibu Bold:");
+                            beerIbuFontSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerIbuFontSettingsDivHTML += toggleSettingDiv("beerIbuFontItalicToggle", screenSettings.beerIbuFontItalicToggle, "Beer Ibu Italic:");
+                            beerIbuFontSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerIbuFontSettingsDivHTML += toggleSettingDiv("beerIbuFontUnderlineToggle", screenSettings.beerIbuFontUnderlineToggle, "Beer Ibu Underline:");
+                            beerIbuFontSettingsDivHTML += `
+                          </div>
+                        </div>
+          </div>
+        </div>
+      </div>
+    `;
+    beerscreenSettingsDiv.innerHTML += beerIbuFontSettingsDivHTML;
 
-                                    // let bomIbuSettingsDivHTML = `
-                                    //     <div class="row border border-secondary rounded mb-2">
-                                    //       <div class="col-2">
-                                    //         <div class="form-group">
-                                    //         </div>
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         bomIbuSettingsDivHTML += colorOfEl("beerBomIbuFontColor", screenSettings.beerBomIbuFontColor, "Beer of the Month Ibu Font Color:", "Beer of the Month Ibu Font Color Code:");
-                                    //         bomIbuSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         bomIbuSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerBomIbuFontSize", screenSettings.beerBomIbuFontSize, "Beer of the Month Ibu Font Size:");
-                                    //         bomIbuSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         bomIbuSettingsDivHTML += toggleSettingDiv("beerBomIbuFontBoldToggle", screenSettings.beerBomIbuFontBoldToggle, "Beer of the Month Ibu Bold:");
-                                    //         bomIbuSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         bomIbuSettingsDivHTML += toggleSettingDiv("beerBomIbuFontItalicToggle", screenSettings.beerBomIbuFontItalicToggle, "Beer of the Month Ibu Italic:");
-                                    //         bomIbuSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         bomIbuSettingsDivHTML += toggleSettingDiv("beerBomIbuFontUnderlineToggle", screenSettings.beerBomIbuFontUnderlineToggle, "Beer of the Month Ibu Underline:");
-                                    //         bomIbuSettingsDivHTML += `
-                                    //       </div>
-                                    //     </div>
-                                    // `;
-                                    // beerscreenSettingsDiv.innerHTML += bomIbuSettingsDivHTML;
+    let beerBreweryFontSettingsDivHTML = `
+      <div class="card">
+        <div class="card-header" id="headingFourteen">
+          <h2 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFourteen" aria-expanded="false" aria-controls="collapseFourteen">
+              <!-- Collapsible Group Item #14 -->
+              <div class="d-flex justify-content-between col-12">
+                <div>
+                  <h3>Beer Brewery</h3>
+                </div>
+                <div>
+                  <h3>+</h3>
+                </div>
+              </div>
+            </button>
+          </h2>
+        </div>
+    `;
+    beerBreweryFontSettingsDivHTML += `
+        <div id="collapseFourteen" class="collapse" aria-labelledby="headingFourteen" data-parent="#accordionExample">
+          <div class="card-body">
+                        <div class="row border border-secondary rounded mb-2">
+                          <div class="col-12">
+                          `;
+                            beerBreweryFontSettingsDivHTML += fontOptionsEl(fontOptions, "beerBreweryFont", screenSettings.beerBreweryFont, "Beer Brewery Font:");
+                            beerBreweryFontSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerBreweryFontSettingsDivHTML += colorOfEl("beerBreweryFontColor", screenSettings.beerBreweryFontColor, "Beer Brewery Font Color:", "Beer Brewery Font Color code:");
+                            beerBreweryFontSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerBreweryFontSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerBreweryFontSize", screenSettings.beerBreweryFontSize, "Beer Brewery Font Size:");
+                            beerBreweryFontSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerBreweryFontSettingsDivHTML += toggleSettingDiv("beerBreweryFontBoldToggle", screenSettings.beerBreweryFontBoldToggle, "Beer Brewery Bold:");
+                            beerBreweryFontSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerBreweryFontSettingsDivHTML += toggleSettingDiv("beerBreweryFontItalicToggle", screenSettings.beerBreweryFontItalicToggle, "Beer Brewery Italic:");
+                            beerBreweryFontSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            beerBreweryFontSettingsDivHTML += toggleSettingDiv("beerBreweryFontUnderlineToggle", screenSettings.beerBreweryFontUnderlineToggle, "Beer Brewery Underline:");
+                            beerBreweryFontSettingsDivHTML += `
+                          </div>
+                        </div>
+          </div>
+        </div>
+      </div>
+    `;
+    beerscreenSettingsDiv.innerHTML += beerBreweryFontSettingsDivHTML;
 
-                                    // let bomBrewerySettingsDivHTML = `
-                                    //     <div class="row border border-secondary rounded mb-2">
-                                    //       <div class="col-2">
-                                    //     `;
-                                    //     bomBrewerySettingsDivHTML += fontOptionsEl(fontOptions, "beerBomBreweryFont", screenSettings.beerBomBreweryFont, "Beer of the Month Brewery Font");
-                                    //     bomBrewerySettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //         `;
-                                    //     bomBrewerySettingsDivHTML +=  colorOfEl("beerBomBreweryFontColor", screenSettings.beerBomBreweryFontColor, "Beer of the Month Brewery Font Color:", "Beer of the Month Brewery Font Color Code:");
-                                    //     bomBrewerySettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //     `;
-                                    //     bomBrewerySettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerBomBreweryFontSize", screenSettings.beerBomBreweryFontSize, "Beer of the Month Brewery Font Size:");
-                                    //     bomBrewerySettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //     `;
-                                    //     bomBrewerySettingsDivHTML += toggleSettingDiv("beerBomBreweryFontBoldToggle", screenSettings.beerBomBreweryFontBoldToggle, "Beer of the Month Brewery Bold:");
-                                    //     bomBrewerySettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //     `;
-                                    //     bomBrewerySettingsDivHTML += toggleSettingDiv("beerBomBreweryFontItalicToggle", screenSettings.beerBomBreweryFontItalicToggle, "Beer of the Month Brewery Italic:");
-                                    //     bomBrewerySettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //     `;
-                                    //     bomBrewerySettingsDivHTML += toggleSettingDiv("beerBomBreweryFontUnderlineToggle", screenSettings.beerBomBreweryFontUnderlineToggle, "Beer of the Month Brewery Underline:");
-                                    //     bomBrewerySettingsDivHTML += `
-                                    //       </div>
-                                    //     </div>
-                                    // `;
-                                    // beerscreenSettingsDiv.innerHTML += bomBrewerySettingsDivHTML;
+    let tickerBgColorSettingsDivHTML = `
+      <div class="card">
+        <div class="card-header" id="headingFifteen">
+          <h2 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFifteen" aria-expanded="false" aria-controls="collapseFifteen">
+              <!-- Collapsible Group Item #15 -->
+              <div class="d-flex justify-content-between col-12">
+                <div>
+                  <h3>Beer Ticker Background</h3>
+                </div>
+                <div>
+                  <h3>+</h3>
+                </div>
+              </div>
+            </button>
+          </h2>
+        </div>
+    `;
+    tickerBgColorSettingsDivHTML += `
+        <div id="collapseFifteen" class="collapse" aria-labelledby="headingFifteen" data-parent="#accordionExample">
+          <div class="card-body">
+                        <div class="row border border-secondary rounded mb-2">
+                          <div class="col-12">
+                          `;
+                            tickerBgColorSettingsDivHTML += colorOfEl("beerTickerBgColorOne", screenSettings.beerTickerBgColorOne, "Beer Ticker Background Color #1:", "Beer Ticker Background Color Code #1:");
+                            tickerBgColorSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            tickerBgColorSettingsDivHTML += colorOfEl("beerTickerBgColorTwo", screenSettings.beerTickerBgColorTwo, "Beer Ticker Background Color #2:", "Beer Ticker Background Color Code #2:");
+                            tickerBgColorSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            tickerBgColorSettingsDivHTML += colorOfEl("beerTickerBgColorThree", screenSettings.beerTickerBgColorThree, "Beer Ticker Background Color #3:", "Beer Ticker Background Color Code #3:");
+                            tickerBgColorSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            tickerBgColorSettingsDivHTML += colorOfEl("beerTickerBgColorFour", screenSettings.beerTickerBgColorFour, "Beer Ticker Background Color #4:", "Beer Ticker Background Color Code #4:");
+                            tickerBgColorSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            tickerBgColorSettingsDivHTML += colorOfEl("beerTickerBgColorFive", screenSettings.beerTickerBgColorFive, "Beer Ticker Background Color #5:", "Beer Ticker Background Color Code #5:");
+                            tickerBgColorSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            tickerBgColorSettingsDivHTML += colorDirectionEl(colorDirectionOptions, "beerTickerBgColorDirection", screenSettings.beerTickerBgColorDirection, "Beer Ticker Background Font Color Direction:");
+                            tickerBgColorSettingsDivHTML += `
+                          </div>
+                        </div>
+          </div>
+        </div>
+      </div>
+    `;
+    beerscreenSettingsDiv.innerHTML += tickerBgColorSettingsDivHTML;
 
-                                    // let beerlistBgColorSettingsDivHTML = `
-                                    //     <div class="row border border-secondary rounded mb-2">
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerlistBgColorSettingsDivHTML += colorOfEl("beerBgColorOne", screenSettings.beerBgColorOne, "Background Color #1:", "Background Color #1 Code:");
-                                    //         beerlistBgColorSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerlistBgColorSettingsDivHTML += colorOfEl("beerBgColorTwo", screenSettings.beerBgColorTwo, "Background Color #2:", "Background Color #2 Code:");
-                                    //         beerlistBgColorSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerlistBgColorSettingsDivHTML += colorOfEl("beerBgColorThree", screenSettings.beerBgColorThree, "Background Color #3:", "Background Color #3 Code:");
-                                    //         beerlistBgColorSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerlistBgColorSettingsDivHTML += colorOfEl("beerBgColorFour", screenSettings.beerBgColorFour, "Background Color #4:", "Background Color #4 Code:");
-                                    //         beerlistBgColorSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerlistBgColorSettingsDivHTML += colorOfEl("beerBgColorFive", screenSettings.beerBgColorFive, "Background Color #5:", "Background Color #5 Code:");
-                                    //         beerlistBgColorSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerlistBgColorSettingsDivHTML += colorDirectionEl(colorDirectionOptions, "beerBgColorDirection", screenSettings.beerBgColorDirection, "Background Font Color Direction");
-                                    //         beerlistBgColorSettingsDivHTML += `
-                                    //       </div>
-                                    //     </div>
-                                    // `;
-                                    // beerscreenSettingsDiv.innerHTML += beerlistBgColorSettingsDivHTML;
+    let tickerSettingsDivHTML = `
+      <div class="card">
+        <div class="card-header" id="headingSixteen">
+          <h2 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSixteen" aria-expanded="false" aria-controls="collapseSixteen">
+              <!-- Collapsible Group Item #16 -->
+              <div class="d-flex justify-content-between col-12">
+                <div>
+                  <h3>Beer Ticker</h3>
+                </div>
+                <div>
+                  <h3>+</h3>
+                </div>
+              </div>
+            </button>
+          </h2>
+        </div>
+    `;
+    tickerSettingsDivHTML += `
+        <div id="collapseSixteen" class="collapse" aria-labelledby="headingSixteen" data-parent="#accordionExample">
+          <div class="card-body">
+                        <div class="row border border-secondary rounded mb-2">
+                          <div class="col-12">
+                          `;
+                            tickerSettingsDivHTML += fontOptionsEl(fontOptions, "beerTickerBeernamesFont", screenSettings.beerTickerBeernamesFont, "Beer Ticker Names Font:");
+                            tickerSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            tickerSettingsDivHTML += fontOptionsEl(fontOptions, "beerTickerFont", screenSettings.beerTickerFont, "Beer Ticker Font:");
+                            tickerSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            tickerSettingsDivHTML += colorOfEl("beerTickerFontColor", screenSettings.beerTickerFontColor, "Beer Ticker Font Color:", "Beer Ticker FoCt Color Code:");
+                            tickerSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            tickerSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerTickerFontSize", screenSettings.beerTickerFontSize, "Beer Ticker Font Size:");
+                            tickerSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            tickerSettingsDivHTML += toggleSettingDiv("beerTickerFontBoldToggle", screenSettings.beerTickerFontBoldToggle, "Beer Ticker Bold:");
+                            tickerSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            tickerSettingsDivHTML += toggleSettingDiv("beerTickerFontItalicToggle", screenSettings.beerTickerFontItalicToggle, "Beer Ticker Italic:");
+                            tickerSettingsDivHTML += `
+                          </div>
+                          <div class="col-12">
+                          `;
+                            tickerSettingsDivHTML += toggleSettingDiv("beerTickerFontUnderlineToggle", screenSettings.beerTickerFontUnderlineToggle, "Beer Ticker Underline:");
+                            tickerSettingsDivHTML += `
+                          </div>
+                        </div>
+          </div>
+        </div>
+      </div>
+    `;
+    beerscreenSettingsDiv.innerHTML += tickerSettingsDivHTML;
 
-                                    // let beerNameFontSettingsDivHTML = `
-                                    //     <div class="row border border-secondary rounded mb-2">
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerNameFontSettingsDivHTML += fontOptionsEl(fontOptions, "beerNameFont", screenSettings.beerNameFont, "Beer Name Font");
-                                    //         beerNameFontSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerNameFontSettingsDivHTML += colorOfEl("beerNameFontColor", screenSettings.beerNameFontColor, "Beer Name Font Color:", "Beer Name Font Color code:");
-                                    //         beerNameFontSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerNameFontSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerNameFontSize", screenSettings.beerNameFontSize, "Beer Name Font Size:");
-                                    //         beerNameFontSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerNameFontSettingsDivHTML += toggleSettingDiv("beerNameFontBoldToggle", screenSettings.beerNameFontBoldToggle, "Beer Name Bold:");
-                                    //         beerNameFontSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerNameFontSettingsDivHTML += toggleSettingDiv("beerNameFontItalicToggle", screenSettings.beerNameFontItalicToggle, "Beer Name Italic:");
-                                    //         beerNameFontSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerNameFontSettingsDivHTML += toggleSettingDiv("beerNameFontUnderlineToggle", screenSettings.beerNameFontUnderlineToggle, "Beer Name Underline:");
-                                    //         beerNameFontSettingsDivHTML += `
-                                    //       </div>
-                                    //     </div>
-                                    // `;
-                                    // beerscreenSettingsDiv.innerHTML += beerNameFontSettingsDivHTML;
+    let tickerSettingsShowDivHTML = `
+      <div class="card">
+        <div class="card-header" id="headingSeventeen">
+          <h2 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSeventeen" aria-expanded="false" aria-controls="collapseSeventeen">
+              <!-- Collapsible Group Item #17 -->
+              <div class="d-flex justify-content-between col-12">
+                <div>
+                  <h3>Beer Ticker Settings</h3>
+                </div>
+                <div>
+                  <h3>+</h3>
+                </div>
+              </div>
+            </button>
+          </h2>
+        </div>
+    `;
+    tickerSettingsShowDivHTML += `
+        <div id="collapseSeventeen" class="collapse" aria-labelledby="headingSeventeen" data-parent="#accordionExample">
+          <div class="card-body">
+                        <div class="row border border-secondary rounded mb-2">
+                          <div class="col-3">
+                          `;
+                            tickerSettingsShowDivHTML += toggleSettingDiv("beerTickerToggle", screenSettings.beerTickerToggle, "Show Beer Ticker:");
+                            tickerSettingsShowDivHTML += `
+                          </div>
+                          <div class="col-3">
+                            <label for="beerTickerScrollSpeed">Beer Ticker Scroll Speed:</label>
+                            <input class="form-control" id="beerTickerScrollSpeed" name="beerTickerScrollSpeed" required="" type="text" value="${ screenSettings.beerTickerScrollSpeed }">
+                          </div>
+                        </div>
+          </div>
+        </div>
+      </div>
+    `;
+    beerscreenSettingsDiv.innerHTML += tickerSettingsShowDivHTML;
 
-                                    // let beerStyleFontSettingsDivHTML = `
-                                    //     <div class="row border border-secondary rounded mb-2">
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerStyleFontSettingsDivHTML += fontOptionsEl(fontOptions, "beerStyleFont", screenSettings.beerStyleFont, "Beer Style Font");
-                                    //         beerStyleFontSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerStyleFontSettingsDivHTML += colorOfEl("beerStyleFontColor", screenSettings.beerStyleFontColor, "Beer Style Font Color:", "Beer Style Font Color code:");
-                                    //         beerStyleFontSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerStyleFontSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerStyleFontSize", screenSettings.beerStyleFontSize, "Beer Style Font Size:");
-                                    //         beerStyleFontSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerStyleFontSettingsDivHTML += toggleSettingDiv("beerStyleFontBoldToggle", screenSettings.beerStyleFontBoldToggle, "Beer Style Bold:");
-                                    //         beerStyleFontSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerStyleFontSettingsDivHTML += toggleSettingDiv("beerStyleFontItalicToggle", screenSettings.beerStyleFontItalicToggle, "Beer Style Italic:");
-                                    //         beerStyleFontSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerStyleFontSettingsDivHTML += toggleSettingDiv("beerStyleFontUnderlineToggle", screenSettings.beerStyleFontUnderlineToggle, "Beer Style Underline:");
-                                    //         beerStyleFontSettingsDivHTML += `
-                                    //       </div>
-                                    //     </div>
-                                    // `;
-                                    // beerscreenSettingsDiv.innerHTML += beerStyleFontSettingsDivHTML;
-
-                                    // let beerAbvFontSettingsDivHTML = `
-                                    //     <div class="row border border-secondary rounded mb-2">
-                                    //       <div class="col-2">
-                                    //         <div class="form-group">
-                                    //         </div>
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerAbvFontSettingsDivHTML += colorOfEl("beerAbvFontColor", screenSettings.beerAbvFontColor, "Beer Abv Font Color:", "Beer Abv Font Color code:");
-                                    //         beerAbvFontSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerAbvFontSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerAbvFontSize", screenSettings.beerAbvFontSize, "Beer Abv Font Size:");
-                                    //         beerAbvFontSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerAbvFontSettingsDivHTML += toggleSettingDiv("beerAbvFontBoldToggle", screenSettings.beerAbvFontBoldToggle, "Beer Abv Bold:");
-                                    //         beerAbvFontSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerAbvFontSettingsDivHTML += toggleSettingDiv("beerAbvFontItalicToggle", screenSettings.beerAbvFontItalicToggle, "Beer Abv Italic:");
-                                    //         beerAbvFontSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerAbvFontSettingsDivHTML += toggleSettingDiv("beerAbvFontUnderlineToggle", screenSettings.beerAbvFontUnderlineToggle, "Beer Abv Underline:");
-                                    //         beerAbvFontSettingsDivHTML += `
-                                    //       </div>
-                                    //     </div>
-                                    // `;
-                                    // beerscreenSettingsDiv.innerHTML += beerAbvFontSettingsDivHTML;
-
-                                    // let beerIbuFontSettingsDivHTML = `
-                                    //     <div class="row border border-secondary rounded mb-2">
-                                    //       <div class="col-2">
-                                    //         <div class="form-group">
-                                    //         </div>
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //         `;
-                                    //         beerIbuFontSettingsDivHTML += colorOfEl("beerIbuFontColor", screenSettings.beerIbuFontColor, "Beer Ibu Font Color:", "Beer Ibu Font Color code:");
-                                    //         beerIbuFontSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerIbuFontSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerIbuFontSize", screenSettings.beerIbuFontSize, "Beer Ibu Font Size:");
-                                    //         beerIbuFontSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerIbuFontSettingsDivHTML += toggleSettingDiv("beerIbuFontBoldToggle", screenSettings.beerIbuFontBoldToggle, "Beer Ibu Bold:");
-                                    //         beerIbuFontSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerIbuFontSettingsDivHTML += toggleSettingDiv("beerIbuFontItalicToggle", screenSettings.beerIbuFontItalicToggle, "Beer Ibu Italic:");
-                                    //         beerIbuFontSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerIbuFontSettingsDivHTML += toggleSettingDiv("beerIbuFontUnderlineToggle", screenSettings.beerIbuFontUnderlineToggle, "Beer Ibu Underline:");
-                                    //         beerIbuFontSettingsDivHTML += `
-                                    //       </div>
-                                    //     </div>
-                                    // `;
-                                    // beerscreenSettingsDiv.innerHTML += beerIbuFontSettingsDivHTML;
-
-                                    // let beerBreweryFontSettingsDivHTML = `
-                                    //     <div class="row border border-secondary rounded mb-2">
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerBreweryFontSettingsDivHTML += fontOptionsEl(fontOptions, "beerBreweryFont", screenSettings.beerBreweryFont, "Beer Brewery Font:");
-                                    //         beerBreweryFontSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerBreweryFontSettingsDivHTML += colorOfEl("beerBreweryFontColor", screenSettings.beerBreweryFontColor, "Beer Brewery Font Color:", "Beer Brewery Font Color code:");
-                                    //         beerBreweryFontSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerBreweryFontSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerBreweryFontSize", screenSettings.beerBreweryFontSize, "Beer Brewery Font Size:");
-                                    //         beerBreweryFontSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerBreweryFontSettingsDivHTML += toggleSettingDiv("beerBreweryFontBoldToggle", screenSettings.beerBreweryFontBoldToggle, "Beer Brewery Bold:");
-                                    //         beerBreweryFontSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerBreweryFontSettingsDivHTML += toggleSettingDiv("beerBreweryFontItalicToggle", screenSettings.beerBreweryFontItalicToggle, "Beer Brewery Italic:");
-                                    //         beerBreweryFontSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         beerBreweryFontSettingsDivHTML += toggleSettingDiv("beerBreweryFontUnderlineToggle", screenSettings.beerBreweryFontUnderlineToggle, "Beer Brewery Underline:");
-                                    //         beerBreweryFontSettingsDivHTML += `
-                                    //       </div>
-                                    //     </div>
-                                    // `;
-                                    // beerscreenSettingsDiv.innerHTML += beerBreweryFontSettingsDivHTML;
-
-                                    // let tickerBgColorSettingsDivHTML = `
-                                    //     <div class="row border border-secondary rounded mb-2">
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         tickerBgColorSettingsDivHTML += colorOfEl("beerTickerBgColorOne", screenSettings.beerTickerBgColorOne, "Beer Ticker Background Color #1:", "Beer Ticker Background Color Code #1:");
-                                    //         tickerBgColorSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         tickerBgColorSettingsDivHTML += colorOfEl("beerTickerBgColorTwo", screenSettings.beerTickerBgColorTwo, "Beer Ticker Background Color #2:", "Beer Ticker Background Color Code #2:");
-                                    //         tickerBgColorSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         tickerBgColorSettingsDivHTML += colorOfEl("beerTickerBgColorThree", screenSettings.beerTickerBgColorThree, "Beer Ticker Background Color #3:", "Beer Ticker Background Color Code #3:");
-                                    //         tickerBgColorSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         tickerBgColorSettingsDivHTML += colorOfEl("beerTickerBgColorFour", screenSettings.beerTickerBgColorFour, "Beer Ticker Background Color #4:", "Beer Ticker Background Color Code #4:");
-                                    //         tickerBgColorSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         tickerBgColorSettingsDivHTML += colorOfEl("beerTickerBgColorFive", screenSettings.beerTickerBgColorFive, "Beer Ticker Background Color #5:", "Beer Ticker Background Color Code #5:");
-                                    //         tickerBgColorSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         tickerBgColorSettingsDivHTML += colorDirectionEl(colorDirectionOptions, "beerTickerBgColorDirection", screenSettings.beerTickerBgColorDirection, "Beer Ticker Background Font Color Direction:");
-                                    //         tickerBgColorSettingsDivHTML += `
-                                    //       </div>
-                                    //     </div>
-                                    // `;
-                                    // beerscreenSettingsDiv.innerHTML += tickerBgColorSettingsDivHTML;
-
-                                    // let tickerSettingsDivHTML = `
-                                    //     <div class="row border border-secondary rounded mb-2">
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         tickerSettingsDivHTML += fontOptionsEl(fontOptions, "beerTickerBeernamesFont", screenSettings.beerTickerBeernamesFont, "Beer Ticker Names Font:");
-                                    //         tickerSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         tickerSettingsDivHTML += fontOptionsEl(fontOptions, "beerTickerFont", screenSettings.beerTickerFont, "Beer Ticker Font:");
-                                    //         tickerSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         tickerSettingsDivHTML += colorOfEl("beerTickerFontColor", screenSettings.beerTickerFontColor, "Beer Ticker Font Color:", "Beer Ticker FoCt Color Code:");
-                                    //         tickerSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         tickerSettingsDivHTML += fontSizeOptionsEl(fontSizeOptions,"beerTickerFontSize", screenSettings.beerTickerFontSize, "Beer Ticker Font Size:");
-                                    //         tickerSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         tickerSettingsDivHTML += toggleSettingDiv("beerTickerFontBoldToggle", screenSettings.beerTickerFontBoldToggle, "Beer Ticker Bold:");
-                                    //         tickerSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         tickerSettingsDivHTML += toggleSettingDiv("beerTickerFontItalicToggle", screenSettings.beerTickerFontItalicToggle, "Beer Ticker Italic:");
-                                    //         tickerSettingsDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-2">
-                                    //       `;
-                                    //         tickerSettingsDivHTML += toggleSettingDiv("beerTickerFontUnderlineToggle", screenSettings.beerTickerFontUnderlineToggle, "Beer Ticker Underline:");
-                                    //         tickerSettingsDivHTML += `
-                                    //       </div>
-                                    //     </div>
-                                    // `;
-                                    // beerscreenSettingsDiv.innerHTML += tickerSettingsDivHTML;
-
-                                    // let tickerSettingsShowDivHTML = `
-                                    //     <div class="row border border-secondary rounded mb-2">
-                                    //       <div class="col-3">
-                                    //       `;
-                                    //         tickerSettingsShowDivHTML += toggleSettingDiv("beerTickerToggle", screenSettings.beerTickerToggle, "Show Beer Ticker:");
-                                    //         tickerSettingsShowDivHTML += `
-                                    //       </div>
-                                    //       <div class="col-3">
-                                    //         <label for="beerTickerScrollSpeed">Beer Ticker Scroll Speed:</label>
-                                    //         <input class="form-control" id="beerTickerScrollSpeed" name="beerTickerScrollSpeed" required="" type="text" value="${ screenSettings.beerTickerScrollSpeed }">
-                                    //       </div>
-                                    //     </div>
-                                    // `;
-                                    // beerscreenSettingsDiv.innerHTML += tickerSettingsShowDivHTML;
-
-
-
-    beerscreenSettingsDiv.innerHTML += ``;
-
-
-
-
-
+    // END ACCORDION DIV
+    beerscreenSettingsDiv.innerHTML += `
+      </div>
+    `;
   }
-
 }
