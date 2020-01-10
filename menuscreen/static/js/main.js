@@ -545,7 +545,7 @@ const ScreenSettingsCtrl = (function() {
 
   async function fetchNumberOfBeerscreens(userData) {
     // displays-routes.py
-    console.log(userData);
+    // console.log(userData);
     const res = await fetch('/_get_number_of_beer_screens', {
       method: "POST",
       credentials: "include",
@@ -567,6 +567,23 @@ const ScreenSettingsCtrl = (function() {
     // });
   }
 
+  async function fetchFontSizeOptions(userData) {
+    // settings-routes.py
+    // console.log(userData);
+    const res = await fetch('/_get_font_size_options', {
+      method: "POST",
+      credntials: "include",
+      body: JSON.stringify(userData),
+      cache: "no-cache",
+      headers: new Headers({
+        "content-type": "application/json"
+      })
+    });
+    const data = await res.json();
+    // console.log(data);
+    return data;
+  }
+
   return {
     callFetchBeerscreenSettings: async function(data) {
       return await fetchBeerscreenSettings(data);
@@ -574,6 +591,9 @@ const ScreenSettingsCtrl = (function() {
     callFetchNumberOfBeerScreens: async function(data) {
       // console.log(data);
       return await fetchNumberOfBeerscreens(data);
+    },
+    callFetchFontSizeOptions: async function(data) {
+      return await fetchFontSizeOptions(data);
     }
   }
 })();
@@ -929,6 +949,8 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     // console.log(userData);
     let screenSettings = await ScreenSettingsCtrl.callFetchBeerscreenSettings(userNameScreenId);
     // console.log(screenSettings);
+    let fontSizeOptions = await ScreenSettingsCtrl.callFetchFontSizeOptions(userNameScreenId);
+    // console.log(fontSizeOptions);
     if (userData.id !== undefined){
       userData = userData.id[0];
     } else {
@@ -953,7 +975,8 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       "tickerInfo": tickerInfo,
       "events": events,
       "screenSettings": screenSettings,
-      "userSettings": { "venue_db_id": userData }
+      "userSettings": { "venue_db_id": userData },
+      "fontSizeOptions": fontSizeOptions, //["", "1.0em", "1.5em", "2.0em", "2.5em", "3.0em", "3.5em", "4.0em", "4.5em", "5.0em", "5.5em", "6.0em"],
     }
     // console.log(displayData);
     return displayData;

@@ -4,7 +4,7 @@ from flask_login import current_user, login_required
 from menuscreen import db
 from menuscreen.models import User, Beerscreen_settings, Winescreen_settings, Eventscreen_settings, Itemscreen_settings, Font_size_options, Template
 from menuscreen.settttings.forms import BeerscreenSettingsForm, WinescreenSettingsForm, EventscreenSettingsForm, ItemscreenSettingsForm, FontSizeForm, TemplateForm
-from menuscreen.settttings.utils import _getFontSizes, _getTemplates, _getBeerSettings, _getNameFontSize, _getStyleFontSize, _getTemplateName, _getAbvFontSize, _getIbuFontSize, _getBreweryFontSize
+from menuscreen.settttings.utils import _getFontSizes, _getFontSizeOptions, _getTemplates, _getBeerSettings, _getNameFontSize, _getStyleFontSize, _getTemplateName, _getAbvFontSize, _getIbuFontSize, _getBreweryFontSize
 from menuscreen.list_history.utils import _getCurrentBeerlist
 from menuscreen.event.utils import _getEventsSortAsc
 from menuscreen.users.init_db_tables import getVenueId
@@ -47,6 +47,42 @@ def _get_beerscreen_settings():
     print("**************************************")
     print("**************************************")
     return jsonify(data)
+
+# GET FONTSIZEOPTIONS
+@settttings.route('/_get_font_size_options', methods=['POST'])
+@login_required
+def get_font_size_options():
+    data = request.get_json()
+    print("**************************************")
+    print("******LINE  57***********************")
+    print("settttings. /_get_font_size_options")
+    print("**************************************")
+    print("data: {}".format(data))
+    print("**************************************")
+    print("**************************************")
+
+    if (current_user.is_authenticated):
+        print("LOGGED IN")
+        print(current_user.id)
+
+        data['userId'] = current_user.id
+        print("data: {}".format(data))
+        data = _getFontSizeOptions(data['userId'])
+    elif (data):
+        print("NOT LOGGED IN")
+        print(data['userName'])
+        current_user_id = getVenueId(data['userName'])
+        print(current_user_id)
+        data['userId'] = current_user_id
+        print("data: {}".format(data))
+        data = _getFontSizeOptions(data['userId'])
+    else:
+        print("NOT LOGGED IN AND NO URL INFO")
+        data = {}
+    print("**************************************")
+    print("**************************************")
+    return jsonify(data)
+
 
 # Add template to DB
 @settttings.route('/add_template', methods=['GET', 'POST'])

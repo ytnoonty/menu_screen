@@ -20,6 +20,23 @@ def _getFontSizes(user_id):
     # print('******************* FONT SIZE OPTIONS *******************')
     return sizes
 
+def _getFontSizeOptions(user_id):
+    user = User.query.filter_by(id=user_id).first()
+    datas = user.font_size_options
+    sizes = []
+    for data in datas:
+        sizes.append(data.font_sizes)
+        # size = {
+        #     "id":data.id,
+        #     "font_sizes":data.font_sizes,
+        # }
+        # sizes.append(size)
+    # print('******************* FONT SIZE OPTIONS *******************')
+    # print('type(sizes): {}'.format(type(sizes)))
+    # print('sizes: {}'.format(sizes))
+    # print('******************* FONT SIZE OPTIONS *******************')
+    return sizes
+
 def _getTemplates(user_id):
     user = User.query.filter_by(id=user_id).first()
     datas = user.templates
