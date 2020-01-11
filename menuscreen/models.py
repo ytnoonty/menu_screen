@@ -9,6 +9,7 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 class User(db.Model, UserMixin):
+    __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True, nullable=False)
     venue_name = db.Column(db.String(100), unique=True, nullable=False)
@@ -55,6 +56,7 @@ class User(db.Model, UserMixin):
     # userss = Users(name='aman', venue_name='anam', email='test@email.com', username='testuser', password='pasword')
 
 class List_history(db.Model):
+    __tablename__ = 'list_history'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     style = db.Column(db.String(100), nullable=False)
@@ -67,12 +69,37 @@ class List_history(db.Model):
     draft_bottle_selection = db.Column(db.String(50))
     beer_logo_image_file = db.Column(db.LargeBinary, nullable=True)
     # create_date = db.Column(db.DateTime, default=datetime.utcnow)
+    # size_id_1 = db.Column(db.Integer)
+    # price_id_1 = db.Column(db.Integer)
+    # size_id_2 = db.Column(db.Integer)
+    # price_id_2 = db.Column(db.Integer)
+    # size_id_3 = db.Column(db.Integer)
+    # price_id_3 = db.Column(db.Integer)
+    # size_id_4 = db.Column(db.Integer)
+    # price_id_4 = db.Column(db.Integer)
     venue_db_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
+    # def __repr__(self):
+    #     return '************ List_history: {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} ***********'.format(self.id, self.name, self.style, self.abv, self.ibu, self.brewery, self.location, self.website, self.description, self.draft_bottle_selection, self.size_id_1, self.price_id_1, self.size_id_2, self.price_id_2, self.size_id_3, self.price_id_3, self.size_id_4, self.price_id_4, self.venue_db_id)
     def __repr__(self):
         return '************ List_history: {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} ***********'.format(self.id, self.name, self.style, self.abv, self.ibu, self.brewery, self.location, self.website, self.description, self.draft_bottle_selection, self.venue_db_id)
-    # list = List_history(name='TestName', style='TestStyle', venue_db_id='1')
 
+
+# class Beer_sizes(db.Model):
+#     __tablename__ = 'beer_sizes'
+#     id = db.Column(db.Integer, primary_key=True)
+#     size = db.Column(db.String(100))
+#     venue_db_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+#     def __repr__(self):
+#         return '************ Beer_sizes: {}, {}, {} ***********'.format(self.id, self.size, self.venue_db_id)
+#
+# class Beer_prices(db.Model):
+#     __tablename__ = 'beer_prices'
+#     id = db.Column(db.Integer, primary_key=True)
+#     price = db.Column(db.String(100))
+#     venue_db_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+#     def __repr__(self):
+#         return '************ Beer_prices: {}, {}, {} ***********'.format(self.id, self.price, self.venue_db_id)
 
 class List_current(db.Model):
     __tablename__ = 'list_current'
