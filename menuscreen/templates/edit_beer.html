@@ -38,8 +38,58 @@
         {{ render_field(form.description, class_="form-control") }}
         <!-- {{ render_field(form.description, class_="form-control", id="editor") }} -->
       </div>
-      <div class="form-group">
-        {{ render_field(form.draftBottle, class_="form-control") }}
+
+      <div class="row border border-secondary my-3">
+        <div class="col-sm">
+          <div class="form-group">
+            {{ render_field(form.size_1, class_="form-control", disabled=false) }}
+          </div>
+        </div>
+
+        <div class="col-sm">
+          <div class="form-group">
+            {{ render_field(form.price_1, class_="form-control", disabled=false) }}
+          </div>
+        </div>
+
+        <div class="col-sm">
+          <div class="form-group">
+            {{ render_field(form.size_2, class_="form-control", disabled=false) }}
+          </div>
+        </div>
+
+        <div class="col-sm">
+          <div class="form-group">
+            {{ render_field(form.price_2, class_="form-control", disabled=false) }}
+          </div>
+        </div>
+      </div>
+
+      <div class="row border border-secondary my-3">
+        <div class="col-sm">
+          <div class="form-group">
+            {{ render_field(form.size_3, class_="form-control", disabled=false) }}
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="form-group">
+            {{ render_field(form.price_3, class_="form-control", disabled=false) }}
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="form-group">
+            {{ render_field(form.size_4, class_="form-control", disabled=false) }}
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="form-group">
+            {{ render_field(form.price_4, class_="form-control", disabled=false) }}
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group list-group-flush">
+        {{ render_field(form.draftBottle, class_="form-control list-group-item") }}
       </div>
       <div>
         <input id="edit-beer-submit-btn" class="btn btn-sm btn-outline-info" type="click" value="Submit">

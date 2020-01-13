@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, RadioField, SubmitField, SelectField, validators
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, optional
 
 # Beer Form Class
 class BeerForm(FlaskForm):
@@ -29,6 +29,30 @@ class BeerForm(FlaskForm):
     description = TextAreaField('Description', [
         validators.Length(min=0)
     ])
+    size_1 = SelectField(u'Size 1', [
+        validators.optional()
+    ], coerce=int, option_widget=None)
+    price_1 = SelectField(u'Price 1', [
+        validators.optional()
+    ], coerce=int, option_widget=None)
+    size_2 = SelectField(u'Size 2', [
+        validators.optional()
+    ], coerce=int, option_widget=None)
+    price_2 = SelectField(u'Price 2', [
+        validators.optional()
+    ], coerce=int, option_widget=None)
+    size_3 = SelectField(u'Size 3', [
+        validators.optional()
+    ], coerce=int, option_widget=None)
+    price_3 = SelectField(u'Price 3', [
+        validators.optional()
+    ], coerce=int, option_widget=None)
+    size_4 = SelectField(u'Size 4', [
+        validators.optional()
+    ], coerce=int, option_widget=None)
+    price_4 = SelectField(u'Price 4', [
+        validators.optional()
+    ], coerce=int, option_widget=None)
 #########################radio button to choose draft or bottle or both
     draftBottle = RadioField(u'Beer Choice', choices=[('Draft','Draft'), ('Bottle','Bottle'), ('Can','Can'), ('Draft & Bottle',' Draft & Bottle'), ('Draft & Can','Draft & Can'), ('Bottle & Can','Bottle & Can'), ('Draft, Bottle & Can','Draft, Bottle & Can')])
 

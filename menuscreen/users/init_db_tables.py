@@ -1,6 +1,7 @@
 from flask_login import current_user
 from menuscreen import db
-from menuscreen.models import (User, List_history, List_current, Wines,
+from menuscreen.models import (User, List_history, Beer_sizes, Beer_prices,
+                                List_current, Wines,
                                 Winelist_current, Wine_type, Beerscreen_settings,
                                 Winescreen_settings, Eventscreen_settings,
                                 Itemscreen_settings, Font_size_options, Template,
@@ -23,12 +24,32 @@ def initListHistory(id):
         description='TestDescription',
         draft_bottle_selection='Draft',
         # beer_logo_image_file='',
+        size_id_1='1',
+        price_id_1='1',
         # create_date='',
         venue_db_id=id
     )
     db.session.add(list_history)
     db.session.commit()
     print('********** INIT LIST_CURRENT *********')
+
+def initBeerSizes(id):
+    beer_sizes = Beer_sizes(
+        size='16oz Pint',
+        venue_db_id=id
+    )
+    db.session.add(beer_sizes)
+    db.session.commit()
+    print('********** INIT BEER_SIZES *********')
+
+def initBeerPrices(id):
+    beer_prices = Beer_prices(
+        price='5.00',
+        venue_db_id=id
+    )
+    db.session.add(beer_prices)
+    db.session.commit()
+    print('********** INIT BEER_PRICES *********')
 
 def initListCurrent(data):
     id = data['id']

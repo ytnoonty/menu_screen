@@ -3,6 +3,10 @@ from flask_login import current_user, login_required
 from menuscreen import db
 from menuscreen.models import (User, List_history, List_current, Beerscreen_settings,
                             Ticker)
+from menuscreen.settttings.utils import (_getBeerSize1, _getBeerPrice1,
+                            _getBeerSize2, _getBeerPrice2,
+                            _getBeerSize3, _getBeerPrice3,
+                            _getBeerSize4, _getBeerPrice4)
 
 def _deleteBeerscreenSettingByScreenId(data):
     print('Data: {}'.format(data))
@@ -69,6 +73,14 @@ def _getCurrentBeerlist(screenData):
         List_history.location,
         List_history.website,
         List_history.description,
+        List_history.size_id_1,
+        List_history.price_id_1,
+        List_history.size_id_2,
+        List_history.price_id_2,
+        List_history.size_id_3,
+        List_history.price_id_3,
+        List_history.size_id_4,
+        List_history.price_id_4,
         List_current.id,
         List_current.id_history,
         List_current.id_on_next,
@@ -92,6 +104,14 @@ def _getCurrentBeerlist(screenData):
         beer['location'] = b.location
         beer['website'] = b.website
         beer['description'] = b.description
+        beer['size_id_1'] = _getBeerSize1(b.size_id_1)
+        beer['price_id_1'] = _getBeerPrice1(b.price_id_1)
+        beer['size_id_2'] = _getBeerSize2(b.size_id_2)
+        beer['price_id_2'] = _getBeerPrice2(b.price_id_2)
+        beer['size_id_3'] = _getBeerSize3(b.size_id_3)
+        beer['price_id_3'] = _getBeerPrice3(b.price_id_3)
+        beer['size_id_4'] = _getBeerSize4(b.size_id_4)
+        beer['price_id_4'] = _getBeerPrice4(b.price_id_4)
         beer['id_history'] = b.id_history
         beer['id_on_next'] = b.id_on_next
         beer['id_dropdown'] = b.id_dropdown
@@ -138,6 +158,14 @@ def _getOnTapNextBeerlist(screenData):
         List_history.location,
         List_history.website,
         List_history.description,
+        List_history.size_id_1,
+        List_history.price_id_1,
+        List_history.size_id_2,
+        List_history.price_id_2,
+        List_history.size_id_3,
+        List_history.price_id_3,
+        List_history.size_id_4,
+        List_history.price_id_4,
         List_current.id,
         List_current.id_history,
         List_current.id_on_next,
@@ -158,6 +186,14 @@ def _getOnTapNextBeerlist(screenData):
         beer['location'] = b.location
         beer['website'] = b.website
         beer['description'] = b.description
+        beer['size_id_1'] = _getBeerSize1(b.size_id_1)
+        beer['price_id_1'] = _getBeerPrice1(b.price_id_1)
+        beer['size_id_2'] = _getBeerSize2(b.size_id_2)
+        beer['price_id_2'] = _getBeerPrice2(b.price_id_2)
+        beer['size_id_3'] = _getBeerSize3(b.size_id_3)
+        beer['price_id_3'] = _getBeerPrice3(b.price_id_3)
+        beer['size_id_4'] = _getBeerSize4(b.size_id_4)
+        beer['price_id_4'] = _getBeerPrice4(b.price_id_4)
         beer['id_history'] = b.id_history
         beer['id_on_next'] = b.id_on_next
         beer['id_dropdown'] = b.id_dropdown
@@ -222,6 +258,14 @@ def _getTotalBeerlist(user_id):
         beer['location'] = b.location
         beer['website'] = b.website
         beer['description'] = b.description
+        beer['size_id_1'] = _getBeerSize1(b.size_id_1)
+        beer['price_id_1'] = _getBeerPrice1(b.price_id_1)
+        beer['size_id_2'] = _getBeerSize2(b.size_id_2)
+        beer['price_id_2'] = _getBeerPrice2(b.price_id_2)
+        beer['size_id_3'] = _getBeerSize3(b.size_id_3)
+        beer['price_id_3'] = _getBeerPrice3(b.price_id_3)
+        beer['size_id_4'] = _getBeerSize4(b.size_id_4)
+        beer['price_id_4'] = _getBeerPrice4(b.price_id_4)
         beer['draft_bottle_selection'] = b.draft_bottle_selection
         # beer['id_dropdown'] = b.id_dropdown
         beerlist.append(beer)
@@ -265,6 +309,14 @@ def _getBottleBeers(user_id):
         List_history.location,
         List_history.website,
         List_history.description,
+        List_history.size_id_1,
+        List_history.price_id_1,
+        List_history.size_id_2,
+        List_history.price_id_2,
+        List_history.size_id_3,
+        List_history.price_id_3,
+        List_history.size_id_4,
+        List_history.price_id_4,
         List_history.draft_bottle_selection,
         ).filter(List_history.draft_bottle_selection != "Draft"
         ).filter(List_history.venue_db_id == user_id
@@ -283,6 +335,14 @@ def _getBottleBeers(user_id):
         beer['location'] = b.location
         beer['website'] = b.website
         beer['description'] = b.description
+        beer['size_id_1'] = _getBeerSize1(b.size_id_1)
+        beer['price_id_1'] = _getBeerPrice1(b.price_id_1)
+        beer['size_id_2'] = _getBeerSize2(b.size_id_2)
+        beer['price_id_2'] = _getBeerPrice2(b.price_id_2)
+        beer['size_id_3'] = _getBeerSize3(b.size_id_3)
+        beer['price_id_3'] = _getBeerPrice3(b.price_id_3)
+        beer['size_id_4'] = _getBeerSize4(b.size_id_4)
+        beer['price_id_4'] = _getBeerPrice4(b.price_id_4)
         beer['draft_bottle_selection'] = b.draft_bottle_selection
         beerlist.append(beer)
     return beerlist

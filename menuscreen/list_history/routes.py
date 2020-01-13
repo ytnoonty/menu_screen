@@ -2,7 +2,8 @@ from flask import (render_template, url_for, flash, redirect,
                     request, abort, jsonify, Blueprint, make_response)
 from flask_login import current_user, login_required
 from menuscreen import db
-from menuscreen.models import (User, List_history, List_current, Font_size_options,
+from menuscreen.models import (User, List_history, Beer_sizes, Beer_prices,
+                        List_current, Font_size_options,
                         Beerscreen_settings, Winescreen_settings, Eventscreen_settings,
                         Itemscreen_settings, Template, Ticker, Ticker_type_id)
 from menuscreen.list_history.forms import BeerForm, CurrentBeerListForm, NextBeerListForm
@@ -11,7 +12,10 @@ from menuscreen.list_history.utils import (getDefaultSelect, getDefaultNextSelec
                         _addBeer, _deleteBeer, _getBottleBeers, addNewBeerToDB,
                         _deleteBeerscreenSettingByScreenId, _deleteBeerFromListCurrentByScreenId,
                         _deleteBeertickerFromTickerByScreenId)
-from menuscreen.settttings.utils import _getFontSizes, _getTemplates, _getSettings, _getNameFontSize, _getTemplateName, _getAbvFontSize, _getIbuFontSize, _getBreweryFontSize
+from menuscreen.settttings.utils import (_getFontSizes, _getTemplates, _getSettings,
+                        _getNameFontSize, _getTemplateName, _getAbvFontSize,
+                        _getIbuFontSize, _getBreweryFontSize,
+                        _getBeerSizes, _getBeerPrices)
 from menuscreen.users.init_db_tables import (getVenueId, initBeerscreenSettings,
                         initListCurrent, initTickerSingleTicker)
 
@@ -377,16 +381,42 @@ def _getAllTotalCurrentNextLists():
 @login_required
 def add_beer():
     form = BeerForm()
+    # get beer sizes to populate dropdowns
+    beer_sizes = _getBeerSizes(current_user.id)
+    # get beer prices to populate dropdowns
+    beer_prices = _getBeerPrices(current_user.id)
+
+    # populates the dropdowns with correct information
+    form.size_1.choices = [ (size['id'], size['size']) for size in beer_sizes ]
+    form.price_1.choices = [ (price['id'], price['price']) for price in beer_prices ]
+    form.size_2.choices = [ (size['id'], size['size']) for size in beer_sizes ]
+    form.price_2.choices = [ (price['id'], price['price']) for price in beer_prices ]
+    form.size_3.choices = [ (size['id'], size['size']) for size in beer_sizes ]
+    form.price_3.choices = [ (price['id'], price['price']) for price in beer_prices ]
+    form.size_4.choices = [ (size['id'], size['size']) for size in beer_sizes ]
+    form.price_4.choices = [ (price['id'], price['price']) for price in beer_prices ]
+    # defaults draft/bottle/can radio buttons
     form.draftBottle.data = "Draft"
-    if request.method == 'POST':
-    # if form.validate_on_submit():
-        list = List_history(name=form.name.data, style=form.style.data, abv=form.abv.data,
+
+    # if request.method == 'POST' and form.validate:
+    # check if form is validated and method == post
+    if form.validate_on_submit():
+        # queries db to submit a beers info
+        beer = List_history(name=form.name.data, style=form.style.data, abv=form.abv.data,
             ibu=form.ibu.data, brewery=form.brewery.data, location=form.location.data,
             website=form.website.data, description=form.description.data,
+            size_id_1=form.size_1.data, price_id_1=form.price_1.data,
+            size_id_2=form.size_2.data, price_id_2=form.price_2.data,
+            size_id_3=form.size_3.data, price_id_3=form.price_3.data,
+            size_id_4=form.size_4.data, price_id_4=form.price_4.data,
             draft_bottle_selection=request.form['draftBottle'], venue_db_id=current_user.id)
-        db.session.add(list)
+        # print(beer)
+        # adds beer to be commited
+        db.session.add(beer)
+        # commits beer info to the DB
         db.session.commit()
 
+        # use settings to tell pusher info has been updated
         settings = {
             "venue_db_id": current_user.id,
             "updated": True,
@@ -398,7 +428,7 @@ def add_beer():
         #PUSHER
         #######################################
 
-
+        # show success message
         flash('Beer has been created and added to the list!','success')
         return redirect(url_for('list_history.beer_dashboard'))
     return render_template('add_beer.html', title='Add Beer', legend='Add Beer', form=form)
@@ -423,6 +453,22 @@ def edit_beer(beer_id):
     if beer.venue_db_id != current_user.id:
         abort(403)
     form = BeerForm()
+    # get beer sizes to populate dropdowns
+    beer_sizes = _getBeerSizes(current_user.id)
+    # get beer prices to populate dropdowns
+    beer_prices = _getBeerPrices(current_user.id)
+
+    # populates the dropdowns with correct information
+    form.size_1.choices = [ (size['id'], size['size']) for size in beer_sizes ]
+    form.price_1.choices = [ (price['id'], price['price']) for price in beer_prices ]
+    form.size_2.choices = [ (size['id'], size['size']) for size in beer_sizes ]
+    form.price_2.choices = [ (price['id'], price['price']) for price in beer_prices ]
+    form.size_3.choices = [ (size['id'], size['size']) for size in beer_sizes ]
+    form.price_3.choices = [ (price['id'], price['price']) for price in beer_prices ]
+    form.size_4.choices = [ (size['id'], size['size']) for size in beer_sizes ]
+    form.price_4.choices = [ (price['id'], price['price']) for price in beer_prices ]
+
+    # check if form is validated and method == post
     if form.validate_on_submit():
         beer.name = form.name.data
         beer.style = form.style.data
@@ -432,9 +478,19 @@ def edit_beer(beer_id):
         beer.location = form.location.data
         beer.website = form.website.data
         beer.description = form.description.data
+        beer.size_id_1 = form.size_1.data
+        beer.price_id_1 = form.price_1.data
+        beer.size_id_2 = form.size_2.data
+        beer.price_id_2 = form.price_2.data
+        beer.size_id_3 = form.size_3.data
+        beer.price_id_3 = form.price_3.data
+        beer.size_id_4 = form.size_4.data
+        beer.price_id_4 = form.price_4.data
         beer.draft_bottle_selection = form.draftBottle.data
+        # commits beer info to the DB
         db.session.commit()
 
+        # use settings to tell pusher info has been updated
         settings = {
             "venue_db_id": current_user.id,
             "updated": True,
@@ -446,9 +502,12 @@ def edit_beer(beer_id):
         #PUSHER
         #######################################
 
+        # show success message
         flash('Beer has been updated!', 'success')
         return redirect(url_for('list_history.beer_dashboard'))
     elif request.method == 'GET':
+
+        # populate fields with DB info
         form.name.data = beer.name
         form.style.data = beer.style
         form.abv.data = beer.abv
@@ -457,9 +516,21 @@ def edit_beer(beer_id):
         form.location.data = beer.location
         form.website.data = beer.website
         form.description.data = beer.description
+
+        form.size_1.data = beer.size_id_1
+        form.price_1.data = beer.price_id_1
+        form.size_2.data = beer.size_id_2
+        form.price_2.data = beer.price_id_2
+        form.size_3.data = beer.size_id_3
+        form.price_3.data = beer.price_id_3
+        form.size_4.data = beer.size_id_4
+        form.price_4.data = beer.price_id_4
+
         form.draftBottle.data = beer.draft_bottle_selection
 
-    return render_template('edit_beer.html', title='Edit Beer: '+ beer_id, legend='Edit Beer '+ beer_id, form=form)
+    return render_template('edit_beer.html', title='Edit Beer: '+ beer_id,
+        legend='Edit Beer '+ beer_id, form=form, beer=beer, beer_sizes=beer_sizes,
+        beer_prices=beer_prices)
 
 @list_history.route('/delete_beer/<string:beer_id>', methods=['POST'])
 @login_required
