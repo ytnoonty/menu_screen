@@ -1,6 +1,6 @@
 from flask_login import current_user
 from menuscreen import db
-from menuscreen.models import (User, List_history, Beer_sizes, Beer_prices,
+from menuscreen.models import (User, List_history, Drink_sizes, Drink_prices,
                                 List_current, Wines,
                                 Winelist_current, Wine_type, Beerscreen_settings,
                                 Winescreen_settings, Eventscreen_settings,
@@ -24,6 +24,7 @@ def initListHistory(id):
         description='TestDescription',
         draft_bottle_selection='Draft',
         # beer_logo_image_file='',
+        # beer_logo_image_file_id='',
         size_id_1='1',
         price_id_1='1',
         # create_date='',
@@ -33,23 +34,23 @@ def initListHistory(id):
     db.session.commit()
     print('********** INIT LIST_CURRENT *********')
 
-def initBeerSizes(id):
-    beer_sizes = Beer_sizes(
-        size='16oz Pint',
+def initDrinkSizes(id):
+    size = Drink_sizes(
+        drink_size='-',
         venue_db_id=id
     )
-    db.session.add(beer_sizes)
+    db.session.add(size)
     db.session.commit()
-    print('********** INIT BEER_SIZES *********')
+    print('********** INIT DRINK_SIZES *********')
 
-def initBeerPrices(id):
-    beer_prices = Beer_prices(
-        price='5.00',
+def initDrinkPrices(id):
+    price = Drink_prices(
+        drink_price='-',
         venue_db_id=id
     )
-    db.session.add(beer_prices)
+    db.session.add(price)
     db.session.commit()
-    print('********** INIT BEER_PRICES *********')
+    print('********** INIT DRINK_PRICES *********')
 
 def initListCurrent(data):
     id = data['id']

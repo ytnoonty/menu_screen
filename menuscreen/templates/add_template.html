@@ -8,10 +8,13 @@
     <div class="form-group">
       {{ render_field(form.templateName, class_="form-control") }}
     </div>
-    <button id="submit_template_btn" name="submit_settings_btn" type="submit" class="btn btn-sm btn-primary">Save Templates</button>
+    <button id="submit_template_btn" name="submit_settings_btn" type="submit" class="btn btn-sm btn-outline-primary">Save Template</button>
     <hr>
   </form>
   <div class="form-group">
     {{ render_field(form.templateSelect, class_="form-control") }}
+  </div>
+  <div>
+    <button id="screen_template_delete_btn" name="screen_template_delete_btn" type="click" class="btn btn-sm btn-outline-danger">Delete Template</button>
   </div>
 {% endblock %}

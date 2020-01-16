@@ -9,8 +9,8 @@ from menuscreen.users.forms import (RegisterForm, LoginForm, UpdateAccountForm,
                                     RequestResetForm, ResetPasswordForm)
 from menuscreen.users.utils import save_picture, send_reset_email, get_user_data
 
-from menuscreen.users.init_db_tables import (getVenueId, initListHistory, initBeerSizes,
-                                initBeerPrices,
+from menuscreen.users.init_db_tables import (getVenueId, initListHistory, initDrinkSizes,
+                                initDrinkPrices,
                                 initListCurrent, initWinelist, initWinelistCurrent,
                                 initWinetype, initBeerscreenSettings, initWinescreenSettings,
                                 initEventscreenSettings, initItemscreenSettings,
@@ -88,8 +88,8 @@ def register():
 
         # init new venue DB for wine tables
         initListHistory(getVenueId(venuename))
-        initBeerSizes(getVenueId(venuename))
-        initBeerPrices(getVenueId(venuename))
+        initDrinkSizes(getVenueId(venuename))
+        initDrinkPrices(getVenueId(venuename))
         initListCurrent({"id":getVenueId(venuename), "screenId": ""})
         initWinelist(getVenueId(venuename))
         initWinelistCurrent(getVenueId(venuename))

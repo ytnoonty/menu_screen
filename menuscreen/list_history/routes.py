@@ -2,7 +2,7 @@ from flask import (render_template, url_for, flash, redirect,
                     request, abort, jsonify, Blueprint, make_response)
 from flask_login import current_user, login_required
 from menuscreen import db
-from menuscreen.models import (User, List_history, Beer_sizes, Beer_prices,
+from menuscreen.models import (User, List_history, Drink_sizes, Drink_prices,
                         List_current, Font_size_options,
                         Beerscreen_settings, Winescreen_settings, Eventscreen_settings,
                         Itemscreen_settings, Template, Ticker, Ticker_type_id)
@@ -15,7 +15,7 @@ from menuscreen.list_history.utils import (getDefaultSelect, getDefaultNextSelec
 from menuscreen.settttings.utils import (_getFontSizes, _getTemplates, _getSettings,
                         _getNameFontSize, _getTemplateName, _getAbvFontSize,
                         _getIbuFontSize, _getBreweryFontSize,
-                        _getBeerSizes, _getBeerPrices)
+                        _getDrinkSizes, _getDrinkPrices)
 from menuscreen.users.init_db_tables import (getVenueId, initBeerscreenSettings,
                         initListCurrent, initTickerSingleTicker)
 
@@ -382,19 +382,19 @@ def _getAllTotalCurrentNextLists():
 def add_beer():
     form = BeerForm()
     # get beer sizes to populate dropdowns
-    beer_sizes = _getBeerSizes(current_user.id)
+    drink_sizes = _getDrinkSizes(current_user.id)
     # get beer prices to populate dropdowns
-    beer_prices = _getBeerPrices(current_user.id)
+    drink_prices = _getDrinkPrices(current_user.id)
 
     # populates the dropdowns with correct information
-    form.size_1.choices = [ (size['id'], size['size']) for size in beer_sizes ]
-    form.price_1.choices = [ (price['id'], price['price']) for price in beer_prices ]
-    form.size_2.choices = [ (size['id'], size['size']) for size in beer_sizes ]
-    form.price_2.choices = [ (price['id'], price['price']) for price in beer_prices ]
-    form.size_3.choices = [ (size['id'], size['size']) for size in beer_sizes ]
-    form.price_3.choices = [ (price['id'], price['price']) for price in beer_prices ]
-    form.size_4.choices = [ (size['id'], size['size']) for size in beer_sizes ]
-    form.price_4.choices = [ (price['id'], price['price']) for price in beer_prices ]
+    form.size_1.choices = [ (size['id'], size['drink_size']) for size in drink_sizes ]
+    form.price_1.choices = [ (price['id'], price['drink_price']) for price in drink_prices ]
+    form.size_2.choices = [ (size['id'], size['drink_size']) for size in drink_sizes ]
+    form.price_2.choices = [ (price['id'], price['drink_price']) for price in drink_prices ]
+    form.size_3.choices = [ (size['id'], size['drink_size']) for size in drink_sizes ]
+    form.price_3.choices = [ (price['id'], price['drink_price']) for price in drink_prices ]
+    form.size_4.choices = [ (size['id'], size['drink_size']) for size in drink_sizes ]
+    form.price_4.choices = [ (price['id'], price['drink_price']) for price in drink_prices ]
     # defaults draft/bottle/can radio buttons
     form.draftBottle.data = "Draft"
 
@@ -454,19 +454,19 @@ def edit_beer(beer_id):
         abort(403)
     form = BeerForm()
     # get beer sizes to populate dropdowns
-    beer_sizes = _getBeerSizes(current_user.id)
+    drink_sizes = _getDrinkSizes(current_user.id)
     # get beer prices to populate dropdowns
-    beer_prices = _getBeerPrices(current_user.id)
+    drink_prices = _getDrinkPrices(current_user.id)
 
     # populates the dropdowns with correct information
-    form.size_1.choices = [ (size['id'], size['size']) for size in beer_sizes ]
-    form.price_1.choices = [ (price['id'], price['price']) for price in beer_prices ]
-    form.size_2.choices = [ (size['id'], size['size']) for size in beer_sizes ]
-    form.price_2.choices = [ (price['id'], price['price']) for price in beer_prices ]
-    form.size_3.choices = [ (size['id'], size['size']) for size in beer_sizes ]
-    form.price_3.choices = [ (price['id'], price['price']) for price in beer_prices ]
-    form.size_4.choices = [ (size['id'], size['size']) for size in beer_sizes ]
-    form.price_4.choices = [ (price['id'], price['price']) for price in beer_prices ]
+    form.size_1.choices = [ (size['id'], size['drink_size']) for size in drink_sizes ]
+    form.price_1.choices = [ (price['id'], price['drink_price']) for price in drink_prices ]
+    form.size_2.choices = [ (size['id'], size['drink_size']) for size in drink_sizes ]
+    form.price_2.choices = [ (price['id'], price['drink_price']) for price in drink_prices ]
+    form.size_3.choices = [ (size['id'], size['drink_size']) for size in drink_sizes ]
+    form.price_3.choices = [ (price['id'], price['drink_price']) for price in drink_prices ]
+    form.size_4.choices = [ (size['id'], size['drink_size']) for size in drink_sizes ]
+    form.price_4.choices = [ (price['id'], price['drink_price']) for price in drink_prices ]
 
     # check if form is validated and method == post
     if form.validate_on_submit():
@@ -529,8 +529,8 @@ def edit_beer(beer_id):
         form.draftBottle.data = beer.draft_bottle_selection
 
     return render_template('edit_beer.html', title='Edit Beer: '+ beer_id,
-        legend='Edit Beer '+ beer_id, form=form, beer=beer, beer_sizes=beer_sizes,
-        beer_prices=beer_prices)
+        legend='Edit Beer '+ beer_id, form=form, beer=beer, drink_sizes=drink_sizes,
+        drink_prices=drink_prices)
 
 @list_history.route('/delete_beer/<string:beer_id>', methods=['POST'])
 @login_required

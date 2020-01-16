@@ -2,9 +2,9 @@ from flask import (render_template, url_for, flash, redirect,
                     request, abort, jsonify, Blueprint)
 from flask_login import current_user, login_required
 from menuscreen import db
-from menuscreen.models import User, Beerscreen_settings, Winescreen_settings, Eventscreen_settings, Itemscreen_settings, Font_size_options, Template
-from menuscreen.settttings.forms import BeerscreenSettingsForm, WinescreenSettingsForm, EventscreenSettingsForm, ItemscreenSettingsForm, FontSizeForm, TemplateForm
-from menuscreen.settttings.utils import _getFontSizes, _getFontSizeOptions, _getTemplates, _getBeerSettings, _getNameFontSize, _getStyleFontSize, _getTemplateName, _getAbvFontSize, _getIbuFontSize, _getBreweryFontSize
+from menuscreen.models import User, Beerscreen_settings, Winescreen_settings, Eventscreen_settings, Itemscreen_settings, Font_size_options, Template, Drink_sizes, Drink_prices
+from menuscreen.settttings.forms import BeerscreenSettingsForm, WinescreenSettingsForm, EventscreenSettingsForm, ItemscreenSettingsForm, FontSizeForm, TemplateForm, DrinkContainerSizeForm, DrinkPriceForm
+from menuscreen.settttings.utils import _getFontSizes, _getFontSizeOptions, _getTemplates, _getBeerSettings, _getNameFontSize, _getStyleFontSize, _getTemplateName, _getAbvFontSize, _getIbuFontSize, _getBreweryFontSize, _getDrinkSizes, _getDrinkPrices
 from menuscreen.list_history.utils import _getCurrentBeerlist
 from menuscreen.event.utils import _getEventsSortAsc
 from menuscreen.users.init_db_tables import getVenueId
@@ -117,6 +117,45 @@ def add_font_size():
         flash('New Font size has been added!', 'success')
         return redirect(url_for('settttings.add_font_size'))
     return render_template('add_font_size.html', title='Edit Font Sizes', legend='Edit Font Size List', form=form)
+
+# Edit drink container size
+@settttings.route('/edit_drink_size', methods=['GET','POST'])
+@login_required
+def edit_drink_size():
+    form = DrinkContainerSizeForm(request.form)
+    sizes = _getDrinkSizes(current_user.id)
+
+    form.drinkSizeSelect.choices = [(size['id'], size['drink_size']) for size in sizes]
+
+    if form.validate_on_submit():
+        drinkSize = request.form['drinkSizeText']
+        newDrinkSize = Drink_sizes(drink_size=drinkSize, venue_db_id=current_user.id)
+        db.session.add(newDrinkSize)
+        db.session.commit()
+        flash('New Drink size has been added!', 'success')
+        return redirect(url_for('settttings.edit_drink_size'))
+    return render_template('edit_drink_size.html', title='Edit Drink Sizes', legend='Edit Drink Sizes', form=form)
+
+# Edit drink price
+@settttings.route('/edit_drink_price', methods=['GET','POST'])
+@login_required
+def edit_drink_price():
+    form = DrinkPriceForm(request.form)
+    prices = _getDrinkPrices(current_user.id)
+
+    form.drinkPriceSelect.choices = [(price['id'], price['drink_price']) for price in prices]
+
+    if form.validate_on_submit():
+        drinkPrice = request.form['drinkPriceText']
+        newDrinkPrice = Drink_prices(drink_price=drinkPrice, venue_db_id=current_user.id)
+        db.session.add(newDrinkPrice)
+        db.session.commit()
+        flash('New Drink price has been added!', 'success')
+        return redirect(url_for('settttings.edit_drink_price'))
+    return render_template('edit_drink_price.html', title='Edit Drink Prices', legend='Edit Drink Prices', form=form)
+
+
+
 
 # beerscreen_settings page
 @settttings.route('/beerscreen_settings', methods=['GET', 'POST'])

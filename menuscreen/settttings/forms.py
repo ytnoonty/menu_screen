@@ -337,3 +337,11 @@ class FontSizeForm(FlaskForm):
 class TemplateForm(FlaskForm):
     templateName = StringField('Name of Screen Template', [validators.Length(min=1, max=50)])
     templateSelect = SelectField(u'Templates', [validators.optional()], coerce=int, option_widget=None)
+
+class DrinkContainerSizeForm(FlaskForm):
+    drinkSizeText = StringField('Drink Size Text', [validators.Length(min=1, max=10)])
+    drinkSizeSelect = SelectField(u'Drink Sizes', [validators.optional()], coerce=int, option_widget=None)
+
+class DrinkPriceForm(FlaskForm):
+    drinkPriceText = StringField('Drink Price Text', [validators.Length(min=1, max=10)])
+    drinkPriceSelect = SelectField(u'Drink Prices', [validators.optional()], coerce=int, option_widget=None)

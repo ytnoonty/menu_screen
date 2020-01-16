@@ -10,10 +10,13 @@
       <!-- <label for="fontSizeOptions">Font Size Options  (Min: 0.0 - Max: 5.0)</label>
       <input id="fontSizeOptions" class="form-control" name="fontsizeoptions" type="number" min="0" max="5" placeholder="1.0"> -->
     </div>
-    <button id="submit_settings_btn" name="submit_settings_btn" type="submit" class="btn btn-sm btn-primary">Save Settings</button>
+    <button id="submit_settings_btn" name="submit_settings_btn" type="submit" class="btn btn-sm btn-outline-primary">Save Font Size</button>
     <hr>
   </form>
   <div class="form-group">
     {{ render_field(form.fontSizes, class_="form-control") }}
+  </div>
+  <div>
+    <button id="font_size_delete_btn" name="font_size_delete_btn" type="click" class="btn btn-sm btn-outline-danger">Delete Font Size</button>
   </div>
 {% endblock %}
