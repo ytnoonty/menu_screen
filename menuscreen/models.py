@@ -90,7 +90,7 @@ class List_history(db.Model):
     #     return '************ List_history: {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} ***********'.format(self.id, self.name, self.style, self.abv, self.ibu, self.brewery, self.location, self.website, self.description, self.draft_bottle_selection, self.venue_db_id)
 
 class Image_files(db.Model):
-    __tablename__ = 'Image_files'
+    __tablename__ = 'image_files'
     id = db.Column(db.Integer, primary_key=True)
     logo_image_file = db.Column(db.LargeBinary, nullable=True)
     venue_db_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)

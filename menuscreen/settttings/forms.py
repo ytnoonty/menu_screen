@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, DecimalField, IntegerField, BooleanField, validators
+from flask_wtf.file import FileField, FileAllowed
+from wtforms import StringField, SelectField, DecimalField, IntegerField, BooleanField, SubmitField, validators
 from wtforms.validators import DataRequired
 
 class BeerscreenSettingsForm(FlaskForm):
@@ -345,3 +346,9 @@ class DrinkContainerSizeForm(FlaskForm):
 class DrinkPriceForm(FlaskForm):
     drinkPriceText = StringField('Drink Price Text', [validators.Length(min=1, max=10)])
     drinkPriceSelect = SelectField(u'Drink Prices', [validators.optional()], coerce=int, option_widget=None)
+
+class ImageForm(FlaskForm):
+    picture = FileField('Update Product Icon/Picture', validators=[
+        FileAllowed(['jpg'], 'Images Only!')
+    ])
+    submit = SubmitField('Save Picture')
