@@ -72,7 +72,7 @@ class List_history(db.Model):
     description = db.Column(db.Text)
     draft_bottle_selection = db.Column(db.String(50))
     # beer_logo_image_file = db.Column(db.LargeBinary, nullable=True)
-    beer_logo_image_file_id = db.Column(db.Integer)
+    beer_logo_image_id = db.Column(db.Integer)
     # create_date = db.Column(db.DateTime, default=datetime.utcnow)
     size_id_1 = db.Column(db.Integer)
     price_id_1 = db.Column(db.Integer)
@@ -89,13 +89,59 @@ class List_history(db.Model):
     # def __repr__(self):
     #     return '************ List_history: {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} ***********'.format(self.id, self.name, self.style, self.abv, self.ibu, self.brewery, self.location, self.website, self.description, self.draft_bottle_selection, self.venue_db_id)
 
-class Image_files(db.Model):
-    __tablename__ = 'image_files'
+class List_current(db.Model):
+    __tablename__ = 'list_current'
+    id = db.Column(db.Integer, primary_key=True)
+    id_history = db.Column(db.Integer)
+    id_on_next = db.Column(db.Integer)
+    id_dropdown = db.Column(db.Integer)
+    beer_of_month = db.Column(db.Boolean, default=False)
+    coming_soon = db.Column(db.Boolean, default=False)
+    beer_screen_id = db.Column(db.Integer)
+    venue_db_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    def __repr__(self):
+        return '************ List_current: {}, {}, {}, {}, {}, {}, {}, {}'.format(self.id,self.id_history,self.id_on_next,self.id_dropdown,self.beer_of_month,self.coming_soon,self.beer_screen_id,self.venue_db_id)
+
+class Image_list_history(db.Model):
+    __tablename__ = 'image_list_history'
     id = db.Column(db.Integer, primary_key=True)
     logo_image_file = db.Column(db.LargeBinary, nullable=True)
     venue_db_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
     def __repr__(self):
         return '************ Image_files: {}, {}, {} ***********'.format(self.id, self.logo_image_file, self.venue_db_id)
+
+class Image_list_current(db.Model):
+    __tablename__ = 'image_list_current'
+    id = db.Column(db.Integer, primary_key=True)
+    id_image_history = db.Column(db.Integer)
+    id_image_dropdown = db.Column(db.Integer)
+    image_screen_id = db.Column(db.Integer)
+    venue_db_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    def __repr__(self):
+        return '************ Image_list_current: {}, {}, {}, {}, {}'.format(self.id, self.id_image_history, self.id_image_dropdown, self.image_screen_id, self.venue_db_id)
+
+class Imagescreen_settings(db.Model):
+    __tablename__ = 'Imagescreen_settings'
+    id = db.Column(db.Integer, primary_key=True)
+    img_screen_duration = db.Column(db.Integer)
+    transition_id = db.Column(db.Integer)
+    venue_db_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    def __repr__(self):
+        return '************ Imagescreen_settings: {}, {}, {}, {}, {}'.format(self.id, self.img_screen_duration, self.id_image_dropdown, self.image_screen_id, self.venue_db_id)
+
+class Transistion_list_history(db.Model):
+    __tablename__ = 'transistion_list_history'
+    id = db.Column(db.Integer, primary_key=True)
+    transition_name = db.Column(db.Integer)
+    venue_db_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    def __repr__(self):
+        return '************ Transistion_list_history: {}, {}, {}, {}, {}'.format(self.id, self.id_image_history, self.id_image_dropdown, self.image_screen_id, self.venue_db_id)
+
 
 class Drink_sizes(db.Model):
     __tablename__ = 'drink_sizes'
@@ -112,21 +158,6 @@ class Drink_prices(db.Model):
     venue_db_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     def __repr__(self):
         return '************ Drink_prices: {}, {}, {} ***********'.format(self.id, self.drink_price, self.venue_db_id)
-
-class List_current(db.Model):
-    __tablename__ = 'list_current'
-    id = db.Column(db.Integer, primary_key=True)
-    id_history = db.Column(db.Integer)
-    id_on_next = db.Column(db.Integer)
-    id_dropdown = db.Column(db.Integer)
-    beer_of_month = db.Column(db.Boolean, default=False)
-    coming_soon = db.Column(db.Boolean, default=False)
-    beer_screen_id = db.Column(db.Integer)
-    venue_db_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
-    def __repr__(self):
-        return '************ List_current: {}, {}, {}, {}, {}, {}, {}, {}'.format(self.id,self.id_history,self.id_on_next,self.id_dropdown,self.beer_of_month,self.coming_soon,self.beer_screen_id,self.venue_db_id)
-
 
 class Beerscreen_settings(db.Model):
     __tablename__ = 'beerscreen_settings'
