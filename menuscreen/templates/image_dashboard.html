@@ -1,0 +1,91 @@
+{% extends 'layout.html' %}
+{% block body %}
+  <div class="position-fixed dashboard-alpha-side-menu">
+    <ul class="no-gutters">
+      <li class=""><a href="#">^</a></li>
+      <li class=""><a href="#">#'s</a></li>
+      <li class=""><a href="#a">A</a></li>
+      <li class=""><a href="#b">B</a></li>
+      <li class=""><a href="#c">C</a></li>
+      <li class=""><a href="#d">D</a></li>
+      <li class=""><a href="#e">E</a></li>
+      <li class=""><a href="#f">F</a></li>
+      <li class=""><a href="#g">G</a></li>
+      <li class=""><a href="#h">H</a></li>
+      <li class=""><a href="#i">I</a></li>
+      <li class=""><a href="#j">J</a></li>
+      <li class=""><a href="#k">K</a></li>
+      <li class=""><a href="#l">L</a></li>
+      <li class=""><a href="#m">M</a></li>
+      <li class=""><a href="#n">N</a></li>
+      <li class=""><a href="#o">O</a></li>
+      <li class=""><a href="#p">P</a></li>
+      <li class=""><a href="#q">Q</a></li>
+      <li class=""><a href="#r">R</a></li>
+      <li class=""><a href="#s">S</a></li>
+      <li class=""><a href="#t">T</a></li>
+      <li class=""><a href="#u">U</a></li>
+      <li class=""><a href="#v">V</a></li>
+      <li class=""><a href="#w">W</a></li>
+      <li class=""><a href="#x">X</a></li>
+      <li class=""><a href="#y">Y</a></li>
+      <li class=""><a href="#z">Z</a></li>
+    </ul>
+  </div>
+
+  <div class="ml-3">
+    <h1>{{ title }}</h1>
+    <hr>
+    <div class="row my-3 mx-auto">
+      <div class="col-12 my-1">
+        <a class="btn btn-sm btn-outline-info" href="{{ url_for('settttings.add_image')}}"> Add Image</a>
+        <a class="btn btn-sm btn-outline-info" href="/imagesearch">Search Images</a>
+      </div>
+      <div class="col-12 my-1">
+        <a class="btn btn-sm btn-outline-danger" href="/edit_image_list">Image Editor</a>
+      </div>
+    </div>
+
+    <div class="my-2">
+      <p>Search for images <span><button id="clear-dash-search" class="btn btn-sm btn-outline-danger ml-2 px-2">Clear Search</button></span></p>
+      <div>
+        <input type="text" id="dashboard-search-image" class="form-control" placeholder="Search image here....." autofocus>
+      </div>
+    </div>
+
+    <div id="dashboard-image-info">
+      <table class="mt-3 table table-striped">
+        {% for image in images %}
+          <tr id="{{ image.dash_menu_id }}" class="row-name">
+            <th class="toggle-table dashboard-image-name">{{image.logo_image_name}}</th>
+            <th class="dashboard-image-file">{{image.logo_image_file}}</th>
+            <td><a href="{{ url_for('settttings.edit_image', image_id=image.id) }}" class="btn btn-sm btn-outline-default pull-right">Edit</a></td>
+            <td>
+              <form action="{{url_for('settttings.delete_image', image_id=image.id)}}" method="post">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="submit" value="Delete" class="btn btn-sm btn-outline-danger">
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" class="d-none animate-table">
+              <div class="row row-id">
+                <div class="col-5">ID:</div>
+                <div class="col-7">{{image.id}}</div>
+              </div>
+              <div class="row row-logo_image_name">
+                <div class="col-5">Image Name:</div>
+                <div class="col-7">{{image.logo_image_name}}</div>
+              </div>
+              <div class="row row-logo_image_file">
+                <div class="col-5">Image File:</div>
+                <div class="col-7">{{image.logo_image_file}}</div>
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+
+{% endblock %}

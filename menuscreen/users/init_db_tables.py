@@ -55,6 +55,7 @@ def initDrinkPrice(id):
 
 def initImagelistHistory(id):
     img = Image_list_history(
+        logo_image_name="-Test Image-",
         # logo_img_file=,
         venue_db_id=id
     )

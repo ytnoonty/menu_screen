@@ -106,6 +106,7 @@ class List_current(db.Model):
 class Image_list_history(db.Model):
     __tablename__ = 'image_list_history'
     id = db.Column(db.Integer, primary_key=True)
+    logo_image_name = db.Column(db.String(100))
     logo_image_file = db.Column(db.LargeBinary, nullable=True)
     venue_db_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 

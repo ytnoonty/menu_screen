@@ -3,8 +3,8 @@ from flask import (render_template, url_for, flash, redirect,
 from flask_login import current_user, login_required
 from menuscreen import db
 from menuscreen.models import User, Beerscreen_setting, Winecreen_setting, Eventscreen_setting, Itemscreen_setting, Font_size_option, Template, Drink_size, Drink_price
-from menuscreen.settttings.forms import BeerscreenSettingsForm, WinecreenSettingsForm, EventscreenSettingsForm, ItemscreenSettingsForm, FontSizeForm, TemplateForm, DrinkContainerSizeForm, DrinkPriceForm
-from menuscreen.settttings.utils import _getFontSizes, _getFontSizeOptions, _getTemplates, _getBeerSettings, _getNameFontSize, _getStyleFontSize, _getTemplateName, _getAbvFontSize, _getIbuFontSize, _getBreweryFontSize, _getDrinkSizes, _getDrinkPrices
+from menuscreen.settttings.forms import BeerscreenSettingsForm, WinecreenSettingsForm, EventscreenSettingsForm, ItemscreenSettingsForm, FontSizeForm, TemplateForm, DrinkContainerSizeForm, DrinkPriceForm, ImageForm
+from menuscreen.settttings.utils import _getFontSizes, _getFontSizeOptions, _getTemplates, _getBeerSettings, _getNameFontSize, _getStyleFontSize, _getTemplateName, _getAbvFontSize, _getIbuFontSize, _getBreweryFontSize, _getDrinkSizes, _getDrinkPrices, _getImages
 from menuscreen.list_history.utils import _getCurrentBeerlist
 from menuscreen.event.utils import _getEventsSortAsc
 from menuscreen.users.init_db_tables import getVenueId
@@ -153,6 +153,59 @@ def edit_drink_price():
         flash('New Drink price has been added!', 'success')
         return redirect(url_for('settttings.edit_drink_price'))
     return render_template('edit_drink_price.html', title='Edit Drink Prices', legend='Edit Drink Prices', form=form)
+
+
+# add image to DB
+@settttings.route('/add_image', methods=['GET','POST'])
+@login_required
+def add_image():
+    form = ImageForm()
+    # validate and submit the form
+    if form.validate_on_submit():
+        print(form.imageName.data)
+        print(form.imageFile.data)
+        #show success message
+        flash('Image has been added to the list!', 'success')
+        return redirect(url_for('settttings.image_dashboard'))
+    return render_template('add_image.html', title='Add Image', legend="Add Image", form=form)
+
+# image/logo dashboard
+@settttings.route('/image_dashboard', methods=['GET','POST'])
+@login_required
+def image_dashboard():
+    images = _getImages(current_user.id)
+    for image in images:
+        print(image)
+        # image.dash_menu_id = list(image.logo_image_name)[0].lower()
+    if images:
+        return render_template('image_dashboard.html', title='Image Dashboard', legend='Image Dashboard', images=images)
+    else:
+        msg = 'Sorry, no images found!'
+    return render_template('image_dashboard.html', title='Image Dashboard', legend='Image Dashboard', msg=msg)
+
+# edit_image
+@settttings.route('/edit_image/<string:image_id>', methods=['GET','POST'])
+@login_required
+def edit_image(image_id):
+
+    # check if form is validated and method == POST
+    if form.validate_on_submit():
+        # show success message
+        flash('Image has been updated!', 'success')
+        return redirect(url_for('settttings.image_dashboard'))
+    elif request.method == 'GET':
+        print(image_id)
+    return render_template('edit_image.html', title='Edit Image: '+ image_id,
+    legend='Edit Image'+ image_id)
+
+# delete image
+@settttings.route('/delete_image/<string:image_id>', methods=['POST'])
+@login_required
+def delete_image(image_id):
+    print(image_id)
+    flash('The image has been deleted!', 'success')
+    return redirect(url_for('settttings.image_dashboard'))
+
 
 
 

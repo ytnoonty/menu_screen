@@ -2,7 +2,18 @@ from flask_login import current_user
 from menuscreen import db
 from menuscreen.models import (User, List_history, Beerscreen_setting, Winecreen_setting,
                             Eventscreen_setting, Itemscreen_setting,
-                            Font_size_option, Template, Drink_size, Drink_price)
+                            Font_size_option, Template, Drink_size, Drink_price,
+                            Image_list_history)
+
+def _getImages(id):
+    images = db.session.query(
+        Image_list_history.id,
+        Image_list_history.logo_image_name,
+        Image_list_history.logo_image_file,
+        Image_list_history.venue_db_id,
+    ).filter(Image_list_history.venue_db_id == id
+    ).all()
+    return images
 
 def _getBeerSize1(beer_id):
     size = db.session.query(
