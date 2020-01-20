@@ -2,9 +2,9 @@ from flask import (render_template, url_for, flash, redirect,
                     request, abort, json, jsonify, Blueprint)
 from flask_login import current_user, login_required
 from menuscreen import db
-from menuscreen.models import User, Wines, Winelist_current, Wine_type
+from menuscreen.models import User, Wine, Winelist_current, Wine_type
 from menuscreen.wine.forms import WineForm, CurrentWinelistForm, WineTypeForm
-from menuscreen.wine.utils import getDefaultCurrentWinelist, _getWinelistDisplay, _getWines, _getWinetypes, _convertToWinelist
+from menuscreen.wine.utils import getDefaultCurrentWinelist, _getWinelistDisplay, _getWine, _getWinetypes, _convertToWinelist
 from menuscreen.users.init_db_tables import getVenueId
 
 from menuscreen import pusher_client
@@ -45,16 +45,16 @@ def _getCurrentWinelist():
     user = User.query.filter_by(id=current_user.id).first()
     data = user.winelist_current
     data = db.session.query(
-        Wines.name,
-        Wines.location,
-        Wines.description,
-        Wines.glass,
-        Wines.bottle,
-        Wines.varietal,
-        Wines.food_pairings,
-        Wines.website,
+        Wine.name,
+        Wine.location,
+        Wine.description,
+        Wine.glass,
+        Wine.bottle,
+        Wine.varietal,
+        Wine.food_pairings,
+        Wine.website,
         Winelist_current.id_dropdown
-        ).outerjoin(Winelist_current, Wines.id == Winelist_current.id_wine
+        ).outerjoin(Winelist_current, Wine.id == Winelist_current.id_wine
         ).filter(Winelist_current.venue_db_id == current_user.id
         ).order_by(Winelist_current.id_dropdown.asc()
         ).all()
@@ -108,7 +108,7 @@ def add_wine():
 
     if request.method == 'POST' and form.validate():
         # SQLAlchemy to add to database
-        wine = Wines(name=form.name.data,
+        wine = Wine(name=form.name.data,
             location=form.location.data,
             varietal=form.varietal.data,
             type=form.type.data,
@@ -139,7 +139,7 @@ def add_wine():
 @wine.route('/wine_dashboard', methods=['GET', 'POST'])
 @login_required
 def wine_dashboard():
-    # wines = Wines.query.all()
+    # wines = Wine.query.all()
     user = User.query.filter_by(id=current_user.id).first()
     wines = user.winelist_sort_asc
     for wine in wines:
@@ -154,7 +154,7 @@ def wine_dashboard():
 @wine.route('/edit_wine/<string:wine_id>', methods=['GET', 'POST'])
 @login_required
 def edit_wine(wine_id):
-    wine = Wines.query.get_or_404(wine_id)
+    wine = Wine.query.get_or_404(wine_id)
     if wine.venue_db_id != current_user.id:
         abort(403)
     # Get form
@@ -223,7 +223,7 @@ def edit_wine(wine_id):
 @login_required
 def delete_wine(wine_id):
 
-    wine = Wines.query.get_or_404(wine_id)
+    wine = Wine.query.get_or_404(wine_id)
     if wine.venue_db_id != current_user.id:
         abort(403)
     db.session.delete(wine)
@@ -381,7 +381,7 @@ def winelist_editor():
 def testing_winelist_editor():
 
     user = User.query.filter_by(id=current_user.id).first()
-    datas = _getWines(current_user.id)
+    datas = _getWine(current_user.id)
     wines = []
     for data in datas:
         wine = {
@@ -538,7 +538,7 @@ def winelist_menu():
     print("")
 
     # get all the wines in the database
-    totalWinelist = _getWines(current_user.id)
+    totalWinelist = _getWine(current_user.id)
     print(totalWinelist)
     print("")
 
@@ -598,7 +598,7 @@ def winelist_menu_nologin(venuename, screen_id):
     print("")
 
     # get all the wines in the database
-    totalWinelist = _getWines(current_user_id)
+    totalWinelist = _getWine(current_user_id)
     # print(totalWinelist)
     # print("")
 
@@ -657,7 +657,7 @@ def winelist_description():
         wineTypelistArr.append(wine['type'])
     print("")
 
-    totalWinelist = _getWines(current_user.id)
+    totalWinelist = _getWine(current_user.id)
     print(totalWinelist)
     print("")
 
@@ -711,7 +711,7 @@ def winelist_description_nologin(venuename, screen_id):
         wineTypelistArr.append(wine['type'])
     print("")
 
-    totalWinelist = _getWines(current_user_id)
+    totalWinelist = _getWine(current_user_id)
     print(totalWinelist)
     print("")
 

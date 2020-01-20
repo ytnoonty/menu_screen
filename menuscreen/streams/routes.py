@@ -1,7 +1,7 @@
 from flask import Response, Blueprint
 from menuscreen import db
 from menuscreen.models import (User, List_history, List_current,
-                                User_settings, Template, Font_size_options)
+                                User_settings, Template, Font_size_option)
 # from flask_sse import sse
 # import time
 

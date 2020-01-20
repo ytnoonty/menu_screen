@@ -1,6 +1,6 @@
 from flask_login import current_user
 from menuscreen import db
-from menuscreen.models import Ticker, Ticker_type_id, Beerscreen_settings
+from menuscreen.models import Ticker, Ticker_type_id, Beerscreen_setting
 
 def _getTickerInfo(screenData):
     print("screenData: {}".format(screenData))
@@ -20,7 +20,7 @@ def _getTickerInfo(screenData):
 def _getNumberOfBeerScreens(id):
     print("id: {}".format(id))
     numberOfScreens = db.session.query(
-        Beerscreen_settings.beer_settings_screen_id,
-    ).filter(Beerscreen_settings.venue_db_id == id
+        Beerscreen_setting.beer_settings_screen_id,
+    ).filter(Beerscreen_setting.venue_db_id == id
     ).all()
     return numberOfScreens

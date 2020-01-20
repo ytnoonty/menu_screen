@@ -1,7 +1,7 @@
 from flask import (jsonify)
 from flask_login import current_user, login_required
 from menuscreen import db
-from menuscreen.models import (User, List_history, List_current, Beerscreen_settings,
+from menuscreen.models import (User, List_history, List_current, Beerscreen_setting,
                             Ticker)
 from menuscreen.settttings.utils import (_getBeerSize1, _getBeerPrice1,
                             _getBeerSize2, _getBeerPrice2,
@@ -12,7 +12,7 @@ def _deleteBeerscreenSettingByScreenId(data):
     print('Data: {}'.format(data))
     userId = data['id']
     screenId = data['screenId']
-    screenSettingCandidate = Beerscreen_settings.query.filter_by(beer_settings_screen_id=screenId, venue_db_id=userId).first()
+    screenSettingCandidate = Beerscreen_setting.query.filter_by(beer_settings_screen_id=screenId, venue_db_id=userId).first()
     if screenSettingCandidate.venue_db_id != current_user.id:
         abort(403)
     db.session.delete(screenSettingCandidate)

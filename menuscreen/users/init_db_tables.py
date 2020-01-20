@@ -1,10 +1,11 @@
 from flask_login import current_user
 from menuscreen import db
-from menuscreen.models import (User, List_history, Drink_sizes, Drink_prices,
-                                List_current, Wines,
-                                Winelist_current, Wine_type, Beerscreen_settings,
-                                Winescreen_settings, Eventscreen_settings,
-                                Itemscreen_settings, Font_size_options, Template,
+from menuscreen.models import (User, List_history, List_current, Drink_size, Drink_price,
+                                Image_list_history, Image_list_current,
+                                Imagescreen_setting, Transition, Wine,
+                                Winelist_current, Wine_type, Beerscreen_setting,
+                                Winecreen_setting, Eventscreen_setting,
+                                Itemscreen_setting, Font_size_option, Template,
                                 Event, Item, Ticker, Ticker_type_id)
 
 def getVenueId(name):
@@ -34,8 +35,8 @@ def initListHistory(id):
     db.session.commit()
     print('********** INIT LIST_CURRENT *********')
 
-def initDrinkSizes(id):
-    size = Drink_sizes(
+def initDrinkSize(id):
+    size = Drink_size(
         drink_size='-',
         venue_db_id=id
     )
@@ -43,14 +44,53 @@ def initDrinkSizes(id):
     db.session.commit()
     print('********** INIT DRINK_SIZES *********')
 
-def initDrinkPrices(id):
-    price = Drink_prices(
+def initDrinkPrice(id):
+    price = Drink_price(
         drink_price='-',
         venue_db_id=id
     )
     db.session.add(price)
     db.session.commit()
     print('********** INIT DRINK_PRICES *********')
+
+def initImagelistHistory(id):
+    img = Image_list_history(
+        # logo_img_file=,
+        venue_db_id=id
+    )
+    db.session.add(img)
+    db.session.commit()
+    print('********** INIT IMAGE LIST_HISTORY *********')
+
+def initImagelistCurrent(id):
+    img = Image_list_current(
+        id_image_history='1',
+        id_image_dropdown='1',
+        image_screen_id='1',
+        venue_db_id=id
+    )
+    db.session.add(img)
+    db.session.commit()
+    print('********** INIT IMAGE LIST_CURRENT *********')
+
+def initImagescreenSetting(id):
+    settings = Imagescreen_setting(
+        img_screen_duration='5',
+        transition_id='1',
+        venue_db_id=id
+    )
+    db.session.add(settings)
+    db.session.commit()
+    print('********** INIT IMAGESCREEN_SETTING *********')
+
+def initTransition(id):
+    transition = Transition(
+        transition_name='-',
+        venue_db_id=id
+    )
+    db.session.add(transition)
+    db.session.commit()
+    print('********** INIT TRANSISTION *********')
 
 def initListCurrent(data):
     id = data['id']
@@ -75,7 +115,7 @@ def initListCurrent(data):
     print('********** INIT LIST_HISTORY *********')
 
 def initWinelist(id):
-    wine = Wines(
+    wine = Wine(
         venue_db_id=id,
         name='Wine Name',
         location='Wine Location',
@@ -94,7 +134,7 @@ def initWinelist(id):
     print('********** INIT WINELIST *********')
 
 def initWinelistCurrent(id):
-    wine = Wines.query.filter_by(venue_db_id=id).first()
+    wine = Wine.query.filter_by(venue_db_id=id).first()
     print(wine)
     wine_id = wine.id
     for x in range(1, 2, 1):
@@ -114,14 +154,14 @@ def initWinetype(id):
 
 
 
-def initBeerscreenSettings(data):
+def initBeerscreenSetting(data):
     id = data['id']
     if data['screenId'] == "":
         screenId = 1
     else:
         screenId = data['screenId']
     print('Here is the info: id={}, screenId={}'.format(id, screenId))
-    beerscreen_settings = Beerscreen_settings(
+    beerscreen_settings = Beerscreen_setting(
         font_color_one='#ffffff',
         font_color_two='#ffffff',
         font_color_three='#ffffff',
@@ -239,8 +279,8 @@ def initBeerscreenSettings(data):
     db.session.commit()
     print('********** INIT BEERSCREEN SETTINGS *********')
 
-def initWinescreenSettings(id):
-    winescreen_settings = Winescreen_settings(
+def initWinecreenSetting(id):
+    winescreen_settings = Winecreen_setting(
         venue_db_id=id,
         wine_settings_screen_id ='1',
         wine_screen_template ='1',
@@ -331,8 +371,8 @@ def initWinescreenSettings(id):
     db.session.commit()
     print('********** INIT WINESCREEN SETTINGS *********')
 
-def initEventscreenSettings(id):
-    eventscreen_settings = Eventscreen_settings(
+def initEventscreenSetting(id):
+    eventscreen_settings = Eventscreen_setting(
         venue_db_id=id,
         event_settings_screen_id ='1',
         event_screen_template ='1',
@@ -402,8 +442,8 @@ def initEventscreenSettings(id):
     db.session.commit()
     print('********** INIT EVENTSCREEN SETTINGS *********')
 
-def initItemscreenSettings(id):
-    itemscreen_settings = Itemscreen_settings(
+def initItemscreenSetting(id):
+    itemscreen_settings = Itemscreen_setting(
         venue_db_id=id,
         item_settings_screen_id ='1',
         item_screen_template ='1',
@@ -455,8 +495,8 @@ def initItemscreenSettings(id):
 
 
 
-def initFontSizeOptions(id):
-    fontSizeOptions = Font_size_options(
+def initFontSizeOption(id):
+    fontSizeOptions = Font_size_option(
         font_sizes='1.0em',
         venue_db_id=id
     )

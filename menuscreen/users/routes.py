@@ -9,12 +9,13 @@ from menuscreen.users.forms import (RegisterForm, LoginForm, UpdateAccountForm,
                                     RequestResetForm, ResetPasswordForm)
 from menuscreen.users.utils import save_picture, send_reset_email, get_user_data
 
-from menuscreen.users.init_db_tables import (getVenueId, initListHistory, initDrinkSizes,
-                                initDrinkPrices,
-                                initListCurrent, initWinelist, initWinelistCurrent,
-                                initWinetype, initBeerscreenSettings, initWinescreenSettings,
-                                initEventscreenSettings, initItemscreenSettings,
-                                initFontSizeOptions, initTemplate, initEvent, initItem,
+from menuscreen.users.init_db_tables import (getVenueId, initListHistory, initDrinkSize,
+                                initDrinkPrice, initImagelistHistory, initImagelistCurrent,
+                                initImagescreenSetting, initTransition, initListCurrent,
+                                initWinelist, initWinelistCurrent,
+                                initWinetype, initBeerscreenSetting, initWinecreenSetting,
+                                initEventscreenSetting, initItemscreenSetting,
+                                initFontSizeOption, initTemplate, initEvent, initItem,
                                 initTicker, initTickerTypeId)
 
 
@@ -88,17 +89,21 @@ def register():
 
         # init new venue DB for wine tables
         initListHistory(getVenueId(venuename))
-        initDrinkSizes(getVenueId(venuename))
-        initDrinkPrices(getVenueId(venuename))
+        initDrinkSize(getVenueId(venuename))
+        initDrinkPrice(getVenueId(venuename))
+        initImagelistHistory(getVenueId(venuename))
+        initImagelistCurrent(getVenueId(venuename))
+        initImagescreenSetting(getVenueId(venuename))
+        initTransition(getVenueId(venuename))
         initListCurrent({"id":getVenueId(venuename), "screenId": ""})
         initWinelist(getVenueId(venuename))
         initWinelistCurrent(getVenueId(venuename))
         initWinetype(getVenueId(venuename))
-        initBeerscreenSettings({"id":getVenueId(venuename), "screenId": ""})
-        initWinescreenSettings(getVenueId(venuename))
-        initEventscreenSettings(getVenueId(venuename))
-        initItemscreenSettings(getVenueId(venuename))
-        initFontSizeOptions(getVenueId(venuename))
+        initBeerscreenSetting({"id":getVenueId(venuename), "screenId": ""})
+        initWinecreenSetting(getVenueId(venuename))
+        initEventscreenSetting(getVenueId(venuename))
+        initItemscreenSetting(getVenueId(venuename))
+        initFontSizeOption(getVenueId(venuename))
         initTemplate(getVenueId(venuename))
         # initEvent(getVenueId(venuename))
         initItem(getVenueId(venuename))

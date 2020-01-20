@@ -1,13 +1,13 @@
 from flask import (render_template, request, url_for, flash, abort, jsonify, Blueprint)
 from flask_login import current_user, login_required
 from menuscreen import db
-from menuscreen.models import (User, List_history, List_current, Wines, Winelist_current,
-                                Beerscreen_settings, Winescreen_settings,
-                                Eventscreen_settings, Itemscreen_settings, Template,
-                                Font_size_options)
+from menuscreen.models import (User, List_history, List_current, Wine, Winelist_current,
+                                Beerscreen_setting, Winecreen_setting,
+                                Eventscreen_setting, Itemscreen_setting, Template,
+                                Font_size_option)
 from menuscreen.displays.utils import _getTickerInfo, _getNumberOfBeerScreens
 from menuscreen.settttings.utils import _getFontSizes, _getTemplates, _getSettings, _getNameFontSize, _getTemplateName, _getAbvFontSize, _getIbuFontSize, _getBreweryFontSize
-from menuscreen.wine.utils import _getWinelistDisplay, _getWines, _getWinetypes, _convertToWinelist
+from menuscreen.wine.utils import _getWinelistDisplay, _getWine, _getWinetypes, _convertToWinelist
 from menuscreen.users.init_db_tables import getVenueId
 import math
 
@@ -63,7 +63,7 @@ def _winemenu_list():
     # print("")
 
     # get all the wines in the database
-    totalWinelist = _getWines(data['userId'])
+    totalWinelist = _getWine(data['userId'])
     # print(totalWinelist)
     # print("")
 
@@ -246,10 +246,10 @@ def _screen_display():
         events.append(event)
     # print('events:{}'.format(events))
 
-    # nameFontSize = _getNameFontSize(current_user.id, Font_size_options.id)
-    # abvFontSize = _getAbvFontSize(current_user.id, Font_size_options.id)
-    # ibuFontSize = _getIbuFontSize(current_user.id, Font_size_options.id)
-    # breweryFontSize = _getBreweryFontSize(current_user.id, Font_size_options.id)
+    # nameFontSize = _getNameFontSize(current_user.id, Font_size_option.id)
+    # abvFontSize = _getAbvFontSize(current_user.id, Font_size_option.id)
+    # ibuFontSize = _getIbuFontSize(current_user.id, Font_size_option.id)
+    # breweryFontSize = _getBreweryFontSize(current_user.id, Font_size_option.id)
 
     # Get user settings
     datas = db.session.query(
@@ -279,9 +279,9 @@ def _screen_display():
                 User_settings.screen_template,
                 User_settings.venue_db_id,
                 Template.template_name,
-                Font_size_options.font_sizes,
+                Font_size_option.font_sizes,
                 ).join(Template, User_settings.screen_template == Template.id
-                ).join(Font_size_options, User_settings.name_font_size == Font_size_options.id
+                ).join(Font_size_option, User_settings.name_font_size == Font_size_option.id
                 ).filter(User_settings.venue_db_id == current_user.id).first()
 
     userSettings = {}
@@ -308,10 +308,10 @@ def _screen_display():
     userSettings['font_sizes'] = datas.font_sizes
     userSettings['venue_db_id'] = datas.venue_db_id
 
-    nameFontSize = _getNameFontSize(current_user.id, Font_size_options.id)
-    abvFontSize = _getAbvFontSize(current_user.id, Font_size_options.id)
-    ibuFontSize = _getIbuFontSize(current_user.id, Font_size_options.id)
-    breweryFontSize = _getBreweryFontSize(current_user.id, Font_size_options.id)
+    nameFontSize = _getNameFontSize(current_user.id, Font_size_option.id)
+    abvFontSize = _getAbvFontSize(current_user.id, Font_size_option.id)
+    ibuFontSize = _getIbuFontSize(current_user.id, Font_size_option.id)
+    breweryFontSize = _getBreweryFontSize(current_user.id, Font_size_option.id)
 
     userSettings['nameFontSize'] = nameFontSize
     userSettings['abvFontSize'] = abvFontSize

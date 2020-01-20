@@ -1,7 +1,7 @@
 from flask_login import current_user
 from sqlalchemy import and_
 from menuscreen import db
-from menuscreen.models import User, Wines, Winelist_current, Wine_type
+from menuscreen.models import User, Wine, Winelist_current, Wine_type
 
 def getDefaultCurrentWinelist(id):
     user = User.query.filter_by(id=current_user.id).first()
@@ -17,37 +17,37 @@ def _getWinelistDisplay(id):
     user = User.query.filter_by(id=current_user.id).first()
     wines = user.winelist_current
     wines = db.session.query(
-        Wines.name,
-        Wines.location,
-        Wines.description,
-        Wines.glass,
-        Wines.bottle,
-        Wines.varietal,
-        Wines.food_pairings,
-        Wines.website,
+        Wine.name,
+        Wine.location,
+        Wine.description,
+        Wine.glass,
+        Wine.bottle,
+        Wine.varietal,
+        Wine.food_pairings,
+        Wine.website,
         Winelist_current.id_dropdown
-        ).outerjoin(Winelist_current, Wines.id == Winelist_current.id_wine
+        ).outerjoin(Winelist_current, Wine.id == Winelist_current.id_wine
         ).filter(Winelist_current.venue_db_id == current_user.id
         ).order_by(Winelist_current.id_dropdown.asc()
         ).all()
     return wines
 
-def _getWines(id):
+def _getWine(id):
     wines = db.session.query(
-        Wines.id,
-        Wines.name,
-        Wines.location,
-        Wines.description,
-        Wines.glass,
-        Wines.bottle,
-        Wines.varietal,
-        Wines.food_pairings,
-        Wines.website,
+        Wine.id,
+        Wine.name,
+        Wine.location,
+        Wine.description,
+        Wine.glass,
+        Wine.bottle,
+        Wine.varietal,
+        Wine.food_pairings,
+        Wine.website,
         Wine_type.type
-        ).outerjoin(Wine_type, Wines.type == Wine_type.id
-        ).filter(Wines.venue_db_id == id
-        # ).filter(Wines.venue_db_id == current_user.id
-        ).order_by(Wines.name.asc()
+        ).outerjoin(Wine_type, Wine.type == Wine_type.id
+        ).filter(Wine.venue_db_id == id
+        # ).filter(Wine.venue_db_id == current_user.id
+        ).order_by(Wine.name.asc()
         ).all()
     # print(wines)
     winelist = []

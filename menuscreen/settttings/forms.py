@@ -120,7 +120,7 @@ class BeerscreenSettingsForm(FlaskForm):
         validators.DataRequired()
     ])
 
-class WinescreenSettingsForm(FlaskForm):
+class WinecreenSettingsForm(FlaskForm):
     wineSettingsScreenId = SelectField(u'Screen Id', coerce=int, option_widget=None)
     winescreenTemplate = SelectField(u'Screen Template', [validators.optional()], coerce=int, option_widget=None)
 

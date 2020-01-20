@@ -2,8 +2,8 @@ from flask import (render_template, url_for, flash, redirect,
                     request, abort, jsonify, Blueprint)
 from flask_login import current_user, login_required
 from menuscreen import db
-from menuscreen.models import User, Beerscreen_settings, Winescreen_settings, Eventscreen_settings, Itemscreen_settings, Font_size_options, Template, Drink_sizes, Drink_prices
-from menuscreen.settttings.forms import BeerscreenSettingsForm, WinescreenSettingsForm, EventscreenSettingsForm, ItemscreenSettingsForm, FontSizeForm, TemplateForm, DrinkContainerSizeForm, DrinkPriceForm
+from menuscreen.models import User, Beerscreen_setting, Winecreen_setting, Eventscreen_setting, Itemscreen_setting, Font_size_option, Template, Drink_size, Drink_price
+from menuscreen.settttings.forms import BeerscreenSettingsForm, WinecreenSettingsForm, EventscreenSettingsForm, ItemscreenSettingsForm, FontSizeForm, TemplateForm, DrinkContainerSizeForm, DrinkPriceForm
 from menuscreen.settttings.utils import _getFontSizes, _getFontSizeOptions, _getTemplates, _getBeerSettings, _getNameFontSize, _getStyleFontSize, _getTemplateName, _getAbvFontSize, _getIbuFontSize, _getBreweryFontSize, _getDrinkSizes, _getDrinkPrices
 from menuscreen.list_history.utils import _getCurrentBeerlist
 from menuscreen.event.utils import _getEventsSortAsc
@@ -111,7 +111,7 @@ def add_font_size():
 
     if form.validate_on_submit():
         fontSize = request.form['fontSizeOptions'] + 'em'
-        newFontSize = Font_size_options(font_sizes=fontSize, venue_db_id=current_user.id)
+        newFontSize = Font_size_option(font_sizes=fontSize, venue_db_id=current_user.id)
         db.session.add(newFontSize)
         db.session.commit()
         flash('New Font size has been added!', 'success')
@@ -129,7 +129,7 @@ def edit_drink_size():
 
     if form.validate_on_submit():
         drinkSize = request.form['drinkSizeText']
-        newDrinkSize = Drink_sizes(drink_size=drinkSize, venue_db_id=current_user.id)
+        newDrinkSize = Drink_size(drink_size=drinkSize, venue_db_id=current_user.id)
         db.session.add(newDrinkSize)
         db.session.commit()
         flash('New Drink size has been added!', 'success')
@@ -147,7 +147,7 @@ def edit_drink_price():
 
     if form.validate_on_submit():
         drinkPrice = request.form['drinkPriceText']
-        newDrinkPrice = Drink_prices(drink_price=drinkPrice, venue_db_id=current_user.id)
+        newDrinkPrice = Drink_price(drink_price=drinkPrice, venue_db_id=current_user.id)
         db.session.add(newDrinkPrice)
         db.session.commit()
         flash('New Drink price has been added!', 'success')
@@ -312,8 +312,8 @@ def beerscreen_settings():
     )
 
     beerscreenSettings = db.session.query(
-    Beerscreen_settings.beer_settings_screen_id
-    ).filter(Beerscreen_settings.venue_db_id == current_user.id
+    Beerscreen_setting.beer_settings_screen_id
+    ).filter(Beerscreen_setting.venue_db_id == current_user.id
     ).all()
     beerscreenSettingsIds = []
     for id in beerscreenSettings:
@@ -533,7 +533,7 @@ def beerscreen_settings():
         userSettings['beerscreenLandscapePortraitToggle'] = form.beerscreenLandscapePortraitToggle.data
         userSettings['venue_db_id'] = current_user.id
 
-        settingsCandidate = Beerscreen_settings.query.filter_by(beer_settings_screen_id=userSettings['beerSettingsScreenId'], venue_db_id=userSettings['venue_db_id']).first()
+        settingsCandidate = Beerscreen_setting.query.filter_by(beer_settings_screen_id=userSettings['beerSettingsScreenId'], venue_db_id=userSettings['venue_db_id']).first()
 
         settingsCandidate.font_color_one = userSettings['fontColorOne']
         settingsCandidate.font_color_two = userSettings['fontColorTwo']
@@ -650,11 +650,11 @@ def beerscreen_settings():
         db.session.commit()
 
         # templateName = _getTemplateName(userSettings['screen_template'])
-        # nameFontSize = _getNameFontSize(current_user.id, Font_size_options.id)
-        # styleFontSize = _getStyleFontSize(current_user.id, Font_size_options.id)
-        # abvFontSize = _getAbvFontSize(current_user.id, Font_size_options.id)
-        # ibuFontSize = _getIbuFontSize(current_user.id, Font_size_options.id)
-        # breweryFontSize = _getBreweryFontSize(current_user.id, Font_size_options.id)
+        # nameFontSize = _getNameFontSize(current_user.id, Font_size_option.id)
+        # styleFontSize = _getStyleFontSize(current_user.id, Font_size_option.id)
+        # abvFontSize = _getAbvFontSize(current_user.id, Font_size_option.id)
+        # ibuFontSize = _getIbuFontSize(current_user.id, Font_size_option.id)
+        # breweryFontSize = _getBreweryFontSize(current_user.id, Font_size_option.id)
         #
         # userSettings['template_name'] = templateName
         # userSettings['nameFontSize'] = nameFontSize
@@ -706,7 +706,7 @@ def winescreen_settings():
 
     print(settings)
 
-    form = WinescreenSettingsForm(request.form,
+    form = WinecreenSettingsForm(request.form,
         wineNameFont = settings['wine_name_font'],
         wineNameFontColor = settings['wine_name_font_color'],
         wineNameFontSize = settings['wineNameFontSize'],
@@ -1015,11 +1015,11 @@ def winescreen_settings():
         db.session.commit()
 
         templateName = _getTemplateName(userSettings['screen_template'])
-        nameFontSize = _getNameFontSize(current_user.id, Font_size_options.id)
-        styleFontSize = _getStyleFontSize(current_user.id, Font_size_options.id)
-        abvFontSize = _getAbvFontSize(current_user.id, Font_size_options.id)
-        ibuFontSize = _getIbuFontSize(current_user.id, Font_size_options.id)
-        breweryFontSize = _getBreweryFontSize(current_user.id, Font_size_options.id)
+        nameFontSize = _getNameFontSize(current_user.id, Font_size_option.id)
+        styleFontSize = _getStyleFontSize(current_user.id, Font_size_option.id)
+        abvFontSize = _getAbvFontSize(current_user.id, Font_size_option.id)
+        ibuFontSize = _getIbuFontSize(current_user.id, Font_size_option.id)
+        breweryFontSize = _getBreweryFontSize(current_user.id, Font_size_option.id)
 
         userSettings['template_name'] = templateName
         userSettings['nameFontSize'] = nameFontSize

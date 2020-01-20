@@ -196,15 +196,15 @@ class UI {
       let winelistBlushwine = document.getElementById('winelist-menu-blushwine');
       let winelistSparklingwine = document.getElementById('winelist-menu-sparklingwine');
       let winelistHousewine = document.getElementById('winelist-menu-housewine');
-      let redWines = wines.slice(0,10);
-      let whiteWines = wines.slice(10,18);
-      let blushWines = wines.slice(18,20);
-      let sparklingWines = wines.slice(20,22);
-      let houseWines = wines.slice(22,29);
+      let redWine = wines.slice(0,10);
+      let whiteWine = wines.slice(10,18);
+      let blushWine = wines.slice(18,20);
+      let sparklingWine = wines.slice(20,22);
+      let houseWine = wines.slice(22,29);
       let output = '';
 
 
-      redWines.forEach((wine)=>{
+      redWine.forEach((wine)=>{
         output +=
         `<!-- BEGIN CARD -->
         <div class="text-center" style="width: 100%;">
@@ -228,7 +228,7 @@ class UI {
       winelistRedwine.innerHTML = output;
 
       output = '';
-      whiteWines.forEach((wine)=>{
+      whiteWine.forEach((wine)=>{
         output +=
         `<!-- BEGIN CARD -->
         <div class="text-center" style="width: 100%;">
@@ -252,7 +252,7 @@ class UI {
       winelistWhitewine.innerHTML = output;
 
       output = '';
-      blushWines.forEach((wine)=>{
+      blushWine.forEach((wine)=>{
         output +=
         `<!-- BEGIN CARD -->
         <div class="text-center" style="width: 100%;">
@@ -276,7 +276,7 @@ class UI {
       winelistBlushwine.innerHTML = output;
 
       output = '';
-      sparklingWines.forEach((wine)=>{
+      sparklingWine.forEach((wine)=>{
         output +=
         `<!-- BEGIN CARD -->
         <div class="text-center" style="width: 100%;">
@@ -300,7 +300,7 @@ class UI {
       winelistSparklingwine.innerHTML = output;
 
       output = '';
-      houseWines.forEach((wine)=>{
+      houseWine.forEach((wine)=>{
         output +=
         `<!-- BEGIN CARD -->
         <div class="text-center" style="width: 100%;">
@@ -330,15 +330,15 @@ class UI {
       let winelistBlushwine = document.getElementById('winelist-description-blushwine');
       let winelistSparklingwine = document.getElementById('winelist-description-sparklingwine');
       let winelistHousewine = document.getElementById('winelist-description-housewine');
-      let redWines = wines.slice(0,10);
-      let whiteWines = wines.slice(10,18);
-      let blushWines = wines.slice(18,20);
-      let sparklingWines = wines.slice(20,22);
-      let houseWines = wines.slice(22,29);
+      let redWine = wines.slice(0,10);
+      let whiteWine = wines.slice(10,18);
+      let blushWine = wines.slice(18,20);
+      let sparklingWine = wines.slice(20,22);
+      let houseWine = wines.slice(22,29);
       let output = '';
 
 
-      redWines.forEach((wine)=>{
+      redWine.forEach((wine)=>{
         output +=
         `<!-- BEGIN CARD -->
         <div class="text-center" style="width: 100%;">
@@ -366,7 +366,7 @@ class UI {
       winelistRedwine.innerHTML = output;
 
       output = '';
-      whiteWines.forEach((wine)=>{
+      whiteWine.forEach((wine)=>{
         output +=
         `<!-- BEGIN CARD -->
         <div class="text-center" style="width: 100%;">
@@ -394,7 +394,7 @@ class UI {
       winelistWhitewine.innerHTML = output;
 
       output = '';
-      blushWines.forEach((wine)=>{
+      blushWine.forEach((wine)=>{
         output +=
         `<!-- BEGIN CARD -->
         <div class="text-center" style="width: 100%;">
@@ -422,7 +422,7 @@ class UI {
       winelistBlushwine.innerHTML = output;
 
       output = '';
-      sparklingWines.forEach((wine)=>{
+      sparklingWine.forEach((wine)=>{
         output +=
         `<!-- BEGIN CARD -->
         <div class="text-center" style="width: 100%;">
@@ -450,7 +450,7 @@ class UI {
       winelistSparklingwine.innerHTML = output;
 
       output = '';
-      houseWines.forEach((wine)=>{
+      houseWine.forEach((wine)=>{
         output +=
         `<!-- BEGIN CARD -->
         <div class="text-center" style="width: 100%;">

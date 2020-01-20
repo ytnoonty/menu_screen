@@ -2,10 +2,10 @@ from flask import (render_template, url_for, flash, redirect,
                     request, abort, jsonify, Blueprint, make_response)
 from flask_login import current_user, login_required
 from menuscreen import db
-from menuscreen.models import (User, List_history, Drink_sizes, Drink_prices,
-                        List_current, Font_size_options,
-                        Beerscreen_settings, Winescreen_settings, Eventscreen_settings,
-                        Itemscreen_settings, Template, Ticker, Ticker_type_id)
+from menuscreen.models import (User, List_history, Drink_size, Drink_price,
+                        List_current, Font_size_option,
+                        Beerscreen_setting, Winecreen_setting, Eventscreen_setting,
+                        Itemscreen_setting, Template, Ticker, Ticker_type_id)
 from menuscreen.list_history.forms import BeerForm, CurrentBeerListForm, NextBeerListForm
 from menuscreen.list_history.utils import (getDefaultSelect, getDefaultNextSelect,
                         _getTotalBeerlist, _getCurrentBeerlist, _getOnTapNextBeerlist,
@@ -16,7 +16,7 @@ from menuscreen.settttings.utils import (_getFontSizes, _getTemplates, _getSetti
                         _getNameFontSize, _getTemplateName, _getAbvFontSize,
                         _getIbuFontSize, _getBreweryFontSize,
                         _getDrinkSizes, _getDrinkPrices)
-from menuscreen.users.init_db_tables import (getVenueId, initBeerscreenSettings,
+from menuscreen.users.init_db_tables import (getVenueId, initBeerscreenSetting,
                         initListCurrent, initTickerSingleTicker)
 
 from menuscreen import pusher_client
@@ -38,7 +38,7 @@ def _init_new_beerscreen_settings():
     # init list_current with new beer for new screen
     initListCurrent(screenData)
     # init beerscreen_settings with new setting for new screen
-    initBeerscreenSettings(screenData)
+    initBeerscreenSetting(screenData)
     # ticker type id used for puting right ticker in 1=beer, 2=wine, 3=event, 4=item
     screenData['tickerTypeId']=1
     initTickerSingleTicker(screenData)
@@ -582,8 +582,8 @@ def edit_beer_list():
     screenId = 1
 
     beerscreenSettings = db.session.query(
-        Beerscreen_settings.beer_settings_screen_id
-    ).filter(Beerscreen_settings.venue_db_id == current_user.id
+        Beerscreen_setting.beer_settings_screen_id
+    ).filter(Beerscreen_setting.venue_db_id == current_user.id
     ).all()
     beerscreenSettingsIds = []
     for id in beerscreenSettings:
@@ -858,10 +858,10 @@ def testing_pusher_beerlist():
 
         print('events:{}'.format(events))
 
-        nameFontSize = _getNameFontSize(current_user.id, Font_size_options.id)
-        abvFontSize = _getAbvFontSize(current_user.id, Font_size_options.id)
-        ibuFontSize = _getIbuFontSize(current_user.id, Font_size_options.id)
-        breweryFontSize = _getBreweryFontSize(current_user.id, Font_size_options.id)
+        nameFontSize = _getNameFontSize(current_user.id, Font_size_option.id)
+        abvFontSize = _getAbvFontSize(current_user.id, Font_size_option.id)
+        ibuFontSize = _getIbuFontSize(current_user.id, Font_size_option.id)
+        breweryFontSize = _getBreweryFontSize(current_user.id, Font_size_option.id)
 
         # Get user settings
         datas = db.session.query(
@@ -891,9 +891,9 @@ def testing_pusher_beerlist():
                     User_settings.screen_template,
                     User_settings.venue_db_id,
                     Template.template_name,
-                    Font_size_options.font_sizes,
+                    Font_size_option.font_sizes,
                     ).join(Template, User_settings.screen_template == Template.id
-                    ).join(Font_size_options, User_settings.name_font_size == Font_size_options.id
+                    ).join(Font_size_option, User_settings.name_font_size == Font_size_option.id
                     ).filter(User_settings.venue_db_id == current_user.id).first()
 
         userSettings = {}

@@ -1,33 +1,33 @@
 from flask_login import current_user
 from menuscreen import db
-from menuscreen.models import (User, List_history, Beerscreen_settings, Winescreen_settings,
-                            Eventscreen_settings, Itemscreen_settings,
-                            Font_size_options, Template, Drink_sizes, Drink_prices)
+from menuscreen.models import (User, List_history, Beerscreen_setting, Winecreen_setting,
+                            Eventscreen_setting, Itemscreen_setting,
+                            Font_size_option, Template, Drink_size, Drink_price)
 
 def _getBeerSize1(beer_id):
     size = db.session.query(
-    Drink_sizes.size
+    Drink_size.drink_size
     ).join(List_history, List_history.size_id_1 == beer_id
     ).filter(List_history.venue_db_id == current_user.id
     ).first()
     return size[0]
 def _getBeerSize2(beer_id):
     size = db.session.query(
-    Drink_sizes.size
+    Drink_size.drink_size
     ).join(List_history, List_history.size_id_2 == beer_id
     ).filter(List_history.venue_db_id == current_user.id
     ).first()
     return size[0]
 def _getBeerSize3(beer_id):
     size = db.session.query(
-    Drink_sizes.size
+    Drink_size.drink_size
     ).join(List_history, List_history.size_id_3 == beer_id
     ).filter(List_history.venue_db_id == current_user.id
     ).first()
     return size[0]
 def _getBeerSize4(beer_id):
     size = db.session.query(
-    Drink_sizes.size
+    Drink_size.drink_size
     ).join(List_history, List_history.size_id_4 == beer_id
     ).filter(List_history.venue_db_id == current_user.id
     ).first()
@@ -35,28 +35,28 @@ def _getBeerSize4(beer_id):
 
 def _getBeerPrice1(beer_id):
     price = db.session.query(
-    Drink_prices.price
+    Drink_price.drink_price
     ).join(List_history, List_history.price_id_1 == beer_id
     ).filter(List_history.venue_db_id == current_user.id
     ).first()
     return price[0]
 def _getBeerPrice2(beer_id):
     price = db.session.query(
-    Drink_prices.price
+    Drink_price.drink_price
     ).join(List_history, List_history.price_id_2 == beer_id
     ).filter(List_history.venue_db_id == current_user.id
     ).first()
     return price[0]
 def _getBeerPrice3(beer_id):
     price = db.session.query(
-    Drink_prices.price
+    Drink_price.drink_price
     ).join(List_history, List_history.price_id_3 == beer_id
     ).filter(List_history.venue_db_id == current_user.id
     ).first()
     return price[0]
 def _getBeerPrice4(beer_id):
     price = db.session.query(
-    Drink_prices.price
+    Drink_price.drink_price
     ).join(List_history, List_history.price_id_4 == beer_id
     ).filter(List_history.venue_db_id == current_user.id
     ).first()
@@ -149,7 +149,7 @@ def _getTemplateName(template_id):
 
 def _getNameFontSize(user_id, fontSizeOptions):
     nameFontSize = db.session.query(
-    Font_size_options.font_sizes
+    Font_size_option.font_sizes
     ).join(User_settings, User_settings.name_font_size == fontSizeOptions
     ).filter(User_settings.venue_db_id == user_id
     ).first()
@@ -157,7 +157,7 @@ def _getNameFontSize(user_id, fontSizeOptions):
 
 def _getStyleFontSize(user_id, fontSizeOptions):
     styleFontSize = db.session.query(
-    Font_size_options.font_sizes
+    Font_size_option.font_sizes
     ).join(User_settings, User_settings.name_font_size == fontSizeOptions
     ).filter(User_settings.venue_db_id == user_id
     ).first()
@@ -165,7 +165,7 @@ def _getStyleFontSize(user_id, fontSizeOptions):
 
 def _getAbvFontSize(user_id, fontSizeOptions):
     abvFontSize = db.session.query(
-    Font_size_options.font_sizes
+    Font_size_option.font_sizes
     ).join(User_settings, User_settings.abv_font_size == fontSizeOptions
     ).filter(User_settings.venue_db_id == user_id
     ).first()
@@ -173,7 +173,7 @@ def _getAbvFontSize(user_id, fontSizeOptions):
 
 def _getIbuFontSize(user_id, fontSizeOptions):
     ibuFontSize = db.session.query(
-    Font_size_options.font_sizes
+    Font_size_option.font_sizes
     ).join(User_settings, User_settings.ibu_font_size == fontSizeOptions
     ).filter(User_settings.venue_db_id == user_id
     ).first()
@@ -181,7 +181,7 @@ def _getIbuFontSize(user_id, fontSizeOptions):
 
 def _getBreweryFontSize(user_id, fontSizeOptions):
     breweryFontSize = db.session.query(
-    Font_size_options.font_sizes
+    Font_size_option.font_sizes
     ).join(User_settings, User_settings.brewery_font_size == fontSizeOptions
     ).filter(User_settings.venue_db_id == user_id
     ).first()
@@ -191,216 +191,216 @@ def _getBeerSettings(screenData):
     print("screenData: {}".format(screenData))
     userId = screenData['userId']
     displayId = screenData['screenNumber']
-    # settings_db = Beerscreen_settings.query.filter_by(venue_db_id=current_user.id).first()
-    # settings_db = Beerscreen_settings.query.filter_by(venue_db_id=current_user_id).first()
+    # settings_db = Beerscreen_setting.query.filter_by(venue_db_id=current_user.id).first()
+    # settings_db = Beerscreen_setting.query.filter_by(venue_db_id=current_user_id).first()
     settings_db = db.session.query(
-        Beerscreen_settings.font_color_one,
-        Beerscreen_settings.font_color_two,
-        Beerscreen_settings.font_color_three,
-        Beerscreen_settings.font_color_direction,
-        Beerscreen_settings.shadow_font_color_one,
-        Beerscreen_settings.shadow_font_color_two,
-        Beerscreen_settings.shadow_font_color_three,
-        Beerscreen_settings.shadow_font_color_direction,
+        Beerscreen_setting.font_color_one,
+        Beerscreen_setting.font_color_two,
+        Beerscreen_setting.font_color_three,
+        Beerscreen_setting.font_color_direction,
+        Beerscreen_setting.shadow_font_color_one,
+        Beerscreen_setting.shadow_font_color_two,
+        Beerscreen_setting.shadow_font_color_three,
+        Beerscreen_setting.shadow_font_color_direction,
 
-        Beerscreen_settings.beer_bom_background_color_one,
-        Beerscreen_settings.beer_bom_background_color_two,
-        Beerscreen_settings.beer_bom_background_color_three,
-        Beerscreen_settings.beer_bom_background_color_four,
-        Beerscreen_settings.beer_bom_background_color_five,
-        Beerscreen_settings.beer_bom_background_color_direction,
+        Beerscreen_setting.beer_bom_background_color_one,
+        Beerscreen_setting.beer_bom_background_color_two,
+        Beerscreen_setting.beer_bom_background_color_three,
+        Beerscreen_setting.beer_bom_background_color_four,
+        Beerscreen_setting.beer_bom_background_color_five,
+        Beerscreen_setting.beer_bom_background_color_direction,
 
-        Beerscreen_settings.beer_bom_name_font,
-        Beerscreen_settings.beer_bom_name_font_color,
-        Beerscreen_settings.beer_bom_name_font_size,
-        Beerscreen_settings.beer_bom_name_font_bold_toggle,
-        Beerscreen_settings.beer_bom_name_font_italic_toggle,
-        Beerscreen_settings.beer_bom_name_font_underline_toggle,
+        Beerscreen_setting.beer_bom_name_font,
+        Beerscreen_setting.beer_bom_name_font_color,
+        Beerscreen_setting.beer_bom_name_font_size,
+        Beerscreen_setting.beer_bom_name_font_bold_toggle,
+        Beerscreen_setting.beer_bom_name_font_italic_toggle,
+        Beerscreen_setting.beer_bom_name_font_underline_toggle,
 
-        Beerscreen_settings.beer_bom_style_font,
-        Beerscreen_settings.beer_bom_style_font_color,
-        Beerscreen_settings.beer_bom_style_font_size,
-        Beerscreen_settings.beer_bom_style_font_bold_toggle,
-        Beerscreen_settings.beer_bom_style_font_italic_toggle,
-        Beerscreen_settings.beer_bom_style_font_underline_toggle,
+        Beerscreen_setting.beer_bom_style_font,
+        Beerscreen_setting.beer_bom_style_font_color,
+        Beerscreen_setting.beer_bom_style_font_size,
+        Beerscreen_setting.beer_bom_style_font_bold_toggle,
+        Beerscreen_setting.beer_bom_style_font_italic_toggle,
+        Beerscreen_setting.beer_bom_style_font_underline_toggle,
 
-        Beerscreen_settings.beer_bom_abv_font_color,
-        Beerscreen_settings.beer_bom_abv_font_size,
-        Beerscreen_settings.beer_bom_abv_font_bold_toggle,
-        Beerscreen_settings.beer_bom_abv_font_italic_toggle,
-        Beerscreen_settings.beer_bom_abv_font_underline_toggle,
+        Beerscreen_setting.beer_bom_abv_font_color,
+        Beerscreen_setting.beer_bom_abv_font_size,
+        Beerscreen_setting.beer_bom_abv_font_bold_toggle,
+        Beerscreen_setting.beer_bom_abv_font_italic_toggle,
+        Beerscreen_setting.beer_bom_abv_font_underline_toggle,
 
-        Beerscreen_settings.beer_bom_ibu_font_color,
-        Beerscreen_settings.beer_bom_ibu_font_size,
-        Beerscreen_settings.beer_bom_ibu_font_bold_toggle,
-        Beerscreen_settings.beer_bom_ibu_font_italic_toggle,
-        Beerscreen_settings.beer_bom_ibu_font_underline_toggle,
+        Beerscreen_setting.beer_bom_ibu_font_color,
+        Beerscreen_setting.beer_bom_ibu_font_size,
+        Beerscreen_setting.beer_bom_ibu_font_bold_toggle,
+        Beerscreen_setting.beer_bom_ibu_font_italic_toggle,
+        Beerscreen_setting.beer_bom_ibu_font_underline_toggle,
 
-        Beerscreen_settings.beer_bom_brewery_font,
-        Beerscreen_settings.beer_bom_brewery_font_color,
-        Beerscreen_settings.beer_bom_brewery_font_size,
-        Beerscreen_settings.beer_bom_brewery_font_bold_toggle,
-        Beerscreen_settings.beer_bom_brewery_font_italic_toggle,
-        Beerscreen_settings.beer_bom_brewery_font_underline_toggle,
+        Beerscreen_setting.beer_bom_brewery_font,
+        Beerscreen_setting.beer_bom_brewery_font_color,
+        Beerscreen_setting.beer_bom_brewery_font_size,
+        Beerscreen_setting.beer_bom_brewery_font_bold_toggle,
+        Beerscreen_setting.beer_bom_brewery_font_italic_toggle,
+        Beerscreen_setting.beer_bom_brewery_font_underline_toggle,
 
-        Beerscreen_settings.beer_background_color_one,
-        Beerscreen_settings.beer_background_color_two,
-        Beerscreen_settings.beer_background_color_three,
-        Beerscreen_settings.beer_background_color_four,
-        Beerscreen_settings.beer_background_color_five,
-        Beerscreen_settings.beer_background_color_direction,
+        Beerscreen_setting.beer_background_color_one,
+        Beerscreen_setting.beer_background_color_two,
+        Beerscreen_setting.beer_background_color_three,
+        Beerscreen_setting.beer_background_color_four,
+        Beerscreen_setting.beer_background_color_five,
+        Beerscreen_setting.beer_background_color_direction,
 
-        Beerscreen_settings.beer_name_font,
-        Beerscreen_settings.beer_name_font_color,
-        Beerscreen_settings.beer_name_font_size,
-        Beerscreen_settings.beer_name_font_bold_toggle,
-        Beerscreen_settings.beer_name_font_italic_toggle,
-        Beerscreen_settings.beer_name_font_underline_toggle,
+        Beerscreen_setting.beer_name_font,
+        Beerscreen_setting.beer_name_font_color,
+        Beerscreen_setting.beer_name_font_size,
+        Beerscreen_setting.beer_name_font_bold_toggle,
+        Beerscreen_setting.beer_name_font_italic_toggle,
+        Beerscreen_setting.beer_name_font_underline_toggle,
 
-        Beerscreen_settings.beer_style_font,
-        Beerscreen_settings.beer_style_font_color,
-        Beerscreen_settings.beer_style_font_size,
-        Beerscreen_settings.beer_style_font_bold_toggle,
-        Beerscreen_settings.beer_style_font_italic_toggle,
-        Beerscreen_settings.beer_style_font_underline_toggle,
+        Beerscreen_setting.beer_style_font,
+        Beerscreen_setting.beer_style_font_color,
+        Beerscreen_setting.beer_style_font_size,
+        Beerscreen_setting.beer_style_font_bold_toggle,
+        Beerscreen_setting.beer_style_font_italic_toggle,
+        Beerscreen_setting.beer_style_font_underline_toggle,
 
-        Beerscreen_settings.beer_abv_font_color,
-        Beerscreen_settings.beer_abv_font_size,
-        Beerscreen_settings.beer_abv_font_bold_toggle,
-        Beerscreen_settings.beer_abv_font_italic_toggle,
-        Beerscreen_settings.beer_abv_font_underline_toggle,
+        Beerscreen_setting.beer_abv_font_color,
+        Beerscreen_setting.beer_abv_font_size,
+        Beerscreen_setting.beer_abv_font_bold_toggle,
+        Beerscreen_setting.beer_abv_font_italic_toggle,
+        Beerscreen_setting.beer_abv_font_underline_toggle,
 
-        Beerscreen_settings.beer_ibu_font_color,
-        Beerscreen_settings.beer_ibu_font_size,
-        Beerscreen_settings.beer_ibu_font_bold_toggle,
-        Beerscreen_settings.beer_ibu_font_italic_toggle,
-        Beerscreen_settings.beer_ibu_font_underline_toggle,
+        Beerscreen_setting.beer_ibu_font_color,
+        Beerscreen_setting.beer_ibu_font_size,
+        Beerscreen_setting.beer_ibu_font_bold_toggle,
+        Beerscreen_setting.beer_ibu_font_italic_toggle,
+        Beerscreen_setting.beer_ibu_font_underline_toggle,
 
-        Beerscreen_settings.beer_brewery_font,
-        Beerscreen_settings.beer_brewery_font_color,
-        Beerscreen_settings.beer_brewery_font_size,
-        Beerscreen_settings.beer_brewery_font_bold_toggle,
-        Beerscreen_settings.beer_brewery_font_italic_toggle,
-        Beerscreen_settings.beer_brewery_font_underline_toggle,
+        Beerscreen_setting.beer_brewery_font,
+        Beerscreen_setting.beer_brewery_font_color,
+        Beerscreen_setting.beer_brewery_font_size,
+        Beerscreen_setting.beer_brewery_font_bold_toggle,
+        Beerscreen_setting.beer_brewery_font_italic_toggle,
+        Beerscreen_setting.beer_brewery_font_underline_toggle,
 
-        Beerscreen_settings.beer_ticker_bg_color_one,
-        Beerscreen_settings.beer_ticker_bg_color_two,
-        Beerscreen_settings.beer_ticker_bg_color_three,
-        Beerscreen_settings.beer_ticker_bg_color_four,
-        Beerscreen_settings.beer_ticker_bg_color_five,
-        Beerscreen_settings.beer_ticker_bg_color_direction,
+        Beerscreen_setting.beer_ticker_bg_color_one,
+        Beerscreen_setting.beer_ticker_bg_color_two,
+        Beerscreen_setting.beer_ticker_bg_color_three,
+        Beerscreen_setting.beer_ticker_bg_color_four,
+        Beerscreen_setting.beer_ticker_bg_color_five,
+        Beerscreen_setting.beer_ticker_bg_color_direction,
         # font for beer names in the ticker
-        Beerscreen_settings.beer_ticker_beernames_font,
+        Beerscreen_setting.beer_ticker_beernames_font,
         # font for headings of ticker ie. 'Beer 'O the Month, Tapping Soon and Shamrock News:'
-        Beerscreen_settings.beer_ticker_font,
-        Beerscreen_settings.beer_ticker_font_color,
-        Beerscreen_settings.beer_ticker_font_size,
-        Beerscreen_settings.beer_ticker_font_bold_toggle,
-        Beerscreen_settings.beer_ticker_font_italic_toggle,
-        Beerscreen_settings.beer_ticker_font_underline_toggle,
+        Beerscreen_setting.beer_ticker_font,
+        Beerscreen_setting.beer_ticker_font_color,
+        Beerscreen_setting.beer_ticker_font_size,
+        Beerscreen_setting.beer_ticker_font_bold_toggle,
+        Beerscreen_setting.beer_ticker_font_italic_toggle,
+        Beerscreen_setting.beer_ticker_font_underline_toggle,
 
-        Beerscreen_settings.beer_ticker_toggle,
-        Beerscreen_settings.beer_ticker_scroll_speed,
+        Beerscreen_setting.beer_ticker_toggle,
+        Beerscreen_setting.beer_ticker_scroll_speed,
 
-        Beerscreen_settings.venue_db_id,
-        Beerscreen_settings.beer_settings_screen_id,
-        Beerscreen_settings.beer_screen_template,
-        Beerscreen_settings.beer_screen_landscape_portrait_toggle,
+        Beerscreen_setting.venue_db_id,
+        Beerscreen_setting.beer_settings_screen_id,
+        Beerscreen_setting.beer_screen_template,
+        Beerscreen_setting.beer_screen_landscape_portrait_toggle,
 
         Template.template_name,
-        Font_size_options.font_sizes,
-    ).join(Template, Beerscreen_settings.beer_screen_template == Template.id
-    # ).join(Font_size_options, Beerscreen_settings.beer_bom_name_font_size  == Font_size_options.id
-    ).filter(Beerscreen_settings.beer_settings_screen_id == displayId
-    ).filter(Beerscreen_settings.venue_db_id == userId
+        Font_size_option.font_sizes,
+    ).join(Template, Beerscreen_setting.beer_screen_template == Template.id
+    # ).join(Font_size_option, Beerscreen_setting.beer_bom_name_font_size  == Font_size_option.id
+    ).filter(Beerscreen_setting.beer_settings_screen_id == displayId
+    ).filter(Beerscreen_setting.venue_db_id == userId
     ).first()
 
     beerBomNameFontSize = db.session.query(
-        Beerscreen_settings.beer_bom_name_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, Beerscreen_settings.beer_bom_name_font_size == Font_size_options.id
-    ).filter(Beerscreen_settings.beer_settings_screen_id == displayId
-    ).filter(Beerscreen_settings.venue_db_id == userId
+        Beerscreen_setting.beer_bom_name_font_size,
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, Beerscreen_setting.beer_bom_name_font_size == Font_size_option.id
+    ).filter(Beerscreen_setting.beer_settings_screen_id == displayId
+    ).filter(Beerscreen_setting.venue_db_id == userId
     ).first()
 
     beerBomStyleFontSize = db.session.query(
-        Beerscreen_settings.beer_bom_style_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, Beerscreen_settings.beer_bom_style_font_size == Font_size_options.id
-    ).filter(Beerscreen_settings.beer_settings_screen_id == displayId
-    ).filter(Beerscreen_settings.venue_db_id == userId
+        Beerscreen_setting.beer_bom_style_font_size,
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, Beerscreen_setting.beer_bom_style_font_size == Font_size_option.id
+    ).filter(Beerscreen_setting.beer_settings_screen_id == displayId
+    ).filter(Beerscreen_setting.venue_db_id == userId
     ).first()
 
     beerBomAbvFontSize = db.session.query(
-        Beerscreen_settings.beer_bom_abv_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, Beerscreen_settings.beer_bom_abv_font_size == Font_size_options.id
-    ).filter(Beerscreen_settings.beer_settings_screen_id == displayId
-    ).filter(Beerscreen_settings.venue_db_id == userId
+        Beerscreen_setting.beer_bom_abv_font_size,
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, Beerscreen_setting.beer_bom_abv_font_size == Font_size_option.id
+    ).filter(Beerscreen_setting.beer_settings_screen_id == displayId
+    ).filter(Beerscreen_setting.venue_db_id == userId
     ).first()
 
     beerBomIbuFontSize = db.session.query(
-        Beerscreen_settings.beer_bom_ibu_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, Beerscreen_settings.beer_bom_ibu_font_size == Font_size_options.id
-    ).filter(Beerscreen_settings.beer_settings_screen_id == displayId
-    ).filter(Beerscreen_settings.venue_db_id == userId
+        Beerscreen_setting.beer_bom_ibu_font_size,
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, Beerscreen_setting.beer_bom_ibu_font_size == Font_size_option.id
+    ).filter(Beerscreen_setting.beer_settings_screen_id == displayId
+    ).filter(Beerscreen_setting.venue_db_id == userId
     ).first()
 
     beerBomBreweryFontSize = db.session.query(
-        Beerscreen_settings.beer_bom_brewery_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, Beerscreen_settings.beer_bom_brewery_font_size == Font_size_options.id
-    ).filter(Beerscreen_settings.beer_settings_screen_id == displayId
-    ).filter(Beerscreen_settings.venue_db_id == userId
+        Beerscreen_setting.beer_bom_brewery_font_size,
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, Beerscreen_setting.beer_bom_brewery_font_size == Font_size_option.id
+    ).filter(Beerscreen_setting.beer_settings_screen_id == displayId
+    ).filter(Beerscreen_setting.venue_db_id == userId
     ).first()
 
     beerNameFontSize = db.session.query(
-        Beerscreen_settings.beer_name_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, Beerscreen_settings.beer_name_font_size == Font_size_options.id
-    ).filter(Beerscreen_settings.beer_settings_screen_id == displayId
-    ).filter(Beerscreen_settings.venue_db_id == userId
+        Beerscreen_setting.beer_name_font_size,
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, Beerscreen_setting.beer_name_font_size == Font_size_option.id
+    ).filter(Beerscreen_setting.beer_settings_screen_id == displayId
+    ).filter(Beerscreen_setting.venue_db_id == userId
     ).first()
 
     beerStyleFontSize = db.session.query(
-        Beerscreen_settings.beer_style_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, Beerscreen_settings.beer_style_font_size == Font_size_options.id
-    ).filter(Beerscreen_settings.beer_settings_screen_id == displayId
-    ).filter(Beerscreen_settings.venue_db_id == userId
+        Beerscreen_setting.beer_style_font_size,
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, Beerscreen_setting.beer_style_font_size == Font_size_option.id
+    ).filter(Beerscreen_setting.beer_settings_screen_id == displayId
+    ).filter(Beerscreen_setting.venue_db_id == userId
     ).first()
 
     beerAbvFontSize = db.session.query(
-        Beerscreen_settings.beer_abv_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, Beerscreen_settings.beer_abv_font_size == Font_size_options.id
-    ).filter(Beerscreen_settings.beer_settings_screen_id == displayId
-    ).filter(Beerscreen_settings.venue_db_id == userId
+        Beerscreen_setting.beer_abv_font_size,
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, Beerscreen_setting.beer_abv_font_size == Font_size_option.id
+    ).filter(Beerscreen_setting.beer_settings_screen_id == displayId
+    ).filter(Beerscreen_setting.venue_db_id == userId
     ).first()
 
     beerIbuFontSize = db.session.query(
-        Beerscreen_settings.beer_ibu_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, Beerscreen_settings.beer_ibu_font_size == Font_size_options.id
-    ).filter(Beerscreen_settings.beer_settings_screen_id == displayId
-    ).filter(Beerscreen_settings.venue_db_id == userId
+        Beerscreen_setting.beer_ibu_font_size,
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, Beerscreen_setting.beer_ibu_font_size == Font_size_option.id
+    ).filter(Beerscreen_setting.beer_settings_screen_id == displayId
+    ).filter(Beerscreen_setting.venue_db_id == userId
     ).first()
 
     beerBreweryFontSize = db.session.query(
-        Beerscreen_settings.beer_brewery_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, Beerscreen_settings.beer_brewery_font_size == Font_size_options.id
-    ).filter(Beerscreen_settings.beer_settings_screen_id == displayId
-    ).filter(Beerscreen_settings.venue_db_id == userId
+        Beerscreen_setting.beer_brewery_font_size,
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, Beerscreen_setting.beer_brewery_font_size == Font_size_option.id
+    ).filter(Beerscreen_setting.beer_settings_screen_id == displayId
+    ).filter(Beerscreen_setting.venue_db_id == userId
     ).first()
 
     beerTickerFontSize = db.session.query(
-        Beerscreen_settings.beer_ticker_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, Beerscreen_settings.beer_ticker_font_size == Font_size_options.id
-    ).filter(Beerscreen_settings.beer_settings_screen_id == displayId
-    ).filter(Beerscreen_settings.venue_db_id == userId
+        Beerscreen_setting.beer_ticker_font_size,
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, Beerscreen_setting.beer_ticker_font_size == Font_size_option.id
+    ).filter(Beerscreen_setting.beer_settings_screen_id == displayId
+    ).filter(Beerscreen_setting.venue_db_id == userId
     ).first()
 
     this_setting = {
@@ -844,9 +844,9 @@ def _getSettings(current_user_id):
         User_settings.screen_template,
         User_settings.venue_db_id,
         Template.template_name,
-        Font_size_options.font_sizes,
+        Font_size_option.font_sizes,
     ).join(Template, User_settings.screen_template == Template.id
-    ).join(Font_size_options, User_settings.beer_bom_name_font_size  == Font_size_options.id
+    ).join(Font_size_option, User_settings.beer_bom_name_font_size  == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
 
@@ -854,133 +854,133 @@ def _getSettings(current_user_id):
 
     beerBomNameFontSize = db.session.query(
         User_settings.beer_bom_name_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.beer_bom_name_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.beer_bom_name_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
 
     beerBomStyleFontSize = db.session.query(
         User_settings.beer_bom_style_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.beer_bom_style_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.beer_bom_style_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
 
     beerBomAbvFontSize = db.session.query(
         User_settings.beer_bom_abv_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.beer_bom_abv_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.beer_bom_abv_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
 
     beerBomIbuFontSize = db.session.query(
         User_settings.beer_bom_ibu_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.beer_bom_ibu_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.beer_bom_ibu_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
 
     beerBomBreweryFontSize = db.session.query(
         User_settings.beer_bom_brewery_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.beer_bom_brewery_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.beer_bom_brewery_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
 
     beerNameFontSize = db.session.query(
         User_settings.beer_name_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.beer_name_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.beer_name_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
 
     beerStyleFontSize = db.session.query(
         User_settings.beer_style_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.beer_style_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.beer_style_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
 
     beerAbvFontSize = db.session.query(
         User_settings.beer_abv_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.beer_abv_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.beer_abv_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
 
     beerIbuFontSize = db.session.query(
         User_settings.beer_ibu_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.beer_ibu_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.beer_ibu_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
 
     beerBreweryFontSize = db.session.query(
         User_settings.beer_brewery_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.beer_brewery_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.beer_brewery_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
 
     beerTickerFontSize = db.session.query(
         User_settings.beer_ticker_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.beer_ticker_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.beer_ticker_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
 
     wineNameFontSize = db.session.query(
         User_settings.wine_name_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.wine_name_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.wine_name_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
     wineLocationFontSize = db.session.query(
         User_settings.wine_location_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.wine_location_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.wine_location_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
     wineDescriptionFontSize = db.session.query(
         User_settings.wine_description_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.wine_description_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.wine_description_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
     wineGlassFontSize = db.session.query(
         User_settings.wine_glass_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.wine_glass_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.wine_glass_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
     wineBottleFontSize = db.session.query(
         User_settings.wine_bottle_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.wine_bottle_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.wine_bottle_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
     wineVarietalFontSize = db.session.query(
         User_settings.wine_varietal_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.wine_varietal_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.wine_varietal_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
     wineTypeFontSize = db.session.query(
         User_settings.wine_type_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.wine_type_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.wine_type_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
     wineFoodPairingsFontSize = db.session.query(
         User_settings.wine_foodPairings_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.wine_foodPairings_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.wine_foodPairings_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
     wineWebsiteFontSize = db.session.query(
         User_settings.wine_website_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.wine_website_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.wine_website_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
 
@@ -988,74 +988,74 @@ def _getSettings(current_user_id):
 
     wineTickerFontSize = db.session.query(
         User_settings.wine_ticker_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.wine_ticker_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.wine_ticker_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
     eventNameFontSize = db.session.query(
         User_settings.event_name_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.event_name_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.event_name_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
     eventArtistFontSize = db.session.query(
         User_settings.event_artist_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.event_artist_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.event_artist_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
     eventDateofeventFontSize = db.session.query(
         User_settings.event_date_of_event_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.event_date_of_event_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.event_date_of_event_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
     eventStarttimeFontSize = db.session.query(
         User_settings.event_starttime_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.event_starttime_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.event_starttime_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
     eventEndtimeFontSize = db.session.query(
         User_settings.event_endtime_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.event_endtime_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.event_endtime_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
     eventLocationFontSize = db.session.query(
         User_settings.event_location_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.event_location_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.event_location_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
     eventTickerFontSize = db.session.query(
         User_settings.event_ticker_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.event_ticker_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.event_ticker_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
     itemNameFontSize = db.session.query(
         User_settings.item_name_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.item_name_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.item_name_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
     itemDescriptionFontSize = db.session.query(
         User_settings.item_description_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.item_description_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.item_description_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
     itemPriceFontSize = db.session.query(
         User_settings.item_price_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.item_price_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.item_price_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
     itemTickerFontSize = db.session.query(
         User_settings.item_ticker_font_size,
-        Font_size_options.font_sizes,
-    ).join(Font_size_options, User_settings.item_ticker_font_size == Font_size_options.id
+        Font_size_option.font_sizes,
+    ).join(Font_size_option, User_settings.item_ticker_font_size == Font_size_option.id
     ).filter(User_settings.venue_db_id == current_user_id
     ).first()
 
