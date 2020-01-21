@@ -2,12 +2,14 @@ from flask import (render_template, url_for, flash, redirect,
                     request, abort, jsonify, Blueprint)
 from flask_login import current_user, login_required
 from menuscreen import db
-from menuscreen.models import User, Beerscreen_setting, Winecreen_setting, Eventscreen_setting, Itemscreen_setting, Font_size_option, Template, Drink_size, Drink_price
+from menuscreen.models import User, Beerscreen_setting, Winecreen_setting, Eventscreen_setting, Itemscreen_setting, Font_size_option, Template, Drink_size, Drink_price, Image_list_history
 from menuscreen.settttings.forms import BeerscreenSettingsForm, WinecreenSettingsForm, EventscreenSettingsForm, ItemscreenSettingsForm, FontSizeForm, TemplateForm, DrinkContainerSizeForm, DrinkPriceForm, ImageForm
 from menuscreen.settttings.utils import _getFontSizes, _getFontSizeOptions, _getTemplates, _getBeerSettings, _getNameFontSize, _getStyleFontSize, _getTemplateName, _getAbvFontSize, _getIbuFontSize, _getBreweryFontSize, _getDrinkSizes, _getDrinkPrices, _getImages
 from menuscreen.list_history.utils import _getCurrentBeerlist
 from menuscreen.event.utils import _getEventsSortAsc
 from menuscreen.users.init_db_tables import getVenueId
+
+from io import BytesIO
 
 from menuscreen import pusher_client
 
@@ -162,8 +164,18 @@ def add_image():
     form = ImageForm()
     # validate and submit the form
     if form.validate_on_submit():
-        print(form.imageName.data)
-        print(form.imageFile.data)
+        imgName = form.imageName.data
+        file = request.files['imageFile']
+        # print(file.filename)
+
+        img = Image_list_history(
+            logo_image_name=imgName,
+            logo_image_file=file.read(),
+            venue_db_id=current_user.id
+        )
+        db.session.add(img)
+        db.session.commit()
+
         #show success message
         flash('Image has been added to the list!', 'success')
         return redirect(url_for('settttings.image_dashboard'))
@@ -175,8 +187,17 @@ def add_image():
 def image_dashboard():
     images = _getImages(current_user.id)
     for image in images:
-        print(image)
-        # image.dash_menu_id = list(image.logo_image_name)[0].lower()
+        # print(image['logo_image_name'])
+        # print(BytesIO(image['logo_image_file']))
+        # image['img'] = BytesIO(image['logo_image_file'])
+
+        if image['logo_image_file']:
+            # with open('logo.jpg', 'wb') as l:
+            #     l.write(image['logo_image_file'])
+            imgFile = open
+
+        # # image.dash_menu_id = list(image.logo_image_name)[0].lower()
+
     if images:
         return render_template('image_dashboard.html', title='Image Dashboard', legend='Image Dashboard', images=images)
     else:

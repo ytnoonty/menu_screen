@@ -59,6 +59,7 @@
           <tr id="{{ image.dash_menu_id }}" class="row-name">
             <th class="toggle-table dashboard-image-name">{{image.logo_image_name}}</th>
             <th class="dashboard-image-file">{{image.logo_image_file}}</th>
+            <th class="dashboard-image">{{image.img}}</th>
             <td><a href="{{ url_for('settttings.edit_image', image_id=image.id) }}" class="btn btn-sm btn-outline-default pull-right">Edit</a></td>
             <td>
               <form action="{{url_for('settttings.delete_image', image_id=image.id)}}" method="post">
@@ -80,6 +81,10 @@
               <div class="row row-logo_image_file">
                 <div class="col-5">Image File:</div>
                 <div class="col-7">{{image.logo_image_file}}</div>
+              </div>
+              <div class="row row-logo_image_file">
+                <div class="col-5">Image Byte:</div>
+                <div class="col-7">{{image.img}}</div>
               </div>
             </td>
           </tr>

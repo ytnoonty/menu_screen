@@ -9,7 +9,7 @@
     </div>
   </div>
   {% from "includes/_formhelpers.html" import  render_field %}
-  <form id="image-beer-to-db-form" method="POST" action="">
+  <form id="image-beer-to-db-form" method="POST" action="" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
     <fieldset class="form-group">
       <legend class="border-bottom mb-4">Add Image</legend>
@@ -19,6 +19,7 @@
       <div class="form-group">
         {{ render_field(form.imageFile, class_="form-control") }}
       </div>
+
 
       <div class="form-group">
         <!-- NEED TO CHANGE FROM SUBMIT TO CLICK AND THEN USE JAVASCRIPT TO SUBMIT AND UPDATE BEERLIST ON THE FLY -->
