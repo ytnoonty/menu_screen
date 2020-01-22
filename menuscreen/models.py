@@ -107,7 +107,8 @@ class Image_list_history(db.Model):
     __tablename__ = 'image_list_history'
     id = db.Column(db.Integer, primary_key=True)
     logo_image_name = db.Column(db.String(100))
-    logo_image_file = db.Column(db.LargeBinary, nullable=True)
+    # logo_image_file = db.Column(db.LargeBinary, nullable=True)
+    logo_image_file = db.Column(db.String(20), nullable=False, default='default_logo.jpg')
     venue_db_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):

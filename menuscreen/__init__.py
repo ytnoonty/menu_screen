@@ -56,6 +56,7 @@ def create_app(config_class=Config):
     from menuscreen.event.routes import event
     from menuscreen.wine.routes import wine
     from menuscreen.settttings.routes import settttings
+    from menuscreen.image.routes import image
     from menuscreen.errors.handlers import errors
     # from menuscreen.streams.routes import streams
 
@@ -66,6 +67,7 @@ def create_app(config_class=Config):
     app.register_blueprint(event)
     app.register_blueprint(wine)
     app.register_blueprint(settttings)
+    app.register_blueprint(image)
     app.register_blueprint(errors)
     # app.register_blueprint(streams)
 

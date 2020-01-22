@@ -346,10 +346,3 @@ class DrinkContainerSizeForm(FlaskForm):
 class DrinkPriceForm(FlaskForm):
     drinkPriceText = StringField('Drink Price - 5.00', [validators.Length(min=1, max=10)])
     drinkPriceSelect = SelectField(u'Drink Prices', [validators.optional()], coerce=int, option_widget=None)
-
-class ImageForm(FlaskForm):
-    imageName = StringField('Image Name', [validators.Length(min=5, max=10)])
-    imageFile = FileField('Image/Icon File', validators=[
-        FileAllowed(['jpg'], 'Images Only!')
-    ])
-    submit = SubmitField('Save Picture')

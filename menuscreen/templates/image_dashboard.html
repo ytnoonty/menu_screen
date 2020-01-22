@@ -38,7 +38,7 @@
     <hr>
     <div class="row my-3 mx-auto">
       <div class="col-12 my-1">
-        <a class="btn btn-sm btn-outline-info" href="{{ url_for('settttings.add_image')}}"> Add Image</a>
+        <a class="btn btn-sm btn-outline-info" href="{{ url_for('image.add_image')}}"> Add Image</a>
         <a class="btn btn-sm btn-outline-info" href="/imagesearch">Search Images</a>
       </div>
       <div class="col-12 my-1">
@@ -57,12 +57,11 @@
       <table class="mt-3 table table-striped">
         {% for image in images %}
           <tr id="{{ image.dash_menu_id }}" class="row-name">
-            <th class="toggle-table dashboard-image-name">{{image.logo_image_name}}</th>
-            <th class="dashboard-image-file">{{image.logo_image_file}}</th>
-            <th class="dashboard-image">{{image.img}}</th>
-            <td><a href="{{ url_for('settttings.edit_image', image_id=image.id) }}" class="btn btn-sm btn-outline-default pull-right">Edit</a></td>
+            <th class="toggle-table dashboard-image-name col-4">{{image.logo_image_name}}</th>
+            <th class="dashboard-image"><img src="{{ image.img }}" alt="" class="logo-img col-sm-3"></th>
+            <td><a href="{{ url_for('image.edit_image', image_id=image.id) }}" class="btn btn-sm btn-outline-default pull-right">Edit</a></td>
             <td>
-              <form action="{{url_for('settttings.delete_image', image_id=image.id)}}" method="post">
+              <form action="{{url_for('image.delete_image', image_id=image.id)}}" method="post">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="submit" value="Delete" class="btn btn-sm btn-outline-danger">
               </form>
@@ -72,19 +71,19 @@
             <td colspan="2" class="d-none animate-table">
               <div class="row row-id">
                 <div class="col-5">ID:</div>
-                <div class="col-7">{{image.id}}</div>
+                <div class="col-7">{{ image.id }}</div>
               </div>
               <div class="row row-logo_image_name">
                 <div class="col-5">Image Name:</div>
-                <div class="col-7">{{image.logo_image_name}}</div>
+                <div class="col-7">{{ image.logo_image_name }}</div>
               </div>
               <div class="row row-logo_image_file">
                 <div class="col-5">Image File:</div>
-                <div class="col-7">{{image.logo_image_file}}</div>
+                <div class="col-7">{{ image.logo_image_file }}</div>
               </div>
               <div class="row row-logo_image_file">
-                <div class="col-5">Image Byte:</div>
-                <div class="col-7">{{image.img}}</div>
+                <div class="col-5">Image Photo:</div>
+                <div class="col-7"><img src="{{ image.img }}" alt="" class="logo-img"></div>
               </div>
             </td>
           </tr>
