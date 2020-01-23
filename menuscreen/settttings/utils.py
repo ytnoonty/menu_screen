@@ -6,61 +6,71 @@ from menuscreen.models import (User, List_history, Beerscreen_setting, Winecreen
 
 def _getBeerSize1(userId, beer_id):
     size = db.session.query(
-    Drink_size.drink_size
-    ).join(List_history, List_history.size_id_1 == beer_id
-    ).filter(List_history.venue_db_id == userId
+        List_history.id,
+        Drink_size.drink_size,
+    ).outerjoin(Drink_size, List_history.size_id_1 == Drink_size.id
+    ).filter(Drink_size.venue_db_id == userId
     ).first()
-    return size[0]
+    return size.drink_size
+
 def _getBeerSize2(userId, beer_id):
     size = db.session.query(
-    Drink_size.drink_size
-    ).join(List_history, List_history.size_id_2 == beer_id
-    ).filter(List_history.venue_db_id == userId
+        List_history.id,
+        Drink_size.drink_size,
+    ).outerjoin(Drink_size, List_history.size_id_2 == Drink_size.id
+    ).filter(Drink_size.venue_db_id == userId
     ).first()
-    return size[0]
+    return size.drink_size
 def _getBeerSize3(userId, beer_id):
     size = db.session.query(
-    Drink_size.drink_size
-    ).join(List_history, List_history.size_id_3 == beer_id
-    ).filter(List_history.venue_db_id == userId
+        List_history.id,
+        Drink_size.drink_size,
+    ).outerjoin(Drink_size, List_history.size_id_3 == Drink_size.id
+    ).filter(Drink_size.venue_db_id == userId
     ).first()
-    return size[0]
+    return size.drink_size
 def _getBeerSize4(userId, beer_id):
     size = db.session.query(
-    Drink_size.drink_size
-    ).join(List_history, List_history.size_id_4 == beer_id
-    ).filter(List_history.venue_db_id == userId
+        List_history.id,
+        Drink_size.drink_size,
+    ).outerjoin(Drink_size, List_history.size_id_4 == Drink_size.id
+    ).filter(Drink_size.venue_db_id == userId
     ).first()
-    return size[0]
+    return size.drink_size
 
 def _getBeerPrice1(userId, beer_id):
     price = db.session.query(
-    Drink_price.drink_price
-    ).join(List_history, List_history.price_id_1 == beer_id
+        List_history.id,
+        Drink_price.drink_price,
+    ).join(Drink_price, List_history.price_id_1 == Drink_price.id
     ).filter(List_history.venue_db_id == userId
     ).first()
-    return price[0]
+    return price.drink_price
+
 def _getBeerPrice2(userId, beer_id):
     price = db.session.query(
-    Drink_price.drink_price
-    ).join(List_history, List_history.price_id_2 == beer_id
+        List_history.id,
+        Drink_price.drink_price,
+    ).join(Drink_price, List_history.price_id_2 == Drink_price.id
     ).filter(List_history.venue_db_id == userId
     ).first()
-    return price[0]
+    return price.drink_price
 def _getBeerPrice3(userId, beer_id):
     price = db.session.query(
-    Drink_price.drink_price
-    ).join(List_history, List_history.price_id_3 == beer_id
+        List_history.id,
+        Drink_price.drink_price,
+    ).join(Drink_price, List_history.price_id_3 == Drink_price.id
     ).filter(List_history.venue_db_id == userId
     ).first()
-    return price[0]
+    return price.drink_price
 def _getBeerPrice4(userId, beer_id):
     price = db.session.query(
-    Drink_price.drink_price
-    ).join(List_history, List_history.price_id_4 == beer_id
+        List_history.id,
+        Drink_price.drink_price,
+    ).join(Drink_price, List_history.price_id_4 == Drink_price.id
     ).filter(List_history.venue_db_id == userId
     ).first()
-    return price[0]
+    return price.drink_price
 
 def _getDrinkSizes(user_id):
     user = User.query.filter_by(id=user_id).first()
