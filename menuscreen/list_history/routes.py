@@ -196,7 +196,9 @@ def _getCurBeerlist():
         print("NOT LOGGED IN")
         print(data['userName'])
         current_user_id = getVenueId(data['userName'])
-        print(current_user_id)
+        print("current_user_id: {}".format(current_user_id))
+        print("")
+        print("")
 
         data['userId'] = current_user_id
         print("data: {}".format(data))

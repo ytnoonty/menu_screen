@@ -50,7 +50,7 @@ def _get_beerscreen_settings():
 
 # GET FONTSIZEOPTIONS
 @settttings.route('/_get_font_size_options', methods=['POST'])
-@login_required
+# @login_required
 def get_font_size_options():
     data = request.get_json()
     print("**************************************")
