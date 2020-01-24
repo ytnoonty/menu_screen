@@ -28,6 +28,12 @@ def initListHistory(id):
         # beer_logo_image_file_id='',
         size_id_1='1',
         price_id_1='1',
+        size_id_2='1',
+        price_id_2='1',
+        size_id_3='1',
+        price_id_3='1',
+        size_id_4='1',
+        price_id_4='1',
         # create_date='',
         venue_db_id=id
     )
@@ -67,6 +73,7 @@ def initImagelistCurrent(id):
     img = Image_list_current(
         id_image_history='1',
         id_image_dropdown='1',
+        imagescreen_setting_id='1',
         image_screen_id='1',
         venue_db_id=id
     )

@@ -12,7 +12,6 @@ def _getBeerSize1(userId, beer_id):
     ).filter(Drink_size.venue_db_id == userId
     ).first()
     return size.drink_size
-
 def _getBeerSize2(userId, beer_id):
     size = db.session.query(
         List_history.id,

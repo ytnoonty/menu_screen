@@ -119,6 +119,7 @@ class Image_list_current(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     id_image_history = db.Column(db.Integer)
     id_image_dropdown = db.Column(db.Integer)
+    imagescreen_setting_id = db.Column(db.Integer)
     image_screen_id = db.Column(db.Integer)
     venue_db_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
