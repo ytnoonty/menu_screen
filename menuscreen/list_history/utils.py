@@ -145,6 +145,8 @@ def _getCurrentBeerlist(screenData):
     # print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     return beerlist
 
+
+
 def _getOnTapNextBeerlist(screenData):
     print("screenData: {}".format(screenData))
     userId = screenData['userId']
@@ -298,6 +300,35 @@ def _deleteBeer(data):
     db.session.delete(beer)
     db.session.commit()
     return data
+
+def _getDraftBeers(screenData):
+    print("*******************************************************************")
+    print("*******************************************************************")
+    print("screenData: {}".format(screenData))
+    print("*******************************************************************")
+    print("*******************************************************************")
+    
+    user = User.query.filter_by(id=screenData['userId']).first()
+    beers = db.session.query(
+        List_current.id,
+        List_history.id,
+        List_history.name,
+        List_history.style,
+        List_history.abv,
+        List_history.ibu,
+        List_history.brewery,
+        List_history.location,
+        List_history.website,
+        List_history.description,
+        List_history.draft_bottle_selection,
+        List_current.id_dropdown,
+        List_current.beer_of_month,
+        List_current.coming_soon,
+        ).outerjoin(List_current, List_history.id == List_current.id_history
+        ).filter(List_current.venue_db_id == screenData['userId']
+        ).filter(List_current.beer_screen_id == screenData['screenNumber']
+        ).all()
+    return beers
 
 
 def _getBottleBeers(user_id):

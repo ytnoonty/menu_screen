@@ -6,6 +6,7 @@ from menuscreen.models import (User, List_history, List_current, Wine, Winelist_
                                 Eventscreen_setting, Itemscreen_setting, Template,
                                 Font_size_option)
 from menuscreen.displays.utils import _getTickerInfo, _getNumberOfBeerScreens
+from menuscreen.list_history.utils import (_getDraftBeers)
 from menuscreen.settttings.utils import _getFontSizes, _getTemplates, _getSettings, _getNameFontSize, _getTemplateName, _getAbvFontSize, _getIbuFontSize, _getBreweryFontSize
 from menuscreen.wine.utils import _getWinelistDisplay, _getWine, _getWinetypes, _convertToWinelist
 from menuscreen.users.init_db_tables import getVenueId
@@ -896,38 +897,12 @@ def draft_beers():
 
 @displays.route('/draft_beers/<string:venuename>/<string:screen_id>', methods=['GET', 'POST'])
 def draft_beers_nologin(venuename, screen_id):
-    print('******************************************************************')
-    print("venuename: {}".format(venuename))
-    current_user_id = getVenueId(venuename)
-    print("current_user_id: {}".format(current_user_id))
-    print("screen_id: {}".format(screen_id))
+    print('\nTHIS IS draft_beers\n')
     screenData = {
-        "userId": current_user_id,
+        "userId": getVenueId(venuename),
         "screenNumber": screen_id,
     }
-    print('******************************************************************')
-    user = User.query.filter_by(id=current_user_id).first()
-    beers = db.session.query(
-        List_current.id,
-        List_history.id,
-        List_history.name,
-        List_history.style,
-        List_history.abv,
-        List_history.ibu,
-        List_history.brewery,
-        List_history.location,
-        List_history.website,
-        List_history.description,
-        List_history.draft_bottle_selection,
-        List_current.id_dropdown,
-        List_current.beer_of_month,
-        List_current.coming_soon,
-        ).outerjoin(List_current, List_history.id == List_current.id_history
-        ).filter(List_current.venue_db_id == current_user_id
-        # ).filter(List_current.beer_screen_id == screen_id
-        ).all()
-
-    print('\nTHIS IS draft_beers\n')
+    beers = _getDraftBeers(screenData)
     for beer in beers:
         print(beer)
 
@@ -969,39 +944,18 @@ def draft_beers_print():
 
 @displays.route('/draft_beers_print/<string:venuename>/<string:screen_id>', methods=['GET','POST'])
 def draft_beers_print_nologin(venuename, screen_id):
-    print('******************************************************************')
-    print("venuename: {}".format(venuename))
-    current_user_id = getVenueId(venuename)
-    print("current_user_id: {}".format(current_user_id))
-    print("screen_id: {}".format(screen_id))
+    print('\nTHIS IS draft_beers_print\n')
     screenData = {
-        "userId": current_user_id,
+        "userId": getVenueId(venuename),
         "screenNumber": screen_id,
     }
-    print('******************************************************************')
-
-    user = User.query.filter_by(id=current_user_id).first()
-    beers = db.session.query(
-        List_history.id,
-        List_history.name,
-        List_history.style,
-        List_history.abv,
-        List_history.ibu,
-        List_history.brewery,
-        List_history.location,
-        List_history.website,
-        List_history.description,
-        List_history.draft_bottle_selection,
-        List_current.id_dropdown,
-        List_current.beer_of_month,
-        List_current.coming_soon
-        ).outerjoin(List_current, List_history.id == List_current.id_history
-        ).filter(List_current.venue_db_id == current_user_id
-        # ).filter(List_current.beerscreen_id == screen_id
-        ).all()
+    # query DB for current draft beers for the venue and the screen
+    beers = _getDraftBeers(screenData)
+    for beer in beers:
+        print(beer)
 
     if len(beers) > 0:
-        return render_template('draft_beers_print.html', title='Beer Print', legend='Beer Print', beers=beers, currentUserId=current_user_id)
+        return render_template('draft_beers_print.html', title='Beer Print', legend='Beer Print', beers=beers, currentUserId=screenData['userId'])
     else:
         msg = 'No Beers Found'
-    return render_template('draft_beers_print.html', msg=msg, currentUserId=current_user_id)
+    return render_template('draft_beers_print.html', msg=msg, currentUserId=screenData['userId'])
