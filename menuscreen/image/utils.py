@@ -32,6 +32,21 @@ def _getImages(id):
         imgs.append(img)
     return imgs
 
+def save_icon_image(form_image):
+    random_hex = secrets.token_hex(8)
+    print(random_hex)
+    _, f_ext = os.path.splitext(form_image.filename)
+    picture_fn = random_hex + "_icon" + f_ext
+    print(picture_fn)
+    picture_path = os.path.join(current_app.root_path, 'static/img/logo_images', picture_fn)
+
+    output_size = (125, 125)
+    i = Image.open(form_image)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
+    return picture_fn
+
 def save_image(form_image):
     random_hex = secrets.token_hex(8)
     print(random_hex)
@@ -40,9 +55,7 @@ def save_image(form_image):
     print(picture_fn)
     picture_path = os.path.join(current_app.root_path, 'static/img/logo_images', picture_fn)
 
-    output_size = (125, 125)
     i = Image.open(form_image)
-    i.thumbnail(output_size)
     i.save(picture_path)
 
     return picture_fn

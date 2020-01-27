@@ -4,7 +4,7 @@ from flask_login import (login_user, current_user, login_required)
 from menuscreen import db
 from menuscreen.models import (Image_list_history)
 from menuscreen.image.forms import (ImageForm)
-from menuscreen.image.utils import (_getImages, save_image)
+from menuscreen.image.utils import (_getImages, save_icon_image, save_image)
 
 
 image = Blueprint('image', __name__)
@@ -22,9 +22,23 @@ def add_image():
         print(imgName)
         print(imgFile)
 
+        # if form fields are populated save image file to server
         if form.imageFile.data:
+            # save image icon 125px x 125px
+            img_icon_file = save_icon_image(form.imageFile.data)
+            # save image normal size
             img_file = save_image(form.imageFile.data)
 
+        # send image icon info to DB
+        imgIcon = Image_list_history(
+            logo_image_name=imgName + "_icon",
+            logo_image_file=img_icon_file,
+            venue_db_id=current_user.id
+        )
+        db.session.add(imgIcon)
+        db.session.commit()
+
+        # send image normal size info to DB
         img = Image_list_history(
             logo_image_name=imgName,
             logo_image_file=img_file,
@@ -33,7 +47,7 @@ def add_image():
         db.session.add(img)
         db.session.commit()
 
-        #show success message
+        # show success message
         flash('Image has been added to the list!', 'success')
         return redirect(url_for('image.image_dashboard'))
     return render_template('add_image.html', title='Add Image', legend="Add Image", form=form)
