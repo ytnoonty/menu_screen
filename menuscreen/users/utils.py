@@ -8,7 +8,7 @@ from menuscreen import mail
 from menuscreen import db
 from menuscreen.models import User, List_history, List_current
 
-def save_picture(form_picture):
+def save_profile_picture(form_picture):
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext

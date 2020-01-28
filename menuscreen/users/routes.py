@@ -7,7 +7,7 @@ from menuscreen import db
 from menuscreen.models import User, List_history
 from menuscreen.users.forms import (RegisterForm, LoginForm, UpdateAccountForm,
                                     RequestResetForm, ResetPasswordForm)
-from menuscreen.users.utils import save_picture, send_reset_email, get_user_data
+from menuscreen.users.utils import save_profile_picture, send_reset_email, get_user_data
 
 from menuscreen.users.init_db_tables import (getVenueId, initListHistory, initDrinkSize,
                                 initDrinkPrice, initImagelistHistory, initImagelistCurrent,
@@ -152,7 +152,7 @@ def account():
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if form.picture.data:
-            picture_file = save_picture(form.picture.data)
+            picture_file = save_profile_picture(form.picture.data)
             current_user.image_file = picture_file
         current_user.name = form.name.data
         current_user.venue_name = form.venuename.data

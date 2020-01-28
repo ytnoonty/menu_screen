@@ -47,7 +47,7 @@ def save_icon_image(form_image):
 
     return picture_fn
 
-def save_image(form_image):
+def save_full_image(form_image):
     random_hex = secrets.token_hex(8)
     print(random_hex)
     _, f_ext = os.path.splitext(form_image.filename)
