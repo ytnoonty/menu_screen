@@ -22,22 +22,22 @@ def add_image():
         print(imgName)
         print(imgFile)
 
-        # # if form fields are populated save image file to server
-        # if form.imageFile.data:
-        #     # save image icon 125px x 125px
-        #     img_icon_file = save_icon_image(form.imageFile.data)
-        #     # save image normal size
-        #     img_file = save_image(form.imageFile.data)
-        #
-        # # send image icon info to DB
-        # imgIcon = Image_list_history(
-        #     logo_image_name=imgName + "_icon",
-        #     logo_image_file=img_icon_file,
-        #     venue_db_id=current_user.id
-        # )
-        # db.session.add(imgIcon)
+        # if form fields are populated save image file to server
+        if form.imageFile.data:
+            # save image icon 125px x 125px
+            img_icon_file = save_icon_image(form.imageFile.data)
+            # save image normal size
+            img_file = save_image(form.imageFile.data)
+
+        # send image icon info to DB
+        imgIcon = Image_list_history(
+            logo_image_name=imgName + "_icon",
+            logo_image_file=img_icon_file,
+            venue_db_id=current_user.id
+        )
+        db.session.add(imgIcon)
         # db.session.commit()
-        #
+
         # # send image normal size info to DB
         # img = Image_list_history(
         #     logo_image_name=imgName + "_full",
@@ -45,7 +45,7 @@ def add_image():
         #     venue_db_id=current_user.id
         # )
         # db.session.add(img)
-        # db.session.commit()
+        db.session.commit()
 
         # show success message
         flash('Image has been added to the list!', 'success')
