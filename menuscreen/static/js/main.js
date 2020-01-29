@@ -120,7 +120,7 @@ const BeerCtrl = (function(){
   }
 
   async function fetchBeerhistoryList(userData) {
-    console.log(userData);
+    // console.log(userData);
     const res = await fetch('/_getTotBeerlist', {
       method: "POST",
       credentials: "include",
@@ -131,7 +131,7 @@ const BeerCtrl = (function(){
       })
     });
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     return data;
   }
 
@@ -228,7 +228,7 @@ const BeerCtrl = (function(){
   }
 
   async function fetchBottleBeerlist(userData) {
-    // console.log(userData);
+    console.log(userData);
     const fetchResponse = await fetch('/_getBottleBeerlist', {
       method: "POST",
       credentials: "include",
@@ -239,7 +239,7 @@ const BeerCtrl = (function(){
       })
     });
     const data = await fetchResponse.json();
-    // console.log(data);
+    console.log(data);
     return data;
   }
 
