@@ -113,26 +113,30 @@ def _getBottleBeerlist():
     if (current_user.is_authenticated):
         # print("LOGGED IN")
         # print(current_user.id)
-        bottleBeerlist = _getBottleBeers(current_user.id)
+
+        data['userId'] = current_user.id
+        print("data: {}".format(data))
+        bottleBeerlist = _getBottleBeers(data)
         data = {
-        "beerlist": bottleBeerlist,
-        "venue_db_id": current_user.id
+            "beerlist": bottleBeerlist,
+            "venue_db_id": current_user.id
         }
     elif (data):
         current_user_id = getVenueId(data['userName'])
+        data['userId'] = current_user_id
         # print("NOT LOGGED IN")
         # print(data['userName'])
         # print(current_user_id)
-        bottleBeerlist = _getBottleBeers(current_user_id)
+        bottleBeerlist = _getBottleBeers(data)
         data = {
             "beerlist": bottleBeerlist,
             "venue_db_id": current_user_id
         }
     else:
-        # print("NOT LOGGED IN AND NO URL INFO")
+        print("NOT LOGGED IN AND NO URL INFO")
         data = {}
-    # print("**************************************")
-    # print("**************************************")
+    print("**************************************")
+    print("**************************************")
     return jsonify(data)
 
 @list_history.route('/_getTotBeerlist', methods=['GET', 'POST'])

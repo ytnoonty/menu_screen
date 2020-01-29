@@ -92,6 +92,7 @@ def _getCurrentBeerlist(screenData):
         ).filter(List_current.venue_db_id == userId
         ).order_by(List_current.id_dropdown.asc()
         ).all()
+
     beerlist = []
     for b in beers:
         beer = {}
@@ -307,7 +308,7 @@ def _getDraftBeers(screenData):
     print("screenData: {}".format(screenData))
     print("*******************************************************************")
     print("*******************************************************************")
-    
+
     user = User.query.filter_by(id=screenData['userId']).first()
     beers = db.session.query(
         List_current.id,
@@ -331,7 +332,11 @@ def _getDraftBeers(screenData):
     return beers
 
 
-def _getBottleBeers(user_id):
+def _getBottleBeers(screenData):
+    print("screenData: {}".format(screenData))
+    userId = screenData['userId']
+    displayId = screenData['screenNumber']
+
     data = db.session.query(
         List_history.id,
         List_history.name,
@@ -352,7 +357,7 @@ def _getBottleBeers(user_id):
         List_history.price_id_4,
         List_history.draft_bottle_selection,
         ).filter(List_history.draft_bottle_selection != "Draft"
-        ).filter(List_history.venue_db_id == user_id
+        ).filter(List_history.venue_db_id == userId
         ).order_by(List_history.name.asc()
         ).all()
 
@@ -368,14 +373,14 @@ def _getBottleBeers(user_id):
         beer['location'] = b.location
         beer['website'] = b.website
         beer['description'] = b.description
-        beer['size_id_1'] = _getBeerSize1(b.size_id_1)
-        beer['price_id_1'] = _getBeerPrice1(b.price_id_1)
-        beer['size_id_2'] = _getBeerSize2(b.size_id_2)
-        beer['price_id_2'] = _getBeerPrice2(b.price_id_2)
-        beer['size_id_3'] = _getBeerSize3(b.size_id_3)
-        beer['price_id_3'] = _getBeerPrice3(b.price_id_3)
-        beer['size_id_4'] = _getBeerSize4(b.size_id_4)
-        beer['price_id_4'] = _getBeerPrice4(b.price_id_4)
+        beer['size_id_1'] = _getBeerSize1(userId, b.size_id_1)
+        beer['price_id_1'] = _getBeerPrice1(userId, b.price_id_1)
+        beer['size_id_2'] = _getBeerSize2(userId, b.size_id_2)
+        beer['price_id_2'] = _getBeerPrice2(userId, b.price_id_2)
+        beer['size_id_3'] = _getBeerSize3(userId, b.size_id_3)
+        beer['price_id_3'] = _getBeerPrice3(userId, b.price_id_3)
+        beer['size_id_4'] = _getBeerSize4(userId, b.size_id_4)
+        beer['price_id_4'] = _getBeerPrice4(userId, b.price_id_4)
         beer['draft_bottle_selection'] = b.draft_bottle_selection
         beerlist.append(beer)
     return beerlist
