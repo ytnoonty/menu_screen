@@ -144,7 +144,7 @@ def _getBottleBeerlist():
 def _getTotBeerlist():
     data = request.get_json()
     print("**************************************")
-    print("*********** LINE 136 *****************")
+    print("*********** LINE 147 *****************")
     print("list_history. /_getTotBeerlist")
     print("**************************************")
     print("data: {}".format(data))
@@ -181,7 +181,7 @@ def _getTotBeerlist():
 def _getCurBeerlist():
     data = request.get_json()
     print("**************************************")
-    print("******LINE  175***********************")
+    print("******LINE  184***********************")
     print("list_history. /_getCurBeerlist")
     print("**************************************")
     print("data: {}".format(data))

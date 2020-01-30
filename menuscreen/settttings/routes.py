@@ -124,12 +124,14 @@ def add_font_size():
 def edit_drink_size():
     form = DrinkContainerSizeForm(request.form)
     sizes = _getDrinkSizes(current_user.id)
+    sizeListLength = len(sizes) + 1
 
     form.drinkSizeSelect.choices = [(size['id'], size['drink_size']) for size in sizes]
 
     if form.validate_on_submit():
         drinkSize = request.form['drinkSizeText']
-        newDrinkSize = Drink_size(drink_size=drinkSize, venue_db_id=current_user.id)
+        newDrinkSize = Drink_size(drink_size_id=sizeListLength, drink_size=drinkSize, venue_db_id=current_user.id)
+        print(f"newDrinkSize: {newDrinkSize}")
         db.session.add(newDrinkSize)
         db.session.commit()
         flash('New Drink size has been added!', 'success')
@@ -142,12 +144,13 @@ def edit_drink_size():
 def edit_drink_price():
     form = DrinkPriceForm(request.form)
     prices = _getDrinkPrices(current_user.id)
+    priceListLength = len(prices) + 1
 
     form.drinkPriceSelect.choices = [(price['id'], price['drink_price']) for price in prices]
 
     if form.validate_on_submit():
         drinkPrice = request.form['drinkPriceText']
-        newDrinkPrice = Drink_price(drink_price=drinkPrice, venue_db_id=current_user.id)
+        newDrinkPrice = Drink_price(drink_price_id=priceListLength, drink_price=drinkPrice, venue_db_id=current_user.id)
         db.session.add(newDrinkPrice)
         db.session.commit()
         flash('New Drink price has been added!', 'success')

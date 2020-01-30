@@ -149,18 +149,20 @@ class Transition(db.Model):
 class Drink_size(db.Model):
     __tablename__ = 'drink_size'
     id = db.Column(db.Integer, primary_key=True)
+    drink_size_id = db.Column(db.Integer)
     drink_size = db.Column(db.String(100))
     venue_db_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     def __repr__(self):
-        return '************ Drink_size: {}, {}, {} ***********'.format(self.id, self.drink_size, self.venue_db_id)
+        return '************ Drink_size: {}, {}, {}, {} ***********'.format(self.id, self.drink_size_id, self.drink_size, self.venue_db_id)
 
 class Drink_price(db.Model):
     __tablename__ = 'drink_price'
     id = db.Column(db.Integer, primary_key=True)
+    drink_price_id = db.Column(db.Integer)
     drink_price = db.Column(db.String(100))
     venue_db_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     def __repr__(self):
-        return '************ Drink_price: {}, {}, {} ***********'.format(self.id, self.drink_price, self.venue_db_id)
+        return '************ Drink_price: {}, {}, {}, {} ***********'.format(self.id, self.drink_price_id, self.drink_price, self.venue_db_id)
 
 class Beerscreen_setting(db.Model):
     __tablename__ = 'beerscreen_setting'

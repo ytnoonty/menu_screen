@@ -43,6 +43,7 @@ def initListHistory(id):
 
 def initDrinkSize(id):
     size = Drink_size(
+        drink_size_id='1',
         drink_size='-',
         venue_db_id=id
     )
@@ -52,6 +53,7 @@ def initDrinkSize(id):
 
 def initDrinkPrice(id):
     price = Drink_price(
+        drink_price_id='1',
         drink_price='-',
         venue_db_id=id
     )
