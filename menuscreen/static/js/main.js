@@ -1928,6 +1928,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       console.log(`${urlData.currentPage} - ${urlData.userName} - ${urlData.screenNumber}`);
       const getUserId = async data => {
         let userData = await UserCtrl.callFetchUserData(data);
+        console.log(userData);
         let userId = userData.id[0];
         return userId;
       }

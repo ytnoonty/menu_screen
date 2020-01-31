@@ -124,9 +124,16 @@ def add_font_size():
 def edit_drink_size():
     form = DrinkContainerSizeForm(request.form)
     sizes = _getDrinkSizes(current_user.id)
+    print("********************************************************************")
+    print("********************************************************************")
+    print("****************line 129 settttings.routes********************")
+    for size in sizes:
+        print(f"size: {size}")
+    print("********************************************************************")
+    print("********************************************************************")
     sizeListLength = len(sizes) + 1
 
-    form.drinkSizeSelect.choices = [(size['id'], size['drink_size']) for size in sizes]
+    form.drinkSizeSelect.choices = [(size['drink_size_id'], size['drink_size']) for size in sizes]
 
     if form.validate_on_submit():
         drinkSize = request.form['drinkSizeText']
@@ -146,7 +153,7 @@ def edit_drink_price():
     prices = _getDrinkPrices(current_user.id)
     priceListLength = len(prices) + 1
 
-    form.drinkPriceSelect.choices = [(price['id'], price['drink_price']) for price in prices]
+    form.drinkPriceSelect.choices = [(price['drink_price_id'], price['drink_price']) for price in prices]
 
     if form.validate_on_submit():
         drinkPrice = request.form['drinkPriceText']

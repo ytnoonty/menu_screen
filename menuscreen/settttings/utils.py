@@ -73,17 +73,18 @@ def _getBeerPrice4(userId, beer_id):
 
 def _getDrinkSizes(user_id):
     user = User.query.filter_by(id=user_id).first()
-    print(user)
+    print(f"user: {user}")
     datas = user.drink_size_options
-    print(datas)
+    for d in datas:
+        print(f"d: {d}")
     sizes = []
     for data in datas:
         size = {
             "id": data.id,
+            "drink_size_id": data.drink_size_id,
             "drink_size": data.drink_size,
         }
         sizes.append(size)
-    print(sizes)
     return sizes
 
 def _getDrinkPrices(user_id):
@@ -95,6 +96,7 @@ def _getDrinkPrices(user_id):
     for data in datas:
         price = {
             "id": data.id,
+            "drink_price_id": data.drink_price_id,
             "drink_price": data.drink_price,
         }
         prices.append(price)

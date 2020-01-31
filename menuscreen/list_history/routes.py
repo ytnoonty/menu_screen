@@ -393,14 +393,14 @@ def add_beer():
     drink_prices = _getDrinkPrices(current_user.id)
 
     # populates the dropdowns with correct information
-    form.size_1.choices = [ (size['id'], size['drink_size']) for size in drink_sizes ]
-    form.price_1.choices = [ (price['id'], price['drink_price']) for price in drink_prices ]
-    form.size_2.choices = [ (size['id'], size['drink_size']) for size in drink_sizes ]
-    form.price_2.choices = [ (price['id'], price['drink_price']) for price in drink_prices ]
-    form.size_3.choices = [ (size['id'], size['drink_size']) for size in drink_sizes ]
-    form.price_3.choices = [ (price['id'], price['drink_price']) for price in drink_prices ]
-    form.size_4.choices = [ (size['id'], size['drink_size']) for size in drink_sizes ]
-    form.price_4.choices = [ (price['id'], price['drink_price']) for price in drink_prices ]
+    form.size_1.choices = [ (size['drink_size_id'], size['drink_size']) for size in drink_sizes ]
+    form.price_1.choices = [ (price['drink_price_id'], price['drink_price']) for price in drink_prices ]
+    form.size_2.choices = [ (size['drink_size_id'], size['drink_size']) for size in drink_sizes ]
+    form.price_2.choices = [ (price['drink_price_id'], price['drink_price']) for price in drink_prices ]
+    form.size_3.choices = [ (size['drink_size_id'], size['drink_size']) for size in drink_sizes ]
+    form.price_3.choices = [ (price['drink_price_id'], price['drink_price']) for price in drink_prices ]
+    form.size_4.choices = [ (size['drink_size_id'], size['drink_size']) for size in drink_sizes ]
+    form.price_4.choices = [ (price['drink_price_id'], price['drink_price']) for price in drink_prices ]
     # defaults draft/bottle/can radio buttons
     form.draftBottle.data = "Draft"
 
@@ -465,14 +465,14 @@ def edit_beer(beer_id):
     drink_prices = _getDrinkPrices(current_user.id)
 
     # populates the dropdowns with correct information
-    form.size_1.choices = [ (size['id'], size['drink_size']) for size in drink_sizes ]
-    form.price_1.choices = [ (price['id'], price['drink_price']) for price in drink_prices ]
-    form.size_2.choices = [ (size['id'], size['drink_size']) for size in drink_sizes ]
-    form.price_2.choices = [ (price['id'], price['drink_price']) for price in drink_prices ]
-    form.size_3.choices = [ (size['id'], size['drink_size']) for size in drink_sizes ]
-    form.price_3.choices = [ (price['id'], price['drink_price']) for price in drink_prices ]
-    form.size_4.choices = [ (size['id'], size['drink_size']) for size in drink_sizes ]
-    form.price_4.choices = [ (price['id'], price['drink_price']) for price in drink_prices ]
+    form.size_1.choices = [ (size['drink_size_id'], size['drink_size']) for size in drink_sizes ]
+    form.price_1.choices = [ (price['drink_price_id'], price['drink_price']) for price in drink_prices ]
+    form.size_2.choices = [ (size['drink_size_id'], size['drink_size']) for size in drink_sizes ]
+    form.price_2.choices = [ (price['drink_price_id'], price['drink_price']) for price in drink_prices ]
+    form.size_3.choices = [ (size['drink_size_id'], size['drink_size']) for size in drink_sizes ]
+    form.price_3.choices = [ (price['drink_price_id'], price['drink_price']) for price in drink_prices ]
+    form.size_4.choices = [ (size['drink_size_id'], size['drink_size']) for size in drink_sizes ]
+    form.price_4.choices = [ (price['drink_price_id'], price['drink_price']) for price in drink_prices ]
 
     # check if form is validated and method == post
     if form.validate_on_submit():
