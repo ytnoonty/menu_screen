@@ -154,7 +154,7 @@ const BeerCtrl = (function(){
   }
 
   async function fetchCurBeerlist(userData) {
-    // console.log(userData);
+    console.log(userData);
     const res = await fetch('/_getCurBeerlist', {
       method: "POST",
       credentials: "include",
@@ -165,7 +165,7 @@ const BeerCtrl = (function(){
       })
     });
     const data = await res.json();
-    // console.log(data);
+    console.log(data);
     return data;
   }
 
