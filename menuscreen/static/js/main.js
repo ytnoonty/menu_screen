@@ -154,7 +154,7 @@ const BeerCtrl = (function(){
   }
 
   async function fetchCurBeerlist(userData) {
-    console.log(userData);
+    // console.log(userData);
     const res = await fetch('/_getCurBeerlist', {
       method: "POST",
       credentials: "include",
@@ -165,7 +165,7 @@ const BeerCtrl = (function(){
       })
     });
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     return data;
   }
 
@@ -270,6 +270,14 @@ const BeerCtrl = (function(){
       "website": data.beer.brewery.contact.url,
       "description": data.beer.beer_description,
       "draftBottle": data.draftBottleSelection,
+      "size_id_1": "1",
+      "price_id_1": "1",
+      "size_id_2": "1",
+      "price_id_2": "1",
+      "size_id_3": "1",
+      "price_id_3": "1",
+      "size_id_4": "1",
+      "price_id_4": "1",
     };
     return beer;
   }
@@ -927,7 +935,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
   const UISelectors = UICtrl.getSelectors();
 
   async function getScreenInfo(userNameScreenId) {
-    console.log(userNameScreenId);
+    // console.log(userNameScreenId);
     // get the current beerlist for user and screenId
     // query the DB for the current beerlist
     let currentBeers = await BeerCtrl.callFetchCurBeerlist(userNameScreenId);
@@ -1047,7 +1055,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
         console.log(userNameScreenId);
         if (userNameScreenId.screenNumber != undefined) {
           let displayData = await getScreenInfo(userNameScreenId);
-          console.log(displayData);
+          // console.log(displayData);
           setScreenInfo(displayData);
         }
       }
@@ -1916,26 +1924,26 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       console.log("TRYING TO INITIALIZE THE SCREENS!!!!!!!!!")
       // get the current window URL
       let currentWindowURL = window.location.href;
-      console.log(currentWindowURL);
+      // console.log(currentWindowURL);
       // split the curren window url to replace with the target url info
       currentWindowSplitURL = currentWindowURL.split('/');
-      console.log(currentWindowSplitURL);
+      // console.log(currentWindowSplitURL);
       let urlData = {
          "currentPage": currentWindowSplitURL[3],
          "userName": currentWindowSplitURL[4],
          "screenNumber": currentWindowSplitURL[5],
       };
-      console.log(`${urlData.currentPage} - ${urlData.userName} - ${urlData.screenNumber}`);
+      // console.log(`${urlData.currentPage} - ${urlData.userName} - ${urlData.screenNumber}`);
       const getUserId = async data => {
         let userData = await UserCtrl.callFetchUserData(data);
-        console.log(userData);
+        // console.log(userData);
         let userId = userData.id[0];
         return userId;
       }
 
       if (urlData.userName != undefined) {
         let userId = getUserId(urlData);
-        console.log(userId);
+        // console.log(userId);
         initScreens({"updated":"true", "userName":urlData.userName, "userId":userId, "screenNumber": urlData.screenNumber, });
       } else {
         // initScreens({"updated":""})

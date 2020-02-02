@@ -389,9 +389,27 @@ def _getBottleBeers(screenData):
     return beerlist
 
 def addNewBeerToDB(data, user_id):
-    print(data)
-    print(user_id)
+    # print(data)
+    # print(user_id)
     user = User.query.filter_by(id=user_id).first()
-    newBeer = List_history(name=data['name'],style=data['style'],abv=data['abv'],ibu=data['ibu'],brewery=data['brewery'],location=data['location'],website=data['website'],description=data['description'],draft_bottle_selection=data['draftBottle'],venue_db_id=user_id)
+    newBeer = List_history(
+        name=data['name'],
+        style=data['style'],
+        abv=data['abv'],
+        ibu=data['ibu'],
+        brewery=data['brewery'],
+        location=data['location'],
+        website=data['website'],
+        description=data['description'],
+        draft_bottle_selection=data['draftBottle'],
+        size_id_1=data['size_id_1'],
+        price_id_1=data['price_id_1'],
+        size_id_2=data['size_id_2'],
+        price_id_2=data['price_id_2'],
+        size_id_3=data['size_id_3'],
+        price_id_3=data['price_id_3'],
+        size_id_4=data['size_id_4'],
+        price_id_4=data['price_id_4'],
+        venue_db_id=user_id)
     db.session.add(newBeer)
     db.session.commit()
