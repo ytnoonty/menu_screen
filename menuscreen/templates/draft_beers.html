@@ -13,7 +13,7 @@
           {% endfor %}
         </ul>
       </div>
-      <hr>
+      <!-- <hr> -->
       <div class="row justify-content-center">
         <div class="row">
           <div class="col-12">
@@ -21,6 +21,8 @@
           </div>
         </div>
       </div>
+
+      <!-- {% if beerlistBomLen %}
       <hr>
       <div class="row justify-content-center">
         <div class="row">
@@ -29,6 +31,8 @@
           </div>
         </div>
       </div>
+      {% endif %} -->
+
       <div class="row justify-content-center">
         <p class="month-p-pp">
           {% for beer in beers %}
@@ -38,14 +42,18 @@
           {% endfor %}
         </p>
       </div>
+
+      <!-- {% if beerlistCsLen %}
       <hr>
       <div class="row justify-content-center">
         <div class="row">
           <div class="col-12">
-            <h2>Coming soon on Tap</h2>
+              <h2>Coming soon on Tap</h2>
           </div>
         </div>
       </div>
+      {% endif %} -->
+
       <div class="row justify-content-center">
         <p id="comingsoon-p-pp">
           {% for beer in beers %}

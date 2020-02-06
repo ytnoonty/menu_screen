@@ -903,11 +903,34 @@ def draft_beers_nologin(venuename, screen_id):
         "screenNumber": screen_id,
     }
     beers = _getDraftBeers(screenData)
+
+    beerlist = []
+    beerlistBom = []
+    beerlistCs = []
+
     for beer in beers:
         print(beer)
 
+        if not beer.beer_of_month and not beer.coming_soon:
+            beerlist.append(beer)
+        elif beer.beer_of_month and beer.coming_soon:
+            beerlistBom.append(beer)
+            beerlistCs.append(beer)
+        elif beer.beer_of_month:
+            beerlist.append(beer)
+            beerlistBom.append(beer)
+        elif beer.coming_soon:
+            beerlistCs.append(beer)
+
+    beerlistBomLen = len(beerlistBom)
+    beerlistCsLen = len(beerlistCs)
+
+
+
+
+
     if len(beers) > 0:
-        return render_template('draft_beers.html', title='Beer Print', legend='Beer Print', beers=beers, currentUserId=screenData['userId'], draftBeersScreenId=screenData['screenNumber'])
+        return render_template('draft_beers.html', title='Beer Print', legend='Beer Print', beers=beers, currentUserId=screenData['userId'], draftBeersScreenId=screenData['screenNumber'], beerlistBomLen=beerlistBomLen, beerlistCsLen=beerlistCsLen)
     else:
         msg = 'No Beers Found'
     return render_template('draft_beers.html', msg=msg,  currentUserId=screenData['userId'], draftBeersScreenId=screenData['screenNumber'])

@@ -900,7 +900,7 @@ class BeerTemplate {
               screenDisplayHTML += `
                 <table class="beerscreen-display-table">
                   <tr class="">
-                    <td class="font-weight-bold font-italic txt-clr-ylw pl-2 pt-1" colspan="3"><span class="beer-name">${beer.name}</span></td>
+                    <td class="font-weight-bold font-italic txt-clr-ylw pl-2 pt-1" colspan="12"><span class="beer-name">${beer.name}</span></td>
                   </tr>
                   <tr class="">
                     <td class="beerscreen-table-td-30 font-weight-bold pl-2"><span class="beer-style">${beer.style}</span></td>
@@ -931,7 +931,7 @@ class BeerTemplate {
               screenDisplayHTML += `
                 <table class="beerscreen-display-table">
                   <tr class="">
-                    <td class="font-weight-bold font-italic txt-clr-ylw pl-2 pt-1" colspan="3"><span class="beer-name">${beer.name}</span></td>
+                    <td class="font-weight-bold font-italic txt-clr-ylw pl-2 pt-1" colspan="12"><span class="beer-name">${beer.name}</span></td>
                   </tr>
                   <tr class="">
                     <td class="beerscreen-table-td-30 font-weight-bold pl-2"><span class="beer-style">${beer.style}</span></td>
@@ -1069,7 +1069,7 @@ class BeerTemplate {
               screenDisplayHTML += `
                 <table class="beerscreen-display-table">
                   <tr class="">
-                    <td class="font-weight-bold font-italic txt-clr-ylw pl-2 pt-1" colspan="3"><span class="beer-name">${beer.name}</span></td>
+                    <td class="font-weight-bold font-italic txt-clr-ylw pl-2 pt-1" colspan="12"><span class="beer-name">${beer.name}</span></td>
                   </tr>
                   <tr class="">
                     <td class="beerscreen-table-td-30 font-weight-bold pl-2"><span class="beer-style">${beer.style}</span></td>
@@ -1100,7 +1100,7 @@ class BeerTemplate {
               screenDisplayHTML += `
                 <table class="beerscreen-display-table">
                   <tr class="">
-                    <td class="font-weight-bold font-italic txt-clr-ylw pl-2 pt-1" colspan="3"><span class="beer-name">${beer.name}</span></td>
+                    <td class="font-weight-bold font-italic txt-clr-ylw pl-2 pt-1" colspan="12"><span class="beer-name">${beer.name}</span></td>
                   </tr>
                   <tr class="">
                     <td class="beerscreen-table-td-30 font-weight-bold pl-2"><span class="beer-style">${beer.style}</span></td>
@@ -1266,7 +1266,8 @@ class BeerTemplate {
     let beerlist = [];
     let beerlistBom = [];
     let beerlistCs = [];
-
+    let beerlistBomLen;
+    let beerlistCsLen;
 
     if (Object.getOwnPropertyNames(beersData).length >= 1) {
               beersData.forEach(function(beer){
@@ -1282,6 +1283,9 @@ class BeerTemplate {
                   beerlistCs.push(beer);
                 }
               });
+
+              beerlistBomLen = beerlistBom.length;
+              beerlistCsLen = beerlistCs.length;
 
               let halflistNum;
               halflistNum = Math.floor(beerlist.length / 2);
@@ -1312,6 +1316,22 @@ class BeerTemplate {
               }
 
               let monthPBPHTML = '';
+              if (beerlistBomLen > 0) {
+                monthPBPHTML += `
+                  <hr>
+                  <div class="row justify-content-center">
+                    <div class="row">
+                      <div class="col-12">
+                        <h2>Beer O' The Month</h2>
+                      </div>
+                    </div>
+                  </div>
+                `;
+              } else {
+                monthPBPHTML = '';
+              }
+
+
               beerlistBom.forEach(function(beer){
                 monthPBPHTML += `<span class="mx-3 larger-text txt-clr-grn">${beer.name}</span>`;
               });
@@ -1324,6 +1344,20 @@ class BeerTemplate {
               }
 
               let comingsoonHTML = '';
+              if (beerlistCsLen > 0) {
+                comingsoonHTML += `
+                  <hr>
+                  <div class="row justify-content-center">
+                    <div class="row">
+                      <div class="col-12">
+                          <h2>Coming soon on Tap</h2>
+                      </div>
+                    </div>
+                  </div>
+                `;
+              } else {
+                comingsoonHTML = '';
+              }
               let comingsoonPBP = document.querySelector('#comingsoon-p-bp');
               let displayComingsoonElement = document.querySelector('#' + screenElementUserId + ' #comingsoon-p-bp');
               comingsoonPBP = displayComingsoonElement;
@@ -1350,6 +1384,8 @@ class BeerTemplate {
     let beerlist = [];
     let beerlistBom = [];
     let beerlistCs = [];
+    let beerlistBomLen;
+    let beerlistCsLen;
 
     if (Object.getOwnPropertyNames(beersData).length >= 1) {
 
@@ -1366,6 +1402,9 @@ class BeerTemplate {
                   beerlistCs.push(beer);
                 }
               });
+
+              beerlistBomLen = beerlistBom.length;
+              beerlistCsLen = beerlistCs.length;
 
               let halflistNum;
               halflistNum = Math.floor(beerlist.length / 2);
@@ -1396,6 +1435,21 @@ class BeerTemplate {
               }
 
               let monthPPPHTML = '';
+              if (beerlistBomLen > 0) {
+                monthPPPHTML += `
+                  <hr>
+                  <div class="row justify-content-center">
+                    <div class="row">
+                      <div class="col-12">
+                        <h2>Beer O' The Month</h2>
+                      </div>
+                    </div>
+                  </div>
+                `;
+              } else {
+                monthPPPHTML = '';
+              }
+
               beerlistBom.forEach(function(beer){
                 monthPPPHTML += `
                   <span class="mx-3 larger-text txt-clr-grn">${beer.name}</span> - <span class="bold-font italic-font">${beer.style}</span>
@@ -1410,11 +1464,27 @@ class BeerTemplate {
               }
 
               let comingsoonHTML = '';
+              if (beerlistCsLen > 0) {
+                comingsoonHTML += `
+                  <hr>
+                  <div class="row justify-content-center">
+                    <div class="row">
+                      <div class="col-12">
+                          <h2>Coming soon on Tap</h2>
+                      </div>
+                    </div>
+                  </div>
+                `;
+              } else {
+                comingsoonHTML = '';
+              }
               let comingsoonPPP = document.querySelector('#comingsoon-p-pp');
               let displayComingsoonElement = document.querySelector('#' + screenElementUserId + ' #comingsoon-p-pp');
               comingsoonPPP = displayComingsoonElement;
               beerlistCs.forEach(function(beer){
-                comingsoonHTML += `<span class="mx-4 larger-text txt-clr-grn">${beer.name}</span>`;
+                comingsoonHTML += `
+                  <span class="mx-4 larger-text txt-clr-grn">${beer.name}</span>
+                `;
               });
               if (comingsoonPPP !== null) {
                 comingsoonPPP.innerHTML = comingsoonHTML;
