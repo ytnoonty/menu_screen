@@ -622,6 +622,7 @@ const UICtrl = (function(){
     editBeerlistForm: '#edit-beerlist-form',
     editBeerlistBtn: '#edit-beerlist',
     settingsForm: '#settings-form',
+    beerSettingsScreenId: '#beerSettingsScreenId',
     submitSettingsBtn: '#submit-settings-btn',
     editWinelistForm: '#edit-winelist-form',
     editWinelistBtn: '#edit-winelist-btn',
@@ -935,7 +936,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
   const UISelectors = UICtrl.getSelectors();
 
   async function getScreenInfo(userNameScreenId) {
-    // console.log(userNameScreenId);
+    console.log(userNameScreenId);
     // get the current beerlist for user and screenId
     // query the DB for the current beerlist
     let currentBeers = await BeerCtrl.callFetchCurBeerlist(userNameScreenId);
@@ -1419,9 +1420,20 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     }
 
       // Settings form submit
-    const settingsFormSubmit = function(e) {
+    const settingsFormSubmit = async e => {
       console.log('CLICK SETTIINGS BUTTON');
       const settingsForm = document.querySelector(UISelectors.settingsForm);
+      // selecting value from select on beerscreen_settings page
+      let beerSettingsScreenId = document.querySelector(UISelectors.beerSettingsScreenId).value;
+      // turn screenId into string for localStorage
+      let beerscreenSettingsString = JSON.stringify({
+        "beerSettingsScreenId": beerSettingsScreenId,
+      });
+      // storing the screenId before submitting the page so can be recalled and sames settings
+      // can be shown on UI
+      // will be recalled when the page is initialized in init:function
+      localStorage.setItem("beerscreenSettingsString", beerscreenSettingsString);
+
       (function(loadPusher){
           settingsForm.submit();
           loadPusher();
@@ -1922,6 +1934,13 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       loadEventListeners();
 
       console.log("TRYING TO INITIALIZE THE SCREENS!!!!!!!!!")
+      // get info from localStorage to show last used screenId on beerscreen_settings page and
+      // edit_beer_list page to show same UI after form submission
+      let beerscreenSettingsString = localStorage.getItem("beerscreenSettingsString");
+      // turn info back to object
+      let beerscreenSettings = JSON.parse(beerscreenSettingsString);
+      // test log the info
+      console.log(beerscreenSettings.beerSettingsScreenId);
       // get the current window URL
       let currentWindowURL = window.location.href;
       // console.log(currentWindowURL);
