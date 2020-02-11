@@ -2422,6 +2422,7 @@ class BeerTemplate {
     };
 
     const fontOptionsEl = (options, settingsId, settings, labelTxt) => {
+      console.log(`options: ${options} --- settings: ${settings}`);
       let divHTML;
       let divFormGroupWrapper = [`<div class="form-group">`, `</div>`];
       let divLabel=`
@@ -2432,12 +2433,12 @@ class BeerTemplate {
       divHTML = divFormGroupWrapper[0];
       divHTML += divLabel;
       options.forEach((option, index) => {
-        // console.log(index, option, settings, settingsId);
+        console.log(index, option, settings, settingsId);
         if (index == settings) {
           divBody += `
             <option selected="" value="${ index }">${ option }</option>
           `;
-        } else if (index > 0) {
+        } else if (index >= 0) {
           divBody += `
             <option value="${ index }">${ option }</option>
           `;

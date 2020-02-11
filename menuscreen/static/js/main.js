@@ -1940,7 +1940,9 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       // turn info back to object
       let beerscreenSettings = JSON.parse(beerscreenSettingsString);
       // test log the info
-      console.log(beerscreenSettings.beerSettingsScreenId);
+      if (beerscreenSettings != null){
+        console.log(beerscreenSettings.beerSettingsScreenId);
+      }
       // get the current window URL
       let currentWindowURL = window.location.href;
       // console.log(currentWindowURL);
