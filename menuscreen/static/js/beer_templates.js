@@ -32,9 +32,9 @@ class BeerTemplate {
         name.style.fontSize = `${settings.beerNameFontSizeDisplay}`;
         if (settings.beerNameFontBoldToggle == true) {
           console.log(settings.beerNameFontBoldToggle);
-          name.style.fontStyle = "bold";
+          name.style.fontWeight = "900";
         } else {
-          name.style.fontStyle = "normal";
+          name.style.fontWeight = "normal";
         }
         if (settings.beerNameFontItalicToggle == true) {
           console.log(settings.beerNameFontItalicToggle);
@@ -44,7 +44,7 @@ class BeerTemplate {
         }
         if (settings.beerNameFontUnderlineToggle == true) {
           console.log(settings.beerNameFontUnderlineToggle);
-          name.style.borderBottom = `thin solid ${settings.beerNameFontColor}`;
+          name.style.borderBottom = `thick solid ${settings.beerStyleFontColor}`;
         } else {
           name.style.borderBottom = "none";
         }
@@ -54,21 +54,81 @@ class BeerTemplate {
       beerStyles.forEach(style => {
         style.style.color = `${settings.beerStyleFontColor}`;
         style.style.fontSize = `${settings.beerStyleFontSizeDisplay}`;
+        if (settings.beerStyleFontBoldToggle == true) {
+          style.style.fontWeight = "900";
+        } else {
+          style.style.fontWeight = "normal";
+        }
+        if (settings.beerStyleFontItalicToggle == true) {
+          style.style.fontStyle = "italic";
+        } else {
+          style.style.fontStyle = "normal";
+        }
+        if (settings.beerStyleFontUnderlineToggle == true) {
+          style.style.borderBottom = `thick solid ${settings.beerStyleFontColor}`;
+        } else {
+          style.style.borderBottom = "none";
+        }
       });
 
       beerAbvs.forEach(abv => {
         abv.style.color = `${settings.beerAbvFontColor}`;
         abv.style.fontSize = `${settings.beerAbvFontSizeDisplay}`;
+        if (settings.beerAbvFontBoldToggle == true) {
+          abv.style.fontWeight = "900";
+        } else {
+          abv.style.fontWeight = "normal";
+        }
+        if (settings.beerAbvFontItalicToggle == true) {
+          abv.style.fontStyle = "italic";
+        } else {
+          abv.style.fontStyle = "normal";
+        }
+        if (settings.beerAbvFontUnderlineToggle == true) {
+          abv.style.borderBottom = `thick solid ${settings.beerAbvFontColor}`;
+        } else {
+          abv.style.borderBottom = "none";
+        }
       });
 
       beerIbus.forEach(ibu => {
         ibu.style.color = `${settings.beerIbuFontColor}`;
         ibu.style.fontSize = `${settings.beerIbuFontSizeDisplay}`;
+        if (settings.beerIbuFontBoldToggle == true) {
+          ibu.style.fontWeight = "900";
+        } else {
+          ibu.style.fontWeight = "normal";
+        }
+        if (settings.beerIbuFontItalicToggle == true) {
+          ibu.style.fontStyle = "italic";
+        } else {
+          ibu.style.fontStyle = "normal";
+        }
+        if (settings.beerIbuFontUnderlineToggle == true) {
+          ibu.style.borderBottom = `thick solid ${settings.beerIbuFontColor}`;
+        } else {
+          ibu.style.borderBottom = "none";
+        }
       });
 
       beerBrewerys.forEach(brewery => {
         brewery.style.color = `${settings.beerBreweryFontColor}`;
         brewery.style.fontSize = `${settings.beerBreweryFontSizeDisplay}`;
+        if (settings.beerBreweryFontBoldToggle == true) {
+          brewery.style.fontWeight = "900";
+        } else {
+          brewery.style.fontWeight = "normal";
+        }
+        if (settings.beerBreweryFontItalicToggle == true) {
+          brewery.style.fontStyle = "italic";
+        } else {
+          brewery.style.fontStyle = "normal";
+        }
+        if (settings.beerBreweryFontUnderlineToggle == true) {
+          brewery.style.borderBottom = `thick solid ${settings.beerBreweryFontColor}`;
+        } else {
+          brewery.style.borderBottom = "none";
+        }
       });
 
       backgrounds.forEach(background => {
@@ -986,7 +1046,199 @@ class BeerTemplate {
       screenSettingsData.screenDisplay = screenDisplay;
       this.updateScreenTemplates(screenSettingsData);
     }
-  }
+  } // end default template
+
+
+
+
+  // displays 2 columns of cards, each card has name and abv on top line and style, on bottome line
+  twoColumnTopNameAbvBottomStyleBreweryTemplate(displayData) {
+    console.log("**************************************************************************");
+    console.log("IN THE twoColumnTopNameAbvBottomStyleBreweryTemplate TEMPLATE");
+    console.log("**************************************************************************");
+    // console.log(displayData);
+    const { currentBeers, events, tickerInfo, screenSettings, userSettings } = displayData;
+    let beersData = currentBeers;
+    let eventsData = events;
+    let tickerInfoData = tickerInfo;
+    let screenSettingsData = screenSettings;
+    let userSettingsData = userSettings;
+    // console.log(beersData);
+    // console.log(eventsData);
+    // console.log(tickerInfoData);
+    // console.log(screenSettingsData);
+    // console.log(userSettingsData);
+
+    let beerlist = [];
+    let beerlistBom = [];
+    let beerlistCs = [];
+
+    beersData.forEach(function(beer){
+      if (!beer.beer_of_month && !beer.coming_soon ) {
+        beerlist.push(beer);
+      } else if (beer.beer_of_month && beer.coming_soon) {
+        beerlistBom.push(beer);
+        beerlistCs.push(beer);
+      } else if (beer.beer_of_month){
+        beerlist.push(beer);
+        beerlistBom.push(beer);
+      } else if (beer.coming_soon) {
+        beerlistCs.push(beer);
+      }
+    });
+
+
+    let halflistNum;
+    halflistNum = Math.floor(beerlist.length / 2);
+
+    let beerlistFirstHalf = beerlist.slice(0,halflistNum);
+    let beerlistSecondHalf = beerlist.slice(halflistNum, beerlist.length);
+
+    let screenDisplay;
+    // console.log(userSettingsData.venue_db_id);
+    let screenElementUserId = 'user-id-' + userSettingsData.venue_db_id;
+    // console.log(screenElementUserId);
+
+    let displayElement = document.querySelector('#' + screenElementUserId);
+    if (displayElement != null) {
+      // console.log(displayElement);
+      displayElement = document.querySelector('#' + screenElementUserId + ' #screen-display');
+      // console.log(displayElement);
+      screenDisplay = displayElement;
+    }
+
+    let screenDisplayHTML = '';
+    let screenDisplayTicker = document.querySelector('.ticker-wrapper');
+    let screenDisplayTickerHTML = '';
+    screenDisplayHTML = `
+    <div class="row mt-1">
+      <div class="col-6 beerlist-col">
+          <ul id="" class="list-group mx-2">`;
+
+
+            beerlistFirstHalf.forEach(function(beer){
+
+              if (!beer.beer_of_month) {
+                screenDisplayHTML += `
+                <li class="list-group-item card-beerscreen-display background">
+                `;
+              } else {
+                screenDisplayHTML += `
+                <li class="list-group-item card-beerscreen-display bom-background">
+                `;
+              }
+              screenDisplayHTML += `
+                <table class="beerscreen-display-table">
+                  <tr class="">
+                    <td class="" colspan="10"><span class="beer-name">${beer.name}</span></span><span class="ml-3 beer-abv">${beer.abv}</span><span class="">%</span></td>
+                  </tr>
+                  <tr class="">
+                    <td class="" colspan="4"><span class="beer-style">${beer.style}</span></td>
+                    <td class="" colspan="5"><span class="beer-brewery">${beer.brewery}</span></td>
+                  </tr>
+                </table>
+              </li>`
+            });
+
+
+    screenDisplayHTML += `
+            </ul>
+          </div>
+        <div class="col-6 beerlist-col">
+          <ul id="" class="list-group mr-2">`;
+            beerlistSecondHalf.forEach(function(beer){
+
+              if (!beer.beer_of_month) {
+                screenDisplayHTML += `
+                <li class="list-group-item card-beerscreen-display background">
+                `;
+              } else {
+                screenDisplayHTML += `
+                <li class="list-group-item card-beerscreen-display bom-background">
+                `;
+              }
+              screenDisplayHTML += `
+              <table class="beerscreen-display-table">
+                <tr class="">
+                  <td class="" colspan="10"><span class="beer-name">${beer.name}</span></span><span class="ml-3 beer-abv">${beer.abv}</span><span class="">%</span></td>
+                </tr>
+                <tr class="">
+                  <td class="" colspan="4"><span class="beer-style">${beer.style}</span></td>
+                  <td class="" colspan="5"><span class="beer-brewery">${beer.brewery}</span></td>
+                </tr>
+              </table>
+              </li>`
+            });
+    screenDisplayHTML += `
+          </ul>
+        </div>
+      </div>`;
+
+      screenDisplayTickerHTML = ``;
+      screenDisplayTickerHTML = `
+      <div class="ticker d-flex align-items-center move-left">
+        <ul class="list-group ticker-items list-group-inline ml-3">
+      `;
+      if (beerlistBom.length > 0){
+        screenDisplayTickerHTML += `
+          <li class="list-group-inline align-middle font-weight-bold ticker-item txt-clr-grn-shdw spacing-sml"><span class="ticker-text">Beer 'O the Month:</span></li>
+        `;
+      }
+      beerlistBom.forEach(function(beer){
+        screenDisplayTickerHTML += `
+          <li class="list-group-inline align-middle font-weight-bold font-italic ticker-item left-spacer txt-clr-ylw card-img"><span class="beer-name">${ beer.name }</span></li>
+        `});
+      if (beerlistCs.length > 0) {
+        screenDisplayTickerHTML += `
+          <li class="list-group-inline align-middle font-weight-bold ticker-item left-spacer txt-clr-grn-shdw spacing-sml"><span class="ticker-text">Tapping Soon:</span></li>
+        `;
+      }
+      beerlistCs.forEach(function(beer){
+        screenDisplayTickerHTML += `
+          <li class="list-group-inline align-middle font-weight-bold font-italic ticker-item txt-clr-ylw card-img"><span class="beer-name">${ beer.name }</span></li>
+      `});
+      if (tickerInfoData.ticker_text !== "") {
+        screenDisplayTickerHTML += `
+          <li class="list-group-inline align-middle font-weight-bold ticker-item txt-clr-grn-shdw left-spacer spacing-sml"><span class="ticker-text">Shamrock News:</span></li>
+          <li class="list-group-inline align-middle font-weight-bold font-italic ticker-item txt-clr-ylw left-spacer card-img"><span class="ticker-news">${ tickerInfoData.ticker_text }</span></li>
+        `;
+      }
+        screenDisplayTickerHTML += `
+        </ul>
+      </div>
+        `;
+
+    if (screenDisplay !== null && screenDisplay !== undefined) {
+      screenDisplay.innerHTML = screenDisplayHTML;
+      screenDisplayTicker.innerHTML = screenDisplayTickerHTML;
+      screenSettingsData.screenDisplay = screenDisplay;
+      this.updateScreenTemplates(screenSettingsData);
+    }
+  } // end twoColumnTopNameAbvBottomStyleBreweryTemplate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   // displays 2 columns of cards, each card with name on top line and style and ABV and IBU on bottom line of card
@@ -2422,7 +2674,7 @@ class BeerTemplate {
     };
 
     const fontOptionsEl = (options, settingsId, settings, labelTxt) => {
-      console.log(`options: ${options} --- settings: ${settings}`);
+      // console.log(`options: ${options} --- settings: ${settings}`);
       let divHTML;
       let divFormGroupWrapper = [`<div class="form-group">`, `</div>`];
       let divLabel=`
@@ -2433,7 +2685,7 @@ class BeerTemplate {
       divHTML = divFormGroupWrapper[0];
       divHTML += divLabel;
       options.forEach((option, index) => {
-        console.log(index, option, settings, settingsId);
+        // console.log(index, option, settings, settingsId);
         if (index == settings) {
           divBody += `
             <option selected="" value="${ index }">${ option }</option>

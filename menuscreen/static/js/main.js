@@ -719,6 +719,11 @@ const UICtrl = (function(){
       // console.log('IN THE DEFAULT TEMPLATE');
       // console.log("**************************************************************************************");
       beerscreenTemplate.defaultTemplate(displayData);
+    } else if (templateName == '2 Columns, Name, ABV, Style, Brewery') {
+      console.log("**************************************************************************************");
+      console.log('IN THE twoColumnTopNameAbvBottomStyleBreweryTemplate TEMPLATE');
+      console.log("**************************************************************************************");
+      beerscreenTemplate.twoColumnTopNameAbvBottomStyleBreweryTemplate(displayData);
     } else if (templateName == '2 Columns, Name, Style, ABV'){
       // console.log('IN THE 2sna TEMPLATE');
       beerscreenTemplate.twoColNSAITemplate(displayData);
@@ -1008,10 +1013,12 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     UICtrl.callAddBeerOnTapNextEditor(displayData);
     // update bottle beer list asynconously
     UICtrl.callUpdateBottleBeersTabletScreen(displayData);
+    // // update and repaint beerscreen_settings.html
+    // UICtrl.callRepaintBeerscreenSettings(displayData);
   }
 
   async function getUserInfo(data) {
-    // console.log(data);
+    console.log(data);
     let userNameScreenId = UserCtrl.callGetUserNameFromURL();
     // console.log(userNameScreenId);
     // get the current screenId from the select to query for the current_list of beers
@@ -1429,10 +1436,27 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       let beerscreenSettingsString = JSON.stringify({
         "beerSettingsScreenId": beerSettingsScreenId,
       });
-      // storing the screenId before submitting the page so can be recalled and sames settings
-      // can be shown on UI
-      // will be recalled when the page is initialized in init:function
-      localStorage.setItem("beerscreenSettingsString", beerscreenSettingsString);
+
+
+      // get the current window URL
+      let currentWindowURL = window.location.href;
+      console.log(currentWindowURL);
+      // split the curren window url to replace with the target url info
+      currentWindowSplitURL = currentWindowURL.split('/');
+      console.log(currentWindowSplitURL);
+      let urlData = {
+         "currentPage": currentWindowSplitURL[3],
+         "userName": currentWindowSplitURL[4],
+         "screenNumber": currentWindowSplitURL[5],
+      };
+      console.log(`${urlData.currentPage} - ${urlData.userName} - ${urlData.screenNumber}`);
+      if (urlData.currentPage == "beerscreen_settings") {
+        // storing the screenId before submitting the page so can be recalled and sames settings
+        // can be shown on UI
+        // will be recalled when the page is initialized in init:function
+        localStorage.setItem("beerscreenSettingsString", beerscreenSettingsString);
+      } else {
+      }
 
       (function(loadPusher){
           settingsForm.submit();
@@ -1776,9 +1800,9 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     const changeBeerscreenSettingScreen = async e => {
       console.log("SWITCHING BEER SETTINGS SCREEN NOW");
       let screenId = e.target.value;
-      // console.log(screenId);
+      console.log(screenId);
       let userIdEl = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.id;
-      // console.log(userIdEl);
+      console.log(userIdEl);
       let userId = userIdEl.split("-")[2];
       // console.log(userId);
       let userNameScreenId = {};
@@ -1957,7 +1981,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       // console.log(`${urlData.currentPage} - ${urlData.userName} - ${urlData.screenNumber}`);
       const getUserId = async data => {
         let userData = await UserCtrl.callFetchUserData(data);
-        // console.log(userData);
+        console.log(userData);
         let userId = userData.id[0];
         return userId;
       }

@@ -506,11 +506,13 @@ def initItemscreenSetting(id):
 
 
 def initFontSizeOption(id):
-    fontSizeOptions = Font_size_option(
-        font_sizes='1.0em',
-        venue_db_id=id
-    )
-    db.session.add(fontSizeOptions)
+    fontSizes = ["0.5em","0.75em","1.0em","1.25em","1.5em","1.75em","2.0em","2.25em","2.5em","2.75em","3.0em","3.25em","3.5em","3.75em","4.0em","4.25em","4.5em","4.75em","5.0em"]
+    for size in fontSizes:
+        fontSizeOptions = Font_size_option(
+            font_sizes=size,
+            venue_db_id=id
+        )
+        db.session.add(fontSizeOptions)
     db.session.commit()
     print('********** INIT FONT SIZE OPTIONS *********')
 
