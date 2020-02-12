@@ -2755,6 +2755,7 @@ class BeerTemplate {
                                     <label for="beerscreenTemplate">Screen Template:</label>
                                     <select id="beerscreenTemplate" class="form-control" name="beerscreenTemplate">
                                       <option selected="" value="1">2 Columns, Name, ABV, IBU</option>
+                                      <option selected="" value="1">2 Columns, Name, ABV, Style, Brewery</option>
                                     </select>
                                   </div>
                                 </div>
