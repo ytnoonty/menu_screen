@@ -226,6 +226,24 @@ def _getTemplates(user_id):
     # print('******************* TEMPLATES *******************')
     return templates
 
+def _getBeerscreenTemplateNames(user_id):
+    user = User.query.filter_by(id=user_id).first()
+    datas = user.templates
+    templates = []
+    for data in datas:
+        template = {
+            "id":data.id,
+            "template_name":data.template_name,
+            "screen_number":data.screen_number,
+            "active_template":data.active_template,
+        }
+        templates.append(template)
+    # print('******************* TEMPLATES *******************')
+    # print('type(templates): {}'.format(type(templates)))
+    # print('templates: {}'.format(templates))
+    # print('******************* TEMPLATES *******************')
+    return templates
+
 def _getTemplateName(template_id):
     template = Template.query.filter_by(id=template_id).first()
     return template.template_name

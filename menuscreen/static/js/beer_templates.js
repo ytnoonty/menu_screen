@@ -2624,9 +2624,10 @@ class BeerTemplate {
 
   repaintBeerscreenSettingsTemplate(displayData) {
     console.log(displayData);
-    const { screenSettings, fontSizeOptions } = displayData;
+    const { screenSettings, fontSizeOptions, beerscreenTemplateNames } = displayData;
     // console.log(screenSettings);
     // console.log(fontSizeOptions);
+    console.log(beerscreenTemplateNames);
     let beerscreenSettingsDiv = document.querySelector('#beerscreen_settings');
     let colorDirectionOptions = ["to bottom", "to top", "to left", "to right", "to bottom left", "to bottom right", "to top left", "to top right"];
     let fontOptions = ["","Courier New", "Times Roman"];
@@ -2754,8 +2755,28 @@ class BeerTemplate {
                                   <div class="form-group">
                                     <label for="beerscreenTemplate">Screen Template:</label>
                                     <select id="beerscreenTemplate" class="form-control" name="beerscreenTemplate">
-                                      <option selected="" value="1">2 Columns, Name, ABV, IBU</option>
-                                      <option selected="" value="1">2 Columns, Name, ABV, Style, Brewery</option>
+                                  `;
+
+
+                                  // builds and adds the select options 
+                                  beerscreenTemplateNames.forEach(templateName => {
+                                    // console.log(templateName);
+                                    if (screenSettings.templateName == templateName.template_name){
+                                      // console.log(screenSettings.templateName, templateName.template_name, templateName.id);
+                                      beerscreenIdSelectHTML += `
+                                        <option selected="" value="${ templateName.id }">${ templateName.template_name }</option>
+                                      `;
+                                    } else {
+                                      // console.log(screenSettings.templateName, templateName.template_name, templateName.id);
+                                      beerscreenIdSelectHTML += `
+                                        <option value="${ templateName.id }"> ${ templateName.template_name }</option>
+                                      `;
+                                    }
+                                  });
+
+
+
+                                  beerscreenIdSelectHTML += `
                                     </select>
                                   </div>
                                 </div>

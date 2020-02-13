@@ -592,6 +592,23 @@ const ScreenSettingsCtrl = (function() {
     return data;
   }
 
+  async function fetchBeerscreenTemplateNames(userData) {
+    // settings-routes.py
+    // console.log(userData);
+    const res = await fetch('/_get_beerscreen_template_names', {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify(userData),
+      cache: "no-cache",
+      headers: new Headers({
+        "content-type": "application/json"
+      })
+    });
+    const data = await res.json();
+    // console.log(data);
+    return data;
+  }
+
   return {
     callFetchBeerscreenSettings: async function(data) {
       return await fetchBeerscreenSettings(data);
@@ -602,6 +619,9 @@ const ScreenSettingsCtrl = (function() {
     },
     callFetchFontSizeOptions: async function(data) {
       return await fetchFontSizeOptions(data);
+    },
+    callFetchBeerscreenTemplateNames: async function(data) {
+      return await fetchBeerscreenTemplateNames(data);
     }
   }
 })();
@@ -965,6 +985,9 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     console.log(screenSettings);
     let fontSizeOptions = await ScreenSettingsCtrl.callFetchFontSizeOptions(userNameScreenId);
     console.log(fontSizeOptions);
+    let beerscreenTemplateNames = await ScreenSettingsCtrl.callFetchBeerscreenTemplateNames(userNameScreenId);
+    console.log(beerscreenTemplateNames);
+
     if (userData.id !== undefined){
       userData = userData.id[0];
     } else {
@@ -991,6 +1014,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
       "screenSettings": screenSettings,
       "userSettings": { "venue_db_id": userData },
       "fontSizeOptions": fontSizeOptions, //["", "1.0em", "1.5em", "2.0em", "2.5em", "3.0em", "3.5em", "4.0em", "4.5em", "5.0em", "5.5em", "6.0em"],
+      "beerscreenTemplateNames": beerscreenTemplateNames,
     }
     console.log(displayData);
     return displayData;

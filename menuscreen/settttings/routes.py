@@ -4,7 +4,7 @@ from flask_login import current_user, login_required
 from menuscreen import db
 from menuscreen.models import User, Beerscreen_setting, Winecreen_setting, Eventscreen_setting, Itemscreen_setting, Font_size_option, Template, Drink_size, Drink_price, Image_list_history
 from menuscreen.settttings.forms import BeerscreenSettingsForm, WinecreenSettingsForm, EventscreenSettingsForm, ItemscreenSettingsForm, FontSizeForm, TemplateForm, DrinkContainerSizeForm, DrinkPriceForm
-from menuscreen.settttings.utils import _getFontSizes, _getFontSizeOptions, _getTemplates, _getBeerSettings, _getNameFontSize, _getStyleFontSize, _getTemplateName, _getAbvFontSize, _getIbuFontSize, _getBreweryFontSize, _getDrinkSizes, _getDrinkPrices
+from menuscreen.settttings.utils import _getFontSizes, _getFontSizeOptions, _getTemplates, _getBeerscreenTemplateNames, _getBeerSettings, _getNameFontSize, _getStyleFontSize, _getTemplateName, _getAbvFontSize, _getIbuFontSize, _getBreweryFontSize, _getDrinkSizes, _getDrinkPrices
 from menuscreen.list_history.utils import _getCurrentBeerlist
 from menuscreen.event.utils import _getEventsSortAsc
 from menuscreen.users.init_db_tables import getVenueId
@@ -83,6 +83,41 @@ def get_font_size_options():
     print("**************************************")
     return jsonify(data)
 
+# GET TEMPLATES FROM DB
+@settttings.route('/_get_beerscreen_template_names', methods=['POST'])
+#@login_required
+def get_beerscreen_template_names():
+    data = request.get_json()
+    print("**************************************")
+    print("******LINE  57***********************")
+    print("settttings. /_get_font_size_options")
+    print("**************************************")
+    print("data: {}".format(data))
+    print("**************************************")
+    print("**************************************")
+    if (current_user.is_authenticated):
+        print("LOGGED IN")
+        print(current_user.id)
+
+        data['userId'] = current_user.id
+        print("data: {}".format(data))
+        data = _getBeerscreenTemplateNames(data['userId'])
+    elif (data):
+        print("NOT LOGGED IN")
+        print(data['userName'])
+        current_user_id = getVenueId(data['userName'])
+        print(current_user_id)
+        data['userId'] = current_user_id
+        print("data: {}".format(data))
+        data = _getBeerscreenTemplateNames(data['userId'])
+    else:
+        print("NOT LOGGED IN AND NO URL INFO")
+        data = {}
+    print("**************************************")
+    print("**************************************")
+
+
+    return jsonify(data)
 
 # Add template to DB
 @settttings.route('/add_template', methods=['GET', 'POST'])
