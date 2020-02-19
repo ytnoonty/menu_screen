@@ -536,7 +536,7 @@ const EventCtrl = (function(){
 ////////////////////////////////////////////////////////////////////////////////
 const ScreenSettingsCtrl = (function() {
   async function fetchBeerscreenSettings(userData) {
-    // console.log(userData);
+    console.log(userData);
     const res = await fetch('/_get_beerscreen_settings', {
       method: "POST",
       credentials: "include",
@@ -547,7 +547,7 @@ const ScreenSettingsCtrl = (function() {
       })
     });
     const data = await res.json();
-    // console.log(data);
+    console.log(data);
     return data;
   }
 
