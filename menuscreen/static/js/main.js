@@ -734,22 +734,37 @@ const UICtrl = (function(){
       // console.log('IN THE DEFAULT TEMPLATE');
       // console.log("**************************************************************************************");
       beerscreenTemplate.defaultTemplate(displayData);
+    } else if (templateName == '2 Columns, Name, Style') {
+      // console.log("**************************************************************************************");
+      // console.log('IN THE NAME STYLE TEMPLATE');
+      // console.log("**************************************************************************************");
+      beerscreenTemplate.twoColumnnNameStyleTemplate(displayData);
+    } else if (templateName == '2 Columns, Name, Style, Abv') {
+      // console.log("**************************************************************************************");
+      // console.log('IN THE NAME STYLE TEMPLATE');
+      // console.log("**************************************************************************************");
+      beerscreenTemplate.twoColumnnNameStyleAbvTemplate(displayData);
     } else if (templateName == '2 Columns, Name, ABV, IBU') {
       // console.log("**************************************************************************************");
       // console.log('IN THE DEFAULT TEMPLATE');
       // console.log("**************************************************************************************");
       beerscreenTemplate.defaultTemplate(displayData);
     } else if (templateName == '2 Columns, Name, ABV, Style, Brewery') {
-      console.log("**************************************************************************************");
-      console.log('IN THE twoColumnTopNameAbvBottomStyleBreweryTemplate TEMPLATE');
-      console.log("**************************************************************************************");
+      // console.log("**************************************************************************************");
+      // console.log('IN THE twoColumnTopNameAbvBottomStyleBreweryTemplate TEMPLATE');
+      // console.log("**************************************************************************************");
       beerscreenTemplate.twoColumnTopNameAbvBottomStyleBreweryTemplate(displayData);
-    } else if (templateName == '2 Columns, Name, Style, ABV'){
-      // console.log('IN THE 2sna TEMPLATE');
-      beerscreenTemplate.twoColNSAITemplate(displayData);
-    } else if (templateName == '2 Columns, Name, Style'){
-      // console.log('IN THE 2sn TEMPLATE');
-      beerscreenTemplate.twoColNSTemplate(displayData);
+    } else if (templateName == '2 Columns, Name, ABV, IBU, Style, Brewery') {
+      // console.log("**************************************************************************************");
+      // console.log('IN THE twoColumnTopNameAbvIbuBottomStyleBreweryTemplate TEMPLATE');
+      // console.log("**************************************************************************************");
+      beerscreenTemplate.twoColumnTopNameAbvIbuBottomStyleBreweryTemplate(displayData);
+    // } else if (templateName == '2 Columns, Name, Style, ABV'){
+    //   // console.log('IN THE 2sna TEMPLATE');
+    //   beerscreenTemplate.twoColNSAITemplate(displayData);
+    // } else if (templateName == '2 Columns, Name, Style'){
+    //   // console.log('IN THE 2sn TEMPLATE');
+    //   beerscreenTemplate.twoColNSTemplate(displayData);
     } else if (templateName == '2 Event Columns') {
       eventscreenTemplate.eventTwoColTemplate(displayData);
     }

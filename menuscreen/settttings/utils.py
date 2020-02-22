@@ -209,8 +209,15 @@ def _getFontSizeOptions(user_id):
     return sizes
 
 def _getTemplates(user_id):
-    user = User.query.filter_by(id=user_id).first()
-    datas = user.templates
+    # user = User.query.filter_by(id=user_id).first()
+    # datas = user.templates
+    datas = db.session.query(
+        Template.id,
+        Template.template_name,
+        Template.screen_number,
+        Template.active_template,
+    ).order_by(Template.id
+    ).all()
     templates = []
     for data in datas:
         template = {

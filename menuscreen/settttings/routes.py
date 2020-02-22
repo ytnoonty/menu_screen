@@ -129,7 +129,7 @@ def add_template():
 
     if form.validate_on_submit():
         templateName = request.form['templateName']
-        newTemplate = Template(template_name=templateName, screen_number=1, active_template='disabled', venue_db_id=current_user.id)
+        newTemplate = Template(template_name=templateName, screen_number=1, active_template='disabled', template_screen_id=1, venue_db_id=current_user.id)
         db.session.add(newTemplate)
         db.session.commit()
         flash('New Template has been added!', 'success')

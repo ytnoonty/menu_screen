@@ -104,7 +104,9 @@ def register():
         initEventscreenSetting(getVenueId(venuename))
         initItemscreenSetting(getVenueId(venuename))
         initFontSizeOption(getVenueId(venuename))
-        initTemplate(getVenueId(venuename))
+        # # took out initTemplate cause need to populate DB with pre-build templates
+        # # templates cannot be user defined or added to DB by user
+        # initTemplate(getVenueId(venuename))
         # initEvent(getVenueId(venuename))
         initItem(getVenueId(venuename))
         initTicker(getVenueId(venuename))
