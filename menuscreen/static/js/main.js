@@ -980,28 +980,28 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     // get the current beerlist for user and screenId
     // query the DB for the current beerlist
     let currentBeers = await BeerCtrl.callFetchCurBeerlist(userNameScreenId);
-    console.log(currentBeers);
+    // console.log(currentBeers);
     // query the DB for the next beerlist
     let nextBeers = await BeerCtrl.callFetchNextBeerlist(userNameScreenId);
-    console.log(nextBeers);
+    // console.log(nextBeers);
     let beerslistTotal = await BeerCtrl.callFetchBeerhistoryList(userNameScreenId);
-    console.log(beerslistTotal);
+    // console.log(beerslistTotal);
     // query the DB for the ticker news info
     let bottleBeerlist = await BeerCtrl.callFetchBottleBeerlist(userNameScreenId);
-    console.log(bottleBeerlist);
+    // console.log(bottleBeerlist);
     let tickerInfo = await TickerCtrl.callFetchTickerInfo(userNameScreenId);
-    console.log(tickerInfo)
+    // console.log(tickerInfo)
     // query the DB for the events
     let events = await EventCtrl.callGetCurrentEventlist(userNameScreenId);
-    console.log(events);
+    // console.log(events);
     let userData = await UserCtrl.callFetchUserData(userNameScreenId);
-    console.log(userData);
+    // console.log(userData);
     let screenSettings = await ScreenSettingsCtrl.callFetchBeerscreenSettings(userNameScreenId);
-    console.log(screenSettings);
+    // console.log(screenSettings);
     let fontSizeOptions = await ScreenSettingsCtrl.callFetchFontSizeOptions(userNameScreenId);
-    console.log(fontSizeOptions);
+    // console.log(fontSizeOptions);
     let beerscreenTemplateNames = await ScreenSettingsCtrl.callFetchBeerscreenTemplateNames(userNameScreenId);
-    console.log(beerscreenTemplateNames);
+    // console.log(beerscreenTemplateNames);
 
     if (userData.id !== undefined){
       userData = userData.id[0];
@@ -1011,7 +1011,7 @@ const App = (function(UserCtrl, UpdateCtrl, BeerCtrl, UntappdCtrl, TickerCtrl, W
     console.log(userData);
     let onNext;
     if (Object.getOwnPropertyNames(currentBeers).length >= 1) {
-      console.log(currentBeers);
+      // console.log(currentBeers);
       currentBeers.forEach(beer => {
         onNext = beer.id_on_next;
         nextBeers.push(onNext);
