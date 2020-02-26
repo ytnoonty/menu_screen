@@ -6,25 +6,47 @@
       <div class="row justify-content-center">
         <div class="row">
           <div id="update-print-page" class="col-12">
-            <img class="row justify-content-center col-12" src="{{ url_for('static', filename='img/SHAMROCKS_LOGO.png') }}" alt="Shamrock Jack's logo">
+            <!-- <img class="row justify-content-center col-12" src="{{ url_for('static', filename='img/SHAMROCKS_LOGO.png') }}" alt="Shamrock Jack's logo"> -->
           </div>
         </div>
       </div>
     </div>
       <div>
+        <h1>miniBILLBOARDS</h1>
+        <h1>miMenu</h1>
         <h1 class="display-4">Bar Menu</h1>
-        <p class="lead">A simple bar menu.</p>
+        <p class="lead">A simple bar menu. <br><small>The last menuscreen you will ever need.</small></p>
 
         <div class="">
         {% if current_user.is_authenticated %}
           <div class="row justify-content-center">
-            <a href="/beer_dashboard" class="btn btn-sm btn-outline-info btn-md ml-1 mr-1 mb-1 col-5">Beer Dashboard</a>
-            <a href="/wine_dashboard" class="btn btn-sm btn-outline-info btn-md ml-1 mr-1 mb-1 col-5">Wine Dashboard</a>
+            <a href="/beer_dashboard" class="btn btn-sm btn-outline-info btn-md ml-1 mr-1 mb-3 col-5">Beer Dashboard</a>
+            <a href="/wine_dashboard" class="btn btn-sm btn-outline-info btn-md ml-1 mr-1 mb-3 col-5">Wine Dashboard</a>
           </div>
-          <div class="row justify-content-center">
-            <a href="/edit_beer_list" class="btn btn-sm btn-outline-info btn-md ml-1 mr-1 mt-1 col-5">Draftlist Editor</a>
-            <a href="/winelist_menu" class="btn btn-sm btn-outline-info btn-md ml-1 mr-1 mt-1 col-5">Winelist</a>
+
+          <div class="row justify-content-center my-5">
+            <a class="btn btn-sm btn-outline-secondary mx-1 col-5" href="/draft_beers_print/{{ current_user.venue_name }}/1">Beerlist</a>
+            <a class="btn btn-sm btn-outline-secondary mx-1 col-5" href="/beers_display_screen/{{current_user.venue_name}}/1">Beer Display</a>
           </div>
+
+          <div class="row justify-content-center my-2 mt-5">
+            <a class="btn btn-sm btn-outline-primary mx-1 col-5" href="/edit_beer_list">Beerlist Editor</a>
+            <a class="btn btn-sm btn-outline-primary mx-1 col-5" href="/beerscreen_settings">Beerscreen Settings</a>
+          </div>
+          <div class="row justify-content-center mb-5">
+            <a class="btn btn-sm btn-outline-primary mx-1 col-5" href="/beersearch">Search beer to add to list</a>
+            <a class="btn btn-sm btn-outline-primary mx-1 col-5" href="/add_beer">Add beer to beerlist</a>
+          </div>
+
+          <div class="row justify-content-center my-2 mt-5">
+            <a class="btn btn-sm btn-outline-danger mx-1 col-5" href="/draft_beers/{{current_user.venue_name}}/1">Tablet Draftlist Menu</a>
+            <a class="btn btn-sm btn-outline-danger mx-1 col-5" href="/bottle_beers/{{current_user.venue_name}}/1">Tablet Bottlelist Menu</a>
+          </div>
+          <div class="row justify-content-center my-2">
+            <a class="btn btn-sm btn-outline-danger mx-1 col-5" href="/winelist_menu/{{current_user.venue_name}}/1">Tablet Winelist Menu</a>
+            <a class="btn btn-sm btn-outline-danger mx-1 col-5" href="/winelist_description/{{current_user.venue_name}}/1">Tablet Winelist Descriptions</a>
+          </div>
+
         {% else %}
           <a href="/login" class="btn btn-outline-info btn-lg">Login</a>
         {% endif %}

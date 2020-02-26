@@ -1,5 +1,21 @@
 {% extends "layout.html" %}
 {% block body %}
-  <h1>This is the INDEX page</h1>
+  <h1>miniBILLBOARDS</h1>
+  <h1>miMenu</h1>
+
+  <a class="btn btn-outline-secondary" href="/draft_beers_print/{{ current_user.venue_name }}/1">Beerlist</a>
+  <a class="btn btn-outline-secondary" href="/beers_display_screen/{{current_user.venue_name}}/1">Beer Display</a>
+
+  <a class="btn btn-outline-danger" href="/draft_beers/{{current_user.venue_name}}/1">Tablet Draftlist Menu</a>
+  <a class="btn btn-outline-danger" href="/bottle_beers/{{current_user.venue_name}}/1">Tablet Bottlelist Menu</a>
+  <a class="btn btn-outline-danger" href="/winelist_menu/{{current_user.venue_name}}/1">Tablet Winelist Menu</a>
+  <a class="btn btn-outline-danger" href="/winelist_description/{{current_user.venue_name}}/1">Tablet Winelist Descriptions</a>
+
+  <a class="btn btn-outline-primary" href="/beer_dashboard">Beer Dashboard</a>
+  <a class="btn btn-outline-primary" href="/edit_beer_list">Beerlist Editor</a>
+  <a class="btn btn-outline-primary" href="/beerscreen_settings">Beerscreen Settings</a>
+  <a class="btn btn-outline-primary" href="/beersearch">Search beer to add to list</a>
+  <a class="btn btn-outline-primary" href="/add_beer">Add beer to beerlist</a>
+
 
 {% endblock body %}
