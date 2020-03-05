@@ -1031,7 +1031,7 @@ class BeerTemplate {
       `});
       if (tickerInfoData.ticker_text !== "") {
         screenDisplayTickerHTML += `
-          <li class="list-group-inline align-middle font-weight-bold ticker-item txt-clr-grn-shdw left-spacer spacing-sml"><span class="ticker-text">Shamrock News:</span></li>
+          <li class="list-group-inline align-middle font-weight-bold ticker-item txt-clr-grn-shdw left-spacer spacing-sml"><span class="ticker-text">News:</span></li>
           <li class="list-group-inline align-middle font-weight-bold font-italic ticker-item txt-clr-ylw left-spacer card-img"><span class="ticker-news">${ tickerInfoData.ticker_text }</span></li>
         `;
       }
@@ -1201,7 +1201,7 @@ class BeerTemplate {
       `});
       if (tickerInfoData.ticker_text !== "") {
         screenDisplayTickerHTML += `
-          <li class="list-group-inline align-middle font-weight-bold ticker-item txt-clr-grn-shdw left-spacer spacing-sml"><span class="ticker-text">Shamrock News:</span></li>
+          <li class="list-group-inline align-middle font-weight-bold ticker-item txt-clr-grn-shdw left-spacer spacing-sml"><span class="ticker-text">News:</span></li>
           <li class="list-group-inline align-middle font-weight-bold font-italic ticker-item txt-clr-ylw left-spacer card-img"><span class="ticker-news">${ tickerInfoData.ticker_text }</span></li>
         `;
       }
@@ -1402,7 +1402,7 @@ class BeerTemplate {
       `});
       if (tickerInfoData.ticker_text !== "") {
         screenDisplayTickerHTML += `
-          <li class="list-group-inline align-middle font-weight-bold ticker-item txt-clr-grn-shdw left-spacer spacing-sml"><span class="ticker-text">Shamrock News:</span></li>
+          <li class="list-group-inline align-middle font-weight-bold ticker-item txt-clr-grn-shdw left-spacer spacing-sml"><span class="ticker-text">News:</span></li>
           <li class="list-group-inline align-middle font-weight-bold font-italic ticker-item txt-clr-ylw left-spacer card-img"><span class="ticker-news">${ tickerInfoData.ticker_text }</span></li>
         `;
       }
@@ -1603,7 +1603,7 @@ class BeerTemplate {
       `});
       if (tickerInfoData.ticker_text !== "") {
         screenDisplayTickerHTML += `
-          <li class="list-group-inline align-middle font-weight-bold ticker-item txt-clr-grn-shdw left-spacer spacing-sml"><span class="ticker-text">Shamrock News:</span></li>
+          <li class="list-group-inline align-middle font-weight-bold ticker-item txt-clr-grn-shdw left-spacer spacing-sml"><span class="ticker-text">News:</span></li>
           <li class="list-group-inline align-middle font-weight-bold font-italic ticker-item txt-clr-ylw left-spacer card-img"><span class="ticker-news">${ tickerInfoData.ticker_text }</span></li>
         `;
       }
@@ -1773,7 +1773,7 @@ class BeerTemplate {
       `});
       if (tickerInfoData.ticker_text !== "") {
         screenDisplayTickerHTML += `
-          <li class="list-group-inline align-middle font-weight-bold ticker-item txt-clr-grn-shdw left-spacer spacing-sml"><span class="ticker-text">Shamrock News:</span></li>
+          <li class="list-group-inline align-middle font-weight-bold ticker-item txt-clr-grn-shdw left-spacer spacing-sml"><span class="ticker-text">News:</span></li>
           <li class="list-group-inline align-middle font-weight-bold font-italic ticker-item txt-clr-ylw left-spacer card-img"><span class="ticker-news">${ tickerInfoData.ticker_text }</span></li>
         `;
       }
@@ -1966,7 +1966,7 @@ class BeerTemplate {
       `});
       if (tickerInfoData.ticker_text !== "") {
         screenDisplayTickerHTML += `
-          <li class="list-group-inline align-middle font-weight-bold ticker-item txt-clr-grn-shdw left-spacer spacing-sml"><span class="ticker-text">Shamrock News:</span></li>
+          <li class="list-group-inline align-middle font-weight-bold ticker-item txt-clr-grn-shdw left-spacer spacing-sml"><span class="ticker-text">News:</span></li>
           <li class="list-group-inline align-middle font-weight-bold font-italic ticker-item txt-clr-ylw left-spacer card-img"><span class="ticker-news">${ tickerInfoData.ticker_text }</span></li>
         `;
       }
@@ -2071,7 +2071,7 @@ class BeerTemplate {
         <li class="info info3 card-img-before txt-clr-ylw beer-name">${data1722[2].name}</li>
         <li class="info info4 card-img-before txt-clr-ylw beer-name">${data1722[3].name}</li>
         <li class="info info5 card-img txt-clr-ylw beer-name">${data1722[4].name}$</li>
-        <li class="info shams-news txt-clr-grn-shdw spacing-sml">Shamrock News:</li>
+        <li class="info shams-news txt-clr-grn-shdw spacing-sml">News:</li>
         <li class="info info6 card-img-after txt-clr-ylw beer-name">${data1722[5].description}</li>
       </ul>
     `;
