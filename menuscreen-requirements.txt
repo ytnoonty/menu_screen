@@ -49,7 +49,7 @@ pkg-resources==0.0.0
 pluggy==0.13.0
 prettytable==0.7.2
 property-manager==2.3.1
-psutil==5.6.3
+psutil==5.6.6
 ptyprocess==0.6.0
 pusher==2.1.4
 py==1.8.0
