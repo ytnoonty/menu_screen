@@ -13,7 +13,7 @@ cliff==2.16.0
 cmd2==0.8.9
 configobj==5.0.6
 configparser==4.0.2
-cryptography==2.8
+cryptography==3.2
 dbconfig==0.3.2
 Django==2.2.6
 docutils==0.15.2
