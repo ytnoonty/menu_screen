@@ -15,7 +15,7 @@ configobj==5.0.6
 configparser==4.0.2
 cryptography==2.8
 dbconfig==0.3.2
-Django==2.2.6
+Django==2.2.21
 docutils==0.15.2
 feedparser==5.2.1
 filelock==3.0.12
